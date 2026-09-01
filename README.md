@@ -1,5 +1,7 @@
 # ByteLab LMS 🚀
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Play_Now!-emerald?style=for-the-badge&logo=vercel)](https://abhijith-web-dev.github.io/bytelab/)
+
 ByteLab is an advanced, interactive Learning Management System (LMS) specifically designed to teach Python Programming. It transforms standard academic syllabuses into a vibrant, hands-on learning experience.
 
 ## Features ✨
