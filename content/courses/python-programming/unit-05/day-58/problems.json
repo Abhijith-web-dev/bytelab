@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-58",
+    "title": "Practice: Groupby and Apply Functions",
+    "description": "Write a Python script that demonstrates groupby and apply functions.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Groupby and Apply Functions\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

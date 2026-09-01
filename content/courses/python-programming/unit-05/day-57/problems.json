@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-57",
+    "title": "Practice: Merging, Joining, Concatenating",
+    "description": "Write a Python script that demonstrates merging, joining, concatenating.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Merging, Joining, Concatenating\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

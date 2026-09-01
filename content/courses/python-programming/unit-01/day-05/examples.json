@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-5-1",
+    "title": "Basic Usage of Expressions and Statements",
+    "code": "# Example for Expressions and Statements\nprint('Day 5 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

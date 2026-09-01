@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-28",
+    "title": "Practice: List Parameters & Advanced Comprehensions",
+    "description": "Write a Python script that demonstrates list parameters & advanced comprehensions.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for List Parameters & Advanced Comprehensions\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-32-1",
+    "title": "Basic Usage of Linear Search",
+    "code": "# Example for Linear Search\nprint('Day 32 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

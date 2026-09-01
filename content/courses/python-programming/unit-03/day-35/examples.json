@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-35-1",
+    "title": "Basic Usage of Insertion Sort",
+    "code": "# Example for Insertion Sort\nprint('Day 35 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-15",
+    "title": "Practice: Alternative (if-else) & Chained (if-elif-else)",
+    "description": "Write a Python script that demonstrates alternative (if-else) & chained (if-elif-else).",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Alternative (if-else) & Chained (if-elif-else)\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

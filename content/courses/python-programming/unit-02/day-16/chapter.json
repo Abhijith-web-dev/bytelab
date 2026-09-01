@@ -1,0 +1,21 @@
+{
+  "id": "day-16",
+  "unitId": "unit-02",
+  "dayNumber": 16,
+  "order": 16,
+  "title": "Day 16: Iteration State & The while Loop",
+  "shortTitle": "Iteration State & The while Loop",
+  "description": "Repeating code continuously while a condition remains True.",
+  "simulationType": "Type C: Loop Timeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-15"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

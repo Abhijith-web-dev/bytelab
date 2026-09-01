@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-54",
+    "title": "Practice: Pandas Series & DataFrames",
+    "description": "Write a Python script that demonstrates pandas series & dataframes.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Pandas Series & DataFrames\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

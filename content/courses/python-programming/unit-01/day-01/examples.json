@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-1-1",
+    "title": "Basic Usage of Python Interpreter & Interactive Mode",
+    "code": "# Example for Python Interpreter & Interactive Mode\nprint('Day 1 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

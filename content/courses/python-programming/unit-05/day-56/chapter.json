@@ -1,0 +1,21 @@
+{
+  "id": "day-56",
+  "unitId": "unit-05",
+  "dayNumber": 56,
+  "order": 56,
+  "title": "Day 56: Handling Missing Data",
+  "shortTitle": "Handling Missing Data",
+  "description": "Detecting, dropping, and imputing missing (NaN) values.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-55"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

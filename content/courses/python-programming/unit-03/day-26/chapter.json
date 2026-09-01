@@ -1,0 +1,21 @@
+{
+  "id": "day-26",
+  "unitId": "unit-03",
+  "dayNumber": 26,
+  "order": 26,
+  "title": "Day 26: List Methods and List Loop",
+  "shortTitle": "List Methods and List Loop",
+  "description": "Mutating lists (append, remove, pop) and iterating through elements.",
+  "simulationType": "Type E: Data Structure Visualizer",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-25"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

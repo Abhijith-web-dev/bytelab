@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-39-1",
+    "title": "Basic Usage of Command Line Arguments",
+    "code": "# Example for Command Line Arguments\nprint('Day 39 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

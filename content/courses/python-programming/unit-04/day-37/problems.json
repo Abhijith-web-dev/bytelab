@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-37",
+    "title": "Practice: Text Files: Reading and Writing",
+    "description": "Write a Python script that demonstrates text files: reading and writing.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Text Files: Reading and Writing\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

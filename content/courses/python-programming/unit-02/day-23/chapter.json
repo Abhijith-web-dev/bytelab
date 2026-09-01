@@ -1,0 +1,21 @@
+{
+  "id": "day-23",
+  "unitId": "unit-02",
+  "dayNumber": 23,
+  "order": 23,
+  "title": "Day 23: String Methods, Module & Lists as Arrays",
+  "shortTitle": "String Methods, Module & Lists as Arrays",
+  "description": "Using string transformation methods, string module utilities, and simulating arrays with lists.",
+  "simulationType": "Type E: Data Structure Visualizer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-22"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

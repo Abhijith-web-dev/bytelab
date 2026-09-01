@@ -1,0 +1,21 @@
+{
+  "id": "day-17",
+  "unitId": "unit-02",
+  "dayNumber": 17,
+  "order": 17,
+  "title": "Day 17: The for Loop & range()",
+  "shortTitle": "The for Loop & range()",
+  "description": "Iterating over sequences systematically.",
+  "simulationType": "Type C: Loop Timeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-16"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

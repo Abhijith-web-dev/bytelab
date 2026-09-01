@@ -1,0 +1,21 @@
+{
+  "id": "day-57",
+  "unitId": "unit-05",
+  "dayNumber": 57,
+  "order": 57,
+  "title": "Day 57: Merging, Joining, Concatenating",
+  "shortTitle": "Merging, Joining, Concatenating",
+  "description": "Combining multiple tabular datasets into one.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-56"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

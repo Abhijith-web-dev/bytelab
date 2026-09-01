@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-1",
+    "title": "Practice: Python Interpreter & Interactive Mode",
+    "description": "Write a Python script that demonstrates python interpreter & interactive mode.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Python Interpreter & Interactive Mode\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

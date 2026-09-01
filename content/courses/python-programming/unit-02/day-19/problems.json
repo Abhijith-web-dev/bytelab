@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-19",
+    "title": "Practice: Fruitful Functions & Return Values",
+    "description": "Write a Python script that demonstrates fruitful functions & return values.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Fruitful Functions & Return Values\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

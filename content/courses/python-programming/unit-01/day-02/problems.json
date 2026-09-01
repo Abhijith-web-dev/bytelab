@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-2",
+    "title": "Practice: Values and Types (int, float, boolean)",
+    "description": "Write a Python script that demonstrates values and types (int, float, boolean).",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Values and Types (int, float, boolean)\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

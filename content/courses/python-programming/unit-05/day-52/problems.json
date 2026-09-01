@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-52",
+    "title": "Practice: Maths & Basic Arithmetic with NumPy Arrays",
+    "description": "Write a Python script that demonstrates maths & basic arithmetic with numpy arrays.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Maths & Basic Arithmetic with NumPy Arrays\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

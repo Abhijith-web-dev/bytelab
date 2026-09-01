@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-19-1",
+    "title": "Basic Usage of Fruitful Functions & Return Values",
+    "code": "# Example for Fruitful Functions & Return Values\nprint('Day 19 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

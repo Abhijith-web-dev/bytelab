@@ -1,0 +1,21 @@
+{
+  "id": "day-33",
+  "unitId": "unit-03",
+  "dayNumber": 33,
+  "order": 33,
+  "title": "Day 33: Binary Search",
+  "shortTitle": "Binary Search",
+  "description": "Divide-and-conquer search on sorted data.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-32"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

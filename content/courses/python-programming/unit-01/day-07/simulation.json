@@ -1,0 +1,22 @@
+{
+  "id": "sim-day-7",
+  "type": "Type A",
+  "title": "Simulation: Tuple Assignment & Value Swapping",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Initial state before execution.",
+      "state": {}
+    },
+    {
+      "step": 2,
+      "description": "Processing logic...",
+      "state": {}
+    },
+    {
+      "step": 3,
+      "description": "Final output.",
+      "state": {}
+    }
+  ]
+}

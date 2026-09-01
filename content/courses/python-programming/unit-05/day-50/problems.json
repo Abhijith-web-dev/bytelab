@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-50",
+    "title": "Practice: The Shape and Reshaping of NumPy Array",
+    "description": "Write a Python script that demonstrates the shape and reshaping of numpy array.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for The Shape and Reshaping of NumPy Array\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

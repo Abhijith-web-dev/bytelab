@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-63",
+    "title": "Practice: Consolidation: Search & Sort Algorithms",
+    "description": "Write a Python script that demonstrates consolidation: search & sort algorithms.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Consolidation: Search & Sort Algorithms\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

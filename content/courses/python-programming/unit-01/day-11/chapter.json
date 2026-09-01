@@ -1,0 +1,21 @@
+{
+  "id": "day-11",
+  "unitId": "unit-01",
+  "dayNumber": 11,
+  "order": 11,
+  "title": "Day 11: Parameters and Arguments",
+  "shortTitle": "Parameters and Arguments",
+  "description": "Passing arguments to function parameters.",
+  "simulationType": "Type D: Code Execution Tracer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-10"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

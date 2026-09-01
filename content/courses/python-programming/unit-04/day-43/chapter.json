@@ -1,0 +1,21 @@
+{
+  "id": "day-43",
+  "unitId": "unit-04",
+  "dayNumber": 43,
+  "order": 43,
+  "title": "Day 43: Classes and Objects Intro",
+  "shortTitle": "Classes and Objects Intro",
+  "description": "Introduction to object-oriented programming: blueprints (classes) and instances (objects).",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-42"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

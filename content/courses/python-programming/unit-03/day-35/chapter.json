@@ -1,0 +1,21 @@
+{
+  "id": "day-35",
+  "unitId": "unit-03",
+  "dayNumber": 35,
+  "order": 35,
+  "title": "Day 35: Insertion Sort",
+  "shortTitle": "Insertion Sort",
+  "description": "Sorting by building a sorted array one item at a time.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-34"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

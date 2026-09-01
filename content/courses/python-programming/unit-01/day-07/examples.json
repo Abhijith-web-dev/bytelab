@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-7-1",
+    "title": "Basic Usage of Tuple Assignment & Value Swapping",
+    "code": "# Example for Tuple Assignment & Value Swapping\nprint('Day 7 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

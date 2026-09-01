@@ -1,0 +1,21 @@
+{
+  "id": "day-13",
+  "unitId": "unit-02",
+  "dayNumber": 13,
+  "order": 13,
+  "title": "Day 13: Boolean Values and Operators",
+  "shortTitle": "Boolean Values and Operators",
+  "description": "Evaluating Boolean logic and comparison operators.",
+  "simulationType": "Type B: Flowchart / Decision Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-12"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

@@ -1,0 +1,22 @@
+{
+  "id": "sim-day-38",
+  "type": "Type G",
+  "title": "Simulation: The Format Operator",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Initial state before execution.",
+      "state": {}
+    },
+    {
+      "step": 2,
+      "description": "Processing logic...",
+      "state": {}
+    },
+    {
+      "step": 3,
+      "description": "Final output.",
+      "state": {}
+    }
+  ]
+}

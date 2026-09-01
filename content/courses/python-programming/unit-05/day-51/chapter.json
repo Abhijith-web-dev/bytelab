@@ -1,0 +1,21 @@
+{
+  "id": "day-51",
+  "unitId": "unit-05",
+  "dayNumber": 51,
+  "order": 51,
+  "title": "Day 51: Indexing and Slicing of NumPy Array",
+  "shortTitle": "Indexing and Slicing of NumPy Array",
+  "description": "Accessing elements, rows, and sub-matrices.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-50"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

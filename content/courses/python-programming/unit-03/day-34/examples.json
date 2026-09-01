@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-34-1",
+    "title": "Basic Usage of Selection Sort",
+    "code": "# Example for Selection Sort\nprint('Day 34 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

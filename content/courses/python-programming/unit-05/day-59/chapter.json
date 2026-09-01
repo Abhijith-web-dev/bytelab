@@ -1,0 +1,21 @@
+{
+  "id": "day-59",
+  "unitId": "unit-05",
+  "dayNumber": 59,
+  "order": 59,
+  "title": "Day 59: Sorting in DataFrames",
+  "shortTitle": "Sorting in DataFrames",
+  "description": "Ordering rows by column values ascending or descending.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-58"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

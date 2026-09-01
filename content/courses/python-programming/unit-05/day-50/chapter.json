@@ -1,0 +1,21 @@
+{
+  "id": "day-50",
+  "unitId": "unit-05",
+  "dayNumber": 50,
+  "order": 50,
+  "title": "Day 50: The Shape and Reshaping of NumPy Array",
+  "shortTitle": "The Shape and Reshaping of NumPy Array",
+  "description": "Manipulating dimensions of multi-dimensional arrays.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-49"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

@@ -1,0 +1,21 @@
+{
+  "id": "day-55",
+  "unitId": "unit-05",
+  "dayNumber": 55,
+  "order": 55,
+  "title": "Day 55: Selection and Indexing in Pandas",
+  "shortTitle": "Selection and Indexing in Pandas",
+  "description": "Filtering DataFrame rows and selecting specific columns.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-54"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

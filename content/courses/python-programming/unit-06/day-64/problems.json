@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-64",
+    "title": "Practice: Consolidation: Files, Modules, and Error Handling",
+    "description": "Write a Python script that demonstrates consolidation: files, modules, and error handling.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Consolidation: Files, Modules, and Error Handling\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

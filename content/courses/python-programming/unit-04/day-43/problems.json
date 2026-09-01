@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-43",
+    "title": "Practice: Classes and Objects Intro",
+    "description": "Write a Python script that demonstrates classes and objects intro.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Classes and Objects Intro\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

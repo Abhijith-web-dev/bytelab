@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-20-1",
+    "title": "Basic Usage of Scope (Local/Global) & Function Composition",
+    "code": "# Example for Scope (Local/Global) & Function Composition\nprint('Day 20 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

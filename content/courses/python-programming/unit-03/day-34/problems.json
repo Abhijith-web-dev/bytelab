@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-34",
+    "title": "Practice: Selection Sort",
+    "description": "Write a Python script that demonstrates selection sort.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Selection Sort\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

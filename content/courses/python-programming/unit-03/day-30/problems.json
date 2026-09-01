@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-30",
+    "title": "Practice: Dictionaries: Operations & Methods",
+    "description": "Write a Python script that demonstrates dictionaries: operations & methods.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Dictionaries: Operations & Methods\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

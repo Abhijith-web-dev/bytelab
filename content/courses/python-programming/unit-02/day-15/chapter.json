@@ -1,0 +1,21 @@
+{
+  "id": "day-15",
+  "unitId": "unit-02",
+  "dayNumber": 15,
+  "order": 15,
+  "title": "Day 15: Alternative (if-else) & Chained (if-elif-else)",
+  "shortTitle": "Alternative (if-else) & Chained (if-elif-else)",
+  "description": "Handling multiple mutually exclusive branching paths.",
+  "simulationType": "Type B: Flowchart / Decision Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-14"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

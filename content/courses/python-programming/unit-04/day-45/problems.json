@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-45",
+    "title": "Practice: Unit IV Practical: Word Count (CLI)",
+    "description": "Write a Python script that demonstrates unit iv practical: word count (cli).",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Unit IV Practical: Word Count (CLI)\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

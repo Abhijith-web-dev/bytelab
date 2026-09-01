@@ -1,0 +1,21 @@
+{
+  "id": "day-53",
+  "unitId": "unit-05",
+  "dayNumber": 53,
+  "order": 53,
+  "title": "Day 53: Matrix Operations (Multiply, Inverse) & Verification",
+  "shortTitle": "Matrix Operations (Multiply, Inverse) & Verification",
+  "description": "Using loops and library functions for matrix multiplication and finding the inverse.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-52"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

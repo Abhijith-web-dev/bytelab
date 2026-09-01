@@ -1,0 +1,22 @@
+{
+  "id": "sim-day-12",
+  "type": "Type D",
+  "title": "Simulation: Unit I Illustrative Programs",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Initial state before execution.",
+      "state": {}
+    },
+    {
+      "step": 2,
+      "description": "Processing logic...",
+      "state": {}
+    },
+    {
+      "step": 3,
+      "description": "Final output.",
+      "state": {}
+    }
+  ]
+}

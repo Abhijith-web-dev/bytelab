@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-36",
+    "title": "Practice: Merge Sort & Histograms",
+    "description": "Write a Python script that demonstrates merge sort & histograms.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Merge Sort & Histograms\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

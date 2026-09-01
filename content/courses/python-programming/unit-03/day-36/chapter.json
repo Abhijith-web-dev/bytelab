@@ -1,0 +1,21 @@
+{
+  "id": "day-36",
+  "unitId": "unit-03",
+  "dayNumber": 36,
+  "order": 36,
+  "title": "Day 36: Merge Sort & Histograms",
+  "shortTitle": "Merge Sort & Histograms",
+  "description": "Divide-and-conquer sorting and frequency counting using dictionaries.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-35"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

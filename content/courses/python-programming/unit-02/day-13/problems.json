@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-13",
+    "title": "Practice: Boolean Values and Operators",
+    "description": "Write a Python script that demonstrates boolean values and operators.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Boolean Values and Operators\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

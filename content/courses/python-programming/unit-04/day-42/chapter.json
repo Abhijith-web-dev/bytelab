@@ -1,0 +1,21 @@
+{
+  "id": "day-42",
+  "unitId": "unit-04",
+  "dayNumber": 42,
+  "order": 42,
+  "title": "Day 42: Modules and Packages",
+  "shortTitle": "Modules and Packages",
+  "description": "Organizing Python code into modules and directory-based packages.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-41"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

@@ -1,0 +1,21 @@
+{
+  "id": "day-52",
+  "unitId": "unit-05",
+  "dayNumber": 52,
+  "order": 52,
+  "title": "Day 52: Maths & Basic Arithmetic with NumPy Arrays",
+  "shortTitle": "Maths & Basic Arithmetic with NumPy Arrays",
+  "description": "Vectorized element-wise addition, subtraction, multiplication, and division.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-51"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

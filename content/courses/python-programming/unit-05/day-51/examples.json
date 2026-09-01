@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-51-1",
+    "title": "Basic Usage of Indexing and Slicing of NumPy Array",
+    "code": "# Example for Indexing and Slicing of NumPy Array\nprint('Day 51 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

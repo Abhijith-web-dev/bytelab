@@ -1,0 +1,21 @@
+{
+  "id": "day-49",
+  "unitId": "unit-05",
+  "dayNumber": 49,
+  "order": 49,
+  "title": "Day 49: NumPy: Creating a NumPy Array",
+  "shortTitle": "NumPy: Creating a NumPy Array",
+  "description": "Initializing homogeneous arrays for high-performance math.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-48"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

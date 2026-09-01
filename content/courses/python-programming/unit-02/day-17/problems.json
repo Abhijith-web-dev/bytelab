@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-17",
+    "title": "Practice: The for Loop & range()",
+    "description": "Write a Python script that demonstrates the for loop & range().",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for The for Loop & range()\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

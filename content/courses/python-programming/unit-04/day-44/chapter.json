@@ -1,0 +1,21 @@
+{
+  "id": "day-44",
+  "unitId": "unit-04",
+  "dayNumber": 44,
+  "order": 44,
+  "title": "Day 44: Object Attributes and Methods",
+  "shortTitle": "Object Attributes and Methods",
+  "description": "Adding state and behavior to custom objects.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-43"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

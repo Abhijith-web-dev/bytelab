@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-56",
+    "title": "Practice: Handling Missing Data",
+    "description": "Write a Python script that demonstrates handling missing data.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Handling Missing Data\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

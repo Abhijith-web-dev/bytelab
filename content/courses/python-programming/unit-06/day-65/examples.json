@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-65-1",
+    "title": "Basic Usage of Capstone: NumPy & Pandas End-to-End",
+    "code": "# Example for Capstone: NumPy & Pandas End-to-End\nprint('Day 65 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "id": "javascript",
+  "name": "JavaScript",
+  "version": "ES2023",
+  "extension": "js",
+  "monacoLanguage": "javascript",
+  "runtime": "js-worker",
+  "defaultStarterCode": "// Write your JavaScript solution below\nfunction solution() {\n  \n}\n",
+  "keywords": ["function", "const", "let", "var", "return", "if", "else", "for", "while", "class", "import", "export", "async", "await"]
+}

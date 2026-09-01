@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-44",
+    "title": "Practice: Object Attributes and Methods",
+    "description": "Write a Python script that demonstrates object attributes and methods.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Object Attributes and Methods\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

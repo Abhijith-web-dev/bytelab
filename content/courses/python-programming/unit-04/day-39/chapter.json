@@ -1,0 +1,21 @@
+{
+  "id": "day-39",
+  "unitId": "unit-04",
+  "dayNumber": 39,
+  "order": 39,
+  "title": "Day 39: Command Line Arguments",
+  "shortTitle": "Command Line Arguments",
+  "description": "Passing arguments to a Python script via sys.argv.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-38"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

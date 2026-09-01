@@ -1,0 +1,190 @@
+{
+  "id": "python-programming",
+  "code": "19AI301 / CS3301",
+  "title": "Python Programming",
+  "programme": "B.Tech Artificial Intelligence and Data Science / CSE",
+  "ltpc": "2-0-2-3",
+  "totalPeriods": 60,
+  "totalDays": 65,
+  "unitsCount": 6,
+  "chaptersCount": 65,
+  "language": "python",
+  "runtimeVersion": "Python 3.11 (Pyodide WebAssembly)",
+  "description": "Comprehensive 65-day interactive curriculum: from foundational data types, conditionals, loops, and data structures to files, packages, and numerical data processing with NumPy and pandas.",
+  "outcomes": [
+    {
+      "code": "CO1",
+      "statement": "Read and write simple Python programs using basic data types, expressions, and statements",
+      "bloomLevel": "Understand"
+    },
+    {
+      "code": "CO2",
+      "statement": "Develop programs with conditionals, loops, and modular functions",
+      "bloomLevel": "Create"
+    },
+    {
+      "code": "CO3",
+      "statement": "Use lists, tuples, and dictionaries for complex data manipulation and searching/sorting",
+      "bloomLevel": "Apply"
+    },
+    {
+      "code": "CO4",
+      "statement": "Use files, exception handling, modules, packages, and classes for robust software design",
+      "bloomLevel": "Apply"
+    },
+    {
+      "code": "CO5",
+      "statement": "Use NumPy arrays and pandas DataFrames for numerical computation and data analytics",
+      "bloomLevel": "Apply"
+    }
+  ],
+  "units": [
+    {
+      "id": "unit-01",
+      "unitNumber": 1,
+      "romanNumber": "Unit I",
+      "title": "Data Types, Expressions, Statements",
+      "description": "Python interpreter, interactive mode, values and types (int, float, boolean, string, list), variables, expressions, statements, tuple assignment, precedence, comments, modules and functions, flow of execution.",
+      "periods": 12,
+      "outcomes": [
+        "CO1"
+      ],
+      "chapters": [
+        "day-01",
+        "day-02",
+        "day-03",
+        "day-04",
+        "day-05",
+        "day-06",
+        "day-07",
+        "day-08",
+        "day-09",
+        "day-10",
+        "day-11",
+        "day-12"
+      ]
+    },
+    {
+      "id": "unit-02",
+      "unitNumber": 2,
+      "romanNumber": "Unit II",
+      "title": "Control Flow, Functions",
+      "description": "Conditionals (if, if-else, if-elif-else), Iteration (while, for, break, continue, pass), Fruitful functions, scope, composition, recursion, Strings (slices, immutability, string module), Lists as arrays.",
+      "periods": 12,
+      "outcomes": [
+        "CO2"
+      ],
+      "chapters": [
+        "day-13",
+        "day-14",
+        "day-15",
+        "day-16",
+        "day-17",
+        "day-18",
+        "day-19",
+        "day-20",
+        "day-21",
+        "day-22",
+        "day-23",
+        "day-24"
+      ]
+    },
+    {
+      "id": "unit-03",
+      "unitNumber": 3,
+      "romanNumber": "Unit III",
+      "title": "Lists, Tuples, Dictionaries",
+      "description": "Lists (operations, slices, methods, loops, mutability, aliasing, cloning), Tuples, Dictionaries, list comprehensions, linear/binary search, selection/insertion/merge sort, histograms.",
+      "periods": 12,
+      "outcomes": [
+        "CO3"
+      ],
+      "chapters": [
+        "day-25",
+        "day-26",
+        "day-27",
+        "day-28",
+        "day-29",
+        "day-30",
+        "day-31",
+        "day-32",
+        "day-33",
+        "day-34",
+        "day-35",
+        "day-36"
+      ]
+    },
+    {
+      "id": "unit-04",
+      "unitNumber": 4,
+      "romanNumber": "Unit IV",
+      "title": "Files, Modules, Packages",
+      "description": "Text files, format operator, command line arguments, errors and exceptions, modules, packages, Classes, objects, word count, copy file.",
+      "periods": 12,
+      "outcomes": [
+        "CO4"
+      ],
+      "chapters": [
+        "day-37",
+        "day-38",
+        "day-39",
+        "day-40",
+        "day-41",
+        "day-42",
+        "day-43",
+        "day-44",
+        "day-45",
+        "day-46",
+        "day-47",
+        "day-48"
+      ]
+    },
+    {
+      "id": "unit-05",
+      "unitNumber": 5,
+      "romanNumber": "Unit V",
+      "title": "NumPy, Data Frame",
+      "description": "NumPy arrays (creation, shape, slicing, math), Pandas Series, Dataframes, Missing data, Merging, Groupby, Apply, Sorting, File I/O, Matrix operations.",
+      "periods": 12,
+      "outcomes": [
+        "CO5"
+      ],
+      "chapters": [
+        "day-49",
+        "day-50",
+        "day-51",
+        "day-52",
+        "day-53",
+        "day-54",
+        "day-55",
+        "day-56",
+        "day-57",
+        "day-58",
+        "day-59",
+        "day-60"
+      ]
+    },
+    {
+      "id": "unit-06",
+      "unitNumber": 6,
+      "romanNumber": "Consolidation",
+      "title": "Revision & Assessment",
+      "description": "Master consolidation of all concepts, full-scale practical assessment across all 5 units.",
+      "periods": 5,
+      "outcomes": [
+        "CO1",
+        "CO2",
+        "CO3",
+        "CO4",
+        "CO5"
+      ],
+      "chapters": [
+        "day-61",
+        "day-62",
+        "day-63",
+        "day-64",
+        "day-65"
+      ]
+    }
+  ]
+}

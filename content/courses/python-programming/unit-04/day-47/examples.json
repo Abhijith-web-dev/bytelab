@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-47-1",
+    "title": "Basic Usage of Consolidation: File Parsing & Objects",
+    "code": "# Example for Consolidation: File Parsing & Objects\nprint('Day 47 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

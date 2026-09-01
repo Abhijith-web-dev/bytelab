@@ -1,0 +1,10 @@
+{
+  "id": "python",
+  "name": "Python",
+  "version": "3.11 (Pyodide)",
+  "extension": "py",
+  "monacoLanguage": "python",
+  "runtime": "python-pyodide",
+  "defaultStarterCode": "# Write your Python solution below\ndef solution():\n    pass\n",
+  "keywords": ["def", "class", "if", "elif", "else", "for", "while", "import", "from", "return", "yield", "try", "except", "finally", "with", "as", "lambda"]
+}

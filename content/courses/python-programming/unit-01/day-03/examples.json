@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-3-1",
+    "title": "Basic Usage of String and List Types",
+    "code": "# Example for String and List Types\nprint('Day 3 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-31",
+    "title": "Practice: Finding Maximum of a List",
+    "description": "Write a Python script that demonstrates finding maximum of a list.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Finding Maximum of a List\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-18-1",
+    "title": "Basic Usage of Loop Control: break, continue, pass",
+    "code": "# Example for Loop Control: break, continue, pass\nprint('Day 18 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

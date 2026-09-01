@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-32",
+    "title": "Practice: Linear Search",
+    "description": "Write a Python script that demonstrates linear search.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Linear Search\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "id": "day-08",
+  "unitId": "unit-01",
+  "dayNumber": 8,
+  "order": 8,
+  "title": "Day 8: Modules and Built-in Functions",
+  "shortTitle": "Modules and Built-in Functions",
+  "description": "Importing standard modules (e.g. math) and using built-in functions.",
+  "simulationType": "Type D: Code Execution Tracer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-07"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

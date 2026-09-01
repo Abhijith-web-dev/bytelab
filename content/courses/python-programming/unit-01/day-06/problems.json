@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-6",
+    "title": "Practice: Precedence of Operators",
+    "description": "Write a Python script that demonstrates precedence of operators.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Precedence of Operators\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

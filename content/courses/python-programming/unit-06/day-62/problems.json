@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-62",
+    "title": "Practice: Consolidation: Advanced Data Structures",
+    "description": "Write a Python script that demonstrates consolidation: advanced data structures.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Consolidation: Advanced Data Structures\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

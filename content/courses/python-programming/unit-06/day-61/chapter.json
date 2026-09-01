@@ -1,0 +1,21 @@
+{
+  "id": "day-61",
+  "unitId": "unit-06",
+  "dayNumber": 61,
+  "order": 61,
+  "title": "Day 61: Consolidation: Control Flow & Logic",
+  "shortTitle": "Consolidation: Control Flow & Logic",
+  "description": "Mastery of loops, conditionals, and logical operators.",
+  "simulationType": "Type B: Flowchart / Decision Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-60"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

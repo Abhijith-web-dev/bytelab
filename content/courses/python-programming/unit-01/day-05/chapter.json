@@ -1,0 +1,21 @@
+{
+  "id": "day-05",
+  "unitId": "unit-01",
+  "dayNumber": 5,
+  "order": 5,
+  "title": "Day 5: Expressions and Statements",
+  "shortTitle": "Expressions and Statements",
+  "description": "Differentiating expressions (evaluate to a value) and statements (execute an action).",
+  "simulationType": "Type A: Value / State Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-04"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

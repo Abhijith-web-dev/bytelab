@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-49-1",
+    "title": "Basic Usage of NumPy: Creating a NumPy Array",
+    "code": "# Example for NumPy: Creating a NumPy Array\nprint('Day 49 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

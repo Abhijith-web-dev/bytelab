@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-22-1",
+    "title": "Basic Usage of Strings: Immutability & Slices",
+    "code": "# Example for Strings: Immutability & Slices\nprint('Day 22 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

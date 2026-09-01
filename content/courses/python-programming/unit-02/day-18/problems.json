@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-18",
+    "title": "Practice: Loop Control: break, continue, pass",
+    "description": "Write a Python script that demonstrates loop control: break, continue, pass.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Loop Control: break, continue, pass\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

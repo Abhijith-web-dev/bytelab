@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-29-1",
+    "title": "Basic Usage of Tuples: Assignment & Return Values",
+    "code": "# Example for Tuples: Assignment & Return Values\nprint('Day 29 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

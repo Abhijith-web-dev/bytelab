@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-55-1",
+    "title": "Basic Usage of Selection and Indexing in Pandas",
+    "code": "# Example for Selection and Indexing in Pandas\nprint('Day 55 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

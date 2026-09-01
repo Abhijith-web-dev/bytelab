@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-29",
+    "title": "Practice: Tuples: Assignment & Return Values",
+    "description": "Write a Python script that demonstrates tuples: assignment & return values.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Tuples: Assignment & Return Values\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

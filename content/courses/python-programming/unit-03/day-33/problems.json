@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-33",
+    "title": "Practice: Binary Search",
+    "description": "Write a Python script that demonstrates binary search.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Binary Search\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-16",
+    "title": "Practice: Iteration State & The while Loop",
+    "description": "Write a Python script that demonstrates iteration state & the while loop.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Iteration State & The while Loop\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

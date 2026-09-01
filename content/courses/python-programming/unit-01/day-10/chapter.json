@@ -1,0 +1,21 @@
+{
+  "id": "day-10",
+  "unitId": "unit-01",
+  "dayNumber": 10,
+  "order": 10,
+  "title": "Day 10: Flow of Execution",
+  "shortTitle": "Flow of Execution",
+  "description": "Tracing how the Python interpreter jumps execution into a function and returns.",
+  "simulationType": "Type D: Code Execution Tracer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-09"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

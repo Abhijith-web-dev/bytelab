@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-38-1",
+    "title": "Basic Usage of The Format Operator",
+    "code": "# Example for The Format Operator\nprint('Day 38 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

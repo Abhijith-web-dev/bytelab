@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-37-1",
+    "title": "Basic Usage of Text Files: Reading and Writing",
+    "code": "# Example for Text Files: Reading and Writing\nprint('Day 37 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

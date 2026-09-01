@@ -1,0 +1,21 @@
+{
+  "id": "day-03",
+  "unitId": "unit-01",
+  "dayNumber": 3,
+  "order": 3,
+  "title": "Day 3: String and List Types",
+  "shortTitle": "String and List Types",
+  "description": "Basic introduction to string and list types as sequences of values.",
+  "simulationType": "Type E: Data Structure Visualizer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-02"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-49",
+    "title": "Practice: NumPy: Creating a NumPy Array",
+    "description": "Write a Python script that demonstrates numpy: creating a numpy array.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for NumPy: Creating a NumPy Array\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "quiz-day-43-1",
+    "question": "Which of the following best describes Classes and Objects Intro?",
+    "options": [
+      "It manages data or execution flow.",
+      "It is a hardware component.",
+      "It only works on Windows.",
+      "It is deprecated."
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python uses this concept to manage data or execution flow logically."
+  }
+]

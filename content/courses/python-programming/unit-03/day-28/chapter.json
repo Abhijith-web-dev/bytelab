@@ -1,0 +1,21 @@
+{
+  "id": "day-28",
+  "unitId": "unit-03",
+  "dayNumber": 28,
+  "order": 28,
+  "title": "Day 28: List Parameters & Advanced Comprehensions",
+  "shortTitle": "List Parameters & Advanced Comprehensions",
+  "description": "Passing lists to functions and transforming lists efficiently using list comprehension.",
+  "simulationType": "Type E: Data Structure Visualizer",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-27"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

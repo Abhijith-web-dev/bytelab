@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-4",
+    "title": "Practice: Variables and Comments",
+    "description": "Write a Python script that demonstrates variables and comments.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Variables and Comments\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

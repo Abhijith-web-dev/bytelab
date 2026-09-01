@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-45-1",
+    "title": "Basic Usage of Unit IV Practical: Word Count (CLI)",
+    "code": "# Example for Unit IV Practical: Word Count (CLI)\nprint('Day 45 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

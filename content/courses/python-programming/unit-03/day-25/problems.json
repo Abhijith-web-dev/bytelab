@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-25",
+    "title": "Practice: Lists: Operations and Slices",
+    "description": "Write a Python script that demonstrates lists: operations and slices.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Lists: Operations and Slices\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

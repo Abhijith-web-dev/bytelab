@@ -1,0 +1,21 @@
+{
+  "id": "day-14",
+  "unitId": "unit-02",
+  "dayNumber": 14,
+  "order": 14,
+  "title": "Day 14: Conditional Execution (if)",
+  "shortTitle": "Conditional Execution (if)",
+  "description": "Running code blocks conditionally based on Boolean truth.",
+  "simulationType": "Type B: Flowchart / Decision Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-13"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

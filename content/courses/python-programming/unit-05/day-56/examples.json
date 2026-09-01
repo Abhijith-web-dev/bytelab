@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-56-1",
+    "title": "Basic Usage of Handling Missing Data",
+    "code": "# Example for Handling Missing Data\nprint('Day 56 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

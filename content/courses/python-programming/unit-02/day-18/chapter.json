@@ -1,0 +1,21 @@
+{
+  "id": "day-18",
+  "unitId": "unit-02",
+  "dayNumber": 18,
+  "order": 18,
+  "title": "Day 18: Loop Control: break, continue, pass",
+  "shortTitle": "Loop Control: break, continue, pass",
+  "description": "Controlling execution flow from inside a loop.",
+  "simulationType": "Type C: Loop Timeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-17"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

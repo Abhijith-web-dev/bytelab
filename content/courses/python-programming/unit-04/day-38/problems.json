@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-38",
+    "title": "Practice: The Format Operator",
+    "description": "Write a Python script that demonstrates the format operator.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for The Format Operator\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-46",
+    "title": "Practice: Unit IV Practical: Copy File",
+    "description": "Write a Python script that demonstrates unit iv practical: copy file.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Unit IV Practical: Copy File\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

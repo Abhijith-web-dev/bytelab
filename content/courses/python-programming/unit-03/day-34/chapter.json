@@ -1,0 +1,21 @@
+{
+  "id": "day-34",
+  "unitId": "unit-03",
+  "dayNumber": 34,
+  "order": 34,
+  "title": "Day 34: Selection Sort",
+  "shortTitle": "Selection Sort",
+  "description": "Sorting by repeatedly finding the minimum.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-33"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

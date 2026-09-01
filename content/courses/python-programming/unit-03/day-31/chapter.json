@@ -1,0 +1,21 @@
+{
+  "id": "day-31",
+  "unitId": "unit-03",
+  "dayNumber": 31,
+  "order": 31,
+  "title": "Day 31: Finding Maximum of a List",
+  "shortTitle": "Finding Maximum of a List",
+  "description": "Iterating through a sequence to find the maximum element.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-30"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

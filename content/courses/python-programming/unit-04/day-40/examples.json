@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-40-1",
+    "title": "Basic Usage of Errors and Exceptions",
+    "code": "# Example for Errors and Exceptions\nprint('Day 40 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "id": "day-12",
+  "unitId": "unit-01",
+  "dayNumber": 12,
+  "order": 12,
+  "title": "Day 12: Unit I Illustrative Programs",
+  "shortTitle": "Unit I Illustrative Programs",
+  "description": "Practical programs: Exchange the values of two variables, circulate the values of n variables, distance between two points.",
+  "simulationType": "Type D: Code Execution Tracer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-11"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

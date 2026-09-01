@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-61-1",
+    "title": "Basic Usage of Consolidation: Control Flow & Logic",
+    "code": "# Example for Consolidation: Control Flow & Logic\nprint('Day 61 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

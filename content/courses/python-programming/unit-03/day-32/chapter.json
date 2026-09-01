@@ -1,0 +1,21 @@
+{
+  "id": "day-32",
+  "unitId": "unit-03",
+  "dayNumber": 32,
+  "order": 32,
+  "title": "Day 32: Linear Search",
+  "shortTitle": "Linear Search",
+  "description": "Sequential searching algorithm.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-31"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

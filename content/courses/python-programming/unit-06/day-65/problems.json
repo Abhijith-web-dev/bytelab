@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-65",
+    "title": "Practice: Capstone: NumPy & Pandas End-to-End",
+    "description": "Write a Python script that demonstrates capstone: numpy & pandas end-to-end.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Capstone: NumPy & Pandas End-to-End\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

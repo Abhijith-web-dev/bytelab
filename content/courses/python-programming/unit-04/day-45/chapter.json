@@ -1,0 +1,21 @@
+{
+  "id": "day-45",
+  "unitId": "unit-04",
+  "dayNumber": 45,
+  "order": 45,
+  "title": "Day 45: Unit IV Practical: Word Count (CLI)",
+  "shortTitle": "Unit IV Practical: Word Count (CLI)",
+  "description": "Building a program that takes command line arguments and counts words in a file.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-44"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

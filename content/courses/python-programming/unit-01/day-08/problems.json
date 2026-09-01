@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-8",
+    "title": "Practice: Modules and Built-in Functions",
+    "description": "Write a Python script that demonstrates modules and built-in functions.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Modules and Built-in Functions\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

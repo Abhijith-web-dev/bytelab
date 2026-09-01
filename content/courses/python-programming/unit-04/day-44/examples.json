@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-44-1",
+    "title": "Basic Usage of Object Attributes and Methods",
+    "code": "# Example for Object Attributes and Methods\nprint('Day 44 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

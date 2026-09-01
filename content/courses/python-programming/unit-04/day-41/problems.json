@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-41",
+    "title": "Practice: Handling Exceptions (try-except)",
+    "description": "Write a Python script that demonstrates handling exceptions (try-except).",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Handling Exceptions (try-except)\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

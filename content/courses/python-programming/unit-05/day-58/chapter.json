@@ -1,0 +1,21 @@
+{
+  "id": "day-58",
+  "unitId": "unit-05",
+  "dayNumber": 58,
+  "order": 58,
+  "title": "Day 58: Groupby and Apply Functions",
+  "shortTitle": "Groupby and Apply Functions",
+  "description": "Aggregating data by categories and applying custom transformations.",
+  "simulationType": "Type H: Matrix / Table Visualization",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO5"
+  ],
+  "prerequisites": [
+    "day-57"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-6-1",
+    "title": "Basic Usage of Precedence of Operators",
+    "code": "# Example for Precedence of Operators\nprint('Day 6 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "id": "day-40",
+  "unitId": "unit-04",
+  "dayNumber": 40,
+  "order": 40,
+  "title": "Day 40: Errors and Exceptions",
+  "shortTitle": "Errors and Exceptions",
+  "description": "Differentiating syntax errors from runtime exceptions.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-39"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

@@ -1,0 +1,21 @@
+{
+  "id": "day-21",
+  "unitId": "unit-02",
+  "dayNumber": 21,
+  "order": 21,
+  "title": "Day 21: Recursion",
+  "shortTitle": "Recursion",
+  "description": "Functions that call themselves to solve smaller problem instances.",
+  "simulationType": "Type D: Code Execution Tracer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-20"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

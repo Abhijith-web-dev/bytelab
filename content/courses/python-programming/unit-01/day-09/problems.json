@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-9",
+    "title": "Practice: Function Definition and Use",
+    "description": "Write a Python script that demonstrates function definition and use.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Function Definition and Use\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

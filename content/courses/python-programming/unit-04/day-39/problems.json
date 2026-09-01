@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-39",
+    "title": "Practice: Command Line Arguments",
+    "description": "Write a Python script that demonstrates command line arguments.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Command Line Arguments\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

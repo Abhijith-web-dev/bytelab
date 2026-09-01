@@ -1,0 +1,21 @@
+{
+  "id": "day-19",
+  "unitId": "unit-02",
+  "dayNumber": 19,
+  "order": 19,
+  "title": "Day 19: Fruitful Functions & Return Values",
+  "shortTitle": "Fruitful Functions & Return Values",
+  "description": "Returning computed results from functions to the caller.",
+  "simulationType": "Type D: Code Execution Tracer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-18"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

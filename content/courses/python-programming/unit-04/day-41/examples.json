@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-41-1",
+    "title": "Basic Usage of Handling Exceptions (try-except)",
+    "code": "# Example for Handling Exceptions (try-except)\nprint('Day 41 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

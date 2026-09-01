@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-26",
+    "title": "Practice: List Methods and List Loop",
+    "description": "Write a Python script that demonstrates list methods and list loop.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for List Methods and List Loop\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

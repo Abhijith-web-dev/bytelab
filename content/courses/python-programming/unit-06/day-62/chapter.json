@@ -1,0 +1,21 @@
+{
+  "id": "day-62",
+  "unitId": "unit-06",
+  "dayNumber": 62,
+  "order": 62,
+  "title": "Day 62: Consolidation: Advanced Data Structures",
+  "shortTitle": "Consolidation: Advanced Data Structures",
+  "description": "Mastery of lists, dictionaries, tuples, and comprehensions.",
+  "simulationType": "Type E: Data Structure Visualizer",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-61"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

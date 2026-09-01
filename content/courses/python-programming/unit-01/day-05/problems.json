@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-5",
+    "title": "Practice: Expressions and Statements",
+    "description": "Write a Python script that demonstrates expressions and statements.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Expressions and Statements\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "id": "day-02",
+  "unitId": "unit-01",
+  "dayNumber": 2,
+  "order": 2,
+  "title": "Day 2: Values and Types (int, float, boolean)",
+  "shortTitle": "Values and Types (int, float, boolean)",
+  "description": "Understanding primitive data types: integers, floats, and booleans.",
+  "simulationType": "Type A: Value / State Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-01"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

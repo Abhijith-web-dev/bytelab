@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-40",
+    "title": "Practice: Errors and Exceptions",
+    "description": "Write a Python script that demonstrates errors and exceptions.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Errors and Exceptions\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

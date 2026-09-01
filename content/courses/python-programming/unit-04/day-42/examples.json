@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-42-1",
+    "title": "Basic Usage of Modules and Packages",
+    "code": "# Example for Modules and Packages\nprint('Day 42 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

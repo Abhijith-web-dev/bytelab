@@ -1,0 +1,18 @@
+{
+  "id": "unit-03",
+  "unitNumber": 3,
+  "romanNumber": "Unit III",
+  "title": "Lists, Tuples, Dictionaries",
+  "description": "List operations, mutability, aliasing, cloning, tuples as return values, dictionary mappings, list comprehensions, sorting and searching algorithms.",
+  "periods": 12,
+  "outcomes": [
+    "CO3"
+  ],
+  "chapters": [
+    "01-lists-mutability",
+    "02-tuples",
+    "03-dictionaries",
+    "04-list-comprehensions",
+    "05-illustrative-search-sort"
+  ]
+}

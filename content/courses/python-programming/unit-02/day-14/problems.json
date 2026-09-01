@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-14",
+    "title": "Practice: Conditional Execution (if)",
+    "description": "Write a Python script that demonstrates conditional execution (if).",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Conditional Execution (if)\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

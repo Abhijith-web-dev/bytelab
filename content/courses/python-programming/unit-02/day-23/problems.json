@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-23",
+    "title": "Practice: String Methods, Module & Lists as Arrays",
+    "description": "Write a Python script that demonstrates string methods, module & lists as arrays.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for String Methods, Module & Lists as Arrays\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

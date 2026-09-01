@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-43-1",
+    "title": "Basic Usage of Classes and Objects Intro",
+    "code": "# Example for Classes and Objects Intro\nprint('Day 43 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

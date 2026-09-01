@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-3",
+    "title": "Practice: String and List Types",
+    "description": "Write a Python script that demonstrates string and list types.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for String and List Types\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

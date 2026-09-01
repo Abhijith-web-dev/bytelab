@@ -1,0 +1,21 @@
+{
+  "id": "day-63",
+  "unitId": "unit-06",
+  "dayNumber": 63,
+  "order": 63,
+  "title": "Day 63: Consolidation: Search & Sort Algorithms",
+  "shortTitle": "Consolidation: Search & Sort Algorithms",
+  "description": "Reviewing binary search, linear search, and sorting implementations.",
+  "simulationType": "Type F: Algorithm Animation",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO3"
+  ],
+  "prerequisites": [
+    "day-62"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

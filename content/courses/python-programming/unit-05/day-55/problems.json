@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-55",
+    "title": "Practice: Selection and Indexing in Pandas",
+    "description": "Write a Python script that demonstrates selection and indexing in pandas.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Selection and Indexing in Pandas\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

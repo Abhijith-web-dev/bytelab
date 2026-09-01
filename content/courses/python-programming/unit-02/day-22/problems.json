@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-22",
+    "title": "Practice: Strings: Immutability & Slices",
+    "description": "Write a Python script that demonstrates strings: immutability & slices.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Strings: Immutability & Slices\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

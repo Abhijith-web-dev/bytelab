@@ -1,0 +1,21 @@
+{
+  "id": "day-06",
+  "unitId": "unit-01",
+  "dayNumber": 6,
+  "order": 6,
+  "title": "Day 6: Precedence of Operators",
+  "shortTitle": "Precedence of Operators",
+  "description": "Understanding how mathematical operators are evaluated using BEDMAS/PEMDAS precedence.",
+  "simulationType": "Type B: Flowchart / Decision Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-05"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

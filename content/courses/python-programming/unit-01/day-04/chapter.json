@@ -1,0 +1,21 @@
+{
+  "id": "day-04",
+  "unitId": "unit-01",
+  "dayNumber": 4,
+  "order": 4,
+  "title": "Day 4: Variables and Comments",
+  "shortTitle": "Variables and Comments",
+  "description": "Declaring variables, naming rules, and adding inline/block comments.",
+  "simulationType": "Type A: Value / State Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [
+    "day-03"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

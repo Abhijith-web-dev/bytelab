@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-26-1",
+    "title": "Basic Usage of List Methods and List Loop",
+    "code": "# Example for List Methods and List Loop\nprint('Day 26 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

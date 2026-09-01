@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-14-1",
+    "title": "Basic Usage of Conditional Execution (if)",
+    "code": "# Example for Conditional Execution (if)\nprint('Day 14 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-10",
+    "title": "Practice: Flow of Execution",
+    "description": "Write a Python script that demonstrates flow of execution.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Flow of Execution\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

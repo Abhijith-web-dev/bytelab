@@ -1,0 +1,18 @@
+{
+  "id": "unit-05",
+  "unitNumber": 5,
+  "romanNumber": "Unit V",
+  "title": "NumPy, Data Frame",
+  "description": "NumPy array creation, shape and reshaping, array indexing, slicing, vectorized math, pandas Series, DataFrame, groupby, apply, sorting, and matrix operations.",
+  "periods": 12,
+  "outcomes": [
+    "CO5"
+  ],
+  "chapters": [
+    "01-numpy-arrays",
+    "02-numpy-math-indexing",
+    "03-pandas-series-dataframe",
+    "04-pandas-groupby-apply",
+    "05-illustrative-matrix-csv"
+  ]
+}

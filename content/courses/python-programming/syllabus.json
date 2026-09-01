@@ -1,0 +1,61 @@
+{
+  "courseCode": "19AI301 / CS3301",
+  "courseName": "Python Programming",
+  "programme": "B.Tech Artificial Intelligence and Data Science",
+  "ltpc": "2-0-2-3",
+  "preamble": "This course provides learners with in-depth knowledge of python programming. Learners get hands-on experience using various programming constructs (for, while, if) to solve engineering problems. The introduction of packages like NumPy and pandas provides learners with confidence to handle large complex data problems.",
+  "prerequisite": "Nil",
+  "totalPeriods": 60,
+  "textbooks": [
+    {
+      "id": "tb-1",
+      "author": "Allen B. Downey",
+      "title": "Think Python: How to Think Like a Computer Scientist",
+      "edition": "2nd edition, Updated for Python 3",
+      "publisher": "Shroff/O'Reilly Publishers",
+      "year": 2016
+    },
+    {
+      "id": "tb-2",
+      "author": "Guido van Rossum and Fred L. Drake Jr",
+      "title": "An Introduction to Python – Revised and updated for Python 3.2",
+      "publisher": "Network Theory Ltd.",
+      "year": 2011
+    },
+    {
+      "id": "tb-3",
+      "author": "Jake VanderPlas",
+      "title": "Python Data Science Handbook: Essential Tools for Working with Data",
+      "publisher": "O'Reilly Media, Inc.",
+      "year": 2016
+    }
+  ],
+  "references": [
+    {
+      "id": "ref-1",
+      "author": "Wes McKinney",
+      "title": "Python for Data Analysis",
+      "publisher": "O'Reilly Media, Inc.",
+      "year": 2017
+    },
+    {
+      "id": "ref-2",
+      "author": "Jesús Rogel-Salazar",
+      "title": "Data Science And Analytics With Python",
+      "publisher": "CRC Press, Taylor & Francis Group",
+      "year": 2017
+    },
+    {
+      "id": "ref-3",
+      "author": "Joel Grus",
+      "title": "Data Science from Scratch",
+      "edition": "First Edition",
+      "publisher": "O'Reilly Media, Inc.",
+      "year": 2015
+    }
+  ],
+  "equipmentNeeded": {
+    "hardware": "PCs (30 units for batch of 30 students)",
+    "software": "Anaconda – Python 3.7+ Installation"
+  }
+}

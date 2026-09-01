@@ -1,0 +1,7 @@
+# The Story of The for Loop & range()
+
+**The Roll Call Attendance Sheet**
+
+When learning about the for loop & range(), it helps to imagine real-world scenarios. Just as a college administration manages thousands of records, Python manages data and execution flows seamlessly.
+
+This mode allows you to learn the intuition behind the concept without getting bogged down by raw syntax immediately.

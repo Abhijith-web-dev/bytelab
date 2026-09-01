@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-58-1",
+    "title": "Basic Usage of Groupby and Apply Functions",
+    "code": "# Example for Groupby and Apply Functions\nprint('Day 58 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

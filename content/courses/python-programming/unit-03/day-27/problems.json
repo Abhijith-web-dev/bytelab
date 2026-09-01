@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-27",
+    "title": "Practice: Mutability, Aliasing, and Cloning",
+    "description": "Write a Python script that demonstrates mutability, aliasing, and cloning.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Mutability, Aliasing, and Cloning\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

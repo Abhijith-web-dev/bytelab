@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-61",
+    "title": "Practice: Consolidation: Control Flow & Logic",
+    "description": "Write a Python script that demonstrates consolidation: control flow & logic.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Consolidation: Control Flow & Logic\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

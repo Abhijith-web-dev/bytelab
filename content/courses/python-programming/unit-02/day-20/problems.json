@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-20",
+    "title": "Practice: Scope (Local/Global) & Function Composition",
+    "description": "Write a Python script that demonstrates scope (local/global) & function composition.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Scope (Local/Global) & Function Composition\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-51",
+    "title": "Practice: Indexing and Slicing of NumPy Array",
+    "description": "Write a Python script that demonstrates indexing and slicing of numpy array.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Indexing and Slicing of NumPy Array\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

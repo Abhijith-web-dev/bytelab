@@ -1,0 +1,19 @@
+{
+  "id": "day-01",
+  "unitId": "unit-01",
+  "dayNumber": 1,
+  "order": 1,
+  "title": "Day 1: Python Interpreter & Interactive Mode",
+  "shortTitle": "Python Interpreter & Interactive Mode",
+  "description": "Introduction to the Python interpreter, running code in interactive mode vs script mode.",
+  "simulationType": "Type B: Flowchart / Decision Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO1"
+  ],
+  "prerequisites": [],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

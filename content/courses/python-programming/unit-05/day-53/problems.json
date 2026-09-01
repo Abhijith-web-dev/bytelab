@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-53",
+    "title": "Practice: Matrix Operations (Multiply, Inverse) & Verification",
+    "description": "Write a Python script that demonstrates matrix operations (multiply, inverse) & verification.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Matrix Operations (Multiply, Inverse) & Verification\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

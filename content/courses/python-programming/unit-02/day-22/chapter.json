@@ -1,0 +1,21 @@
+{
+  "id": "day-22",
+  "unitId": "unit-02",
+  "dayNumber": 22,
+  "order": 22,
+  "title": "Day 22: Strings: Immutability & Slices",
+  "shortTitle": "Strings: Immutability & Slices",
+  "description": "Extracting substrings using slicing and understanding that strings cannot be changed in place.",
+  "simulationType": "Type E: Data Structure Visualizer",
+  "estimatedMinutes": 20,
+  "difficulty": "beginner",
+  "outcomes": [
+    "CO2"
+  ],
+  "prerequisites": [
+    "day-21"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

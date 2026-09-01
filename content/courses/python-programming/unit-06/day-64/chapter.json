@@ -1,0 +1,21 @@
+{
+  "id": "day-64",
+  "unitId": "unit-06",
+  "dayNumber": 64,
+  "order": 64,
+  "title": "Day 64: Consolidation: Files, Modules, and Error Handling",
+  "shortTitle": "Consolidation: Files, Modules, and Error Handling",
+  "description": "Building robust I/O pipelines.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "advanced",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-63"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

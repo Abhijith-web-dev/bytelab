@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-42",
+    "title": "Practice: Modules and Packages",
+    "description": "Write a Python script that demonstrates modules and packages.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Modules and Packages\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]

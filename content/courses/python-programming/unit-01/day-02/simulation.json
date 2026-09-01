@@ -1,0 +1,22 @@
+{
+  "id": "sim-day-2",
+  "type": "Type A",
+  "title": "Simulation: Values and Types (int, float, boolean)",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Initial state before execution.",
+      "state": {}
+    },
+    {
+      "step": 2,
+      "description": "Processing logic...",
+      "state": {}
+    },
+    {
+      "step": 3,
+      "description": "Final output.",
+      "state": {}
+    }
+  ]
+}

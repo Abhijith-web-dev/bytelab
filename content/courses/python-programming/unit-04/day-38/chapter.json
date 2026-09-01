@@ -1,0 +1,21 @@
+{
+  "id": "day-38",
+  "unitId": "unit-04",
+  "dayNumber": 38,
+  "order": 38,
+  "title": "Day 38: The Format Operator",
+  "shortTitle": "The Format Operator",
+  "description": "Formatting output using format operators and string interpolation.",
+  "simulationType": "Type G: File / Data Pipeline Simulation",
+  "estimatedMinutes": 20,
+  "difficulty": "intermediate",
+  "outcomes": [
+    "CO4"
+  ],
+  "prerequisites": [
+    "day-37"
+  ],
+  "lessonsCount": 1,
+  "problemsCount": 1,
+  "quizCount": 1
+}

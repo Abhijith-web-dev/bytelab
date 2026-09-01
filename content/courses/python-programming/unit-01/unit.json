@@ -1,0 +1,19 @@
+{
+  "id": "unit-01",
+  "unitNumber": 1,
+  "romanNumber": "Unit I",
+  "title": "Data Types, Expressions, Statements",
+  "description": "Python interpreter, values, types (int, float, boolean, string, list), variables, expressions, statements, precedence, functions, and illustrative programs.",
+  "periods": 12,
+  "outcomes": [
+    "CO1"
+  ],
+  "chapters": [
+    "01-interpreter",
+    "02-values-types",
+    "03-variables-expressions",
+    "04-statements-operators",
+    "05-functions-intro",
+    "06-illustrative-programs"
+  ]
+}

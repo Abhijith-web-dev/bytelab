@@ -1,0 +1,8 @@
+[
+  {
+    "id": "ex-day-28-1",
+    "title": "Basic Usage of List Parameters & Advanced Comprehensions",
+    "code": "# Example for List Parameters & Advanced Comprehensions\nprint('Day 28 executed successfully.')",
+    "explanation": "This demonstrates the minimum syntax needed."
+  }
+]

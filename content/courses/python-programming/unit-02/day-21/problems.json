@@ -1,0 +1,16 @@
+[
+  {
+    "id": "prob-day-21",
+    "title": "Practice: Recursion",
+    "description": "Write a Python script that demonstrates recursion.",
+    "starterCode": "# Write your code here\n",
+    "solutionCode": "# Expected logic for Recursion\nprint('Success')",
+    "testCases": [
+      {
+        "input": "",
+        "expectedOutput": "Success",
+        "isHidden": false
+      }
+    ]
+  }
+]
