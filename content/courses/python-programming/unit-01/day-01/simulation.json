@@ -1,22 +1,119 @@
 {
-  "id": "sim-day-1",
-  "type": "Type B",
-  "title": "Simulation: Python Interpreter & Interactive Mode",
-  "steps": [
+  "scenarios": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "id": "sim-repl-basics",
+      "title": "Interactive Mode (REPL) Basics",
+      "description": "Watch how Python evaluates mathematical operations and basic strings one step at a time.",
+      "code": "10 + 20\n\nprint(\"Hello Python\")\n\n5 * 10",
+      "steps": [
+        {
+          "line": 1,
+          "explanation": "The interpreter reads `10 + 20`, evaluates it to 30, and prints it.",
+          "variables": {},
+          "output": "30"
+        },
+        {
+          "line": 3,
+          "explanation": "Here, we use the `print()` function to output text to the screen.",
+          "variables": {},
+          "output": "30\nHello Python"
+        },
+        {
+          "line": 5,
+          "explanation": "It reads `5 * 10`, evaluates it to 50, and prints the result.",
+          "variables": {},
+          "output": "30\nHello Python\n50"
+        }
+      ]
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "id": "sim-datatypes-variables",
+      "title": "Variables & Data Types",
+      "description": "See how variables are stored in memory and how their data types change.",
+      "code": "age = 20\nprice = 99.50\nis_student = True\nname = \"Arun\"",
+      "steps": [
+        {
+          "line": 1,
+          "explanation": "Python assigns the integer value 20 to the variable 'age'. It automatically knows this is an `int`.",
+          "variables": {
+            "age": 20
+          },
+          "output": ""
+        },
+        {
+          "line": 2,
+          "explanation": "Python assigns a decimal value to 'price'. This makes it a `float`.",
+          "variables": {
+            "age": 20,
+            "price": 99.5
+          },
+          "output": ""
+        },
+        {
+          "line": 3,
+          "explanation": "'is_student' is assigned a boolean value `True`. Note the capital 'T'!",
+          "variables": {
+            "age": 20,
+            "price": 99.5,
+            "is_student": true
+          },
+          "output": ""
+        },
+        {
+          "line": 4,
+          "explanation": "'name' is assigned a string value. Quotes indicate text data.",
+          "variables": {
+            "age": 20,
+            "price": 99.5,
+            "is_student": true,
+            "name": "\"Arun\""
+          },
+          "output": ""
+        }
+      ]
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "id": "sim-addition-vs-concat",
+      "title": "Numbers vs Strings",
+      "description": "A very important difference between mathematical addition and string concatenation.",
+      "code": "num_addition = 20 + 10\nstr_addition = \"20\" + \"10\"\n\nprint(num_addition)\nprint(str_addition)",
+      "steps": [
+        {
+          "line": 1,
+          "explanation": "Since 20 and 10 are integers, Python performs mathematical addition.",
+          "variables": {
+            "num_addition": 30
+          },
+          "output": ""
+        },
+        {
+          "line": 2,
+          "explanation": "Since \"20\" and \"10\" are in quotes, Python treats them as text and joins them together (concatenation).",
+          "variables": {
+            "num_addition": 30,
+            "str_addition": "\"2010\""
+          },
+          "output": ""
+        },
+        {
+          "line": 4,
+          "explanation": "Prints the integer result: 30",
+          "variables": {
+            "num_addition": 30,
+            "str_addition": "\"2010\""
+          },
+          "output": "30"
+        },
+        {
+          "line": 5,
+          "explanation": "Prints the string joining result: 2010",
+          "variables": {
+            "num_addition": 30,
+            "str_addition": "\"2010\""
+          },
+          "output": "30\n2010"
+        }
+      ]
     }
   ]
 }

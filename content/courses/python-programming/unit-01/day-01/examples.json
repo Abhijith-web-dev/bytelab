@@ -1,8 +1,20 @@
 [
   {
-    "id": "ex-day-1-1",
-    "title": "Basic Usage of Python Interpreter & Interactive Mode",
-    "code": "# Example for Python Interpreter & Interactive Mode\nprint('Day 1 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-01-datatypes",
+    "title": "Checking Data Types",
+    "description": "Learn how to use the type() function to check the data type of any variable.",
+    "code": "age = 20\nprint(\"age type:\", type(age))\n\nprice = 99.50\nprint(\"price type:\", type(price))\n\nis_student = True\nprint(\"is_student type:\", type(is_student))\n\nname = \"Arun\"\nprint(\"name type:\", type(name))"
+  },
+  {
+    "id": "ex-02-dynamic-typing",
+    "title": "Dynamic Typing",
+    "description": "Watch how a variable can change its data type dynamically in Python.",
+    "code": "data = 10\nprint(data)\nprint(type(data))\n\n# Now we assign a string to the exact same variable\ndata = \"Python\"\nprint(data)\nprint(type(data))\n\n# Now it becomes a float\ndata = 25.5\nprint(data)\nprint(type(data))"
+  },
+  {
+    "id": "ex-03-full-program",
+    "title": "Student Details Output",
+    "description": "A mini real-time program putting it all together.",
+    "code": "student_name = \"Arun\"\nstudent_age = 20\nstudent_mark = 87.5\nis_present = True\n\nprint(\"----- Student Details -----\")\nprint(\"Name:\", student_name)\nprint(\"Age:\", student_age)\nprint(\"Mark:\", student_mark)\nprint(\"Present:\", is_present)\n\nprint(\"\\n----- Data Types -----\")\nprint(type(student_name))\nprint(type(student_age))\nprint(type(student_mark))\nprint(type(is_present))"
   }
 ]

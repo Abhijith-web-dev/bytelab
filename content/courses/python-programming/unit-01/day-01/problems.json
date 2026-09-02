@@ -1,16 +1,21 @@
 [
   {
-    "id": "prob-day-1",
-    "title": "Practice: Python Interpreter & Interactive Mode",
-    "description": "Write a Python script that demonstrates python interpreter & interactive mode.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Python Interpreter & Interactive Mode\nprint('Success')",
+    "id": "prob-01-student-vars",
+    "title": "Create Student Variables",
+    "difficulty": "Beginner",
+    "description": "Welcome to your first Python challenge! You need to create four variables to store information about a student.\n\n### Task\nCreate the following variables and assign them the correct values:\n1. A variable named `student_name` with the string value `\"Arun\"`.\n2. A variable named `student_age` with the integer value `20`.\n3. A variable named `student_mark` with the float value `85.5`.\n4. A variable named `is_present` with the boolean value `True`.",
+    "starterCode": "# Create your variables below:\n\n\n\n\n# Do not modify the code below. It checks your work!\nprint(student_name)\nprint(student_age)\nprint(student_mark)\nprint(is_present)\n",
+    "solution": "student_name = \"Arun\"\nstudent_age = 20\nstudent_mark = 85.5\nis_present = True\n\nprint(student_name)\nprint(student_age)\nprint(student_mark)\nprint(is_present)",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Arun\n20\n85.5\nTrue",
         "isHidden": false
       }
+    ],
+    "hints": [
+      "Remember that strings need quotes: \"like this\".",
+      "Boolean values must start with a capital letter (True, not true)."
     ]
   }
 ]

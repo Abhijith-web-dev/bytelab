@@ -188,6 +188,13 @@ export function LessonPage() {
   const handleQuizSubmit = () => {
     setQuizSubmitted(true);
     markLessonComplete(chapterId, chapterId, unitId);
+    try {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    } catch (e) {}
   };
 
   return (
@@ -204,6 +211,11 @@ export function LessonPage() {
         onCtaClick={handleCompleteAndNext}
         rightElement={
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Difficulty Badge */}
+            <div className="hidden sm:flex mr-1">
+              <Badge variant="success" className="text-[11px] px-2 py-0.5">Beginner</Badge>
+            </div>
+
             {/* Mobile Syllabus Drawer Trigger */}
             <button
               onClick={toggleMobileCurriculum}
@@ -736,6 +748,23 @@ export function LessonPage() {
           </div>
         </aside>
       </div>
+
+      {/* Floating Action Button (Mobile) - For Sandbox */}
+      {activeTab === 'sandbox' && (
+        <div className="md:hidden fixed bottom-6 right-4 z-40">
+          <button
+            onClick={handleRunSandbox}
+            disabled={sandboxExecState === 'RUNNING'}
+            className="flex items-center justify-center w-14 h-14 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full shadow-lg shadow-emerald-500/30 transition-transform active:scale-95 disabled:opacity-70 disabled:active:scale-100"
+          >
+            {sandboxExecState === 'RUNNING' ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <Play className="w-6 h-6 fill-current ml-1" />
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Live Runner Modal Dialog for Try It Code snippets */}
       <Modal

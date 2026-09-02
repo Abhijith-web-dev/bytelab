@@ -1,14 +1,71 @@
-[
-  {
-    "id": "quiz-day-1-1",
-    "question": "Which of the following best describes Python Interpreter & Interactive Mode?",
-    "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
-    ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
-  }
-]
+{
+  "title": "Day 1 Quick Workout",
+  "description": "Test your knowledge on Python interpreters, interactive mode, data types, and variable naming rules.",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the primary difference between the Python Interpreter and Interactive Mode?",
+      "options": [
+        "Interactive mode is only for advanced users.",
+        "The Interpreter executes code, while Interactive Mode is a way of interacting with the interpreter line-by-line.",
+        "Interactive mode can only execute .py files.",
+        "There is no difference, they are exactly the same."
+      ],
+      "correctAnswer": 1,
+      "explanation": "The interpreter is the program that actually executes the code. Interactive mode (REPL) is an interface where you type code one line at a time and see the result immediately."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "Which of the following is the correct data type for the value: 25.5?",
+      "options": [
+        "int",
+        "str",
+        "bool",
+        "float"
+      ],
+      "correctAnswer": 3,
+      "explanation": "A float represents a number containing a decimal value."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What will be the output of the following code?\n\nprint(\"20\" + \"10\")",
+      "options": [
+        "30",
+        "2010",
+        "Syntax Error",
+        "20 + 10"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Because 20 and 10 are inside quotes, Python treats them as strings (text). The '+' operator joins the two strings together instead of doing math."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Which of the following is an INVALID variable name in Python?",
+      "options": [
+        "student_name",
+        "student1",
+        "1student",
+        "Student_Name"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Rule 1: A variable cannot start with a number. Therefore, '1student' is invalid."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "How do you properly declare a boolean value in Python?",
+      "options": [
+        "is_student = true",
+        "is_student = True",
+        "is_student = \"True\"",
+        "is_student = TRUE"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Boolean values in Python must be capitalized: True or False."
+    }
+  ]
+}
