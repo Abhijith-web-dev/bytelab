@@ -1,116 +1,268 @@
-# Day 4: Variables and Comments
+# Day 4 — Python Operators: Assignment, Comparison, Logical, Identity, Membership & Bitwise
 
-## 01. Concept Header
-**Variables and Comments**
-Declaring variables, naming rules, and adding inline/block comments.
-Difficulty: Beginner | Estimated Time: 20 min | Unit: Unit 01
+## 1. 🔄 Day 3 Quick Recap
 
-## 02. Learning Objective
-By the end of this lesson, you can:
-✓ Understand the core concepts of variables and comments
-✓ Apply syntax correctly to solve problems
-✓ Trace internal state and identify common mistakes
-
-## 03. Story Hook
-**The Postal Mailbox & Sticky Name Tags**
-Imagine you need to automate a repetitive task or manage complex data efficiently. The Postal Mailbox & Sticky Name Tags represents how this programming concept solves real-world challenges elegantly.
-
-## 04. Problem / Motivation
-Without this concept, writing clean, robust, and scalable code would be incredibly difficult. We need a way to streamline logic and operations in Python effectively.
-
-## 05. Simple Explanation
-In simple terms, variables and comments allows us to instruct the computer to handle data, make decisions, or process information predictably.
-
-## 06. Formal Explanation
-In Python, variables and comments follows strict rules of execution, syntax constraints, and memory allocation governed by the Python interpreter.
-
-## 07. Mental Model
-Think of it as:
-`Input -> Variables and Comments Process -> Output/State Change`
-
-## 08. Visual Model
-```text
-[ Variables and Comments Visualization ]
-State A --------> State B
-```
-
-## 09. Syntax
+**Question 1:** What is the output?
 ```python
-# General syntax for Variables and Comments
-# Feature implementation
+x = 10
+y = 5
+print(x + y * 2)
 ```
+**Answer:** `20`
 
-## 10. Rules
-✓ Rule 1: Adhere to strict indentation if it involves blocks.
-✓ Rule 2: Observe type constraints.
-✗ Warning: Do not violate Python's execution order or scope bounds.
-
-## 11. Smallest Example
+**Question 2:** What does `%` return?
 ```python
-# Smallest working example
-print("Learning Variables and Comments")
+10 % 3
 ```
+**Answer:** `1` (It returns the remainder.)
 
-## 12. Step-by-Step Code Explanation
-1. **Initialize:** The environment prepares variables.
-2. **Execute:** The statement runs.
-3. **Yield:** A result is generated or state is modified.
-
-## 13. Execution Trace
-| Line | Instruction | State |
-|---|---|---|
-| 1 | `Initialize` | `State 0` |
-| 2 | `Process` | `State 1` |
-
-## 14. Internal State
-**BEFORE:** State is untouched.
-**AFTER:** State has been mutated or new objects created.
-
-## 15. Interactive Simulation
-(Explore the visual simulation tool to observe Variables and Comments in action.)
-
-## 16. Guided Example
+**Question 3:** What does this do?
 ```python
-def guided_example():
-    # Demonstrating Variables and Comments
-    pass
+a, b = b, a
 ```
+**Answer:** It swaps the values of `a` and `b`.
 
-## 17. Real-World Example
-Using this in a college registration system, banking app, or data analytics pipeline makes the implementation scalable.
+> [!NOTE]
+> Yesterday, we learned operators such as `+`, `-`, `*`, `/`, `%`, and `**` to perform calculations. Today, we will learn operators that help Python assign values, compare values, make decisions, check values, and work with collections.
 
-## 18. Compare / Contrast
-Compare this to doing things manually or using an older, more verbose approach. This concept is cleaner and faster.
+---
 
-## 19. Common Mistakes
-- Syntax errors (missing colons, brackets)
-- Name errors (typos in variables)
-- Type errors (mismatched operations)
+## 2. Assignment Operators
 
-## 20. Debugging Example
+Assignment operators are used to assign a value to a variable or update the value of a variable.
+
+### Basic Assignment `=`
 ```python
-# Broken code
-# print(wrong_variable)
-# Fix: Ensure variable exists before use.
+score = 100
+```
+This means: Store 100 in `score`. We can change it:
+```python
+score = 150
 ```
 
-## 21. Guided Practice
-Try writing a small snippet that uses Variables and Comments on your own. Use the code playground.
+### Compound Assignment Operators
+Instead of writing `score = score + 10`, Python allows:
+```python
+score += 10
+```
+Both mean: Add 10 to the current value of `score`.
 
-## 22. Independent Practice
-Complete the practice tasks provided in the interactive sandbox.
+| Operator | Example | Same As |
+| :--- | :--- | :--- |
+| `=` | `x = 10` | Assign 10 |
+| `+=` | `x += 5` | `x = x + 5` |
+| `-=` | `x -= 5` | `x = x - 5` |
+| `*=` | `x *= 5` | `x = x * 5` |
+| `/=` | `x /= 5` | `x = x / 5` |
+| `//=` | `x //= 5` | `x = x // 5` |
+| `%=` | `x %= 5` | `x = x % 5` |
+| `**=` | `x **= 2` | `x = x ** 2` |
 
-## 23. Challenge
-Can you combine this concept with what you learned in previous days to build a more complex function?
+### Real-Time Example — Game Score
+```python
+score = 100
 
-## 24. Quick Test
-Test your knowledge with the multiple choice quiz below.
+score += 50
+score -= 20
 
-## 25. Reflection
-Consider how Variables and Comments changes the way you approach problem-solving in Python.
+print("Final Score:", score) # Output: Final Score: 130
+```
+> [!TIP]
+> Assignment operators are useful when a value needs to be updated repeatedly.
 
-## 26. Summary
-You have mastered Variables and Comments. You now know its syntax, rules, and how to debug it.
+---
 
-## 27. What Comes Next
-In the next day, we will build upon this foundation with more advanced operations.
+## 3. Comparison Operators
+
+Comparison operators are used to compare two values. The result is always a Boolean: `True` or `False`.
+
+| Operator | Meaning | Example | Result |
+| :--- | :--- | :--- | :--- |
+| `==` | Equal to | `10 == 10` | `True` |
+| `!=` | Not equal to | `10 != 5` | `True` |
+| `>` | Greater than | `10 > 5` | `True` |
+| `<` | Less than | `10 < 5` | `False` |
+| `>=` | Greater than or equal to | `10 >= 10` | `True` |
+| `<=` | Less than or equal to | `5 <= 10` | `True` |
+
+> [!WARNING]
+> Don't confuse `=` (assignment) with `==` (comparison).
+> - `=` → Give a value (`age = 20`)
+> - `==` → Ask whether values are equal (`age == 20`)
+
+### Real-Time Example — Exam Eligibility
+Suppose a student needs at least 40 marks to pass.
+```python
+mark = 75
+print(mark >= 40) # Output: True
+
+mark = 30
+print(mark >= 40) # Output: False
+```
+
+---
+
+## 4. Logical Operators
+
+Sometimes one condition isn't enough (e.g., to log in to a website: Username must be correct AND password must be correct).
+
+Python has three main logical operators: `and`, `or`, `not`
+
+### `and`
+Both conditions must be `True`.
+```python
+age = 20
+has_id = True
+print(age >= 18 and has_id == True) # Output: True
+```
+
+### `or`
+At least one condition must be `True`.
+```python
+has_cash = False
+has_card = True
+print(has_cash or has_card) # Output: True
+```
+
+### `not`
+Reverses the Boolean result.
+```python
+is_raining = False
+print(not is_raining) # Output: True
+```
+
+### Real-Time Example — Login System
+```python
+correct_username = True
+correct_password = True
+
+login_success = correct_username and correct_password
+print("Login Successful:", login_success) # Output: Login Successful: True
+```
+
+---
+
+## 5. Identity Operators
+
+Python has two identity operators: `is` and `is not`.
+They check whether two references point to the same object.
+
+> [!IMPORTANT]
+> `==` → Do they contain equal values?
+> `is` → Are they the same object?
+
+```python
+a = [1, 2, 3]
+b = [1, 2, 3]
+
+print(a == b) # Output: True
+print(a is b) # Output: False
+```
+
+A very common use is checking `None`:
+```python
+result = None
+print(result is None) # Output: True
+```
+
+---
+
+## 6. Membership Operators
+
+Membership operators check whether a value exists inside a collection (such as a list or string).
+There are two: `in` and `not in`.
+
+### Lists
+```python
+fruits = ["Apple", "Banana", "Mango"]
+print("Apple" in fruits) # Output: True
+print("Orange" not in fruits) # Output: True
+```
+
+### Strings
+```python
+email = "student@gmail.com"
+print("@gmail.com" in email) # Output: True
+```
+
+---
+
+## 7. Bitwise Operators
+
+Bitwise operators work with the binary bits of integers.
+For example: `5` is `101` in binary. `3` is `011`.
+
+| Operator | Name | Example |
+| :--- | :--- | :--- |
+| `&` | AND | `5 & 3` |
+| `\|` | OR | `5 \| 3` |
+| `^` | XOR | `5 ^ 3` |
+| `~` | NOT | `~5` |
+| `<<` | Left Shift | `5 << 1` |
+| `>>` | Right Shift | `5 >> 1` |
+
+### Bitwise AND `&`
+Both bits must be 1 to produce 1.
+```python
+#   101 (5)
+# & 011 (3)
+# -----
+#   001 (1)
+print(5 & 3) # Output: 1
+```
+
+### Bitwise OR `|`
+If at least one bit is 1, the result is 1.
+```python
+#   101 (5)
+# | 011 (3)
+# -----
+#   111 (7)
+print(5 | 3) # Output: 7
+```
+
+> [!TIP]
+> `<<` essentially shifts bits left, `>>` shifts bits right.
+
+---
+
+## 8. Operator Summary & Real-World Programs
+
+Students may confuse similar-looking operators.
+
+| Operator | Purpose | Example |
+| :--- | :--- | :--- |
+| `=` | Assign a value | `x = 10` |
+| `==` | Compare values | `x == 10` |
+| `is` | Check object identity | `x is y` |
+| `in` | Check membership | `x in numbers` |
+| `and` | Both conditions | `x > 5 and x < 20` |
+
+### 🚀 Online Shopping Eligibility Program
+A customer gets free delivery if the order amount is ₹500 or more AND they are a member.
+```python
+order_amount = 750
+is_member = True
+
+eligible = order_amount >= 500 and is_member
+print("Free Delivery:", eligible) # Output: Free Delivery: True
+```
+
+### 🧩 One-Minute Operator Challenge
+Can you predict the output of this code?
+```python
+price = 600
+is_member = True
+products = ["Laptop", "Mouse", "Keyboard"]
+
+discount = 100
+price -= discount
+
+eligible = price >= 500 and is_member
+has_mouse = "Mouse" in products
+
+print(price)
+print(eligible)
+print(has_mouse)
+```
+*(Think about it! The expected outputs are `500`, `True`, and `True`.)*

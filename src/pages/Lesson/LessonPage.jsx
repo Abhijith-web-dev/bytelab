@@ -27,7 +27,9 @@ import {
   ExternalLink,
   Target,
   FileCode,
-  Check
+  Check,
+  Maximize,
+  Minimize
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Button } from '../../components/ui/Button.jsx';
@@ -52,6 +54,7 @@ import {
 } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
 import { useUIStore } from '../../stores/uiStore.js';
+import { usePracticeStore } from '../../stores/practiceStore.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
 
 export function LessonPage() {
@@ -80,7 +83,9 @@ export function LessonPage() {
     toggleStoryMode,
     isMobileCurriculumOpen,
     toggleMobileCurriculum,
-    closeMobileCurriculum
+    closeMobileCurriculum,
+    isFocusMode,
+    toggleFocusMode
   } = useUIStore();
 
   const isChapterDone = completedChapters.includes(chapterId);
@@ -109,15 +114,44 @@ export function LessonPage() {
   // Quiz state
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
+  const [randomizedQuiz, setRandomizedQuiz] = useState([]);
+
+  // Practice Arena state
+  const {
+    updateCode: updatePracticeCode,
+    code: practiceCode,
+    runCode: runPracticeCode,
+    resetCode: resetPracticeCode,
+    loadProblem,
+    executionState: practiceExecState,
+    stdout: practiceStdout,
+    stderr: practiceStderr,
+    executionTimeMs: practiceExecTime,
+    testCaseResults: practiceTestResults
+  } = usePracticeStore();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setActiveTab('notes');
     setSelectedAnswers({});
     setQuizSubmitted(false);
-    setActiveTab('notes');
     closeMobileCurriculum();
+    
+    // Randomize quiz questions and select up to 5
+    if (quizQuestions && quizQuestions.length > 0) {
+      const shuffled = [...quizQuestions].sort(() => 0.5 - Math.random());
+      setRandomizedQuiz(shuffled.slice(0, 5));
+    } else {
+      setRandomizedQuiz([]);
+    }
+    
     if (examples?.[0]?.code) {
-      setSandboxCode(examples[0].code);
+      setActiveCode(examples[0].code);
+    }
+    
+    // Load practice problem into IDE
+    if (problems && problems.length > 0) {
+      loadProblem(problems[0]);
     }
   }, [chapterId]);
 
@@ -226,6 +260,24 @@ export function LessonPage() {
               <span className="hidden sm:inline">Syllabus</span>
             </button>
 
+            {/* Focus Mode Switcher */}
+            <button
+              onClick={toggleFocusMode}
+              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 ${
+                isFocusMode
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'bg-[#fafafa] text-[#525252] hover:text-black border border-[#e5e5e5]'
+              }`}
+              title="Toggle Focus Mode"
+            >
+              {isFocusMode ? (
+                <Minimize className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5" />
+              ) : (
+                <Maximize className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5" />
+              )}
+              <span className="hidden sm:inline">{isFocusMode ? 'Exit Focus' : 'Focus'}</span>
+            </button>
+
             {/* Story Mode Quick Switcher */}
             <button
               onClick={toggleStoryMode}
@@ -245,10 +297,12 @@ export function LessonPage() {
 
       <div className="flex-1 flex flex-col md:flex-row w-full mx-auto">
         {/* Left: Desktop 65-Day Syllabus Sidebar */}
-        <CourseSidebar
-          courseId={courseId}
-          className="hidden md:flex shrink-0 sticky top-[108px] h-[calc(100vh-108px)]"
-        />
+        {!isFocusMode && (
+          <CourseSidebar
+            courseId={courseId}
+            className="hidden md:flex shrink-0 sticky top-[108px] h-[calc(100vh-108px)] transition-all"
+          />
+        )}
 
         {/* Mobile Slide-Over Curriculum Drawer */}
         {isMobileCurriculumOpen && (
@@ -316,10 +370,10 @@ export function LessonPage() {
                 </div>
                 <div>
                   <span className="text-[13px] font-semibold text-black block">
-                    {isStoryMode ? 'Storytelling & Intuitive Analogy Mode' : 'Standard 12-Section Lecture Guide'}
+                    {isStoryMode ? 'Storytelling & Intuitive Analogy Mode' : 'Standard Academic Mode'}
                   </span>
                   <span className="text-[12px] text-[#737373]">
-                    {isStoryMode ? 'Explained with everyday real-world metaphors for intuitive understanding.' : 'Structured with syntax definitions, step-by-step code execution, and practice.'}
+                    {isStoryMode ? 'Explained with everyday real-world metaphors for intuitive understanding.' : 'Direct, technical explanations with code examples.'}
                   </span>
                 </div>
               </div>
@@ -396,6 +450,20 @@ export function LessonPage() {
                 >
                   <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
                   <span>Quick Check ({quizQuestions.length})</span>
+                </button>
+              )}
+
+              {problems && problems.length > 0 && (
+                <button
+                  onClick={() => setActiveTab('practice')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
+                    activeTab === 'practice'
+                      ? 'bg-[#000000] text-white shadow-xs'
+                      : 'bg-[#fafafa] text-[#525252] hover:text-[#000000] border border-[#e5e5e5]'
+                  }`}
+                >
+                  <Target className="w-3.5 h-3.5 text-purple-500" />
+                  <span>Practice ({problems.length})</span>
                 </button>
               )}
             </div>
@@ -531,7 +599,7 @@ export function LessonPage() {
               </div>
 
               <div className="space-y-6">
-                {quizQuestions.map((q, qIdx) => (
+                {randomizedQuiz.map((q, qIdx) => (
                   <div key={q.id || qIdx} className="p-6 rounded-[16px] bg-white border border-slate-200 shadow-sm space-y-5">
                     <p className="text-[16px] font-semibold text-slate-900 leading-relaxed">
                       {qIdx + 1}. {q.question}
@@ -607,6 +675,77 @@ export function LessonPage() {
             </div>
           )}
 
+          {/* TAB 5: Practice Arena */}
+          {activeTab === 'practice' && problems && problems.length > 0 && (
+            <div className="space-y-6 animate-in fade-in duration-150">
+              <div className="space-y-1">
+                <h2 className="text-[20px] font-semibold text-[#000000] tracking-tight">
+                  Moodle-Style Practice Assessment
+                </h2>
+                <p className="text-[14px] text-[#737373]">
+                  Write code to solve the challenge. Your solution will be automatically graded against hidden test cases.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-[12px] bg-slate-50 border border-slate-200 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Badge variant="beginner">Beginner</Badge>
+                  <h3 className="text-[18px] font-semibold tracking-tight">{problems[0].title}</h3>
+                </div>
+                
+                <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap">
+                  {problems[0].description}
+                </div>
+
+                {(problems[0].exampleInput || problems[0].exampleOutput) && (
+                  <div className="pt-2">
+                    <h4 className="text-[14px] font-bold text-slate-800 mb-2">For example:</h4>
+                    <table className="text-left text-[13px] border border-slate-300 bg-white shadow-xs">
+                      <thead>
+                        <tr className="bg-slate-100 border-b border-slate-300">
+                          <th className="py-2 px-4 font-semibold w-[200px] border-r border-slate-300">Input</th>
+                          <th className="py-2 px-4 font-semibold min-w-[200px]">Result</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-slate-300 text-slate-600">
+                            {problems[0].exampleInput}
+                          </td>
+                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap text-slate-600">
+                            {problems[0].exampleOutput}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-2 pt-2">
+                <div className="text-[14px] font-bold text-slate-800 flex items-center justify-between">
+                  <span>Answer:</span>
+                </div>
+                <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#e5e5e5] rounded-[16px] text-[#737373]">Loading practice IDE...</div>}>
+                <CodePlayground
+                  code={practiceCode || problems[0].starterCode}
+                  onChange={updatePracticeCode}
+                  onRun={runPracticeCode}
+                  onReset={resetPracticeCode}
+                  language="python"
+                  executionState={practiceExecState}
+                  stdout={practiceStdout}
+                  stderr={practiceStderr}
+                  executionTimeMs={practiceExecTime}
+                  testCaseResults={practiceTestResults}
+                  preventPaste={false}
+                  height="360px"
+                />
+              </React.Suspense>
+              </div>
+            </div>
+          )}
+
           {/* Bottom Day Pagination Controls */}
           <div className="pt-8 border-t border-[#e5e5e5] flex items-center justify-between gap-4">
             {prev ? (
@@ -632,8 +771,9 @@ export function LessonPage() {
         </main>
 
         {/* Right: Sleek Desktop Quick-Jump & Day Overview Sidebar */}
-        <aside className="hidden xl:flex flex-col w-[260px] 2xl:w-[280px] shrink-0 border-l border-[#e5e5e5] bg-[#fafafa]/50 p-5 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto space-y-6 select-none">
-          {/* Day Overview Badge */}
+        {!isFocusMode && (
+          <aside className="hidden xl:flex flex-col w-[260px] 2xl:w-[280px] shrink-0 border-l border-[#e5e5e5] bg-[#fafafa]/50 p-5 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto space-y-6 select-none transition-all">
+            {/* Day Overview Badge */}
           <div className="space-y-2 pb-4 border-b border-[#e5e5e5]">
             <span className="text-[11px] uppercase font-bold text-[#737373] tracking-wider block font-mono">
               Day Navigation
@@ -667,7 +807,7 @@ export function LessonPage() {
               >
                 <div className="flex items-center gap-2 truncate">
                   <BookOpen className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">12-Section Guide</span>
+                  <span className="truncate">Lecture Notes</span>
                 </div>
               </button>
 
@@ -747,6 +887,7 @@ export function LessonPage() {
             </Button>
           </div>
         </aside>
+        )}
       </div>
 
       {/* Floating Action Button (Mobile) - For Sandbox */}

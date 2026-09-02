@@ -24,6 +24,10 @@ export const useUIStore = create((set) => ({
   closeMobileNav: () => set({ isMobileNavOpen: false }),
   toggleMobileNav: () => set((s) => ({ isMobileNavOpen: !s.isMobileNavOpen })),
 
+  isFocusMode: false,
+  setFocusMode: (enabled) => set({ isFocusMode: enabled }),
+  toggleFocusMode: () => set((s) => ({ isFocusMode: !s.isFocusMode })),
+
   toggleSidebar: () => set((s) => ({ isSidebarOpen: !s.isSidebarOpen })),
   setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
 

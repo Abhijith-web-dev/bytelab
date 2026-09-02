@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-9-1",
-    "title": "Basic Usage of Function Definition and Use",
-    "code": "# Example for Function Definition and Use\nprint('Day 9 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

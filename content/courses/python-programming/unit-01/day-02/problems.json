@@ -1,16 +1,24 @@
 [
   {
-    "id": "prob-day-2",
-    "title": "Practice: Values and Types (int, float, boolean)",
-    "description": "Write a Python script that demonstrates values and types (int, float, boolean).",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Values and Types (int, float, boolean)\nprint('Success')",
+    "id": "prob-02-shopping-cart",
+    "title": "Shopping Cart Total",
+    "difficulty": "Beginner",
+    "description": "You are creating a simple shopping cart program.\n\nA customer purchases three products:\n- Notebook — ₹50\n- Pen — ₹20\n- Bag — ₹500\n\nStore the product prices in a Python list.\nThen calculate the total price using the values from the list and display the result.\n\n### Requirements\n1. Create a list named `prices`.\n2. Store these values: `50, 20, 500`.\n3. Use list indexing (e.g. `prices[0]`) to access the prices.\n4. Calculate the total using an arithmetic expression.\n5. Store the result in a variable named `total`.\n6. Display the total in the following format: `Total Price: 570`.\n7. Add at least two comments explaining your code.\n\n**Note:** There is no user input. Do not use `input()`. Do not directly write 570 as the answer.",
+    "starterCode": "# Write your Python program here:\n",
+    "solution": "# Product prices\nprices = [50, 20, 500]\n\n# Calculate total using list indexing\ntotal = prices[0] + prices[1] + prices[2]\n\n# Print the result\nprint(\"Total Price:\", total)",
+    "exampleInput": "",
+    "exampleOutput": "Total Price: 570",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Total Price: 570",
         "isHidden": false
       }
+    ],
+    "hints": [
+      "Think about: `prices[0]`, `prices[1]`, `prices[2]`.",
+      "Combine them using the `+` operator.",
+      "Print the final value like this: `print(\"Total Price:\", total)`."
     ]
   }
 ]

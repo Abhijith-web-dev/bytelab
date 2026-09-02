@@ -3,11 +3,11 @@
   "unitId": "unit-01",
   "dayNumber": 2,
   "order": 2,
-  "title": "Day 2: Values and Types (int, float, boolean)",
-  "shortTitle": "Values and Types (int, float, boolean)",
-  "description": "Understanding primitive data types: integers, floats, and booleans.",
-  "simulationType": "Type A: Value / State Simulation",
-  "estimatedMinutes": 20,
+  "title": "Day 2: Lists, Expressions & Statements",
+  "shortTitle": "Lists, Expressions & Statements",
+  "description": "Learn to create lists, evaluate expressions, execute statements, and write comments in real-world Python mini-programs.",
+  "simulationType": "Type A: Process / Pipeline Simulation",
+  "estimatedMinutes": 90,
   "difficulty": "beginner",
   "outcomes": [
     "CO1"
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 4
 }

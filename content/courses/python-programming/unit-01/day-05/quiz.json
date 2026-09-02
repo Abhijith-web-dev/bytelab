@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-5-1",
-    "question": "Which of the following best describes Expressions and Statements?",
+    "id": "q1",
+    "question": "What is a function in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A reusable block of code",
+      "A type of variable",
+      "A Python module",
+      "A data type"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "A function is a reusable block of code designed to perform a particular task."
+  },
+  {
+    "id": "q2",
+    "question": "Which keyword is used to define a function in Python?",
+    "options": [
+      "function",
+      "define",
+      "def",
+      "fun"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'def' keyword is used to start defining a function in Python."
+  },
+  {
+    "id": "q3",
+    "question": "What is the output?\ndef greet():\n    print(\"Hello\")\n\ngreet()",
+    "options": [
+      "greet",
+      "Hello",
+      "def greet",
+      "No output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calling greet() executes the print statement inside it."
+  },
+  {
+    "id": "q4",
+    "question": "In the following code, what is 'name'?\ndef greet(name):\n    print(\"Hello\", name)",
+    "options": [
+      "Argument",
+      "Parameter",
+      "Module",
+      "Return value"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When defining a function, the variable specified inside the parentheses is a parameter."
+  },
+  {
+    "id": "q5",
+    "question": "In the following code, what is '\"Arun\"'?\ndef greet(name):\n    print(\"Hello\", name)\n\ngreet(\"Arun\")",
+    "options": [
+      "Parameter",
+      "Function",
+      "Argument",
+      "Module"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The actual value passed to the function when it is called is an argument."
+  },
+  {
+    "id": "q6",
+    "question": "What is the output?\ndef add(a, b):\n    return a + b\n\nresult = add(10, 20)\nprint(result)",
+    "options": [
+      "10",
+      "20",
+      "30",
+      "1020"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The function returns 10 + 20, which is 30, and it gets printed."
+  },
+  {
+    "id": "q7",
+    "question": "Which keyword is used to send a value back from a function?",
+    "options": [
+      "send",
+      "print",
+      "output",
+      "return"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The 'return' keyword is used to return a value from a function."
+  },
+  {
+    "id": "q8",
+    "question": "Which of the following is a built-in Python function?",
+    "options": [
+      "calculate()",
+      "greet()",
+      "len()",
+      "student()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "len() is a built-in Python function that returns the number of items in an object."
+  },
+  {
+    "id": "q9",
+    "question": "What is 'math' in this code?\nimport math\n\nprint(math.sqrt(25))",
+    "options": [
+      "Variable",
+      "Module",
+      "Parameter",
+      "Argument"
+    ],
+    "correctAnswer": 1,
+    "explanation": "math is a standard Python module containing mathematical functions."
+  },
+  {
+    "id": "q10",
+    "question": "Which function has parameters and a return value?",
+    "options": [
+      "def greet():\n    print(\"Hello\")",
+      "def greet(name):\n    print(\"Hello\", name)",
+      "def get_number():\n    return 10",
+      "def add(a, b):\n    return a + b"
+    ],
+    "correctAnswer": 3,
+    "explanation": "def add(a, b) takes two parameters and uses the 'return' statement to send a value back."
   }
 ]

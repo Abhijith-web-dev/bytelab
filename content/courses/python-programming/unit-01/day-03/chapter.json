@@ -3,19 +3,17 @@
   "unitId": "unit-01",
   "dayNumber": 3,
   "order": 3,
-  "title": "Day 3: String and List Types",
-  "shortTitle": "String and List Types",
-  "description": "Basic introduction to string and list types as sequences of values.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
+  "title": "Day 3: Operators & Precedence",
+  "shortTitle": "Operators & Precedence",
+  "description": "Understand Python operators, operator precedence (order of evaluation), tuple assignment, and evaluating expressions to build simple real-world programs.",
+  "simulationType": "Type A: Process / Pipeline Simulation",
+  "estimatedMinutes": 90,
   "difficulty": "beginner",
   "outcomes": [
     "CO1"
   ],
-  "prerequisites": [
-    "day-02"
-  ],
+  "prerequisites": ["day-02"],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 6
 }

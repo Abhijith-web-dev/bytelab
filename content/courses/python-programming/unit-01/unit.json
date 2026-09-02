@@ -9,11 +9,11 @@
     "CO1"
   ],
   "chapters": [
-    "01-interpreter",
-    "02-values-types",
-    "03-variables-expressions",
-    "04-statements-operators",
-    "05-functions-intro",
-    "06-illustrative-programs"
+    "day-01",
+    "day-02",
+    "day-03",
+    "day-04",
+    "day-05",
+    "day-06"
   ]
 }

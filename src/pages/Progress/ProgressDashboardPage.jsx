@@ -99,7 +99,7 @@ export function ProgressDashboardPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {course.outcomes.map((co) => {
-              const mastery = coMastery[co.code] || 0;
+              const mastery = coMastery[co.code]?.percent || 0;
               let statusLabel = 'In Progress';
               if (mastery >= 80) statusLabel = 'Mastered';
               else if (mastery >= 50) statusLabel = 'Proficient';

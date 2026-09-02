@@ -1,14 +1,50 @@
 [
   {
     "id": "quiz-day-2-1",
-    "question": "Which of the following best describes Values and Types (int, float, boolean)?",
+    "question": "What is the output of the following code?\n```python\nnumbers = [10, 20, 30]\nprint(numbers[1])\n```",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "10",
+      "20",
+      "30",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python starts counting from 0. So numbers[0] is 10, and numbers[1] is 20."
+  },
+  {
+    "id": "quiz-day-2-2",
+    "question": "Why does this produce an error?\n```python\nnames = [\"Arun\", \"Priya\", \"Kumar\"]\nprint(names[3])\n```",
+    "options": [
+      "Because the list only has indexes 0, 1, and 2.",
+      "Because names must be numbers.",
+      "Because you cannot print names.",
+      "Because the print statement is missing a semicolon."
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "The list has 3 items, meaning the highest index is 2. Index 3 does not exist."
+  },
+  {
+    "id": "quiz-day-2-3",
+    "question": "Predict the output of the following code:\n```python\nprice = 100\nquantity = 5\ntotal = price * quantity\nprint(total)\n```",
+    "options": [
+      "105",
+      "price * quantity",
+      "500",
+      "total"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The expression `price * quantity` evaluates to 100 * 5, which is 500."
+  },
+  {
+    "id": "quiz-day-2-4",
+    "question": "Identify the expression in the following code:\n```python\nprice = 100\nquantity = 3\ntotal = price * quantity\n```",
+    "options": [
+      "price = 100",
+      "total = price * quantity",
+      "quantity = 3",
+      "price * quantity"
+    ],
+    "correctAnswer": 3,
+    "explanation": "An expression produces a value. `price * quantity` evaluates the values. The line `total = price * quantity` is an assignment statement."
   }
 ]

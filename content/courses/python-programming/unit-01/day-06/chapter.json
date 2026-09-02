@@ -1,21 +1,17 @@
 {
   "id": "day-06",
-  "unitId": "unit-01",
-  "dayNumber": 6,
-  "order": 6,
-  "title": "Day 6: Precedence of Operators",
-  "shortTitle": "Precedence of Operators",
-  "description": "Understanding how mathematical operators are evaluated using BEDMAS/PEMDAS precedence.",
-  "simulationType": "Type B: Flowchart / Decision Simulation",
-  "estimatedMinutes": 20,
+  "title": "Flow of Execution, Integration & Revision",
+  "description": "Understand how Python executes a program and combining everything learned in Days 1–5.",
   "difficulty": "beginner",
-  "outcomes": [
-    "CO1"
-  ],
-  "prerequisites": [
-    "day-05"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "simulationType": "code",
+  "outcomes": ["CO1"],
+  "order": 6,
+  "timeEstimate": 90,
+  "topics": [
+    "Flow of Execution",
+    "Function Flow",
+    "Integration",
+    "Debugging",
+    "Revision"
+  ]
 }

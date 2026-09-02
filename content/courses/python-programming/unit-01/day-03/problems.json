@@ -1,16 +1,24 @@
 [
   {
-    "id": "prob-day-3",
-    "title": "Practice: String and List Types",
-    "description": "Write a Python script that demonstrates string and list types.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for String and List Types\nprint('Success')",
+    "id": "prob-03-student-result",
+    "title": "Student Result Calculator",
+    "difficulty": "Beginner",
+    "description": "You are developing a simple student result program.\n\nA student has received marks in three subjects:\n- Maths = 80\n- Science = 75\n- English = 85\n\nWrite a Python program that:\n1. Stores the three marks in variables.\n2. Calculates the total marks.\n3. Calculates the average mark.\n4. Displays both the total and average.\n\n### Requirements\n- Create three variables for the marks.\n- Use `+` to calculate the total.\n- Use `/` to calculate the average.\n- Store the calculated values in variables.\n- Use `print()` to display the result.\n- Do not use `input()`.\n- Do not directly print the final answers.\n\n**Note:** There is no user input. Use the hardcoded values: 80, 75, 85.",
+    "starterCode": "# Write your Python program here:\n",
+    "solution": "# Subject Marks\nmaths = 80\nscience = 75\nenglish = 85\n\n# Calculations\ntotal = maths + science + english\naverage = total / 3\n\n# Output\nprint(\"Total Marks:\", total)\nprint(\"Average Marks:\", average)",
+    "exampleInput": "",
+    "exampleOutput": "Total Marks: 240\nAverage Marks: 80.0",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Total Marks: 240\nAverage Marks: 80.0",
         "isHidden": false
       }
+    ],
+    "hints": [
+      "Think about: `total = ...` and `average = ...`",
+      "The average can be calculated using: total ÷ number of subjects",
+      "Print exactly as requested: `print(\"Total Marks:\", total)`"
     ]
   }
 ]

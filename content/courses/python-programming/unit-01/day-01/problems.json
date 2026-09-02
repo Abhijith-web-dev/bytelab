@@ -1,21 +1,24 @@
 [
   {
     "id": "prob-01-student-vars",
-    "title": "Create Student Variables",
+    "title": "Student Information",
     "difficulty": "Beginner",
-    "description": "Welcome to your first Python challenge! You need to create four variables to store information about a student.\n\n### Task\nCreate the following variables and assign them the correct values:\n1. A variable named `student_name` with the string value `\"Arun\"`.\n2. A variable named `student_age` with the integer value `20`.\n3. A variable named `student_mark` with the float value `85.5`.\n4. A variable named `is_present` with the boolean value `True`.",
-    "starterCode": "# Create your variables below:\n\n\n\n\n# Do not modify the code below. It checks your work!\nprint(student_name)\nprint(student_age)\nprint(student_mark)\nprint(is_present)\n",
-    "solution": "student_name = \"Arun\"\nstudent_age = 20\nstudent_mark = 85.5\nis_present = True\n\nprint(student_name)\nprint(student_age)\nprint(student_mark)\nprint(is_present)",
+    "description": "A college wants to store basic information about a student.\n\nWrite a Python program that creates variables to store the following information:\n- Student name\n- Student age\n- Student mark\n- Whether the student is present\n\nYour program must then display the student information in the specified format.\n\n### Requirements\nCreate four variables: `student_name`, `student_age`, `student_mark`, `is_present`.\nUse the appropriate Python data type for each value (str, int, float, bool).\n\n**Note:** There is no user input for this problem. You must directly assign the following values to variables:\n- Student Name: Arun\n- Student Age: 20\n- Student Mark: 87.5\n- Present: True",
+    "starterCode": "# Write your Python program here:\n",
+    "solution": "student_name = \"Arun\"\nstudent_age = 20\nstudent_mark = 87.5\nis_present = True\n\nprint(\"Student Name:\", student_name)\nprint(\"Student Age:\", student_age)\nprint(\"Student Mark:\", student_mark)\nprint(\"Present:\", is_present)",
+    "exampleInput": "",
+    "exampleOutput": "Student Name: Arun\nStudent Age: 20\nStudent Mark: 87.5\nPresent: True",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Arun\n20\n85.5\nTrue",
+        "expectedOutput": "Student Name: Arun\nStudent Age: 20\nStudent Mark: 87.5\nPresent: True",
         "isHidden": false
       }
     ],
     "hints": [
       "Remember that strings need quotes: \"like this\".",
-      "Boolean values must start with a capital letter (True, not true)."
+      "Boolean values must start with a capital letter (True, not true).",
+      "You can pass multiple items to print() separated by commas, like: print(\"Student Name:\", student_name)"
     ]
   }
 ]

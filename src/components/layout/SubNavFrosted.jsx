@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '../ui/Button.jsx';
+import { useUIStore } from '../../stores/uiStore.js';
 
 export function SubNavFrosted({
   title,
@@ -12,8 +13,10 @@ export function SubNavFrosted({
   onCtaClick,
   rightElement
 }) {
+  const { isFocusMode } = useUIStore();
+  
   return (
-    <div className="sticky top-[56px] z-30 w-full h-[52px] bg-white/95 backdrop-blur-md border-b border-[#e5e5e5] select-none">
+    <div className={`sticky ${isFocusMode ? 'top-0' : 'top-[56px]'} z-30 w-full h-[52px] bg-white/95 backdrop-blur-md border-b border-[#e5e5e5] select-none transition-all`}>
       <div className="max-w-[1440px] h-full mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Left: Title and Breadcrumbs */}
         <div className="flex items-center gap-2 overflow-hidden">

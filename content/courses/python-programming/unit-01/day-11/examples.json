@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-11-1",
-    "title": "Basic Usage of Parameters and Arguments",
-    "code": "# Example for Parameters and Arguments\nprint('Day 11 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

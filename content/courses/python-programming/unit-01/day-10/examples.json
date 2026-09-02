@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-10-1",
-    "title": "Basic Usage of Flow of Execution",
-    "code": "# Example for Flow of Execution\nprint('Day 10 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

@@ -3,19 +3,17 @@
   "unitId": "unit-01",
   "dayNumber": 4,
   "order": 4,
-  "title": "Day 4: Variables and Comments",
-  "shortTitle": "Variables and Comments",
-  "description": "Declaring variables, naming rules, and adding inline/block comments.",
-  "simulationType": "Type A: Value / State Simulation",
-  "estimatedMinutes": 20,
+  "title": "Day 4: Python Operators Deep Dive",
+  "shortTitle": "Python Operators II",
+  "description": "Learn how operators help Python store, compare, combine, check, and manipulate values. Covers assignment, comparison, logical, identity, membership, and bitwise operators.",
+  "simulationType": "Type A: Process / Pipeline Simulation",
+  "estimatedMinutes": 90,
   "difficulty": "beginner",
   "outcomes": [
     "CO1"
   ],
-  "prerequisites": [
-    "day-03"
-  ],
+  "prerequisites": ["day-03"],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 6
 }

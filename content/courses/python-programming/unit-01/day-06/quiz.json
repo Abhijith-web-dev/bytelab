@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-6-1",
-    "question": "Which of the following best describes Precedence of Operators?",
+    "id": "q1",
+    "question": "What is the normal flow of execution in a simple Python program?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Bottom to top",
+      "Random order",
+      "Top to bottom",
+      "Middle to top"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Python normally executes statements sequentially from top to bottom."
+  },
+  {
+    "id": "q2",
+    "question": "What happens when Python encounters a function definition?",
+    "options": [
+      "The function is immediately executed",
+      "The function is defined but its body does not execute until it is called",
+      "The program stops",
+      "The function is deleted"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'def' block just registers the function. It doesn't run until explicitly called."
+  },
+  {
+    "id": "q3",
+    "question": "What is the output?\ndef greet():\n    print(\"Hello\")\n\nprint(\"Start\")\ngreet()\nprint(\"End\")",
+    "options": [
+      "Hello, Start, End",
+      "Start, End, Hello",
+      "Start, Hello, End",
+      "End, Hello, Start"
+    ],
+    "correctAnswer": 2,
+    "explanation": "It prints 'Start', then calls greet() which prints 'Hello', then prints 'End'."
+  },
+  {
+    "id": "q4",
+    "question": "What does return do inside a function?",
+    "options": [
+      "Repeats the function",
+      "Sends a value back to the caller",
+      "Defines a variable",
+      "Imports a module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'return' statement exits the function and passes a value back to the caller."
+  },
+  {
+    "id": "q5",
+    "question": "Which concept is used to store multiple values such as student marks?",
+    "options": [
+      "List",
+      "Comment",
+      "Boolean",
+      "Function call"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "A List is used to store a collection of items, like multiple student marks."
+  },
+  {
+    "id": "q6",
+    "question": "What is the output?\ndef add(a, b):\n    return a + b\n\nx = add(5, 10)\nprint(x)",
+    "options": [
+      "5",
+      "10",
+      "15",
+      "510"
+    ],
+    "correctAnswer": 2,
+    "explanation": "5 and 10 are passed to the add function which returns 15."
+  },
+  {
+    "id": "q7",
+    "question": "Which statement is correct?",
+    "options": [
+      "= compares two values",
+      "== assigns a value",
+      "= assigns a value and == compares values",
+      "Both always perform the same operation"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A single '=' is used for assigning variables, while double '==' is used for checking equality."
+  },
+  {
+    "id": "q8",
+    "question": "What is the purpose of dividing a large program into functions?",
+    "options": [
+      "To make the program longer",
+      "To make code reusable and organized",
+      "To remove all variables",
+      "To avoid using Python operators"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions help break down code into organized, reusable, and maintainable chunks."
+  },
+  {
+    "id": "q9",
+    "question": "What is the output?\nmarks = [10, 20, 30]\n\ntotal = sum(marks)\n\nprint(total)",
+    "options": [
+      "30",
+      "50",
+      "60",
+      "102030"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The built-in sum() function calculates the total of all items in the list (10+20+30=60)."
+  },
+  {
+    "id": "q10",
+    "question": "Which is the best order for solving a programming problem?",
+    "options": [
+      "Code → Guess → Input → Output",
+      "Understand problem → Identify input/output → Plan → Code → Test",
+      "Run code → Ignore errors → Submit",
+      "Copy code → Change values → Submit"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Understanding the problem, planning the inputs/outputs, coding, and then testing is the optimal problem-solving flow."
   }
 ]

@@ -1,116 +1,247 @@
-# Day 3: String and List Types
+# Day 3 — Operators, Precedence, and Expressions
 
-## 01. Concept Header
-**String and List Types**
-Basic introduction to string and list types as sequences of values.
-Difficulty: Beginner | Estimated Time: 20 min | Unit: Unit 01
+## 1. 🔄 Day 2 Quick Recap
 
-## 02. Learning Objective
-By the end of this lesson, you can:
-✓ Understand the core concepts of string and list types
-✓ Apply syntax correctly to solve problems
-✓ Trace internal state and identify common mistakes
-
-## 03. Story Hook
-**The Alphabet Necklace and the Shopping Checklist**
-Imagine you need to automate a repetitive task or manage complex data efficiently. The Alphabet Necklace and the Shopping Checklist represents how this programming concept solves real-world challenges elegantly.
-
-## 04. Problem / Motivation
-Without this concept, writing clean, robust, and scalable code would be incredibly difficult. We need a way to streamline logic and operations in Python effectively.
-
-## 05. Simple Explanation
-In simple terms, string and list types allows us to instruct the computer to handle data, make decisions, or process information predictably.
-
-## 06. Formal Explanation
-In Python, string and list types follows strict rules of execution, syntax constraints, and memory allocation governed by the Python interpreter.
-
-## 07. Mental Model
-Think of it as:
-`Input -> String and List Types Process -> Output/State Change`
-
-## 08. Visual Model
-```text
-[ String and List Types Visualization ]
-State A --------> State B
-```
-
-## 09. Syntax
+**Question 1:** What is the output?
 ```python
-# General syntax for String and List Types
-# Feature implementation
+numbers = [10, 20, 30]
+print(numbers[1])
 ```
+**Answer:** `20`
 
-## 10. Rules
-✓ Rule 1: Adhere to strict indentation if it involves blocks.
-✓ Rule 2: Observe type constraints.
-✗ Warning: Do not violate Python's execution order or scope bounds.
+**Question 2:** What is an expression?
+`price * quantity`
+**Answer:** An expression is something Python evaluates to produce a value.
 
-## 11. Smallest Example
+**Question 3:** What does this do?
+`# Calculate total price`
+**Answer:** It is a comment. Python ignores it during execution.
+
+> [!NOTE]
+> Yesterday, we learned how to store values and perform simple calculations. Today, we are going to learn how Python performs those calculations and, most importantly, which calculation happens first.
+
+---
+
+## 2. Operators
+
+### What is an Operator?
+An operator is a symbol that tells Python to perform an operation.
 ```python
-# Smallest working example
-print("Learning String and List Types")
+10 + 5
 ```
+Here:
+- `+` → operator
+- `10` → value
+- `5` → value
 
-## 12. Step-by-Step Code Explanation
-1. **Initialize:** The environment prepares variables.
-2. **Execute:** The statement runs.
-3. **Yield:** A result is generated or state is modified.
+### Arithmetic Operators
+These are the most important operators for beginners:
 
-## 13. Execution Trace
-| Line | Instruction | State |
-|---|---|---|
-| 1 | `Initialize` | `State 0` |
-| 2 | `Process` | `State 1` |
+| Operator | Meaning | Example | Result |
+| :--- | :--- | :--- | :--- |
+| `+` | Addition | `10 + 5` | `15` |
+| `-` | Subtraction | `10 - 5` | `5` |
+| `*` | Multiplication | `10 * 5` | `50` |
+| `/` | Division | `10 / 5` | `2.0` |
+| `//` | Floor division | `10 // 3` | `3` |
+| `%` | Remainder | `10 % 3` | `1` |
+| `**` | Power | `2 ** 3` | `8` |
 
-## 14. Internal State
-**BEFORE:** State is untouched.
-**AFTER:** State has been mutated or new objects created.
-
-## 15. Interactive Simulation
-(Explore the visual simulation tool to observe String and List Types in action.)
-
-## 16. Guided Example
+### Addition `+`
 ```python
-def guided_example():
-    # Demonstrating String and List Types
-    pass
+a = 10
+b = 20
+result = a + b
+print(result) # Output: 30
 ```
 
-## 17. Real-World Example
-Using this in a college registration system, banking app, or data analytics pipeline makes the implementation scalable.
-
-## 18. Compare / Contrast
-Compare this to doing things manually or using an older, more verbose approach. This concept is cleaner and faster.
-
-## 19. Common Mistakes
-- Syntax errors (missing colons, brackets)
-- Name errors (typos in variables)
-- Type errors (mismatched operations)
-
-## 20. Debugging Example
+### Subtraction `-`
 ```python
-# Broken code
-# print(wrong_variable)
-# Fix: Ensure variable exists before use.
+balance = 5000
+expense = 1500
+remaining = balance - expense
+print("Remaining Balance:", remaining) # Output: Remaining Balance: 3500
 ```
 
-## 21. Guided Practice
-Try writing a small snippet that uses String and List Types on your own. Use the code playground.
+### Multiplication `*`
+```python
+price = 50
+quantity = 5
+total = price * quantity
+print("Total:", total) # Output: Total: 250
+```
 
-## 22. Independent Practice
-Complete the practice tasks provided in the interactive sandbox.
+### Division `/`
+```python
+money = 1000
+people = 4
+share = money / people
+print("Each Person:", share) # Output: Each Person: 250.0
+```
+> [!IMPORTANT]
+> Python's `/` operator normally produces a float. `10 / 2` gives `5.0`, not `5`.
 
-## 23. Challenge
-Can you combine this concept with what you learned in previous days to build a more complex function?
+### Floor Division `//`
+Floor division gives the whole-number quotient.
+```python
+result = 10 // 3
+print(result) # Output: 3
+```
+Because: 10 ÷ 3 = 3 remainder 1. The whole-number quotient is 3.
 
-## 24. Quick Test
-Test your knowledge with the multiple choice quiz below.
+### Modulus `%`
+The `%` operator gives the remainder.
+```python
+print(10 % 3) # Output: 1
+```
+Because: 10 ÷ 3 is 3 with a remainder of 1.
 
-## 25. Reflection
-Consider how String and List Types changes the way you approach problem-solving in Python.
+### Power Operator `**`
+The `**` operator calculates powers.
+```python
+print(2 ** 3) # Output: 8
+```
+Because: 2 × 2 × 2 = 8
 
-## 26. Summary
-You have mastered String and List Types. You now know its syntax, rules, and how to debug it.
+---
 
-## 27. What Comes Next
-In the next day, we will build upon this foundation with more advanced operations.
+## 3. ⭐ Precedence of Operators
+
+This is the most important concept of Day 3.
+
+Suppose we write:
+```python
+result = 10 + 5 * 2
+```
+What is the answer?
+Some beginners may calculate: 10 + 5 = 15, then 15 × 2 = 30.
+But Python gives: **20**
+
+### What is Operator Precedence?
+Operator precedence tells Python which operation should be performed first when an expression contains multiple operators.
+
+### Beginner Precedence Order
+For the operators covered in this course, remember:
+1. `( )` — Parentheses
+2. `**` — Power
+3. `*`, `/`, `//`, `%` — Multiplication, Division, Modulus
+4. `+`, `-` — Addition, Subtraction
+
+> [!TIP]
+> A simple memory trick: **Brackets → Power → Multiply/Divide → Add/Subtract**
+
+### Parentheses Come First
+Example:
+```python
+result = (10 + 5) * 2
+```
+Python first calculates: 10 + 5 = 15. Then: 15 × 2 = 30. Output: `30`
+
+Compare:
+`10 + 5 * 2` → `20`
+`(10 + 5) * 2` → `30`
+
+### Same-Level Operators
+What happens here?
+```python
+result = 20 / 5 * 2
+```
+`/` and `*` have the same precedence. Python evaluates them from **left to right**:
+1. 20 / 5 = 4
+2. 4 × 2 = 8
+
+Answer: `8.0`
+
+---
+
+## 4. Tuple Assignment
+
+Suppose:
+```python
+name = "Arun"
+age = 20
+```
+We normally write two assignment statements. Python allows us to write:
+```python
+name, age = "Arun", 20
+```
+This is called multiple assignment or tuple assignment.
+
+### Swapping Two Values
+One of the coolest beginner-friendly Python features is swapping values.
+Suppose:
+```python
+a = 10
+b = 20
+```
+We want `a` to become `20` and `b` to become `10`. Python allows:
+```python
+a, b = b, a
+```
+Now:
+```python
+print(a) # Output: 20
+print(b) # Output: 10
+```
+
+---
+
+## 5. Expression Practice
+
+Calculate these before running the code:
+
+| Expression | Answer |
+| :--- | :--- |
+| `10 + 5 * 2` | `20` |
+| `(10 + 5) * 2` | `30` |
+| `20 / 5 + 3` | `7.0` |
+| `20 // 3` | `6` |
+| `20 % 3` | `2` |
+| `2 ** 4` | `16` |
+| `10 - 2 * 3` | `4` |
+| `(10 - 2) * 3` | `24` |
+
+---
+
+## 6. Illustrative Programs
+
+Combine everything into real-world programs.
+
+### Program 1 — Shopping Bill
+```python
+# Product prices
+price1 = 500
+price2 = 250
+price3 = 100
+
+# Calculate total
+total = price1 + price2 + price3
+print("Total Bill:", total) # Output: 850
+```
+
+### Program 2 — Calculate Average Mark
+```python
+mark1 = 80
+mark2 = 90
+mark3 = 70
+
+total = mark1 + mark2 + mark3
+average = total / 3
+
+print("Total:", total)
+print("Average:", average)
+```
+
+### Program 3 — Calculate Team Distribution
+There are 25 students. Each team contains 4 students.
+```python
+students = 25
+team_size = 4
+
+complete_teams = students // team_size
+remaining_students = students % team_size
+
+print("Complete Teams:", complete_teams)
+print("Remaining Students:", remaining_students)
+```
+*This is an excellent real-world example for understanding `//` and `%`.*

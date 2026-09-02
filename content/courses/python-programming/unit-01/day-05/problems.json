@@ -1,16 +1,40 @@
 [
   {
-    "id": "prob-day-5",
-    "title": "Practice: Expressions and Statements",
-    "description": "Write a Python script that demonstrates expressions and statements.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Expressions and Statements\nprint('Success')",
+    "id": "student-score-calculator",
+    "title": "Student Score Calculator",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 12,
+    "description": "Create a Python program that uses a user-defined function to calculate a student's total marks.\n\nThe function should:\n1. Receive three subject marks as parameters.\n2. Calculate the total.\n3. Return the total to the main program.\n\nThe main program should print the returned total.",
+    "requirements": [
+      "Create a user-defined function named `calculate_total`.",
+      "Use three parameters for the marks.",
+      "Use `return` to send the total back.",
+      "Call the function from the main program.",
+      "Store the returned value in a variable.",
+      "Print the total in the format `Total Marks: <value>`."
+    ],
+    "starterCode": "# Define your calculate_total function here\n\n\n# Main program:\n# Calculate and print the total marks\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "80\n75\n90",
+        "expectedOutput": "Total Marks: 245\n",
+        "description": "Marks: 80, 75, 90"
+      },
+      {
+        "input": "50\n60\n70",
+        "expectedOutput": "Total Marks: 180\n",
+        "description": "Marks: 50, 60, 70"
+      },
+      {
+        "input": "100\n95\n85",
+        "expectedOutput": "Total Marks: 280\n",
+        "description": "Marks: 100, 95, 85"
       }
+    ],
+    "hints": [
+      "Think about the structure:\n1. define function\n2. receive 3 marks\n3. calculate total\n4. return total\n5. call function\n6. print result",
+      "In the main program, use `input()` three times to get the marks and don't forget to convert them to `int`."
     ]
   }
 ]

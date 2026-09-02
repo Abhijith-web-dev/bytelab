@@ -84,6 +84,19 @@ export function CodePlayground({
     }
   }, [stderr, parsedError]);
 
+  // Auto-switch tabs based on results
+  useEffect(() => {
+    if (executionState === 'RUNNING') return;
+    
+    if (parsedError) {
+      setActiveTab('diagnostics');
+    } else if (testCaseResults && testCaseResults.length > 0) {
+      setActiveTab('tests');
+    } else {
+      setActiveTab('output');
+    }
+  }, [executionState, parsedError, testCaseResults]);
+
   // Jump editor cursor directly to the error line
   const handleJumpToErrorLine = (lineNum) => {
     if (editorRef.current && lineNum) {
@@ -429,50 +442,65 @@ export function CodePlayground({
           </div>
         )}
 
-        {/* TAB 3: Test Cases */}
-        {activeTab === 'tests' && (
-          <div className="space-y-2 font-sans">
-            {testCaseResults.map((tc, idx) => (
-              <div
-                key={tc.id || idx}
-                className={`p-3 rounded-[8px] border ${
-                  tc.passed
-                    ? 'bg-emerald-50/70 border-emerald-200 text-emerald-950'
-                    : 'bg-red-50/70 border-red-200 text-red-950'
-                }`}
-              >
-                <div className="flex items-center justify-between text-[13px] font-medium mb-1.5">
-                  <div className="flex items-center gap-2">
-                    {tc.passed ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-red-600 shrink-0" />
-                    )}
-                    <span>Test Case #{idx + 1} {tc.isHidden && '(Hidden Test)'}</span>
-                  </div>
-                  <span className="text-[11px] font-semibold">{tc.passed ? 'PASSED' : 'FAILED'}</span>
-                </div>
-
-                <div className="text-[12px] space-y-1 bg-white p-2.5 rounded-[6px] border border-black/5 font-mono">
-                  {tc.input && (
-                    <div>
-                      <span className="text-[#737373] font-sans">Input: </span>
-                      <span className="text-[#000000]">{tc.input}</span>
-                    </div>
-                  )}
-                  <div>
-                    <span className="text-[#737373] font-sans">Expected: </span>
-                    <span className="text-emerald-700 font-semibold">{tc.expectedOutput}</span>
-                  </div>
-                  <div>
-                    <span className="text-[#737373] font-sans">Actual: </span>
-                    <span className={`font-semibold ${tc.passed ? 'text-emerald-700' : 'text-red-600'}`}>
-                      {tc.actualOutput || '<Empty Output>'}
-                    </span>
-                  </div>
-                </div>
+        {/* TAB 3: Test Cases (Moodle CodeRunner Style) */}
+        {activeTab === 'tests' && testCaseResults && testCaseResults.length > 0 && (
+          <div className="font-sans overflow-x-auto rounded-[8px] border border-[#e5e5e5] bg-white shadow-xs">
+            <table className="w-full text-left text-[13px] border-collapse">
+              <thead>
+                <tr className="bg-[#f3f4f6] text-[#525252] border-b border-[#e5e5e5]">
+                  <th className="py-2.5 px-4 font-semibold w-[15%] border-r border-[#e5e5e5]">Test</th>
+                  <th className="py-2.5 px-4 font-semibold w-[25%] border-r border-[#e5e5e5]">Input</th>
+                  <th className="py-2.5 px-4 font-semibold w-[25%] border-r border-[#e5e5e5]">Expected</th>
+                  <th className="py-2.5 px-4 font-semibold w-[25%] border-r border-[#e5e5e5]">Got</th>
+                  <th className="py-2.5 px-4 font-semibold text-center w-[10%]">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#e5e5e5]">
+                {testCaseResults.map((tc, idx) => (
+                  <tr key={tc.id || idx} className={!tc.passed ? 'bg-red-50/30' : 'bg-white'}>
+                    <td className="py-3 px-4 font-medium text-[#111827] align-top border-r border-[#e5e5e5]">
+                      Test {idx + 1}
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap text-[#374151]">
+                      {tc.isHidden ? <span className="text-[#9ca3af] italic">Hidden Test</span> : (tc.input || '—')}
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap text-[#374151]">
+                      {tc.isHidden ? <span className="text-[#9ca3af] italic">Hidden</span> : tc.expectedOutput}
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap">
+                      <span className={tc.passed ? 'text-[#374151]' : 'text-red-700 font-semibold'}>
+                        {tc.isHidden && tc.passed ? <span className="text-[#9ca3af] italic font-normal">Hidden</span> : (tc.actualOutput || '<No Output>')}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 align-middle text-center">
+                      <div className="flex justify-center">
+                        {tc.passed ? (
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600" title="Pass">
+                            <Check className="w-4 h-4 stroke-[3]" />
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-600" title="Fail">
+                            <X className="w-4 h-4 stroke-[3]" />
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {testCaseResults.every(tc => tc.passed) && (
+              <div className="bg-[#a7f3d0] px-4 py-3 border-t border-[#34d399] flex items-center gap-2">
+                <span className="text-emerald-900 font-semibold text-[13px]">Passed all tests!</span>
+                <Check className="w-4 h-4 stroke-[3] text-emerald-700" />
               </div>
-            ))}
+            )}
+            {!testCaseResults.every(tc => tc.passed) && (
+              <div className="bg-red-100 px-4 py-3 border-t border-red-200 flex items-center gap-2">
+                <span className="text-red-900 font-semibold text-[13px]">Some tests failed. Keep trying!</span>
+                <X className="w-4 h-4 stroke-[3] text-red-700" />
+              </div>
+            )}
           </div>
         )}
       </div>

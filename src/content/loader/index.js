@@ -89,7 +89,9 @@ export function getProblems(courseId, unitId, chapterId) {
 
 export function getQuiz(courseId, unitId, chapterId) {
   const res = findGlobMatch(quizGlob, unitId, chapterId, 'quiz.json');
-  return Array.isArray(res) ? res : [];
+  if (Array.isArray(res)) return res;
+  if (res && Array.isArray(res.questions)) return res.questions;
+  return [];
 }
 
 export function getAllProblems(courseId = 'python-programming') {
@@ -114,8 +116,12 @@ export function getQuestionPool(courseId, unitId = null, chapterId = null) {
     if (key.includes(courseId)) {
       if (unitId && !key.includes(`/${unitId}/`)) continue;
       if (chapterId && !key.includes(`/${chapterId}/`)) continue;
-      const questions = quizGlob[key]?.default || quizGlob[key] || [];
-      pool.push(...questions);
+      const rawData = quizGlob[key]?.default || quizGlob[key];
+      if (Array.isArray(rawData)) {
+        pool.push(...rawData);
+      } else if (rawData && Array.isArray(rawData.questions)) {
+        pool.push(...rawData.questions);
+      }
     }
   }
   return pool;

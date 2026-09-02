@@ -16,6 +16,7 @@ const LeaderboardPage = lazy(() => import('../pages/Leaderboard/LeaderboardPage.
 const ProfilePage = lazy(() => import('../pages/Profile/ProfilePage.jsx').then(m => ({ default: m.ProfilePage })));
 const LoginPage = lazy(() => import('../pages/Auth/LoginPage.jsx').then(m => ({ default: m.LoginPage })));
 const RegisterPage = lazy(() => import('../pages/Auth/RegisterPage.jsx').then(m => ({ default: m.RegisterPage })));
+const NotFoundPage = lazy(() => import('../pages/Error/NotFoundPage.jsx').then(m => ({ default: m.NotFoundPage })));
 
 // Generic Loading Fallback for Suspense
 const PageLoader = () => (
@@ -44,7 +45,7 @@ export const router = createBrowserRouter(
         { path: 'profile', element: <Suspense fallback={<PageLoader />}><ProfilePage /></Suspense> },
         { path: 'login', element: <Suspense fallback={<PageLoader />}><LoginPage /></Suspense> },
         { path: 'register', element: <Suspense fallback={<PageLoader />}><RegisterPage /></Suspense> },
-        { path: '*', element: <Navigate to="/" replace /> }
+        { path: '*', element: <Suspense fallback={<PageLoader />}><NotFoundPage /></Suspense> }
       ]
     }
   ],

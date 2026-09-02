@@ -1,16 +1,25 @@
 [
   {
-    "id": "prob-day-4",
-    "title": "Practice: Variables and Comments",
-    "description": "Write a Python script that demonstrates variables and comments.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Variables and Comments\nprint('Success')",
+    "id": "prob-04-shopping-eligibility",
+    "title": "Online Shopping Eligibility",
+    "difficulty": "Beginner",
+    "description": "You are creating a simple online shopping eligibility program.\n\nA customer receives free delivery when:\n1. The order amount is ₹500 or more, **AND**\n2. The customer is a registered member.\n\nCreate a Python program that checks whether the customer is eligible for free delivery.\n\n### Given Information\nUse these exact values:\n- **Order Amount:** `750`\n- **Registered Member:** `True`\n\n### Requirements\n1. Create variables `order_amount` and `is_member` with the given values.\n2. Create a variable called `free_delivery`.\n3. Use the `>=` comparison operator to check the order amount.\n4. Use the `and` logical operator to combine both conditions.\n5. Store the final Boolean result in `free_delivery`.\n6. Print the result exactly as: `Free Delivery: True`\n\n**Important Instructions:**\n- Do not use `if` statements.\n- Do not use `input()`.\n- Do not directly write `True` or `False` into `free_delivery` (calculate it!).",
+    "starterCode": "# Write your Python program here:\n",
+    "solution": "order_amount = 750\nis_member = True\n\nfree_delivery = order_amount >= 500 and is_member\n\nprint(\"Free Delivery:\", free_delivery)",
+    "exampleInput": "",
+    "exampleOutput": "Free Delivery: True",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Free Delivery: True",
         "isHidden": false
       }
+    ],
+    "hints": [
+      "Create the two initial variables: `order_amount = 750` and `is_member = True`",
+      "Think about this condition: `order_amount >= 500`",
+      "Combine it with `is_member` using the `and` logical operator.",
+      "Assign the whole check to `free_delivery` and print it using `print(\"Free Delivery:\", free_delivery)`"
     ]
   }
 ]

@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-4-1",
-    "title": "Basic Usage of Variables and Comments",
-    "code": "# Example for Variables and Comments\nprint('Day 4 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

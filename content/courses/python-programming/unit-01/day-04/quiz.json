@@ -1,14 +1,74 @@
 [
   {
     "id": "quiz-day-4-1",
-    "question": "Which of the following best describes Variables and Comments?",
+    "question": "What is the output of the following code?\n```python\nscore = 100\nscore += 20\n\nprint(score)\n```",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "100",
+      "20",
+      "120",
+      "80"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`score += 20` is exactly the same as `score = score + 20`."
+  },
+  {
+    "id": "quiz-day-4-2",
+    "question": "What is the output of the following code?\n```python\nage = 20\n\nprint(age >= 18)\n```",
+    "options": [
+      "True",
+      "False",
+      "20",
+      "Error"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Because 20 is greater than or equal to 18, it results in True."
+  },
+  {
+    "id": "quiz-day-4-3",
+    "question": "What is the output of the following code?\n```python\na = True\nb = False\n\nprint(a and b)\n```",
+    "options": [
+      "True",
+      "False",
+      "1",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `and` logical operator requires both conditions to be True. Since one is False, the result is False."
+  },
+  {
+    "id": "quiz-day-4-4",
+    "question": "What is the output of the following code?\n```python\nlanguages = [\"Python\", \"Java\", \"C++\"]\n\nprint(\"Python\" in languages)\n```",
+    "options": [
+      "True",
+      "False",
+      "\"Python\"",
+      "Error"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The `in` membership operator checks if \"Python\" exists in the list. It does, so it returns True."
+  },
+  {
+    "id": "quiz-day-4-5",
+    "question": "Which operator should be used to check whether two values have the same value?",
+    "options": [
+      "=",
+      "==",
+      "is",
+      "in"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `==` operator compares two values for equality."
+  },
+  {
+    "id": "quiz-day-4-6",
+    "question": "What is the output of the following code?\n```python\nx = 10\ny = 20\n\nresult = x < 15 and y > 15\n\nprint(result)\n```",
+    "options": [
+      "True",
+      "False",
+      "Error",
+      "None"
+    ],
+    "correctAnswer": 0,
+    "explanation": "10 < 15 is True. 20 > 15 is True. True and True results in True."
   }
 ]

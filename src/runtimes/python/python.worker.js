@@ -37,16 +37,25 @@ class OutputCapture:
     def __init__(self):
         self.stdout_buffer = io.StringIO()
         self.stderr_buffer = io.StringIO()
+        self.stdin_buffer = io.StringIO()
     
-    def start(self):
+    def start(self, stdin_text=""):
         self.old_stdout = sys.stdout
         self.old_stderr = sys.stderr
+        self.old_stdin = sys.stdin
+        
+        self.stdout_buffer = io.StringIO()
+        self.stderr_buffer = io.StringIO()
+        self.stdin_buffer = io.StringIO(stdin_text)
+        
         sys.stdout = self.stdout_buffer
         sys.stderr = self.stderr_buffer
+        sys.stdin = self.stdin_buffer
     
     def stop(self):
         sys.stdout = self.old_stdout
         sys.stderr = self.old_stderr
+        sys.stdin = self.old_stdin
     
     def get_stdout(self):
         return self.stdout_buffer.getvalue()
@@ -90,12 +99,9 @@ self.onmessage = async (event) => {
         await pyodide.loadPackage('pandas');
       }
 
-      // Reset buffers and start capturing
-      await pyodide.runPythonAsync(`
-_capture.stdout_buffer = io.StringIO()
-_capture.stderr_buffer = io.StringIO()
-_capture.start()
-`);
+      // Reset buffers and start capturing with stdin
+      const escapedStdin = stdin.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n');
+      await pyodide.runPythonAsync(`_capture.start("${escapedStdin}")`);
 
       // Execute student code
       await pyodide.runPythonAsync(code);

@@ -1,14 +1,74 @@
 [
   {
     "id": "quiz-day-3-1",
-    "question": "Which of the following best describes String and List Types?",
+    "question": "What is the output of the following code?\n```python\nx = 10\ny = 5\nprint(x + y * 2)\n```",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "30",
+      "20",
+      "25",
+      "15"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because multiplication is performed before addition. 5 * 2 = 10, then 10 + 10 = 20."
+  },
+  {
+    "id": "quiz-day-3-2",
+    "question": "What is the output?\n```python\nprint((10 + 5) * 2)\n```",
+    "options": [
+      "20",
+      "25",
+      "30",
+      "15"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Parentheses are evaluated first. 10 + 5 = 15, then 15 * 2 = 30."
+  },
+  {
+    "id": "quiz-day-3-3",
+    "question": "What does the `%` operator return?",
+    "options": [
+      "Quotient",
+      "Product",
+      "Remainder",
+      "Power"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Example: 10 % 3 results in 1, which is the remainder."
+  },
+  {
+    "id": "quiz-day-3-4",
+    "question": "What is the output?\n```python\na = 10\nb = 20\n\na, b = b, a\n\nprint(a)\nprint(b)\n```",
+    "options": [
+      "10\\n20",
+      "20\\n10",
+      "30",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python swaps the values via tuple assignment: a becomes 20 and b becomes 10."
+  },
+  {
+    "id": "quiz-day-3-5",
+    "question": "What is the output?\n```python\nresult = 20 // 3\nremainder = 20 % 3\n\nprint(result)\nprint(remainder)\n```",
+    "options": [
+      "6\\n2",
+      "6.66\\n2",
+      "7\\n1",
+      "6\\n3"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "20 // 3 gives the quotient (6), and 20 % 3 gives the remainder (2)."
+  },
+  {
+    "id": "quiz-day-3-6",
+    "question": "What is the output?\n```python\nx = 5\ny = 2\nz = 3\nresult = x + y * z ** 2\nprint(result)\n```",
+    "options": [
+      "63",
+      "41",
+      "23",
+      "441"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Power first: 3 ** 2 = 9. Multiplication next: 2 * 9 = 18. Addition last: 5 + 18 = 23."
   }
 ]
