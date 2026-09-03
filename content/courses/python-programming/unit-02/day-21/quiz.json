@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-21-1",
-    "question": "Which of the following best describes Recursion?",
+    "id": "q1",
+    "question": "Which Python standard library module provides predefined constants for ASCII letters, digits, and punctuation?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "math",
+      "string",
+      "array",
+      "random"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `string` module provides convenient string constants like `ascii_letters`, `digits`, and `punctuation`."
+  },
+  {
+    "id": "q2",
+    "question": "What string is printed by `import string; print(string.digits)`?",
+    "options": [
+      "12345",
+      "0123456789",
+      "\"digits\"",
+      "A list of integers from 0 to 9"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`string.digits` is a string constant containing all ten decimal digit characters `'0123456789'`."
+  },
+  {
+    "id": "q3",
+    "question": "Which built-in Python data structure is commonly utilized as a dynamic, 1-dimensional array?",
+    "options": [
+      "Dictionary",
+      "Tuple",
+      "List",
+      "Set"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Lists in Python provide mutable, indexable, and dynamically sized sequences that act as general-purpose arrays."
+  },
+  {
+    "id": "q4",
+    "question": "What is the index of the first element in `numbers = [10, 20, 30]`?",
+    "options": [
+      "1",
+      "0",
+      "-1",
+      "3"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In Python, sequence indexing begins at 0."
+  },
+  {
+    "id": "q5",
+    "question": "Which list method appends an item to the end of a list in place?",
+    "options": [
+      "insert()",
+      "append()",
+      "add()",
+      "push()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`append(x)` adds element `x` to the very end of the list."
+  },
+  {
+    "id": "q6",
+    "question": "What does the `len(numbers)` call return for a list?",
+    "options": [
+      "The value of the last item",
+      "The mathematical sum of the list",
+      "The total number of elements contained in the list",
+      "The maximum value in the list"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`len()` returns the count of items present in any sequence."
+  },
+  {
+    "id": "q7",
+    "question": "Which loop construct directly traverses each element of a list without requiring manual index counters?",
+    "options": [
+      "for",
+      "if",
+      "try",
+      "def"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "The `for item in list:` loop iterates sequentially over every element directly."
+  },
+  {
+    "id": "q8",
+    "question": "Which condition accurately tests whether an integer `number` is an even number?",
+    "options": [
+      "number / 2 == 0",
+      "number % 2 == 0",
+      "number // 2 == 0",
+      "number * 2 == 0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The modulus operator `%` returns the remainder of division; `number % 2 == 0` is True for all even numbers."
+  },
+  {
+    "id": "q9",
+    "question": "What is the sum of the elements in `[10, 20, 30]`?",
+    "options": [
+      "30",
+      "40",
+      "50",
+      "60"
+    ],
+    "correctAnswer": 3,
+    "explanation": "10 + 20 + 30 = 60."
+  },
+  {
+    "id": "q10",
+    "question": "Which Python statement modifies the first element of `numbers = [10, 20, 30]` to 100?",
+    "options": [
+      "numbers[0] = 100",
+      "numbers[0] == 100",
+      "numbers(0) = 100",
+      "numbers{0} = 100"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lists are mutable; `numbers[0] = 100` reassigns the element at index 0 using square-bracket subscription."
   }
 ]

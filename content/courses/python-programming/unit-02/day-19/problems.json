@@ -1,16 +1,41 @@
 [
   {
-    "id": "prob-day-19",
-    "title": "Practice: Fruitful Functions & Return Values",
-    "description": "Write a Python script that demonstrates fruitful functions & return values.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Fruitful Functions & Return Values\nprint('Success')",
+    "id": "recursive-number-calculator",
+    "title": "Recursive Number Calculator",
+    "difficulty": "intermediate",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "Write a Python program that uses pure recursive functions to perform three fundamental mathematical operations: factorial, exponentiation, and greatest common divisor (GCD).\n\n### Functional Requirements\n1. `factorial(n)`: Recursively computes $n!$. The base case is $n \\le 1 \\implies 1$.\n2. `power(base, exponent)`: Recursively computes $\\text{base}^{\\text{exponent}}$. The base case is $\\text{exponent} == 0 \\implies 1$.\n3. `gcd(a, b)`: Recursively computes the Greatest Common Divisor using Euclid's algorithm. The base case is $b == 0 \\implies a$.\n4. **Constraint:** Do not use built-in helpers like `math.factorial()`, `pow()`, or loop constructs for calculations.\n\n### Input Format\n5 lines of standard input:\n- Line 1: integer $n$ (for factorial)\n- Line 2: integer $\\text{base}$ (for power)\n- Line 3: integer $\\text{exponent}$ (for power)\n- Line 4: integer $a$ (for GCD)\n- Line 5: integer $b$ (for GCD)\n\n### Output Format\n```text\nFactorial = <fact_result>\nPower = <power_result>\nGCD = <gcd_result>\n```",
+    "requirements": [
+      "Implement recursive `factorial(n)` with base case $n \\le 1$.",
+      "Implement recursive `power(base, exponent)` with base case $\\text{exponent} == 0$.",
+      "Implement recursive `gcd(a, b)` using $\\text{gcd}(b, a \\% b)$ with base case $b == 0$.",
+      "Read all 5 inputs and print formatted outputs."
+    ],
+    "starterCode": "# Define recursive factorial(n) function (base case: n <= 1)\n\n# Define recursive power(base, exponent) function (base case: exponent == 0)\n\n# Define recursive gcd(a, b) function (base case: b == 0)\n\n# Read 5 input values from standard input\n\n# Compute factorial, power, and GCD using your recursive functions\n\n# Display the results matching the required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "5\n2\n4\n48\n18",
+        "expectedOutput": "Factorial = 120\nPower = 16\nGCD = 6\n",
+        "description": "5! = 120, 2^4 = 16, GCD(48, 18) = 6"
+      },
+      {
+        "input": "4\n3\n3\n12\n8",
+        "expectedOutput": "Factorial = 24\nPower = 27\nGCD = 4\n",
+        "description": "4! = 24, 3^3 = 27, GCD(12, 8) = 4"
+      },
+      {
+        "input": "0\n5\n0\n25\n10",
+        "expectedOutput": "Factorial = 1\nPower = 1\nGCD = 5\n",
+        "description": "0! = 1, 5^0 = 1, GCD(25, 10) = 5"
       }
+    ],
+    "hints": [
+      "Factorial: `if n <= 1: return 1` else `return n * factorial(n - 1)`.",
+      "Power: `if exponent == 0: return 1` else `return base * power(base, exponent - 1)`.",
+      "GCD: `if b == 0: return a` else `return gcd(b, a % b)`.",
+      "Input reading: `n = int(input())`, `b = int(input())`, `e = int(input())`, `g1 = int(input())`, `g2 = int(input())`.",
+      "Print format: `print(f'Factorial = {factorial(n)}')`, etc."
     ]
   }
 ]

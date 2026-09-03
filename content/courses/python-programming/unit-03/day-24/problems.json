@@ -1,0 +1,37 @@
+[
+  {
+    "id": "student-list-manager",
+    "title": "Student List Manager",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "Write a Python program that manages a dynamic roster of student names using list operations.\n\n### Requirements\n1. Read the number of initial students $N$ from standard input.\n2. Read $N$ student names and store them in a list `students`.\n3. Display the full list, first student (`students[0]`), and last student (`students[-1]`).\n4. Read a new student name, append it to the list, and display the updated list under `After adding:`.\n5. Read a student name to remove:\n   - If the name exists in the list, remove it and display the updated list under `After removing:`.\n   - If the name does not exist, display `Student not found` followed by `Final list:` and the current list.\n\n### Input Format\n- Line 1: Integer $N$\n- Next $N$ lines: Initial student names\n- Next line: New student name to add\n- Next line: Student name to remove\n\n### Output Format\n```text\nStudents = <list>\nFirst student = <name>\nLast student = <name>\nAfter adding:\n<list>\nAfter removing: (or Final list: preceded by Student not found)\n<list>\n```",
+    "requirements": [
+      "Read $N$ student names into a list.",
+      "Access first and last elements using indexing.",
+      "Append a new student name.",
+      "Check membership using `in` and remove using `remove()` if present.",
+      "Display formatted status messages matching the test cases."
+    ],
+    "starterCode": "# Read number of students N from standard input\n\n# Read N student names into a list\n\n# Display initial list, first student, and last student\n\n# Read new student name, add to list, and display updated list\n\n# Read student name to remove, check if present, remove or print error, and display final list\n",
+    "testCases": [
+      {
+        "input": "3\nArun\nMeena\nKumar\nPriya\nMeena",
+        "expectedOutput": "Students = ['Arun', 'Meena', 'Kumar']\nFirst student = Arun\nLast student = Kumar\nAfter adding:\n['Arun', 'Meena', 'Kumar', 'Priya']\nAfter removing:\n['Arun', 'Kumar', 'Priya']\n",
+        "description": "Add new student 'Priya' and successfully remove 'Meena'"
+      },
+      {
+        "input": "2\nRavi\nAnu\nKiran\nJohn",
+        "expectedOutput": "Students = ['Ravi', 'Anu']\nFirst student = Ravi\nLast student = Anu\nAfter adding:\n['Ravi', 'Anu', 'Kiran']\nStudent not found\nFinal list:\n['Ravi', 'Anu', 'Kiran']\n",
+        "description": "Add 'Kiran', then attempt to remove missing student 'John'"
+      }
+    ],
+    "hints": [
+      "Read size: `size = int(input())`.",
+      "Read names: `students = [input() for _ in range(size)]`.",
+      "First & last: `students[0]` and `students[-1]`.",
+      "Append: `students.append(input())`.",
+      "Removal: check `if target in students: students.remove(target) ... else: print('Student not found') ...`."
+    ]
+  }
+]

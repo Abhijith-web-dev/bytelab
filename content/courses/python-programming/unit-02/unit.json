@@ -9,11 +9,15 @@
     "CO2"
   ],
   "chapters": [
-    "01-booleans-conditionals",
-    "02-iteration-loops",
-    "03-fruitful-functions-scope",
-    "04-recursion",
-    "05-strings-methods",
-    "06-illustrative-gcd-newton"
+    "day-13",
+    "day-14",
+    "day-15",
+    "day-16",
+    "day-17",
+    "day-18",
+    "day-19",
+    "day-20",
+    "day-21",
+    "day-22"
   ]
 }

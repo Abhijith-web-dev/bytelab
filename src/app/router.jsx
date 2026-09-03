@@ -37,6 +37,7 @@ export const router = createBrowserRouter(
         { path: 'courses/:courseId', element: <Suspense fallback={<PageLoader />}><CourseOverviewPage /></Suspense> },
         { path: 'courses/:courseId/unit/:unitId', element: <Suspense fallback={<PageLoader />}><UnitOverviewPage /></Suspense> },
         { path: 'courses/:courseId/chapter/:chapterId', element: <Suspense fallback={<PageLoader />}><LessonPage /></Suspense> },
+        { path: 'courses/:courseId/unit/:unitId/chapter/:chapterId', element: <Suspense fallback={<PageLoader />}><LessonPage /></Suspense> },
         { path: 'practice', element: <Suspense fallback={<PageLoader />}><PracticePage /></Suspense> },
         { path: 'practice/:problemId', element: <Suspense fallback={<PageLoader />}><PracticePage /></Suspense> },
         { path: 'tests', element: <Suspense fallback={<PageLoader />}><TestSessionPage /></Suspense> },

@@ -1,0 +1,31 @@
+{
+  "id": "day-24",
+  "unitId": "unit-03",
+  "dayNumber": 1,
+  "order": 1,
+  "title": "Day 1: Introduction to Lists and List Operations",
+  "shortTitle": "Introduction to Lists",
+  "description": "Master the fundamentals of Python lists: sequence container characteristics, zero-based and negative indexing, slicing, mutability, dynamic modifications (append, insert, extend, pop, remove, del), and traversal.",
+  "difficulty": "beginner",
+  "simulationType": "code",
+  "outcomes": [
+    "CO3"
+  ],
+  "estimatedMinutes": 90,
+  "prerequisites": [
+    "day-22"
+  ],
+  "topics": [
+    "Introduction to Lists: Containers, Sequences & Characteristics",
+    "Creating Lists: Heterogeneous Types & Empty Initializations",
+    "List Indexing: Positive (0 to N-1) and Negative (-1 to -N)",
+    "List Slicing: Bounds, Steps, and Reversals",
+    "List Mutability: In-Place Modification & Slice Assignment",
+    "Adding Elements: append(), insert(), and extend()",
+    "Removing Elements: remove(), pop(), and del",
+    "Membership & Length: in, not in, and len()",
+    "List Traversal: Direct, Index-Based, and enumerate()",
+    "Practice Problem: Student List Manager",
+    "Unit-III Day 1 Knowledge Assessment"
+  ]
+}

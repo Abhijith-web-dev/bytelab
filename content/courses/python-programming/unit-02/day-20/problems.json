@@ -1,16 +1,44 @@
 [
   {
-    "id": "prob-day-20",
-    "title": "Practice: Scope (Local/Global) & Function Composition",
-    "description": "Write a Python script that demonstrates scope (local/global) & function composition.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Scope (Local/Global) & Function Composition\nprint('Success')",
+    "id": "student-string-analyzer",
+    "title": "Student String Analyzer",
+    "difficulty": "intermediate",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "Write a Python program that reads a single line of text from standard input and performs a comprehensive string analysis.\n\n### Requirements\nCompute and output the following metrics:\n1. **Length**: Total number of characters including spaces and symbols (`len(text)`).\n2. **Vowels**: Number of vowel characters (`a`, `e`, `i`, `o`, `u`), case-insensitive.\n3. **Digits**: Number of numeric digit characters (`0-9`).\n4. **Words**: Number of words separated by whitespace (`len(text.split())`).\n5. **Reverse**: The reversed string using string slicing (`text[::-1]`).\n6. **Palindrome**: Boolean flag (`True` or `False`) indicating whether the string reads identically forward and backward (`text == text[::-1]`).\n\n### Input Format\nA single line of text.\n\n### Output Format\n```text\nLength = <length>\nVowels = <vowels>\nDigits = <digits>\nWords = <words>\nReverse = <reversed_string>\nPalindrome = <True|False>\n```",
+    "requirements": [
+      "Read a line of text from standard input.",
+      "Calculate character length, vowel count, digit count, and word count.",
+      "Compute reversed string via slicing `[::-1]`.",
+      "Determine palindrome equality.",
+      "Output metrics using the exact formatting."
+    ],
+    "starterCode": "# Read a line of text from standard input\n\n# Compute length, count vowels (a, e, i, o, u case-insensitive), count digits, count words\n\n# Compute the reversed string and determine if the original is a palindrome\n\n# Display results matching the exact required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "madam 123",
+        "expectedOutput": "Length = 9\nVowels = 2\nDigits = 3\nWords = 2\nReverse = 321 madam\nPalindrome = False\n",
+        "description": "String with spaces and digits: 'madam 123'"
+      },
+      {
+        "input": "level",
+        "expectedOutput": "Length = 5\nVowels = 2\nDigits = 0\nWords = 1\nReverse = level\nPalindrome = True\n",
+        "description": "Palindrome word: 'level'"
+      },
+      {
+        "input": "Python123",
+        "expectedOutput": "Length = 9\nVowels = 1\nDigits = 3\nWords = 1\nReverse = 321nohtyP\nPalindrome = False\n",
+        "description": "Alphanumeric text: 'Python123'"
       }
+    ],
+    "hints": [
+      "Read input: `text = input()`.",
+      "Length: `len(text)`.",
+      "Vowels: `sum(1 for ch in text if ch.lower() in 'aeiou')`.",
+      "Digits: `sum(1 for ch in text if ch.isdigit())`.",
+      "Words: `len(text.split())`.",
+      "Reverse: `text[::-1]`.",
+      "Palindrome: `text == text[::-1]`."
     ]
   }
 ]

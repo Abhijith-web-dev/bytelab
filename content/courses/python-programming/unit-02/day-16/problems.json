@@ -1,16 +1,44 @@
 [
   {
-    "id": "prob-day-16",
-    "title": "Practice: Iteration State & The while Loop",
-    "description": "Write a Python script that demonstrates iteration state & the while loop.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Iteration State & The while Loop\nprint('Success')",
+    "id": "find-even-and-odd-numbers",
+    "title": "Find Even and Odd Numbers",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program that reads integers from standard input, stores them in a list, and traverses the list using a `for` loop.\n\n### Requirements\n1. Read all input lines into a list of integers until input ends.\n2. Print the header `Even Numbers:`.\n3. Traverse the list using a `for` loop:\n   - If a number is `0`, immediately stop processing using `break`.\n   - If a number is odd, skip it using `continue`.\n   - If a number is even, print it on its own line.\n\n### Output Format\n```text\nEven Numbers:\n<even_num_1>\n<even_num_2>\n...\n```",
+    "requirements": [
+      "Store input integers in a list.",
+      "Print the exact header `Even Numbers:`.",
+      "Traverse the list with a `for` loop.",
+      "Use `break` when `0` is encountered.",
+      "Use `continue` to bypass odd numbers.",
+      "Print each matching even number on a new line."
+    ],
+    "starterCode": "# Read integer inputs from standard input into a list\n\n# Print the header: Even Numbers:\n\n# Traverse the list using a for loop:\n# 1. If number is 0, stop processing using break\n# 2. If number is odd (number % 2 != 0), skip using continue\n# 3. Print the even number\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "10\n15\n20\n7\n8\n25\n30\n11\n40\n5",
+        "expectedOutput": "Even Numbers:\n10\n20\n8\n30\n40\n",
+        "description": "Filters odd numbers (15, 7, 25, 11, 5) and outputs even numbers"
+      },
+      {
+        "input": "5\n7\n0\n10\n20\n30",
+        "expectedOutput": "Even Numbers:\n",
+        "description": "Stops on 0 before any even number is encountered"
+      },
+      {
+        "input": "12\n18\n25\n33\n40\n51\n62\n73\n84\n95",
+        "expectedOutput": "Even Numbers:\n12\n18\n40\n62\n84\n",
+        "description": "Outputs even numbers: 12, 18, 40, 62, 84"
       }
+    ],
+    "hints": [
+      "Read all inputs: import sys; numbers = [int(line.strip()) for line in sys.stdin if line.strip()].",
+      "Print header: `print('Even Numbers:')`.",
+      "Loop: `for num in numbers:`.",
+      "Check break condition first: `if num == 0: break`.",
+      "Check odd condition next: `if num % 2 != 0: continue`.",
+      "Print even number: `print(num)`."
     ]
   }
 ]

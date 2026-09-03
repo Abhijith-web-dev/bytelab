@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-21-1",
-    "title": "Basic Usage of Recursion",
-    "code": "# Example for Recursion\nprint('Day 21 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

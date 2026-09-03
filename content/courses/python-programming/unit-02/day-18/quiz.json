@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-18-1",
-    "question": "Which of the following best describes Loop Control: break, continue, pass?",
+    "id": "q1",
+    "question": "What is variable scope in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "The memory size allocated to store a variable",
+      "The section of a program where a variable is accessible and valid",
+      "The number of times a variable has been mutated",
+      "The return type of an enclosing function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Scope defines the architectural boundary within a program where a variable's identifier can be resolved and accessed."
+  },
+  {
+    "id": "q2",
+    "question": "Where is a variable with local scope defined and initialized?",
+    "options": [
+      "Inside the body or parameter list of a function",
+      "At the very top of a Python module file",
+      "Exclusively inside loop headers",
+      "Inside docstring comments"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Variables defined inside a function or received as parameters belong exclusively to that function's local scope."
+  },
+  {
+    "id": "q3",
+    "question": "What is printed by the following code?\n```python\nx = 100\n\ndef test():\n    x = 50\n    print(x)\n\ntest()\nprint(x)\n```",
+    "options": [
+      "100 then 50",
+      "50 then 100",
+      "50 then 50",
+      "100 then 100"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inside test(), the local assignment `x = 50` shadows the global variable and prints 50. Outside, global `x` remains 100."
+  },
+  {
+    "id": "q4",
+    "question": "What is the primary role of the `global` keyword inside a function?",
+    "options": [
+      "It makes the function accessible from other Python packages",
+      "It instructs Python that assignments to a variable name target the module-level global variable",
+      "It converts local variables into persistent database entities",
+      "It prevents other functions from reading a variable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Without `global`, assigning to a variable inside a function creates a local variable. `global` redirects assignments to the module-level variable."
+  },
+  {
+    "id": "q5",
+    "question": "What does function composition describe in software architecture?",
+    "options": [
+      "Defining two functions with identical names",
+      "Feeding the output of one function directly into the input parameters of another function",
+      "Writing two loops inside the same function body",
+      "Combining two dictionary structures into a list"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Function composition connects functions in series, where each function processes the result delivered by the preceding function."
+  },
+  {
+    "id": "q6",
+    "question": "What is printed by this composite call?\n```python\ndef double(n):\n    return n * 2\n\ndef add_five(n):\n    return n + 5\n\nresult = add_five(double(10))\nprint(result)\n```",
+    "options": [
+      "15",
+      "20",
+      "25",
+      "30"
+    ],
+    "correctAnswer": 2,
+    "explanation": "double(10) returns 20; add_five(20) computes 20 + 5 = 25."
+  },
+  {
+    "id": "q7",
+    "question": "What is the recommended design pattern for passing data cleanly between functions?",
+    "options": [
+      "Using parameters and return values to create explicit data pipelines",
+      "Modifying shared global variables across all functions",
+      "Writing all logic into a single monolithic script",
+      "Storing temporary values in print() statements"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Passing data explicitly through parameters and return values ensures modular, testable, and maintainable software."
+  },
+  {
+    "id": "q8",
+    "question": "What happens when executing the following snippet?\n```python\ndef calculate():\n    total = 100\n\ncalculate()\nprint(total)\n```",
+    "options": [
+      "It prints 100",
+      "It prints 0",
+      "A NameError occurs because total exists only within the local scope of calculate()",
+      "It prints None"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`total` is local to `calculate()`. Outside the function, `total` does not exist in the global namespace, raising a NameError."
+  },
+  {
+    "id": "q9",
+    "question": "Why is relying on global variables for routine communication between functions considered poor practice?",
+    "options": [
+      "Parameters and return values make data flow explicit, isolated, and easier to test without unexpected side-effects",
+      "Global variables take ten times more memory to store in Python",
+      "Global variables cannot store numbers or strings",
+      "Python forbids declaring more than three global variables"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Excessive global variable use creates hidden dependencies, makes debugging difficult, and prevents unit testing in isolation."
+  },
+  {
+    "id": "q10",
+    "question": "What is the output of the following composite function call?\n```python\ndef first():\n    return 10\n\ndef second(value):\n    return value * 3\n\nresult = second(first())\nprint(result)\n```",
+    "options": [
+      "10",
+      "13",
+      "30",
+      "33"
+    ],
+    "correctAnswer": 2,
+    "explanation": "first() returns 10; second(10) computes 10 * 3 = 30."
   }
 ]

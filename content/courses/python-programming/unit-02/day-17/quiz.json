@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-17-1",
-    "question": "Which of the following best describes The for Loop & range()?",
+    "id": "q1",
+    "question": "What defines a fruitful function in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A function that computes and returns a useful value to its caller",
+      "A function that strictly prints strings to the console",
+      "A function that takes zero parameters",
+      "A function that contains an infinite while loop"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "A fruitful function produces a result and uses the `return` statement to send that value back to the caller."
+  },
+  {
+    "id": "q2",
+    "question": "Which Python keyword is used to pass a computed value back from a function to the caller?",
+    "options": [
+      "send",
+      "return",
+      "output",
+      "yield_result"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `return` statement terminates function execution and specifies the value to be delivered back."
+  },
+  {
+    "id": "q3",
+    "question": "What is the output of the following code?\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(10, 20)\nprint(result)\n```",
+    "options": [
+      "10",
+      "20",
+      "30",
+      "None"
+    ],
+    "correctAnswer": 2,
+    "explanation": "add(10, 20) evaluates to 30, which is returned and assigned to `result`, then printed."
+  },
+  {
+    "id": "q4",
+    "question": "What is the primary operational distinction between `print()` and `return`?",
+    "options": [
+      "They perform identical operations in modern Python",
+      "print() displays a human-readable value, while return delivers a data value back to the program",
+      "return can only yield string types, while print() handles numbers",
+      "print() terminates function execution, whereas return continues running"
+    ],
+    "correctAnswer": 1,
+    "explanation": "print() produces console output for human observation; return yields data that can be captured in variables and used in further logic."
+  },
+  {
+    "id": "q5",
+    "question": "In the definition `def square(number): return number * number`, what is `number`?",
+    "options": [
+      "An argument",
+      "A parameter",
+      "A global variable",
+      "A method call"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A parameter is the variable declared in the function header that receives data when the function is called."
+  },
+  {
+    "id": "q6",
+    "question": "In the invocation `area = square(5)`, what is the value `5`?",
+    "options": [
+      "A parameter",
+      "An argument",
+      "A function signature",
+      "A return statement"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An argument is the actual value or expression passed into a function when calling it."
+  },
+  {
+    "id": "q7",
+    "question": "What data type does the function `def is_even(n): return n % 2 == 0` return?",
+    "options": [
+      "Integer",
+      "String",
+      "Boolean",
+      "List"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The equality comparison `n % 2 == 0` evaluates directly to either `True` or `False`, which is a Boolean."
+  },
+  {
+    "id": "q8",
+    "question": "What occurs the moment Python executes a `return` statement inside a function?",
+    "options": [
+      "It executes the rest of the function body before returning",
+      "It terminates that function execution immediately and delivers the value to the caller",
+      "It restarts the function from the first line",
+      "It prints the returned value automatically"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Executing `return` halts function execution immediately; any subsequent statements in the function body are unreachable."
+  },
+  {
+    "id": "q9",
+    "question": "What value is returned by default if a Python function finishes executing without an explicit `return` statement?",
+    "options": [
+      "0",
+      "False",
+      "None",
+      "\"\" (Empty string)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In Python, functions without an explicit return statement implicitly return `None` upon reaching the end."
+  },
+  {
+    "id": "q10",
+    "question": "Which of the following defines a fruitful function?",
+    "options": [
+      "def greet(): print('Hello')",
+      "def show_menu(): print('1. Start'); print('2. Exit')",
+      "def add(a, b): return a + b",
+      "def log_status(): pass"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`def add(a, b): return a + b` explicitly returns the computed sum, making it a fruitful function."
   }
 ]

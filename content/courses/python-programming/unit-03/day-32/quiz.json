@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-32-1",
-    "question": "Which of the following best describes Linear Search?",
+    "id": "q1",
+    "question": "What does sorting mean in computer science?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Removing duplicate values from a list",
+      "Arranging data into a specific order (e.g., ascending or descending)",
+      "Duplicating a collection into a new variable",
+      "Reversing a list in-place"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sorting refers to systematically arranging items in a defined sequence such as numerical or alphabetical order."
+  },
+  {
+    "id": "q2",
+    "question": "What is the primary mechanism of Selection Sort?",
+    "options": [
+      "Splitting the list in half recursively",
+      "Repeatedly finding the minimum unsorted element and swapping it into place",
+      "Randomly exchanging adjacent pairs until sorted",
+      "Deleting and re-inserting elements into a dictionary"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Selection Sort scans the unsorted slice to find the minimum value and swaps it into the target position at the front."
+  },
+  {
+    "id": "q3",
+    "question": "Which operation is most fundamentally associated with Selection Sort?",
+    "options": [
+      "Swapping",
+      "Shifting",
+      "Hashing",
+      "Concatenation"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Selection Sort identifies the minimum element and performs a single swap with the current target index."
+  },
+  {
+    "id": "q4",
+    "question": "What is the primary mechanism of Insertion Sort?",
+    "options": [
+      "Finding the maximum element and deleting it",
+      "Taking the next element and inserting it into its correct position by shifting larger elements",
+      "Reversing the list after every comparison",
+      "Splitting values into separate lists"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Insertion Sort behaves like sorting playing cards: it takes an item, shifts larger elements to the right, and inserts the item in the vacated slot."
+  },
+  {
+    "id": "q5",
+    "question": "Which operation is most fundamentally associated with Insertion Sort?",
+    "options": [
+      "Shifting",
+      "Deleting",
+      "Hashing",
+      "Partitioning"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Insertion Sort relies on shifting elements one position to the right to open space for the incoming value."
+  },
+  {
+    "id": "q6",
+    "question": "What is the state of the list `[5, 3, 4, 1, 2]` after the first pass of Selection Sort?",
+    "options": [
+      "[5, 3, 4, 2, 1]",
+      "[1, 3, 4, 5, 2]",
+      "[3, 5, 4, 1, 2]",
+      "[2, 3, 4, 1, 5]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The minimum element is 1 (at index 3). Swapping 1 with index 0 (value 5) results in [1, 3, 4, 5, 2]."
+  },
+  {
+    "id": "q7",
+    "question": "Which Python syntax performs an in-place swap of two variables without a temporary variable?",
+    "options": [
+      "a = b",
+      "a, b = b, a",
+      "a == b",
+      "a is b"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python tuple assignment `a, b = b, a` evaluates the right-hand expressions first and simultaneously rebinds the variables."
+  },
+  {
+    "id": "q8",
+    "question": "Why does Insertion Sort store `numbers[i]` in a variable `current` before shifting?",
+    "options": [
+      "To preserve the element while larger elements are shifted rightward over its original slot",
+      "To convert the number to a float",
+      "To reverse the order of iteration",
+      "To prevent Python from clearing the list"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shifting elements rightward overwrites positions in the list, so the value to be inserted must be preserved in a temporary variable."
+  },
+  {
+    "id": "q9",
+    "question": "Which built-in operation should NOT be called when practicing manual sorting algorithms?",
+    "options": [
+      "len()",
+      "range()",
+      "sort()",
+      "print()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Calling sort() or sorted() bypasses the manual algorithm logic, defeating the learning objective of practicing nested loops and swaps."
+  },
+  {
+    "id": "q10",
+    "question": "Which statement accurately contrasts Selection Sort and Insertion Sort?",
+    "options": [
+      "Selection Sort uses Find + Swap; Insertion Sort uses Take + Shift + Insert",
+      "Selection Sort uses Shift + Insert; Insertion Sort uses Find + Swap",
+      "Both algorithms only work on reverse-sorted lists",
+      "Both algorithms require dictionary data structures"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Selection Sort focuses on finding the extreme value and swapping; Insertion Sort focuses on shifting elements to insert the current item."
   }
 ]

@@ -1,21 +1,30 @@
 {
   "id": "day-18",
   "unitId": "unit-02",
-  "dayNumber": 18,
-  "order": 18,
-  "title": "Day 18: Loop Control: break, continue, pass",
-  "shortTitle": "Loop Control: break, continue, pass",
-  "description": "Controlling execution flow from inside a loop.",
-  "simulationType": "Type C: Loop Timeline Simulation",
-  "estimatedMinutes": 20,
-  "difficulty": "beginner",
+  "dayNumber": 6,
+  "order": 6,
+  "title": "Day 6: Scope, Function Composition & Passing Values",
+  "shortTitle": "Scope, Composition & Value Flow",
+  "description": "Understand variable visibility across local and global scopes, wield the global keyword with care, and design clean software pipelines using function composition and parameter passing.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-17"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "Understanding Variable Scope: Where Can Variables Live?",
+    "Local Scope: Variables Confined to Function Executions",
+    "Global Scope: Module-Level Declarations & Reading Rules",
+    "Variable Shadowing: When Local Names Match Global Names",
+    "The global Keyword: Use Cases, Mechanics & Architectural Pitfalls",
+    "Clean Communication: Parameters, Arguments, and Return Pipelines",
+    "Function Composition: Chaining Outputs Directly into Inputs",
+    "Multi-Stage Processing Pipelines (Student Grading, E-commerce, Salary)",
+    "Practice Problem: Student Result Processing Pipeline",
+    "Unit-II Day 6 Knowledge Assessment"
+  ]
 }

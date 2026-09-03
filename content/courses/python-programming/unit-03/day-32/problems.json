@@ -1,16 +1,43 @@
 [
   {
-    "id": "prob-day-32",
-    "title": "Practice: Linear Search",
-    "description": "Write a Python script that demonstrates linear search.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Linear Search\nprint('Success')",
+    "id": "sort-student-marks-selection-sort",
+    "title": "Sort Student Marks Using Selection Sort",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "A teacher has a list of student marks that are not arranged in order.\n\nCreate a Python program that sorts the marks in ascending order using the **Selection Sort** algorithm.\n\n### Requirements\n1. Read 5 integer marks from standard input (one per line) and store them in a list.\n2. Implement the Selection Sort algorithm manually using nested loops:\n   - An outer loop to choose each target position.\n   - An inner loop to find the index of the minimum element in the remaining unsorted part.\n   - Swap the minimum element with the current target position.\n3. Print the sorted list in the exact format shown below.\n4. **Do not use Python's built-in `.sort()` or `sorted()`.**\n\n### Input Format\n5 lines, each containing one integer mark.\n\n### Output Format\n```text\nSorted Marks: [mark1, mark2, mark3, mark4, mark5]\n```",
+    "requirements": [
+      "Read 5 marks from user input into a list.",
+      "Implement Selection Sort using nested loops.",
+      "Track `min_index` during the inner loop pass.",
+      "Swap values using Python tuple assignment.",
+      "Do not use `sort()` or `sorted()`.",
+      "Output: `Sorted Marks: <list>`."
+    ],
+    "starterCode": "# Read 5 integer marks into a list\n\n# Implement Selection Sort manually:\n# 1. Outer loop to select each position i\n# 2. Inner loop to find min_index in range(i + 1, n)\n# 3. Swap numbers[i] and numbers[min_index]\n\n# Print the sorted list in the required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "65\n42\n90\n55\n78",
+        "expectedOutput": "Sorted Marks: [42, 55, 65, 78, 90]\n",
+        "description": "Marks: [65, 42, 90, 55, 78] -> [42, 55, 65, 78, 90]"
+      },
+      {
+        "input": "90\n80\n70\n60\n50",
+        "expectedOutput": "Sorted Marks: [50, 60, 70, 80, 90]\n",
+        "description": "Reverse sorted list -> [50, 60, 70, 80, 90]"
+      },
+      {
+        "input": "40\n40\n70\n20\n60",
+        "expectedOutput": "Sorted Marks: [20, 40, 40, 60, 70]\n",
+        "description": "List with duplicates [40, 40, 70, 20, 60] -> [20, 40, 40, 60, 70]"
       }
+    ],
+    "hints": [
+      "Read 5 marks: `marks = [int(input()) for _ in range(5)]`.",
+      "Outer loop: `for i in range(len(marks)): min_index = i`.",
+      "Inner loop: `for j in range(i + 1, len(marks)): if marks[j] < marks[min_index]: min_index = j`.",
+      "Swap: `marks[i], marks[min_index] = marks[min_index], marks[i]`.",
+      "Print output: `print('Sorted Marks:', marks)`."
     ]
   }
 ]

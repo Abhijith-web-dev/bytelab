@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-19-1",
-    "question": "Which of the following best describes Fruitful Functions & Return Values?",
+    "id": "q1",
+    "question": "What is recursion in computer science?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Repeating code exclusively using a while loop",
+      "A computational technique where a function calls itself to solve smaller subproblems",
+      "Assigning multiple values to a tuple",
+      "Importing external modules into a script"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctAnswer": 1,
+    "explanation": "Recursion occurs when a function defines its solution in terms of self-referential invocations on smaller instances of the problem."
+  },
+  {
+    "id": "q2",
+    "question": "What is the primary role of the base case in a recursive function?",
+    "options": [
+      "To initialize variables before looping",
+      "To declare the types of parameters",
+      "To provide a non-recursive stopping condition that halts execution",
+      "To print debug messages to stdout"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The base case defines the simplest, atomic scenario that can be answered immediately without further recursive calls, preventing infinite recursion."
+  },
+  {
+    "id": "q3",
+    "question": "Which section of a recursive function performs the self-invoking call on a smaller problem?",
+    "options": [
+      "The base case",
+      "The recursive case",
+      "The function header",
+      "The import section"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The recursive case reduces the problem size and calls the function again toward the base case."
+  },
+  {
+    "id": "q4",
+    "question": "What happens if a recursive function lacks a valid base case or fails to move toward it?",
+    "options": [
+      "The program runs significantly faster",
+      "A compile-time syntax error occurs immediately",
+      "Python raises a RecursionError due to maximum recursion depth exceeded",
+      "Python automatically rewrites the recursion into a while loop"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Without a base case, calls pile onto the call stack indefinitely until Python halts execution with a RecursionError."
+  },
+  {
+    "id": "q5",
+    "question": "In the function definition `def power(a, n): if n == 0: return 1 ...`, what is the base case condition?",
+    "options": [
+      "a == 0",
+      "n == 0",
+      "return 1",
+      "power(a, n)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The stopping condition is when the exponent `n` decrements down to 0 (`n == 0`)."
+  },
+  {
+    "id": "q6",
+    "question": "What mathematical operation is modeled by `return base * power(base, exponent - 1)`?",
+    "options": [
+      "Greatest Common Divisor (GCD)",
+      "Factorial",
+      "Exponentiation (raising base to a power)",
+      "Matrix transposition"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Multiplying the base by the result of raising the base to exponent - 1 computes exponentiation ($b^e = b \\times b^{e-1}$)."
+  },
+  {
+    "id": "q7",
+    "question": "Which mathematical recurrence forms the basis of Euclid's recursive GCD algorithm?",
+    "options": [
+      "gcd(a, b) = a + b",
+      "gcd(a, b) = a * b",
+      "gcd(a, b) = gcd(b, a % b)",
+      "gcd(a, b) = gcd(a - 1, b - 1)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Euclid's algorithm recursively replaces `gcd(a, b)` with `gcd(b, a % b)` until the remainder `b` is 0."
+  },
+  {
+    "id": "q8",
+    "question": "What is the return value of `power(2, 3)`?",
+    "options": [
+      "5",
+      "6",
+      "8",
+      "9"
+    ],
+    "correctAnswer": 2,
+    "explanation": "2 raised to the power 3 evaluates to $2 \\times 2 \\times 2 = 8$."
+  },
+  {
+    "id": "q9",
+    "question": "What is the Greatest Common Divisor of 12 and 8 (`gcd(12, 8)`)?",
+    "options": [
+      "2",
+      "4",
+      "6",
+      "8"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The common divisors of 12 and 8 are 1, 2, and 4; the greatest of these is 4."
+  },
+  {
+    "id": "q10",
+    "question": "Why is iteration generally more memory-efficient than recursion for simple counting or repetition?",
+    "options": [
+      "Recursion disables Python's garbage collector",
+      "Iteration avoids allocating stack frames in memory for each repetitive pass",
+      "Loops use binary logic whereas recursion uses decimal logic",
+      "Recursion always requires twice as many CPU cycles"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Each recursive call pushes an activation record (stack frame) onto the call stack ($O(N)$ memory), whereas loops maintain constant $O(1)$ memory."
   }
 ]

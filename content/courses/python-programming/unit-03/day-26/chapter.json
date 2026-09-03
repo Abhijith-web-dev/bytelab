@@ -1,21 +1,29 @@
 {
   "id": "day-26",
   "unitId": "unit-03",
-  "dayNumber": 26,
-  "order": 26,
-  "title": "Day 26: List Methods and List Loop",
-  "shortTitle": "List Methods and List Loop",
-  "description": "Mutating lists (append, remove, pop) and iterating through elements.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 3,
+  "order": 3,
+  "title": "Day 3: List Mutability, Aliasing & Cloning",
+  "shortTitle": "Mutability, Aliasing & Cloning",
+  "description": "Understand list mutability, references, aliasing pitfalls, cloning with copy() and slicing [:], and identity (is) vs equality (==).",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "List Mutability",
+    "Mutable vs Immutable Data Types",
+    "Object References in Python",
+    "What is Aliasing?",
+    "Why Aliasing Causes Unintended Bugs",
+    "Cloning Lists (.copy() & [:])",
+    "Aliasing vs Cloning Differences",
+    "Identity (is) vs Equality (==)",
+    "Independent List Practice"
+  ],
   "prerequisites": [
     "day-25"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

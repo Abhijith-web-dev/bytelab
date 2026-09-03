@@ -1,21 +1,30 @@
 {
   "id": "day-15",
   "unitId": "unit-02",
-  "dayNumber": 15,
-  "order": 15,
-  "title": "Day 15: Alternative (if-else) & Chained (if-elif-else)",
-  "shortTitle": "Alternative (if-else) & Chained (if-elif-else)",
-  "description": "Handling multiple mutually exclusive branching paths.",
-  "simulationType": "Type B: Flowchart / Decision Simulation",
-  "estimatedMinutes": 20,
+  "dayNumber": 3,
+  "order": 3,
+  "title": "Day 3: Iteration, Loop State & while Loop",
+  "shortTitle": "while Loop, State & Control",
+  "description": "Master the mechanics of repetition and iteration in Python using the while loop, tracking loop states, avoiding infinite loops, and wielding break and continue.",
   "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-14"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "What is Iteration? Repetition in Computation & Real Life",
+    "The Anatomy of a Loop: Initialization, Condition, and Update",
+    "Loop State Tracking & Execution Tracing Tables",
+    "Preventing and Debugging Infinite Loops",
+    "Loop Control Statements: break (STOP) and continue (SKIP)",
+    "The Sentinel Value Pattern (Read Until Zero / Exit)",
+    "Combining while Loops with if Statements and Running Accumulators",
+    "List Index Traversals and In-Place Modifications using while",
+    "Practice Problem: Number Sum Until Zero",
+    "Unit-II Day 3 Knowledge Assessment"
+  ]
 }

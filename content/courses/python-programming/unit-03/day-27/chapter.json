@@ -1,21 +1,28 @@
 {
   "id": "day-27",
   "unitId": "unit-03",
-  "dayNumber": 27,
-  "order": 27,
-  "title": "Day 27: Mutability, Aliasing, and Cloning",
-  "shortTitle": "Mutability, Aliasing, and Cloning",
-  "description": "Understanding reference variables, side effects of aliasing, and how to clone lists safely.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 4,
+  "order": 4,
+  "title": "Day 4: Lists as Function Parameters & List-Based Problem Solving",
+  "shortTitle": "Lists in Functions & Problem Solving",
+  "description": "Learn how to pass lists to functions, traverse and calculate data in functions, modify lists in-place vs using clones, and solve real-world problems.",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "Lists as Function Parameters & Arguments",
+    "Accessing & Traversing Lists in Functions",
+    "Calculating Aggregates (sum, len, max, min)",
+    "Modifying Lists Inside Functions",
+    "Direct Mutation vs Pure Functions via Cloning",
+    "for item in list vs for index in range()",
+    "Common List Function Patterns",
+    "Calculate and Update Student Marks Practice"
+  ],
   "prerequisites": [
     "day-26"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

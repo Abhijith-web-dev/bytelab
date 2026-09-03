@@ -1,21 +1,30 @@
 {
   "id": "day-22",
   "unitId": "unit-02",
-  "dayNumber": 22,
-  "order": 22,
-  "title": "Day 22: Strings: Immutability & Slices",
-  "shortTitle": "Strings: Immutability & Slices",
-  "description": "Extracting substrings using slicing and understanding that strings cannot be changed in place.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
-  "difficulty": "beginner",
+  "dayNumber": 10,
+  "order": 10,
+  "title": "Day 10: Illustrative Programs, Integration & Unit-II Revision",
+  "shortTitle": "Integration & Unit-II Capstone",
+  "description": "Integrate the complete Unit-II toolkit: conditions, iteration, functions, recursion, strings, and numeric lists to build modular, production-grade problem solvers.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-21"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "Unit-II Grand Synthesis: From Booleans to Data Structures",
+    "Illustrative Program: Square Root via Newton-Raphson & Exponentiation",
+    "Illustrative Program: Recursive GCD (Euclidean Algorithm)",
+    "Illustrative Program: Recursive Exponentiation",
+    "Illustrative Program: Array Traversal, Reduction & Statistics",
+    "Multi-Paradigm Integration: Functions, Control Flow, Strings & Lists",
+    "Architectural Decomposition: Modular Pipelines vs Monolithic Code",
+    "Menu-Driven Application Architecture & State Encapsulation",
+    "Practice Problem: Student Performance Analyzer",
+    "Unit-II Capstone Mastery Assessment"
+  ]
 }

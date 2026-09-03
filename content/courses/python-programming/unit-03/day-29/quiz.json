@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-29-1",
-    "question": "Which of the following best describes Tuples: Assignment & Return Values?",
+    "id": "q1",
+    "question": "What can a Python function return?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Only a single integer",
+      "Only strings",
+      "A single value or an object (like a tuple) bundling multiple values",
+      "Only Boolean values"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Functions can return any Python object, including tuples that group multiple return values into one bundle."
+  },
+  {
+    "id": "q2",
+    "question": "What does this function return?\n```python\ndef get_data():\n    return 10, 20\n```",
+    "options": [
+      "Two separate function calls",
+      "A tuple containing (10, 20)",
+      "A list containing [10, 20]",
+      "Only the first number 10"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Comma-separated expressions in a return statement are automatically bundled into a tuple."
+  },
+  {
+    "id": "q3",
+    "question": "What is the output of the following code?\n```python\ndef calculate(a, b):\n    return a + b, a * b\n\nx, y = calculate(5, 4)\nprint(x)\nprint(y)\n```",
+    "options": [
+      "5 and 4",
+      "9 and 20",
+      "20 and 9",
+      "(9, 20)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "calculate(5, 4) returns (9, 20). Unpacking assigns 9 to x and 20 to y."
+  },
+  {
+    "id": "q4",
+    "question": "What occurs in the assignment `a, b, c = get_data()`?",
+    "options": [
+      "Three distinct functions are created",
+      "A 3-element tuple returned by get_data() is unpacked into three variables",
+      "Three empty lists are allocated",
+      "The function get_data is deleted from memory"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tuple unpacking distributes the three returned elements into variables a, b, and c."
+  },
+  {
+    "id": "q5",
+    "question": "What is the output of the following code?\n```python\ndef get_student():\n    return \"Arun\", 20, 85\n\nstudent = get_student()\nprint(student[0])\n```",
+    "options": [
+      "Arun",
+      "20",
+      "85",
+      "student"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "student holds the tuple ('Arun', 20, 85). Index 0 accesses the first element: 'Arun'."
+  },
+  {
+    "id": "q6",
+    "question": "Which syntax correctly returns multiple values simultaneously in Python?",
+    "options": [
+      "return a\nreturn b",
+      "return a, b",
+      "send a, b",
+      "output a, b"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Returning multiple comma-separated variables `return a, b` packages them into a tuple."
+  },
+  {
+    "id": "q7",
+    "question": "What happens when executing this code?\n```python\ndef get_data():\n    return 10, 20, 30\n\na, b = get_data()\n```",
+    "options": [
+      "The code runs without error",
+      "The third value is silently ignored",
+      "A ValueError is raised because 3 values cannot unpack into 2 variables",
+      "Variable 'a' receives all three values"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Unpacking requires an exact match between the number of variables and the number of elements in the tuple."
+  },
+  {
+    "id": "q8",
+    "question": "What is the output of the following code?\n```python\ndef get_result():\n    return 100, 80, \"Pass\"\n\nresult = get_result()\nprint(result)\n```",
+    "options": [
+      "100",
+      "80",
+      "Pass",
+      "(100, 80, 'Pass')"
+    ],
+    "correctAnswer": 3,
+    "explanation": "When assigned to a single variable without unpacking, result retains the full tuple: (100, 80, 'Pass')."
+  },
+  {
+    "id": "q9",
+    "question": "Which statement is true regarding a tuple returned from a function?",
+    "options": [
+      "It can be modified in-place like a list",
+      "Its values can be altered using append()",
+      "It is immutable and cannot be modified after creation",
+      "It can only contain numbers"
+    ],
+    "correctAnswer": 2,
+    "explanation": "All tuples in Python are immutable, including those returned by functions."
+  },
+  {
+    "id": "q10",
+    "question": "Why are tuples advantageous for returning multiple results from functions?",
+    "options": [
+      "They allow related calculation results to be bundled together cleanly",
+      "They automatically sort numerical data",
+      "They eliminate the need for function parameters",
+      "They prevent functions from being called repeatedly"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tuples provide a clean, lightweight vehicle to package related outputs into a single return object."
   }
 ]

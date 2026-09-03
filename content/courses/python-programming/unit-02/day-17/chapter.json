@@ -1,21 +1,30 @@
 {
   "id": "day-17",
   "unitId": "unit-02",
-  "dayNumber": 17,
-  "order": 17,
-  "title": "Day 17: The for Loop & range()",
-  "shortTitle": "The for Loop & range()",
-  "description": "Iterating over sequences systematically.",
-  "simulationType": "Type C: Loop Timeline Simulation",
-  "estimatedMinutes": 20,
-  "difficulty": "beginner",
+  "dayNumber": 5,
+  "order": 5,
+  "title": "Day 5: Fruitful Functions, Return Values & Parameters",
+  "shortTitle": "Fruitful Functions & return",
+  "description": "Master fruitful functions that compute and return values, distinguish print() vs return, handle parameters vs arguments, and compose pipelines of reusable functions.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-16"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "Fruitful vs Non-Fruitful Functions: Philosophy & Architecture",
+    "The return Statement: Returning Numbers, Strings, and Booleans",
+    "The Crucial Distinction: print() vs return",
+    "Parameters (Definitions) vs Arguments (Calls)",
+    "How Functions Terminate Upon return",
+    "Composing Functions: Functions Calling Functions",
+    "Returning Values to Expressions and Conditional Statements",
+    "Common Traps: Unreachable Code, Returning None, and Parameter Mismatches",
+    "Practice Problem: Student Result Function",
+    "Unit-II Day 5 Knowledge Assessment"
+  ]
 }

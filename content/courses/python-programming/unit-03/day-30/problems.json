@@ -1,16 +1,46 @@
 [
   {
-    "id": "prob-day-30",
-    "title": "Practice: Dictionaries: Operations & Methods",
-    "description": "Write a Python script that demonstrates dictionaries: operations & methods.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Dictionaries: Operations & Methods\nprint('Success')",
+    "id": "student-record-manager",
+    "title": "Student Record Manager",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program to manage a student's basic information using a dictionary.\n\nThe program must:\n1. Read 5 lines from standard input:\n   - Student Name (string)\n   - Student Age (integer)\n   - Initial Mark (integer)\n   - Course Name (string)\n   - Updated Mark (integer)\n2. Create a dictionary containing `'name'`, `'age'`, and `'mark'`.\n3. Access and print `'name'`, `'age'`, and initial `'mark'` using dictionary keys.\n4. Add a new key called `'course'` to the dictionary and print it.\n5. Update the student's `'mark'` to the updated mark and print it.\n6. Check whether the `'course'` key exists using the `in` operator and print whether it is available.\n7. Print the final dictionary.\n\n### Output Format\n```text\nName: <name>\nAge: <age>\nMark: <initial_mark>\nCourse: <course>\nUpdated Mark: <updated_mark>\nCourse Available: <True/False>\nFinal Record: <dictionary>\n```",
+    "requirements": [
+      "Read all 5 input values from standard input.",
+      "Initialize dictionary: `student = {'name': name, 'age': age, 'mark': mark}`.",
+      "Print fields using dictionary key lookups.",
+      "Add `'course'` key: `student['course'] = course`.",
+      "Update `'mark'` key: `student['mark'] = updated_mark`.",
+      "Check `'course' in student`.",
+      "Print final dictionary representation."
+    ],
+    "starterCode": "# Read name, age, mark, course, and updated_mark from standard input\n\n# Create the initial student dictionary with 'name', 'age', 'mark'\n\n# Print Name, Age, and initial Mark using dictionary keys\n\n# Add 'course' to the dictionary and print Course\n\n# Update 'mark' with updated_mark and print Updated Mark\n\n# Check if 'course' in student and print Course Available status\n\n# Print Final Record with the dictionary\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "Arun\n20\n75\nPython\n85",
+        "expectedOutput": "Name: Arun\nAge: 20\nMark: 75\nCourse: Python\nUpdated Mark: 85\nCourse Available: True\nFinal Record: {'name': 'Arun', 'age': 20, 'mark': 85, 'course': 'Python'}\n",
+        "description": "Arun, 20, 75 -> Python, 85"
+      },
+      {
+        "input": "Priya\n19\n80\nJava\n90",
+        "expectedOutput": "Name: Priya\nAge: 19\nMark: 80\nCourse: Java\nUpdated Mark: 90\nCourse Available: True\nFinal Record: {'name': 'Priya', 'age': 19, 'mark': 90, 'course': 'Java'}\n",
+        "description": "Priya, 19, 80 -> Java, 90"
+      },
+      {
+        "input": "Rahul\n21\n60\nPython\n70",
+        "expectedOutput": "Name: Rahul\nAge: 21\nMark: 60\nCourse: Python\nUpdated Mark: 70\nCourse Available: True\nFinal Record: {'name': 'Rahul', 'age': 21, 'mark': 70, 'course': 'Python'}\n",
+        "description": "Rahul, 21, 60 -> Python, 70"
       }
+    ],
+    "hints": [
+      "Read all inputs: `name = input()`, `age = int(input())`, `mark = int(input())`, `course = input()`, `new_mark = int(input())`.",
+      "Initialize: `student = {'name': name, 'age': age, 'mark': mark}`.",
+      "Display initial info: `print('Name:', student['name'])`, etc.",
+      "Add course: `student['course'] = course` and `print('Course:', student['course'])`.",
+      "Update mark: `student['mark'] = new_mark` and `print('Updated Mark:', student['mark'])`.",
+      "Print availability: `print('Course Available:', 'course' in student)`.",
+      "Print final: `print('Final Record:', student)`."
     ]
   }
 ]

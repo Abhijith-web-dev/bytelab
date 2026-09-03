@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-26-1",
-    "question": "Which of the following best describes List Methods and List Loop?",
+    "id": "q1",
+    "question": "What does it mean when a data structure like a list is 'mutable'?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "It cannot be changed once created",
+      "Its contents can be changed in-place after creation",
+      "It can only contain numbers",
+      "It can only be used once"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mutability means the internal elements of the object can be modified, appended, or deleted without creating a new object."
+  },
+  {
+    "id": "q2",
+    "question": "What happens when you execute `b = a` where `a` is a list?",
+    "options": [
+      "A completely new, duplicate list is allocated in memory",
+      "Variable 'b' becomes an alias pointing to the same list object as 'a'",
+      "'a' is converted to an immutable tuple",
+      "The list is deleted from memory"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Assignment copies the object reference, not the underlying list. Both variables now refer to the exact same list in memory."
+  },
+  {
+    "id": "q3",
+    "question": "What is the output of the following code?\n```python\na = [10, 20]\nb = a\nb.append(30)\nprint(a)\n```",
+    "options": [
+      "[10, 20]",
+      "[30]",
+      "[10, 20, 30]",
+      "Error"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Because 'b' is an alias for 'a', modifying the list via 'b.append(30)' modifies the shared list object seen by 'a'."
+  },
+  {
+    "id": "q4",
+    "question": "Which of the following statements creates an independent clone of list `a`?",
+    "options": [
+      "b = a",
+      "b = a.copy()",
+      "b == a",
+      "b is a"
+    ],
+    "correctAnswer": 1,
+    "explanation": "a.copy() allocates a new list object with duplicates of the original elements."
+  },
+  {
+    "id": "q5",
+    "question": "What is the output of the following code?\n```python\na = [10, 20]\nb = a.copy()\nb.append(30)\nprint(a)\nprint(b)\n```",
+    "options": [
+      "[10, 20] and [10, 20, 30]",
+      "[10, 20, 30] and [10, 20, 30]",
+      "[30] and [10, 20]",
+      "Error"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Since 'b' was created using .copy(), it is an independent clone. Adding 30 to 'b' does not affect 'a'."
+  },
+  {
+    "id": "q6",
+    "question": "What does Python's `is` operator check?",
+    "options": [
+      "Whether two variables hold identical values/contents",
+      "Whether two variables refer to the exact same object in memory",
+      "Whether a list has been sorted",
+      "Whether a list is mutable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'is' tests object identity (memory address), whereas '==' tests value equality."
+  },
+  {
+    "id": "q7",
+    "question": "What is the output of the following code?\n```python\na = [1, 2]\nb = [1, 2]\nprint(a == b)\nprint(a is b)\n```",
+    "options": [
+      "True and True",
+      "False and False",
+      "True and False",
+      "False and True"
+    ],
+    "correctAnswer": 2,
+    "explanation": "'a == b' is True because their contents match. 'a is b' is False because they are two separate list instances in memory."
+  },
+  {
+    "id": "q8",
+    "question": "Which statement best describes the concept of cloning?",
+    "options": [
+      "Giving two variables the same reference to a list",
+      "Creating a new list object with the same elements",
+      "Removing all elements from a list",
+      "Sorting a list alphabetically"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cloning creates a separate object containing the same elements, ensuring mutations to the clone do not corrupt the original."
+  },
+  {
+    "id": "q9",
+    "question": "Which two techniques can be used to clone a list in Python?",
+    "options": [
+      ".copy() and slicing [:]",
+      ".append() and .remove()",
+      ".sort() and .reverse()",
+      "len() and sum()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Both list.copy() and slice copy list[:] produce a new independent shallow copy of the list."
+  },
+  {
+    "id": "q10",
+    "question": "Why can aliasing cause unexpected bugs in larger programs?",
+    "options": [
+      "Because the list becomes read-only and immutable",
+      "Because both variables refer to the same mutable list, so mutating one inadvertently alters the other",
+      "Because Python automatically reverses aliased lists",
+      "Because .copy() is invoked behind the scenes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Modifying an aliased list through one variable name changes the single shared memory object, corrupting data for any other variable referencing it."
   }
 ]

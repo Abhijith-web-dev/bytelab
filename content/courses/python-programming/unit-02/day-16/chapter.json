@@ -1,21 +1,30 @@
 {
   "id": "day-16",
   "unitId": "unit-02",
-  "dayNumber": 16,
-  "order": 16,
-  "title": "Day 16: Iteration State & The while Loop",
-  "shortTitle": "Iteration State & The while Loop",
-  "description": "Repeating code continuously while a condition remains True.",
-  "simulationType": "Type C: Loop Timeline Simulation",
-  "estimatedMinutes": 20,
-  "difficulty": "beginner",
+  "dayNumber": 4,
+  "order": 4,
+  "title": "Day 4: for Loop, Loop Control & Nested Loops",
+  "shortTitle": "for Loops, Nested Loops & Control",
+  "description": "Master sequence iteration with for loops, control flow redirection with break, continue, and pass, and multi-dimensional processing with nested loops.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-15"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "The for Loop Paradigm: Iterating Over Sequences",
+    "Traversing Lists, Tuples, Strings, and Dictionaries",
+    "The range() Function: start, stop, step Sequences",
+    "Loop Control Statements: break (STOP), continue (SKIP), pass (PLACEHOLDER)",
+    "Nested Loops: Outer vs Inner Loop Mechanics",
+    "Pattern Printing and Multi-Dimensional Grid Traversal",
+    "Iterating Over Matrices and Nested Collections",
+    "Common Traps: Indentation, pass Confusion, and range() Upper Bounds",
+    "Practice Problem: Find Even and Odd Numbers",
+    "Unit-II Day 4 Knowledge Assessment"
+  ]
 }

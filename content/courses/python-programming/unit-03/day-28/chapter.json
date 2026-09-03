@@ -1,21 +1,31 @@
 {
   "id": "day-28",
   "unitId": "unit-03",
-  "dayNumber": 28,
-  "order": 28,
-  "title": "Day 28: List Parameters & Advanced Comprehensions",
-  "shortTitle": "List Parameters & Advanced Comprehensions",
-  "description": "Passing lists to functions and transforming lists efficiently using list comprehension.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 5,
+  "order": 5,
+  "title": "Day 5: Tuples — Introduction, Operations & Assignment",
+  "shortTitle": "Tuples, Operations & Assignment",
+  "description": "Learn tuple characteristics, immutability, indexing and slicing, concatenation, repetition, membership, methods (count, index), packing, unpacking, and variable swapping.",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "What is a Tuple?",
+    "Single-Element Tuples & Trailing Comma",
+    "Tuple Characteristics (Ordered, Indexed, Immutable)",
+    "Tuple vs List (Mutable vs Immutable)",
+    "Accessing Elements & Slicing",
+    "Tuple Operations (+, *, in, not in)",
+    "Tuple Methods (count, index)",
+    "Tuple Packing & Unpacking",
+    "Variable Swapping (a, b = b, a)",
+    "Functions Returning Tuples",
+    "Student Information Practice"
+  ],
   "prerequisites": [
     "day-27"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

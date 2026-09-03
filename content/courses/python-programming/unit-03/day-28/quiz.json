@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-28-1",
-    "question": "Which of the following best describes List Parameters & Advanced Comprehensions?",
+    "id": "q1",
+    "question": "What is a tuple in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A mutable collection of items",
+      "An ordered, immutable sequence of values",
+      "A special type of Python function",
+      "A module for numerical computations"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tuples are ordered collections that cannot be modified after creation (immutable)."
+  },
+  {
+    "id": "q2",
+    "question": "Which type of brackets is standard for defining a tuple?",
+    "options": [
+      "[] (Square brackets)",
+      "{} (Curly braces)",
+      "() (Parentheses)",
+      "<> (Angle brackets)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Parentheses () are standard for enclosing tuple elements."
+  },
+  {
+    "id": "q3",
+    "question": "Which statement correctly creates a single-element tuple in Python?",
+    "options": [
+      "(10)",
+      "[10]",
+      "(10,)",
+      "{10}"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A trailing comma is mandatory for a single-element tuple: (10,). Without the comma, (10) is evaluated as an integer in arithmetic grouping."
+  },
+  {
+    "id": "q4",
+    "question": "What is the output of the following code?\n```python\nnumbers = (10, 20, 30)\nprint(numbers[1])\n```",
+    "options": [
+      "10",
+      "20",
+      "30",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "0-based indexing means index 0 is 10 and index 1 is 20."
+  },
+  {
+    "id": "q5",
+    "question": "What happens when you run `numbers[0] = 100` on a tuple `numbers = (10, 20, 30)`?",
+    "options": [
+      "The tuple automatically becomes a list",
+      "The first element changes to 100",
+      "A TypeError is raised because tuples are immutable",
+      "A new tuple is automatically created"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tuples do not support item assignment; attempting to modify an element in-place raises a TypeError."
+  },
+  {
+    "id": "q6",
+    "question": "What is the output of the following code?\n```python\nnumbers = (10, 20)\nresult = numbers + (30, 40)\nprint(result)\n```",
+    "options": [
+      "(10, 20)",
+      "(30, 40)",
+      "(10, 20, 30, 40)",
+      "Error"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The '+' operator concatenates two tuples to produce a new combined tuple."
+  },
+  {
+    "id": "q7",
+    "question": "What is the output of the following tuple assignment?\n```python\na, b = 10, 20\nprint(a, b)\n```",
+    "options": [
+      "10 20",
+      "20 10",
+      "(10, 20)",
+      "Error"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Multiple assignment packs 10 and 20 into a tuple and unpacks them sequentially into variables a and b."
+  },
+  {
+    "id": "q8",
+    "question": "What is the result of swapping variables using tuple assignment?\n```python\na = 10\nb = 20\na, b = b, a\nprint(a, b)\n```",
+    "options": [
+      "10 20",
+      "20 10",
+      "10 10",
+      "20 20"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python evaluates the right side (20, 10) first, then assigns it to a and b, swapping their values without needing a temporary variable."
+  },
+  {
+    "id": "q9",
+    "question": "Which method counts how many times a given value appears in a tuple?",
+    "options": [
+      "find()",
+      "index()",
+      "count()",
+      "search()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The count(x) method returns the frequency of occurrences of x within the tuple."
+  },
+  {
+    "id": "q10",
+    "question": "What is the output of this tuple unpacking?\n```python\nstudent = (\"Arun\", 20, 85)\nname, age, mark = student\nprint(name)\n```",
+    "options": [
+      "student",
+      "Arun",
+      "20",
+      "85"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The tuple ('Arun', 20, 85) is unpacked in order: 'name' receives the first element, which is 'Arun'."
   }
 ]

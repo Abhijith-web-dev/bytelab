@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-15-1",
-    "question": "Which of the following best describes Alternative (if-else) & Chained (if-elif-else)?",
+    "id": "q1",
+    "question": "What is iteration in computer programming?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Repeating a set of instructions until a condition is met",
+      "Defining a reusable named block of code",
+      "Initializing an empty dictionary key",
+      "Sorting an array of elements in ascending order"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Iteration is the computational process of executing a block of statements repeatedly."
+  },
+  {
+    "id": "q2",
+    "question": "Which Python control flow construct executes repeatedly as long as a specified condition evaluates to True?",
+    "options": [
+      "if",
+      "for",
+      "while",
+      "def"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A while loop continually checks its condition and executes its body while that condition evaluates to True."
+  },
+  {
+    "id": "q3",
+    "question": "Which three elements are essential to the correct structure of every standard counter-controlled `while` loop?",
+    "options": [
+      "List, tuple, dictionary",
+      "Initialization, condition, update",
+      "Input, output, return",
+      "Key, value, index"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A robust while loop requires initialization of the state variable, a condition check before each cycle, and an update to advance state toward termination."
+  },
+  {
+    "id": "q4",
+    "question": "What is the output of the following code?\n```python\ncount = 1\nwhile count <= 3:\n    print(count)\n    count += 1\n```",
+    "options": [
+      "1 2",
+      "1 2 3",
+      "0 1 2",
+      "Infinite loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The loop runs for count = 1, 2, and 3, printing each on a new line before terminating when count reaches 4."
+  },
+  {
+    "id": "q5",
+    "question": "What happens if the loop control variable is never updated inside a `while` loop and the condition remains True?",
+    "options": [
+      "The loop executes once and terminates cleanly",
+      "The variable automatically converts into a list",
+      "An infinite loop occurs because the condition never becomes False",
+      "Python automatically halts execution without an error"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Without an update statement to progress the state variable toward termination, the condition never becomes False, triggering an infinite loop."
+  },
+  {
+    "id": "q6",
+    "question": "What action does the `break` statement perform inside a loop?",
+    "options": [
+      "Skips the remainder of the current iteration",
+      "Terminates the entire loop immediately and exits",
+      "Restarts the loop from iteration 1",
+      "Converts the loop into a recursive function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`break` immediately halts the loop and transfers control to the first statement outside the loop body."
+  },
+  {
+    "id": "q7",
+    "question": "What action does the `continue` statement perform inside a loop?",
+    "options": [
+      "Halts the entire program execution",
+      "Forces the loop to terminate permanently",
+      "Skips the rest of the current iteration and jumps directly to the next condition evaluation",
+      "Executes the current iteration twice"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`continue` skips the remaining statements in the active cycle and immediately starts the next iteration by re-evaluating the loop condition."
+  },
+  {
+    "id": "q8",
+    "question": "What is printed by the following code snippet?\n```python\nnumber = 1\nwhile number <= 5:\n    if number == 3:\n        break\n    print(number)\n    number += 1\n```",
+    "options": [
+      "1 2",
+      "1 2 3",
+      "3 4 5",
+      "1 2 3 4 5"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The loop prints 1 and 2. When number becomes 3, the if condition triggers `break` before printing 3, exiting immediately."
+  },
+  {
+    "id": "q9",
+    "question": "In iterative programming, what is a sentinel value?",
+    "options": [
+      "A designated value used to signal the end of a series of inputs or loop termination",
+      "The maximum numerical element contained in a list",
+      "A dictionary key representing frequency",
+      "A default parameter in a function definition"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A sentinel value (such as 0 or 'exit') is a special marker that signals to the loop that input or data processing should cease."
+  },
+  {
+    "id": "q10",
+    "question": "Which Python statement is most appropriate when the exact number of iterations is unknown in advance and depends on dynamic conditions?",
+    "options": [
+      "while loop",
+      "Tuple assignment",
+      "Dictionary comprehension",
+      "List slicing"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The while loop is specifically tailored for indefinite repetition where stopping depends on runtime conditions rather than a fixed sequence length."
   }
 ]

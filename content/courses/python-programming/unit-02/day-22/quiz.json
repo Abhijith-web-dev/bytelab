@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-22-1",
-    "question": "Which of the following best describes Strings: Immutability & Slices?",
+    "id": "q1",
+    "question": "Which Python keyword is fundamental for executing conditional branching decisions?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "for",
+      "if",
+      "def",
+      "return"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctAnswer": 1,
+    "explanation": "The `if` statement evaluates a boolean expression to conditionally branch execution flow."
+  },
+  {
+    "id": "q2",
+    "question": "Which statement terminates a loop immediately upon execution?",
+    "options": [
+      "continue",
+      "pass",
+      "break",
+      "stop"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `break` statement halts loop iteration immediately and transfers control to the next block."
+  },
+  {
+    "id": "q3",
+    "question": "What is the primary role of the `return` statement in a fruitful function?",
+    "options": [
+      "Repeats the function execution indefinitely",
+      "Sends a computed result back to the caller and terminates the function call",
+      "Instantiates a new list",
+      "Loads an external module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`return` yields a computed value back to the caller and exits the function frame."
+  },
+  {
+    "id": "q4",
+    "question": "In a recursive function, what is the terminal condition that prevents infinite recursive calls called?",
+    "options": [
+      "Recursive case",
+      "Loop condition",
+      "Base case",
+      "Return frame"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The base case is the halting condition where the function returns directly without recurring."
+  },
+  {
+    "id": "q5",
+    "question": "What is output by `text = \"Python\"; print(text[-1])`?",
+    "options": [
+      "P",
+      "y",
+      "n",
+      "Python"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Negative index -1 retrieves the rightmost character of the string, which is 'n'."
+  },
+  {
+    "id": "q6",
+    "question": "What is the result of executing `numbers = [10, 20, 30]; numbers.append(40)`?",
+    "options": [
+      "[40, 10, 20, 30]",
+      "[10, 20, 30]",
+      "[10, 20, 30, 40]",
+      "40"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`.append(40)` adds the value 40 to the end of the list in place, resulting in `[10, 20, 30, 40]`."
+  },
+  {
+    "id": "q7",
+    "question": "What is the greatest common divisor of 12 and 8 (`gcd(12, 8)`)?",
+    "options": [
+      "2",
+      "4",
+      "6",
+      "8"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The largest integer that evenly divides both 12 and 8 is 4."
+  },
+  {
+    "id": "q8",
+    "question": "What is the result of the exponentiation calculation `power(2, 4)`?",
+    "options": [
+      "6",
+      "8",
+      "16",
+      "24"
+    ],
+    "correctAnswer": 2,
+    "explanation": "2 raised to the power of 4 ($2 \\times 2 \\times 2 \\times 2$) equals 16."
+  },
+  {
+    "id": "q9",
+    "question": "What is the arithmetic average of `[10, 20, 30]`?",
+    "options": [
+      "10",
+      "15",
+      "20",
+      "30"
+    ],
+    "correctAnswer": 2,
+    "explanation": "(10 + 20 + 30) / 3 = 60 / 3 = 20."
+  },
+  {
+    "id": "q10",
+    "question": "Which characteristic accurately describes Python lists?",
+    "options": [
+      "Lists cannot be altered after creation",
+      "Lists are immutable sequence objects",
+      "Lists are mutable sequence collections whose elements can be modified in place",
+      "Lists can only contain integers"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Lists are mutable sequences that support in-place mutation, item assignment, and dynamic resizing."
   }
 ]

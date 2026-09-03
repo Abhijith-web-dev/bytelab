@@ -1,21 +1,28 @@
 {
   "id": "day-29",
   "unitId": "unit-03",
-  "dayNumber": 29,
-  "order": 29,
-  "title": "Day 29: Tuples: Assignment & Return Values",
-  "shortTitle": "Tuples: Assignment & Return Values",
-  "description": "Using immutable tuples for packing/unpacking and returning multiple values.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 6,
+  "order": 6,
+  "title": "Day 6: Tuples as Return Values & Multiple-Value Functions",
+  "shortTitle": "Tuples as Return Values",
+  "description": "Learn how functions return tuples for multiple values, unpacking returned values, passing tuples, and building multi-value analytical programs.",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "Review of Function Return Values",
+    "Returning Multiple Values via Tuples",
+    "Storing vs Unpacking Returned Tuples",
+    "Tuples as Function Arguments",
+    "Functions Returning Heterogeneous Data",
+    "Calculating Statistics & Multi-Value Summaries",
+    "Common Pitfalls (Unpacking Mismatches)",
+    "Student Result Summary Practice"
+  ],
   "prerequisites": [
     "day-28"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

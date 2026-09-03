@@ -1,16 +1,42 @@
 [
   {
-    "id": "prob-day-28",
-    "title": "Practice: List Parameters & Advanced Comprehensions",
-    "description": "Write a Python script that demonstrates list parameters & advanced comprehensions.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for List Parameters & Advanced Comprehensions\nprint('Success')",
+    "id": "student-information-using-tuples",
+    "title": "Student Information Using Tuples",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program to store and process a student's basic information using a tuple.\n\nThe program must:\n1. Read student name (string), age (integer), and mark (integer or float) from standard input.\n2. Create a tuple containing `(name, age, mark)`.\n3. Unpack the tuple into three individual variables (`name, age, mark = student`).\n4. Use an `if` statement to check if the mark is 50 or above. Set the result to 'Pass' if mark >= 50, otherwise 'Fail'.\n5. Display the student details.\n\n### Input Format\n3 lines of input:\n- Line 1: Student Name (string)\n- Line 2: Student Age (integer)\n- Line 3: Student Mark (integer)\n\n### Output Format\n```text\nName: <name>\nAge: <age>\nMark: <mark>\nResult: <Pass/Fail>\n```",
+    "requirements": [
+      "Read name, age, and mark from user input (one per line).",
+      "Pack values into a tuple: `student = (name, age, mark)`.",
+      "Unpack the tuple: `name, age, mark = student`.",
+      "Check `mark >= 50` using an if-else statement.",
+      "Print output formatted exactly as specified."
+    ],
+    "starterCode": "# Read student name, age, and mark from standard input\n\n# Create a tuple containing (name, age, mark)\n\n# Unpack the tuple into three variables: name, age, mark\n\n# Determine Result: 'Pass' if mark >= 50 else 'Fail'\n\n# Print the student details in the specified format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "Arun\n20\n75",
+        "expectedOutput": "Name: Arun\nAge: 20\nMark: 75\nResult: Pass\n",
+        "description": "Arun, 20, 75 -> Pass"
+      },
+      {
+        "input": "Priya\n19\n45",
+        "expectedOutput": "Name: Priya\nAge: 19\nMark: 45\nResult: Fail\n",
+        "description": "Priya, 19, 45 -> Fail"
+      },
+      {
+        "input": "Rahul\n21\n50",
+        "expectedOutput": "Name: Rahul\nAge: 21\nMark: 50\nResult: Pass\n",
+        "description": "Rahul, 21, 50 -> Boundary Pass (50)"
       }
+    ],
+    "hints": [
+      "Read inputs: `name = input()`, `age = int(input())`, `mark = int(input())`.",
+      "Create the tuple: `student = (name, age, mark)`.",
+      "Unpack it: `name, age, mark = student`.",
+      "Determine result: `result = 'Pass' if mark >= 50 else 'Fail'`.",
+      "Print each field: `print('Name:', name)`, `print('Age:', age)`, `print('Mark:', mark)`, `print('Result:', result)`."
     ]
   }
 ]

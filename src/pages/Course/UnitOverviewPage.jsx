@@ -7,6 +7,7 @@ import { Card } from '../../components/ui/Card.jsx';
 import { SubNavFrosted } from '../../components/layout/SubNavFrosted.jsx';
 import { getCourse, getUnit, getChapter } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
+import { useSEO } from '../../hooks/useSEO.js';
 
 export function UnitOverviewPage() {
   const params = useParams();
@@ -15,6 +16,12 @@ export function UnitOverviewPage() {
 
   const course = getCourse(courseId);
   const unit = getUnit(courseId, unitId);
+  
+  useSEO({
+    title: `${unit?.title || 'Unit Overview'} | ${course?.title || ''}`,
+    description: unit?.description || 'Explore the chapters in this unit.'
+  });
+
   const { completedChapters } = useProgressStore();
 
   const chapters = unit.chapters || [];

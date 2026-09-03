@@ -1,16 +1,44 @@
 [
   {
-    "id": "prob-day-25",
-    "title": "Practice: Lists: Operations and Slices",
-    "description": "Write a Python script that demonstrates lists: operations and slices.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Lists: Operations and Slices\nprint('Success')",
+    "id": "find-passing-marks",
+    "title": "Find the Passing Marks",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Write a Python program that reads marks for 5 students and stores them in a list.\n\nYour program must traverse the list and count how many students passed.\n\nA student is considered passed when their mark is 40 or above (`>= 40`).\n\n### Input Format\nRead 5 integer marks from standard input (one mark per line).\n\n### Output Format\nDisplay the number of students who passed in the format:\n`Passed Students: <count>`",
+    "requirements": [
+      "Store the marks in a list.",
+      "Use `append()` to populate the list from input.",
+      "Use a `for` loop to traverse the list.",
+      "Use an `if` condition to check if each mark is >= 40.",
+      "Use a counter variable to count passing students.",
+      "Print the final result in the exact format: `Passed Students: <count>`."
+    ],
+    "starterCode": "# Create an empty list to store marks\n\n# Read 5 integer marks using a loop and append them to the list\n\n# Initialize a counter for passing students\n\n# Traverse the list with a for loop and count marks >= 40\n\n# Print the total count in the format: Passed Students: <count>\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "80\n35\n60\n25\n90",
+        "expectedOutput": "Passed Students: 3\n",
+        "description": "Marks: 80, 35, 60, 25, 90 -> 3 passed"
+      },
+      {
+        "input": "20\n30\n35\n25\n10",
+        "expectedOutput": "Passed Students: 0\n",
+        "description": "Marks: 20, 30, 35, 25, 10 -> 0 passed"
+      },
+      {
+        "input": "40\n50\n60\n70\n80",
+        "expectedOutput": "Passed Students: 5\n",
+        "description": "Marks: 40, 50, 60, 70, 80 -> 5 passed"
       }
+    ],
+    "hints": [
+      "Create an empty list: `marks = []`.",
+      "Use a loop to read 5 inputs: `for _ in range(5): marks.append(int(input()))`.",
+      "Initialize counter: `count = 0`.",
+      "Traverse each mark: `for mark in marks:`.",
+      "Check condition: `if mark >= 40:` and increment `count += 1`.",
+      "Print formatted output: `print(f\"Passed Students: {count}\")`."
     ]
   }
 ]

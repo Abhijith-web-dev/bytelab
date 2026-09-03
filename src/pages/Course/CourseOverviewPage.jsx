@@ -8,11 +8,18 @@ import { ProgressBar } from '../../components/ui/ProgressBar.jsx';
 import { SubNavFrosted } from '../../components/layout/SubNavFrosted.jsx';
 import { getCourse, getSyllabus, getNavigationHierarchy } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
+import { useSEO } from '../../hooks/useSEO.js';
 
 export function CourseOverviewPage() {
   const params = useParams();
   const courseId = params.courseId || 'python-programming';
   const course = getCourse(courseId);
+  
+  useSEO({
+    title: course?.title || 'Course Overview',
+    description: course?.description || 'Explore the syllabus and units for this course.'
+  });
+
   const syllabus = getSyllabus(courseId);
   const { completedChapters, getCourseCompletionPercentage } = useProgressStore();
 

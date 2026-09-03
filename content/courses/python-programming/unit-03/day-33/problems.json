@@ -1,16 +1,38 @@
 [
   {
-    "id": "prob-day-33",
-    "title": "Practice: Binary Search",
-    "description": "Write a Python script that demonstrates binary search.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Binary Search\nprint('Success')",
+    "id": "student-performance-analyzer",
+    "title": "Student Performance Analyzer",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 25,
+    "description": "Create a Python program to analyze student performance by integrating dictionaries, tuples, lists, functions, and list comprehensions.\n\n### Requirements\n1. Read 4 student entries from standard input (one per line). Format: `<name> <age> <mark1> <mark2> <mark3>`.\n2. Store each record in a dictionary where the key is the student name, and the value is a tuple containing `(age, [mark1, mark2, mark3])`.\n3. Define a function `get_average(marks)` that computes the average of the marks list.\n4. Display each student's average formatted using `round(average, 2)`: `<name> Average: <average>`.\n5. Print an empty line, then:\n   - Use a **List Comprehension** to create a list of High Performers (average >= 75): `High Performers: <list>`.\n   - Count and print the total number of students with average >= 40: `Passed Students: <count>`.\n   - Count and print the total number of students with average < 40: `Failed Students: <count>`.\n\n### Output Format\n```text\n<Name> Average: <avg>\n...\n\nHigh Performers: <list_of_names>\nPassed Students: <passed_count>\nFailed Students: <failed_count>\n```",
+    "requirements": [
+      "Define `get_average(marks)` using `sum()` and `len()`.",
+      "Store records as: `students[name] = (age, marks_list)`.",
+      "Use `round(average, 2)` when printing averages.",
+      "Use a List Comprehension to extract high performers (average >= 75).",
+      "Count and output Passed Students and Failed Students."
+    ],
+    "starterCode": "# Define the get_average(marks) function\n\n# Read 4 student entries from standard input\n# Store each student in a dictionary: name -> (age, [mark1, mark2, mark3])\n\n# Display each student's average using round(average, 2)\n\n# Print a blank line, then use List Comprehension for High Performers (average >= 75)\n\n# Display Passed Students and Failed Students count\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "Arun 20 80 75 90\nPriya 19 70 85 60\nRahul 21 90 95 88\nMeena 20 45 50 40",
+        "expectedOutput": "Arun Average: 81.67\nPriya Average: 71.67\nRahul Average: 91.0\nMeena Average: 45.0\n\nHigh Performers: ['Arun', 'Rahul']\nPassed Students: 4\nFailed Students: 0\n",
+        "description": "4 students, 2 high performers, all passed"
+      },
+      {
+        "input": "Arun 20 30 35 40\nPriya 19 80 90 85\nRahul 21 20 25 30\nMeena 20 75 70 80",
+        "expectedOutput": "Arun Average: 35.0\nPriya Average: 85.0\nRahul Average: 25.0\nMeena Average: 75.0\n\nHigh Performers: ['Priya', 'Meena']\nPassed Students: 2\nFailed Students: 2\n",
+        "description": "2 pass, 2 fail, 2 high performers"
       }
+    ],
+    "hints": [
+      "Define `def get_average(marks): return sum(marks) / len(marks)`.",
+      "Read each line: `parts = input().split()`, `name = parts[0]`, `age = int(parts[1])`, `marks = [int(x) for x in parts[2:]]`.",
+      "Store tuple: `students[name] = (age, marks)`.",
+      "Print averages: `print(f'{name} Average: {round(avg, 2)}')`.",
+      "Comprehension: `high_performers = [name for name, data in students.items() if get_average(data[1]) >= 75]`.",
+      "Count passed and failed using an if condition or frequency dictionary."
     ]
   }
 ]

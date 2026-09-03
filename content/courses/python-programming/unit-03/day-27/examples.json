@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-27-1",
-    "title": "Basic Usage of Mutability, Aliasing, and Cloning",
-    "code": "# Example for Mutability, Aliasing, and Cloning\nprint('Day 27 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-23-1",
-    "title": "Basic Usage of String Methods, Module & Lists as Arrays",
-    "code": "# Example for String Methods, Module & Lists as Arrays\nprint('Day 23 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

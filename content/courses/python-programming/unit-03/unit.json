@@ -9,10 +9,15 @@
     "CO3"
   ],
   "chapters": [
-    "01-lists-mutability",
-    "02-tuples",
-    "03-dictionaries",
-    "04-list-comprehensions",
-    "05-illustrative-search-sort"
+    "day-24",
+    "day-25",
+    "day-26",
+    "day-27",
+    "day-28",
+    "day-29",
+    "day-30",
+    "day-31",
+    "day-32",
+    "day-33"
   ]
 }

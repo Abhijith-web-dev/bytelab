@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Exclude auth and user-specific routes
+Disallow: /login
+Disallow: /register
+Disallow: /progress
+Disallow: /profile
+Disallow: /*/test
+Disallow: /*/practice
+
+Sitemap: https://bytelab-lms.sparklabinfo1.workers.dev/sitemap.xml

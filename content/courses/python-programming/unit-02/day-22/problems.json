@@ -1,16 +1,47 @@
 [
   {
-    "id": "prob-day-22",
-    "title": "Practice: Strings: Immutability & Slices",
-    "description": "Write a Python script that demonstrates strings: immutability & slices.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Strings: Immutability & Slices\nprint('Success')",
+    "id": "student-performance-analyzer",
+    "title": "Student Performance Analyzer",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 25,
+    "description": "Create a Python program that integrates control flow, functions, loops, strings, and lists to analyze student academic performance.\n\n### Requirements\n1. Read the student's name from standard input.\n2. Read the number of subjects $N$.\n3. Read $N$ integer marks into a list.\n4. Compute and display:\n   - **Name**: Student's name.\n   - **Marks**: List of marks.\n   - **Total**: Sum of all marks.\n   - **Average**: Mean mark (`Total / N`).\n   - **Highest**: Maximum mark attained.\n   - **Lowest**: Minimum mark attained.\n   - **Passed Subjects**: Count of subjects with mark $\\ge 40$.\n   - **Result**: `Pass` if every subject has a mark $\\ge 40$; otherwise `Fail`.\n\n### Input Format\n- Line 1: Student Name (`str`)\n- Line 2: Number of subjects $N$ (`int`)\n- Next $N$ lines: Integer marks\n\n### Output Format\n```text\nName = <name>\nMarks = <marks_list>\nTotal = <total>\nAverage = <average>\nHighest = <highest>\nLowest = <lowest>\nPassed Subjects = <passed_count>\nResult = <Pass|Fail>\n```",
+    "requirements": [
+      "Read name, subject count $N$, and $N$ marks into a list.",
+      "Calculate total, average, highest, and lowest mark.",
+      "Count passed subjects (mark >= 40).",
+      "Evaluate overall result (Pass only if all marks >= 40, else Fail).",
+      "Format output exactly as specified."
+    ],
+    "starterCode": "# Read student name and number of subjects N from standard input\n\n# Read N subject marks into a list\n\n# Compute total, average, highest mark, lowest mark, passed subjects count, and overall result (Pass/Fail)\n\n# Display the performance report matching the exact required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "Arun\n5\n78\n85\n67\n92\n88",
+        "expectedOutput": "Name = Arun\nMarks = [78, 85, 67, 92, 88]\nTotal = 410\nAverage = 82.0\nHighest = 92\nLowest = 67\nPassed Subjects = 5\nResult = Pass\n",
+        "description": "5 subjects, all passed: [78, 85, 67, 92, 88]"
+      },
+      {
+        "input": "Kumar\n4\n80\n35\n72\n91",
+        "expectedOutput": "Name = Kumar\nMarks = [80, 35, 72, 91]\nTotal = 278\nAverage = 69.5\nHighest = 91\nLowest = 35\nPassed Subjects = 3\nResult = Fail\n",
+        "description": "4 subjects, one subject failed (35): Fail result"
+      },
+      {
+        "input": "Ravi\n3\n40\n40\n40",
+        "expectedOutput": "Name = Ravi\nMarks = [40, 40, 40]\nTotal = 120\nAverage = 40.0\nHighest = 40\nLowest = 40\nPassed Subjects = 3\nResult = Pass\n",
+        "description": "All marks at boundary pass threshold (40)"
+      },
+      {
+        "input": "Meena\n1\n95",
+        "expectedOutput": "Name = Meena\nMarks = [95]\nTotal = 95\nAverage = 95.0\nHighest = 95\nLowest = 95\nPassed Subjects = 1\nResult = Pass\n",
+        "description": "Single subject edge case: [95]"
       }
+    ],
+    "hints": [
+      "Input: `name = input()`, `n = int(input())`, `marks = [int(input()) for _ in range(n)]`.",
+      "Total and average: `tot = sum(marks)`, `avg = tot / n`.",
+      "Highest and lowest: `high = max(marks)`, `low = min(marks)`.",
+      "Passed subjects: `passed = sum(1 for m in marks if m >= 40)`.",
+      "Result: `'Pass' if all(m >= 40 for m in marks) else 'Fail'`."
     ]
   }
 ]

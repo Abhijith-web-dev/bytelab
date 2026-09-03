@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-20-1",
-    "question": "Which of the following best describes Scope (Local/Global) & Function Composition?",
+    "id": "q1",
+    "question": "Which Python built-in data type represents text sequences?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "int",
+      "float",
+      "str",
+      "bool"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In Python, textual data is represented using the `str` (string) class."
+  },
+  {
+    "id": "q2",
+    "question": "What is the 0-based index of the first character in a non-empty string?",
+    "options": [
+      "0",
+      "1",
+      "-1",
+      "2"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Python sequences use zero-based indexing, where index 0 references the initial item."
+  },
+  {
+    "id": "q3",
+    "question": "What is printed by `text = 'Python'; print(text[0])`?",
+    "options": [
+      "P",
+      "y",
+      "n",
+      "Python"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Index 0 retrieves the very first character, which is 'P'."
+  },
+  {
+    "id": "q4",
+    "question": "What character does negative index `-1` retrieve in `text[-1]`?",
+    "options": [
+      "The first character",
+      "The last character",
+      "The second character",
+      "The entire string"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Negative indexing counts backward from the right; -1 always references the final character."
+  },
+  {
+    "id": "q5",
+    "question": "What is extracted by the slice `text = 'Python'; print(text[1:4])`?",
+    "options": [
+      "Pyt",
+      "yth",
+      "ytho",
+      "Python"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The slice `1:4` includes indices 1 ('y'), 2 ('t'), and 3 ('h'), excluding stop index 4, producing 'yth'."
+  },
+  {
+    "id": "q6",
+    "question": "What operation is accomplished by the slicing expression `text[::-1]`?",
+    "options": [
+      "Sorts the characters alphabetically",
+      "Converts the entire string to uppercase",
+      "Reverses the sequence of characters",
+      "Removes all whitespace from the string"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A slice step of -1 traverses characters in reverse order from end to start."
+  },
+  {
+    "id": "q7",
+    "question": "What does string immutability signify in Python?",
+    "options": [
+      "Strings cannot be output using print()",
+      "Strings cannot be sliced or indexed",
+      "Individual characters in a string cannot be modified or reassigned in place",
+      "Strings cannot be assigned to variables"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Immutability means string content cannot be mutated in place; any alteration produces a new string object."
+  },
+  {
+    "id": "q8",
+    "question": "What integer value is returned by `len(\"Hello\")`?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "\"Hello\" contains 5 distinct characters, so `len()` returns 5."
+  },
+  {
+    "id": "q9",
+    "question": "Which string method returns a copy of the string with all characters converted to uppercase?",
+    "options": [
+      "upper()",
+      "uppercase()",
+      "up()",
+      "capital()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The `.upper()` method creates a new string with all alphabetic characters in uppercase."
+  },
+  {
+    "id": "q10",
+    "question": "What is the primary action performed by the `.split()` method on a string?",
+    "options": [
+      "Converts a list into a single string",
+      "Splits a string into a list of substrings separated by a delimiter",
+      "Reverses the string characters",
+      "Counts the total occurrences of digits"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`.split()` breaks a string by whitespace or a specified delimiter into a list of word tokens."
   }
 ]

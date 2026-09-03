@@ -1,16 +1,42 @@
 [
   {
-    "id": "prob-day-26",
-    "title": "Practice: List Methods and List Loop",
-    "description": "Write a Python script that demonstrates list methods and list loop.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for List Methods and List Loop\nprint('Success')",
+    "id": "create-independent-list",
+    "title": "Create an Independent List",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Write a Python program that reads a list of marks, creates an independent clone of the list, and increases every mark in the clone by 5.\n\nThe original list must remain completely unchanged.\n\n### Input Format\nA single line containing space-separated integer marks, e.g. `80 70 90 60 75`.\n\n### Output Format\nDisplay two lines:\n`Original: <original_list>`\n`Updated: <updated_cloned_list>`",
+    "requirements": [
+      "Read space-separated integers using `[int(x) for x in input().split()]` or `list(map(int, input().split()))`.",
+      "Create a separate copy of the list using `.copy()` or slicing `[:]`.",
+      "Traverse the cloned list and increase every mark by 5.",
+      "Print the original list: `print('Original:', marks)`.",
+      "Print the updated list: `print('Updated:', updated_marks)`.",
+      "Ensure the original list is not modified."
+    ],
+    "starterCode": "# Read space-separated integer marks into a list\n\n# Create a cloned copy of the list using .copy() or slicing [:]\n\n# Traverse the cloned list and increase each mark by 5\n\n# Print the original list and the updated list in the required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "80 70 90 60 75",
+        "expectedOutput": "Original: [80, 70, 90, 60, 75]\nUpdated: [85, 75, 95, 65, 80]\n",
+        "description": "Marks: [80, 70, 90, 60, 75] -> +5 bonus"
+      },
+      {
+        "input": "40 50 60 70 80",
+        "expectedOutput": "Original: [40, 50, 60, 70, 80]\nUpdated: [45, 55, 65, 75, 85]\n",
+        "description": "Marks: [40, 50, 60, 70, 80] -> +5 bonus"
+      },
+      {
+        "input": "0 10 20 30 40",
+        "expectedOutput": "Original: [0, 10, 20, 30, 40]\nUpdated: [5, 15, 25, 35, 45]\n",
+        "description": "Marks: [0, 10, 20, 30, 40] -> +5 bonus"
       }
+    ],
+    "hints": [
+      "Read input: `marks = [int(x) for x in input().split()]`.",
+      "Clone the list: `updated_marks = marks.copy()` or `updated_marks = marks[:]`.",
+      "Iterate by index to modify the clone: `for i in range(len(updated_marks)): updated_marks[i] += 5`.",
+      "Print both: `print('Original:', marks)` followed by `print('Updated:', updated_marks)`."
     ]
   }
 ]

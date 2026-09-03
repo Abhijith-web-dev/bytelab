@@ -1,16 +1,51 @@
 [
   {
-    "id": "prob-day-14",
-    "title": "Practice: Conditional Execution (if)",
-    "description": "Write a Python script that demonstrates conditional execution (if).",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Conditional Execution (if)\nprint('Success')",
+    "id": "student-grade-calculator",
+    "title": "Student Grade Calculator",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program that reads a student's mark from standard input and displays their corresponding grade using an `if-elif-else` chained conditional statement.\n\n### Grading Rules\n| Mark Range | Grade |\n| :--- | :--- |\n| **90 – 100** | `A` |\n| **75 – 89** | `B` |\n| **60 – 74** | `C` |\n| **40 – 59** | `D` |\n| **Below 40** | `F` |\n\n### Input Format\nA single line containing an integer `mark` (between 0 and 100).\n\n### Output Format\n```text\nGrade: <grade>\n```",
+    "requirements": [
+      "Read one integer mark from user input using `input()` and `int()`.",
+      "Use an `if-elif-else` conditional chain to classify the grade.",
+      "Order your conditions carefully from highest mark to lowest mark.",
+      "Print the result strictly in the format `Grade: <grade>`."
+    ],
+    "starterCode": "# Read one integer mark from standard input\n\n# Check the mark using an if-elif-else chain:\n# 90 to 100 -> A\n# 75 to 89  -> B\n# 60 to 74  -> C\n# 40 to 59  -> D\n# Below 40  -> F\n\n# Display the grade in the exact format: Grade: <grade>\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "95",
+        "expectedOutput": "Grade: A\n",
+        "description": "Mark: 95 -> Grade: A"
+      },
+      {
+        "input": "82",
+        "expectedOutput": "Grade: B\n",
+        "description": "Mark: 82 -> Grade: B"
+      },
+      {
+        "input": "68",
+        "expectedOutput": "Grade: C\n",
+        "description": "Mark: 68 -> Grade: C"
+      },
+      {
+        "input": "45",
+        "expectedOutput": "Grade: D\n",
+        "description": "Mark: 45 -> Grade: D"
+      },
+      {
+        "input": "25",
+        "expectedOutput": "Grade: F\n",
+        "description": "Mark: 25 -> Grade: F"
       }
+    ],
+    "hints": [
+      "Read the input using `mark = int(input())`.",
+      "Start with the highest grade threshold: `if mark >= 90: grade = 'A'`.",
+      "Continue with successive `elif` branches: `elif mark >= 75: grade = 'B'`.",
+      "Use `else:` for marks below 40 to assign `'F'`.",
+      "Print using `print('Grade:', grade)` or `print(f'Grade: {grade}')`."
     ]
   }
 ]

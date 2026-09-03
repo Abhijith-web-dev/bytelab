@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-15-1",
-    "title": "Basic Usage of Alternative (if-else) & Chained (if-elif-else)",
-    "code": "# Example for Alternative (if-else) & Chained (if-elif-else)\nprint('Day 15 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

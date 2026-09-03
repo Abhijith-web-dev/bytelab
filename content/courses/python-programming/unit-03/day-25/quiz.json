@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-25-1",
-    "question": "Which of the following best describes Lists: Operations and Slices?",
+    "id": "q1",
+    "question": "What is the output of the following code?\n```python\nnumbers = [10, 20, 30, 40, 50]\nprint(numbers[1:4])\n```",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "[10, 20, 30]",
+      "[20, 30, 40]",
+      "[20, 30, 40, 50]",
+      "[10, 20, 30, 40]"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctAnswer": 1,
+    "explanation": "Slicing syntax [1:4] includes index 1 up to index 3 (index 4 is excluded), producing [20, 30, 40]."
+  },
+  {
+    "id": "q2",
+    "question": "Which list method adds an item to the end of a list?",
+    "options": [
+      "insert()",
+      "append()",
+      "add()",
+      "push()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "append() adds an item to the end of the list."
+  },
+  {
+    "id": "q3",
+    "question": "Which method removes a specific value from a list?",
+    "options": [
+      "delete()",
+      "clear()",
+      "remove()",
+      "erase()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "remove() searches for and deletes the first occurrence of the specified value."
+  },
+  {
+    "id": "q4",
+    "question": "Which method removes an item using its index and returns the removed item?",
+    "options": [
+      "remove()",
+      "pop()",
+      "clear()",
+      "delete()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "pop(index) removes the element at the specified index and returns it to the caller."
+  },
+  {
+    "id": "q5",
+    "question": "What does len() return when passed a list?",
+    "options": [
+      "The largest value",
+      "The smallest value",
+      "The total number of items",
+      "The sum of all items"
+    ],
+    "correctAnswer": 2,
+    "explanation": "len() returns the length (count of elements) in a collection or sequence."
+  },
+  {
+    "id": "q6",
+    "question": "What is the output of the following code?\n```python\nnumbers = [10, 20, 30]\nfor number in numbers:\n    print(number)\n```",
+    "options": [
+      "0 1 2",
+      "10 20 30",
+      "30 20 10",
+      "No output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A for loop over a list directly extracts each element one by one from left to right."
+  },
+  {
+    "id": "q7",
+    "question": "Which loop is generally the simplest and most pythonic choice for visiting every item in a list?",
+    "options": [
+      "if",
+      "while",
+      "for",
+      "def"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'for item in list' loop is designed specifically for clean collection traversal without manual index management."
+  },
+  {
+    "id": "q8",
+    "question": "What does this expression return?\n```python\nnumbers = [10, 20, 30, 40]\nnumbers[-2:]\n```",
+    "options": [
+      "[10, 20]",
+      "[20, 30]",
+      "[30, 40]",
+      "[40]"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Negative indexing starts from the end. -2 represents the second item from the right (30), and omitting the end extracts through the final element."
+  },
+  {
+    "id": "q9",
+    "question": "Which statement correctly distinguishes sort() and sorted()?",
+    "options": [
+      "Both are list methods",
+      "sort() is a list method, while sorted() is a built-in function",
+      "sorted() is a list method, while sort() is a built-in function",
+      "Both remove duplicate values"
+    ],
+    "correctAnswer": 1,
+    "explanation": "list.sort() modifies the list in-place, whereas sorted(iterable) is a universal built-in function that returns a new sorted copy."
+  },
+  {
+    "id": "q10",
+    "question": "What is the output of the following code?\n```python\nnumbers = [10, 15, 20, 25]\nfor number in numbers:\n    if number % 2 == 0:\n        print(number)\n```",
+    "options": [
+      "10 15 20 25",
+      "15 25",
+      "10 20",
+      "20 25"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The condition 'number % 2 == 0' filters for even numbers. 10 and 20 satisfy this condition."
   }
 ]

@@ -1,16 +1,47 @@
 [
   {
-    "id": "prob-day-13",
-    "title": "Practice: Boolean Values and Operators",
-    "description": "Write a Python script that demonstrates boolean values and operators.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Boolean Values and Operators\nprint('Success')",
+    "id": "student-eligibility-checker",
+    "title": "Student Eligibility Checker",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program that checks whether a student is eligible for a course.\n\nThe student is eligible only when:\n1. The student's age is 18 or above.\n2. The student's mark is 50 or above.\n\nYour program must use an `if` statement and the `and` operator.\n\n### Input Format\nRead two values from the user (one per line):\n- Age (integer)\n- Mark (integer or float)\n\n### Output Format\nWhen both conditions are satisfied, print:\n`Eligible for the course`\n\nOtherwise, print nothing (no eligibility message).",
+    "requirements": [
+      "Read age from standard input using `int(input())`.",
+      "Read mark from standard input using `float(input())` or `int(input())`.",
+      "Use a comparison operator (`>=`).",
+      "Use the `and` operator.",
+      "Use an `if` statement.",
+      "Print 'Eligible for the course' only when both conditions are true."
+    ],
+    "starterCode": "# Read student age and mark from user\n\n# Check eligibility using if and the 'and' operator\n\n# Print 'Eligible for the course' only when both conditions are met\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "20\n75",
+        "expectedOutput": "Eligible for the course\n",
+        "description": "Age: 20, Mark: 75 -> Eligible"
+      },
+      {
+        "input": "17\n80",
+        "expectedOutput": "",
+        "description": "Age: 17, Mark: 80 -> Not eligible (age under 18)"
+      },
+      {
+        "input": "20\n45",
+        "expectedOutput": "",
+        "description": "Age: 20, Mark: 45 -> Not eligible (mark under 50)"
+      },
+      {
+        "input": "18\n50",
+        "expectedOutput": "Eligible for the course\n",
+        "description": "Age: 18, Mark: 50 -> Boundary check (exactly eligible)"
       }
+    ],
+    "hints": [
+      "You need two variables: `age = int(input())` and `mark = float(input())`.",
+      "Think about the two conditions: `age >= 18` and `mark >= 50`.",
+      "Combine both conditions using `and`: `if age >= 18 and mark >= 50:`.",
+      "Inside the if statement, remember to indent and print: `print(\"Eligible for the course\")`."
     ]
   }
 ]

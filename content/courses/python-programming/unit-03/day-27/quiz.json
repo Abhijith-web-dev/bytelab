@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-27-1",
-    "question": "Which of the following best describes Mutability, Aliasing, and Cloning?",
+    "id": "q1",
+    "question": "Can a Python function receive a list as an argument?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "No",
+      "Yes",
+      "Only if the list contains only numbers",
+      "Only if the list contains only strings"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python functions can accept arguments of any valid data type, including lists."
+  },
+  {
+    "id": "q2",
+    "question": "What is the output of the following code?\n```python\ndef calculate_total(numbers):\n    return sum(numbers)\n\nvalues = [10, 20, 30]\nprint(calculate_total(values))\n```",
+    "options": [
+      "30",
+      "50",
+      "60",
+      "Error"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The function takes 'values' and calculates the sum: 10 + 20 + 30 = 60."
+  },
+  {
+    "id": "q3",
+    "question": "What happens when a function calls `items.append()` on a list passed to it?",
+    "options": [
+      "The original list object is modified in-place",
+      "The list is converted into an immutable tuple",
+      "The list is automatically cloned before appending",
+      "The function cannot access the caller's list"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Because lists are mutable reference types in Python, mutating operations like append() modify the single shared list object."
+  },
+  {
+    "id": "q4",
+    "question": "What is the output of the following code?\n```python\ndef add_item(items):\n    items.append(40)\n\nnumbers = [10, 20, 30]\nadd_item(numbers)\nprint(numbers)\n```",
+    "options": [
+      "[10, 20, 30]",
+      "[40]",
+      "[10, 20, 30, 40]",
+      "Error"
+    ],
+    "correctAnswer": 2,
+    "explanation": "add_item mutates the list passed into it. Since numbers and items share the same object, numbers becomes [10, 20, 30, 40]."
+  },
+  {
+    "id": "q5",
+    "question": "Which of the following code statements creates an independent clone of a list?",
+    "options": [
+      "new = old",
+      "new == old",
+      "new = old.copy()",
+      "new is old"
+    ],
+    "correctAnswer": 2,
+    "explanation": "old.copy() (or old[:]) allocates an independent duplicate list."
+  },
+  {
+    "id": "q6",
+    "question": "What is the output of the following code?\n```python\ndef update(numbers):\n    for i in range(len(numbers)):\n        numbers[i] += 5\n\nvalues = [10, 20, 30]\nupdate(values)\nprint(values)\n```",
+    "options": [
+      "[10, 20, 30]",
+      "[15, 25, 35]",
+      "[5, 15, 25]",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The loop updates each element by index in-place: 10+5=15, 20+5=25, 30+5=35."
+  },
+  {
+    "id": "q7",
+    "question": "Why is index traversal (`for i in range(len(items))`) commonly preferred when modifying list elements?",
+    "options": [
+      "It allows assigning new values directly to `items[i]`",
+      "It automatically converts the list into a string",
+      "It sorts the list in ascending order",
+      "It makes the list immutable"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In 'for item in items', the loop variable 'item' is just a temporary value holder. Direct subscript assignment 'items[i] = val' is required to rebind list slots."
+  },
+  {
+    "id": "q8",
+    "question": "What keyword must a function use to send a newly calculated or cloned list back to the caller?",
+    "options": [
+      "break",
+      "input",
+      "return",
+      "append"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'return' keyword sends computed values back to the calling expression."
+  },
+  {
+    "id": "q9",
+    "question": "What is the main reason to clone a list before performing modifications inside a function?",
+    "options": [
+      "To convert the list into a set",
+      "To keep the caller's original list safe and unchanged",
+      "To automatically remove duplicate values",
+      "To make python execute the function faster"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cloning creates a separate object, guaranteeing that updates do not corrupt the original list maintained by the caller."
+  },
+  {
+    "id": "q10",
+    "question": "Which function implementation correctly counts how many marks are 40 or above?",
+    "options": [
+      "def count_passed(marks):\n    return len(marks)",
+      "def count_passed(marks):\n    count = 0\n    for mark in marks:\n        if mark >= 40:\n            count += 1\n    return count",
+      "def count_passed(marks):\n    return max(marks)",
+      "def count_passed(marks):\n    return sum(marks)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Iterating over each mark, checking if mark >= 40, and incrementing a counter correctly tallies passing students."
   }
 ]

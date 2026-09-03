@@ -50,26 +50,36 @@ import {
   getExamples,
   getProblems,
   getQuiz,
-  getNextAndPreviousLesson
+  getNextAndPreviousLesson,
+  normalizeChapterId
 } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
 import { useUIStore } from '../../stores/uiStore.js';
 import { usePracticeStore } from '../../stores/practiceStore.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
+import { useSEO } from '../../hooks/useSEO.js';
 
 export function LessonPage() {
   const params = useParams();
   const navigate = useNavigate();
   const courseId = params.courseId || 'python-programming';
-  const chapterId = params.chapterId || 'day-01';
+  const chapterId = normalizeChapterId(params.chapterId || 'day-01');
 
   const course = getCourse(courseId);
 
   // Find unit for this chapter
-  const unit = course.units.find(u => u.chapters.includes(chapterId)) || course.units[0];
+  const unit = (params.unitId && course.units.find(u => u.id === params.unitId))
+    || course.units.find(u => u.chapters.includes(chapterId))
+    || course.units[0];
   const unitId = unit.id;
 
   const chapter = getChapter(courseId, unitId, chapterId);
+  
+  useSEO({
+    title: `${chapter?.title || 'Lesson'} | ${course?.title || ''}`,
+    description: chapter?.description || 'Learn interactive coding in this lesson.'
+  });
+
   const lessonMd = getLesson(courseId, unitId, chapterId);
   const storyMd = getStory(courseId, unitId, chapterId);
   const simulationData = getSimulation(courseId, unitId, chapterId);

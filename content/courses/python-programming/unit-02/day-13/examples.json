@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-13-1",
-    "title": "Basic Usage of Boolean Values and Operators",
-    "code": "# Example for Boolean Values and Operators\nprint('Day 13 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

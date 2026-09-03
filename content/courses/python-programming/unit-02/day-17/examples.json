@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-17-1",
-    "title": "Basic Usage of The for Loop & range()",
-    "code": "# Example for The for Loop & range()\nprint('Day 17 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

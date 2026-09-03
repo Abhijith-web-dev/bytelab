@@ -1,21 +1,25 @@
 {
   "id": "day-13",
   "unitId": "unit-02",
-  "dayNumber": 13,
-  "order": 13,
-  "title": "Day 13: Boolean Values and Operators",
-  "shortTitle": "Boolean Values and Operators",
-  "description": "Evaluating Boolean logic and comparison operators.",
-  "simulationType": "Type B: Flowchart / Decision Simulation",
-  "estimatedMinutes": 20,
+  "dayNumber": 1,
+  "order": 1,
+  "title": "Day 1: Boolean Values, Operators & Conditional Statements",
+  "shortTitle": "Boolean Values & Conditionals",
+  "description": "Master Boolean values and expressions, comparison and logical operators, control flow fundamentals, and decision making with if statements.",
   "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
-  "prerequisites": [
-    "day-12"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "estimatedMinutes": 90,
+  "topics": [
+    "Boolean Values & Expressions",
+    "Comparison Operators",
+    "Assignment vs Comparison (= vs ==)",
+    "Logical Operators (and, or, not)",
+    "Control Flow Fundamentals",
+    "if Statement & Indentation",
+    "Program Tracing & Debugging",
+    "Student Eligibility Checker"
+  ]
 }

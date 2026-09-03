@@ -1,21 +1,30 @@
 {
   "id": "day-21",
   "unitId": "unit-02",
-  "dayNumber": 21,
-  "order": 21,
-  "title": "Day 21: Recursion",
-  "shortTitle": "Recursion",
-  "description": "Functions that call themselves to solve smaller problem instances.",
-  "simulationType": "Type D: Code Execution Tracer",
-  "estimatedMinutes": 20,
-  "difficulty": "beginner",
+  "dayNumber": 9,
+  "order": 9,
+  "title": "Day 9: String Module, Lists as Arrays & Working with Numeric Arrays",
+  "shortTitle": "String Module & Numeric Arrays",
+  "description": "Master the Python string module constants, utilize lists as contiguous numeric arrays, perform mutations (append, insert, pop, remove), and implement statistical traversals.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-20"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "The string Module: Predefined Character Constants & Helpers",
+    "Lists as Array Containers: Structure & Memory Model",
+    "Indexing, Negative Offsets, and Boundary Bounds",
+    "List Mutation: In-Place Item Assignment",
+    "Dynamic Sizing: append(), insert(), extend(), pop(), remove(), del",
+    "Array Traversal Patterns: for-in, range(len()), while, enumerate()",
+    "Numeric Statistical Computations: sum, average, max, min",
+    "Iterative Search, Extremum Tracking & Parity/Sign Filtering",
+    "Practice Problem: Numeric Array Analyzer",
+    "Unit-II Day 9 Knowledge Assessment"
+  ]
 }

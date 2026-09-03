@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-13-1",
-    "question": "Which of the following best describes Boolean Values and Operators?",
+    "id": "q1",
+    "question": "Which two values are Boolean values in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "1 and 0",
+      "True and False",
+      "Yes and No",
+      "On and Off"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python's Boolean data type (bool) consists of exactly two values: True and False (capitalized)."
+  },
+  {
+    "id": "q2",
+    "question": "What is the result of this expression?\n```python\n10 > 5\n```",
+    "options": [
+      "True",
+      "False",
+      "10",
+      "5"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Since 10 is strictly greater than 5, the comparison operator evaluates to True."
+  },
+  {
+    "id": "q3",
+    "question": "Which operator means 'equal to' for comparing two values?",
+    "options": [
+      "=",
+      "!=",
+      "==",
+      ">="
+    ],
+    "correctAnswer": 2,
+    "explanation": "The '==' operator checks equality between values. A single '=' is used for assigning values to variables."
+  },
+  {
+    "id": "q4",
+    "question": "What does the `and` operator require to evaluate to `True`?",
+    "options": [
+      "At least one condition must be true",
+      "Both conditions must be true",
+      "Both conditions must be false",
+      "It reverses the condition"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'and' operator returns True only if both operand expressions evaluate to True."
+  },
+  {
+    "id": "q5",
+    "question": "What is the result of:\n```python\nTrue or False\n```",
+    "options": [
+      "True",
+      "False",
+      "0",
+      "Error"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The 'or' operator returns True when at least one of the conditions is True."
+  },
+  {
+    "id": "q6",
+    "question": "What does `not True` produce?",
+    "options": [
+      "True",
+      "False",
+      "None",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'not' operator inverts the Boolean value; 'not True' becomes False."
+  },
+  {
+    "id": "q7",
+    "question": "What is the purpose of an `if` statement?",
+    "options": [
+      "To repeat code automatically",
+      "To define a function",
+      "To make a decision based on a condition",
+      "To create a list"
+    ],
+    "correctAnswer": 2,
+    "explanation": "An 'if' statement alters normal sequential flow to execute code conditionally based on whether a condition is True."
+  },
+  {
+    "id": "q8",
+    "question": "What is the output?\n```python\nage = 20\n\nif age >= 18:\n    print(\"Adult\")\n```",
+    "options": [
+      "20",
+      "False",
+      "Adult",
+      "No output"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Because 20 >= 18 evaluates to True, Python executes the indented print statement and outputs 'Adult'."
+  },
+  {
+    "id": "q9",
+    "question": "Which symbol is required at the end of an `if` condition line in Python?",
+    "options": [
+      ";",
+      ",",
+      ":",
+      "."
+    ],
+    "correctAnswer": 2,
+    "explanation": "A colon ':' is required to end the header line and introduce the indented block that follows."
+  },
+  {
+    "id": "q10",
+    "question": "What is the output of the following code?\n```python\nage = 16\n\nif age >= 18:\n    print(\"Adult\")\n\nprint(\"Done\")\n```",
+    "options": [
+      "Adult",
+      "Done",
+      "Adult and Done",
+      "No output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "16 >= 18 is False, so the 'Adult' block is skipped. Execution continues to the unindented next statement, printing 'Done'."
   }
 ]

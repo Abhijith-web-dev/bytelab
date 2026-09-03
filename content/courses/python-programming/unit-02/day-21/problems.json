@@ -1,16 +1,42 @@
 [
   {
-    "id": "prob-day-21",
-    "title": "Practice: Recursion",
-    "description": "Write a Python script that demonstrates recursion.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Recursion\nprint('Success')",
+    "id": "numeric-array-analyzer",
+    "title": "Numeric Array Analyzer",
+    "difficulty": "intermediate",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "Write a Python program that accepts $N$ numbers from standard input and stores them in a list to perform comprehensive statistical analysis.\n\n### Requirements\n1. Read the array size $N$ from the first line of input.\n2. Read the next $N$ integers and append them to a list.\n3. Compute and display:\n   - **Sum**: Total sum of elements.\n   - **Average**: Arithmetic mean (`Sum / N`).\n   - **Largest**: The maximum element (determined via manual comparison traversal).\n   - **Smallest**: The minimum element (determined via manual comparison traversal).\n   - **Even**: Count of even integers (`num % 2 == 0`).\n   - **Odd**: Count of odd integers (`num % 2 != 0`).\n   - **Positive**: Count of positive integers (`num > 0`).\n   - **Negative**: Count of negative integers (`num < 0`). *(Note: 0 is neither positive nor negative)*.\n\n### Input Format\n- Line 1: Integer $N$ (number of elements)\n- Next $N$ lines: Each containing a single integer\n\n### Output Format\n```text\nSum = <sum>\nAverage = <average>\nLargest = <largest>\nSmallest = <smallest>\nEven = <even_count>\nOdd = <odd_count>\nPositive = <positive_count>\nNegative = <negative_count>\n```",
+    "requirements": [
+      "Read size $N$ followed by $N$ integers into a list.",
+      "Calculate sum and average.",
+      "Track largest and smallest elements using traversal.",
+      "Count even, odd, positive, and negative values.",
+      "Display results using the exact output labels."
+    ],
+    "starterCode": "# Read array size N from standard input\n\n# Read N integer values from standard input into a list\n\n# Compute sum, average, largest, smallest, even count, odd count, positive count, and negative count\n\n# Print the analysis matching the exact required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "5\n10\n20\n30\n40\n50",
+        "expectedOutput": "Sum = 150\nAverage = 30.0\nLargest = 50\nSmallest = 10\nEven = 5\nOdd = 0\nPositive = 5\nNegative = 0\n",
+        "description": "All positive, all even numbers: [10, 20, 30, 40, 50]"
+      },
+      {
+        "input": "6\n-10\n-5\n0\n5\n10\n15",
+        "expectedOutput": "Sum = 15\nAverage = 2.5\nLargest = 15\nSmallest = -10\nEven = 3\nOdd = 3\nPositive = 3\nNegative = 2\n",
+        "description": "Mixed numbers including 0: [-10, -5, 0, 5, 10, 15]"
+      },
+      {
+        "input": "4\n3\n7\n11\n15",
+        "expectedOutput": "Sum = 36\nAverage = 9.0\nLargest = 15\nSmallest = 3\nEven = 0\nOdd = 4\nPositive = 4\nNegative = 0\n",
+        "description": "All odd numbers: [3, 7, 11, 15]"
       }
+    ],
+    "hints": [
+      "Read size: `size = int(input())`.",
+      "Read list: `numbers = [int(input()) for _ in range(size)]`.",
+      "Sum and average: `total = sum(numbers)` and `avg = total / size`.",
+      "Largest/smallest: `largest = numbers[0]` and `smallest = numbers[0]`, update inside loop.",
+      "Zero check: `0` is even, but neither positive nor negative."
     ]
   }
 ]

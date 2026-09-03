@@ -1,16 +1,42 @@
 [
   {
-    "id": "prob-day-17",
-    "title": "Practice: The for Loop & range()",
-    "description": "Write a Python script that demonstrates the for loop & range().",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for The for Loop & range()\nprint('Success')",
+    "id": "student-result-function",
+    "title": "Student Result Function",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program that computes a student's total and average marks for three subjects using **fruitful functions**.\n\n### Requirements\n1. Read 3 integer marks from standard input and store them in a list.\n2. Define a fruitful function `calculate_total(marks)` that receives the list and returns the sum of the marks using `sum()`.\n3. Define a fruitful function `calculate_average(marks)` that receives the list and returns the average using `sum(marks) / len(marks)`.\n4. Call both functions, store their returned values, and display the results in the exact format shown below.\n5. Format the average to exactly **2 decimal places** (e.g., `81.67`, `60.00`).\n\n### Input Format\n3 lines, each containing a single integer mark.\n\n### Output Format\n```text\nTotal: <total>\nAverage: <average_to_2_decimals>\n```",
+    "requirements": [
+      "Define fruitful function `calculate_total(marks)` using `return sum(marks)`.",
+      "Define fruitful function `calculate_average(marks)` using `return sum(marks) / len(marks)`.",
+      "Store inputs in a list.",
+      "Store returned values in variables.",
+      "Format average to two decimal places: `f'{average:.2f}'`."
+    ],
+    "starterCode": "# Define calculate_total(marks) fruitful function\n\n# Define calculate_average(marks) fruitful function\n\n# Read three integer marks from standard input into a list\n\n# Compute total and average by calling your fruitful functions\n\n# Display Total and Average (formatted to 2 decimal places)\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "80\n75\n90",
+        "expectedOutput": "Total: 245\nAverage: 81.67\n",
+        "description": "Marks 80, 75, 90 -> Total: 245, Average: 81.67"
+      },
+      {
+        "input": "50\n60\n70",
+        "expectedOutput": "Total: 180\nAverage: 60.00\n",
+        "description": "Marks 50, 60, 70 -> Total: 180, Average: 60.00"
+      },
+      {
+        "input": "100\n90\n80",
+        "expectedOutput": "Total: 270\nAverage: 90.00\n",
+        "description": "Marks 100, 90, 80 -> Total: 270, Average: 90.00"
       }
+    ],
+    "hints": [
+      "Define `def calculate_total(marks): return sum(marks)`.",
+      "Define `def calculate_average(marks): return sum(marks) / len(marks)`.",
+      "Read 3 inputs: `marks = [int(input()) for _ in range(3)]`.",
+      "Call functions: `total = calculate_total(marks)` and `avg = calculate_average(marks)`.",
+      "Print formatted output: `print(f'Total: {total}')` and `print(f'Average: {avg:.2f}')`."
     ]
   }
 ]

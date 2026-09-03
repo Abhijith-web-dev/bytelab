@@ -7,10 +7,16 @@ import { useAuthStore } from '../../stores/authStore.js';
 import { useProgressStore } from '../../stores/progressStore.js';
 import { getCourse } from '../../content/loader/index.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
+import { useSEO } from '../../hooks/useSEO.js';
 
 const CodePlayground = React.lazy(() => import('../../components/editor/CodePlayground.jsx').then(m => ({ default: m.CodePlayground })));
 
 export function HomePage() {
+  useSEO({
+    title: 'CodePath LMS | Tutorial-First Programming Platform',
+    description: 'Master Python Programming and engineering concepts with hands-on coding, sandboxed execution, and guided tutorials.'
+  });
+
   const { isAuthenticated, user } = useAuthStore();
   const { completedChapters, totalPoints, streakDays } = useProgressStore();
   const course = getCourse('python-programming');

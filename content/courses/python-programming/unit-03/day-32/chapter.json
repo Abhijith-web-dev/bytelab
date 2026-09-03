@@ -1,21 +1,30 @@
 {
   "id": "day-32",
   "unitId": "unit-03",
-  "dayNumber": 32,
-  "order": 32,
-  "title": "Day 32: Linear Search",
-  "shortTitle": "Linear Search",
-  "description": "Sequential searching algorithm.",
-  "simulationType": "Type F: Algorithm Animation",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 9,
+  "order": 9,
+  "title": "Day 9: Sorting Algorithms — Selection Sort & Insertion Sort",
+  "shortTitle": "Selection Sort & Insertion Sort",
+  "description": "Understand fundamental sorting algorithms: step-by-step dry runs, Python implementations of Selection Sort and Insertion Sort, swapping vs shifting, and algorithm-based problem solving.",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "What is Sorting & Algorithmic Thinking?",
+    "Selection Sort: Concept, Dry Run & Mechanics",
+    "Selection Sort Implementation in Python",
+    "Insertion Sort: The Playing Cards Metaphor",
+    "Insertion Sort Implementation & Shifting Loops",
+    "Selection Sort vs Insertion Sort (Swap vs Shift)",
+    "Ascending vs Descending Order Modifications",
+    "Wrapping Sorting Logic in Reusable Functions",
+    "Edge Cases (Empty, Single, Sorted, Reversed, Duplicates)",
+    "Sort Student Marks Using Selection Sort Practice"
+  ],
   "prerequisites": [
     "day-31"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

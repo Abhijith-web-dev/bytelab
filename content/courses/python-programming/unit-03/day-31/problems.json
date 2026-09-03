@@ -1,16 +1,41 @@
 [
   {
-    "id": "prob-day-31",
-    "title": "Practice: Finding Maximum of a List",
-    "description": "Write a Python script that demonstrates finding maximum of a list.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Finding Maximum of a List\nprint('Success')",
+    "id": "student-marks-analyzer",
+    "title": "Student Marks Analyzer",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "Create a Python program to analyze student marks using a dictionary and List Comprehension.\n\nThe program must:\n1. Read 5 lines from standard input, each containing a student name and an integer mark separated by a space.\n2. Store each record in a dictionary where the student name is the key and the mark is an integer value.\n3. Identify all students who passed (mark is 40 or above: `mark >= 40`).\n4. Use a **List Comprehension** to create a new list of passing student names.\n5. Print the list of passing students and the total count.\n\n### Input Format\n5 lines, each formatted as: `<name> <mark>`\n\n### Output Format\n```text\nPassed Students: <list_of_names>\nNumber of Passed Students: <count>\n```",
+    "requirements": [
+      "Read 5 student records and populate a dictionary.",
+      "Use `students.items()` with a List Comprehension to filter passing students.",
+      "Condition for passing: `mark >= 40`.",
+      "Calculate student count using `len()`.",
+      "Print outputs in the specified format."
+    ],
+    "starterCode": "# Initialize an empty dictionary for student records\n\n# Read 5 student entries (name and mark separated by space)\n# Store them in the dictionary with name as key and mark as integer value\n\n# Use a List Comprehension to extract the names of students where mark >= 40\n\n# Print Passed Students and Number of Passed Students in the required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "Arun 85\nPriya 35\nRahul 70\nMeena 90\nKarthik 30",
+        "expectedOutput": "Passed Students: ['Arun', 'Rahul', 'Meena']\nNumber of Passed Students: 3\n",
+        "description": "Arun(85), Priya(35), Rahul(70), Meena(90), Karthik(30) -> 3 passed"
+      },
+      {
+        "input": "Arun 30\nPriya 35\nRahul 20\nMeena 25\nKarthik 10",
+        "expectedOutput": "Passed Students: []\nNumber of Passed Students: 0\n",
+        "description": "All students below 40 -> 0 passed"
+      },
+      {
+        "input": "Arun 40\nPriya 50\nRahul 60\nMeena 70\nKarthik 80",
+        "expectedOutput": "Passed Students: ['Arun', 'Priya', 'Rahul', 'Meena', 'Karthik']\nNumber of Passed Students: 5\n",
+        "description": "All students 40 and above -> 5 passed"
       }
+    ],
+    "hints": [
+      "Create empty dict: `students = {}`.",
+      "Read 5 lines: `for _ in range(5): name, mark = input().split(); students[name] = int(mark)`.",
+      "Filter with comprehension: `passed = [name for name, mark in students.items() if mark >= 40]`.",
+      "Print results: `print('Passed Students:', passed)` and `print('Number of Passed Students:', len(passed))`."
     ]
   }
 ]

@@ -1,16 +1,46 @@
 [
   {
-    "id": "prob-day-15",
-    "title": "Practice: Alternative (if-else) & Chained (if-elif-else)",
-    "description": "Write a Python script that demonstrates alternative (if-else) & chained (if-elif-else).",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Alternative (if-else) & Chained (if-elif-else)\nprint('Success')",
+    "id": "number-sum-until-zero",
+    "title": "Number Sum Until Zero",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program that repeatedly reads integers from standard input and computes their cumulative sum using a `while` loop.\n\n### Rules\n1. Continuously accept integers until the user enters `0` (the sentinel value).\n2. When `0` is entered, immediately terminate the loop.\n3. Do not add `0` to the total.\n4. Display the sum of all previously entered numbers in the exact format shown below.\n\n### Input Format\nOne or more lines of input, each containing a single integer. The sequence ends with `0`.\n\n### Output Format\n```text\nTotal: <sum>\n```",
+    "requirements": [
+      "Use a `while` loop to process numbers.",
+      "Maintain a running total initialized to 0.",
+      "Use `0` as the sentinel stopping value.",
+      "Output the final result formatted strictly as `Total: <sum>`."
+    ],
+    "starterCode": "# Initialize a running total variable to 0\n\n# Read the first integer from standard input\n\n# Use a while loop that continues as long as the number is not 0:\n# Inside the loop: add number to total, then read the next number\n\n# Display the final sum in the format: Total: <total>\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "10\n20\n15\n5\n0",
+        "expectedOutput": "Total: 50\n",
+        "description": "Inputs 10, 20, 15, 5, 0 -> Total: 50"
+      },
+      {
+        "input": "5\n10\n0",
+        "expectedOutput": "Total: 15\n",
+        "description": "Inputs 5, 10, 0 -> Total: 15"
+      },
+      {
+        "input": "0",
+        "expectedOutput": "Total: 0\n",
+        "description": "Immediate 0 input -> Total: 0"
+      },
+      {
+        "input": "-5\n10\n-2\n0",
+        "expectedOutput": "Total: 3\n",
+        "description": "Inputs with negative numbers: -5 + 10 - 2 = 3"
       }
+    ],
+    "hints": [
+      "Initialize `total = 0` outside the loop.",
+      "Read the first value: `number = int(input())`.",
+      "Set the condition: `while number != 0:`.",
+      "Inside the loop: `total += number`, then `number = int(input())`.",
+      "After the loop exits: `print('Total:', total)`."
     ]
   }
 ]

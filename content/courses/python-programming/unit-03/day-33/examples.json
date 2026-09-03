@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-33-1",
-    "title": "Basic Usage of Binary Search",
-    "code": "# Example for Binary Search\nprint('Day 33 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

@@ -1,16 +1,43 @@
 [
   {
-    "id": "prob-day-18",
-    "title": "Practice: Loop Control: break, continue, pass",
-    "description": "Write a Python script that demonstrates loop control: break, continue, pass.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Loop Control: break, continue, pass\nprint('Success')",
+    "id": "student-result-processing-pipeline",
+    "title": "Student Result Processing Pipeline",
+    "difficulty": "intermediate",
+    "marks": 10,
+    "timeMinutes": 20,
+    "description": "Create a modular Python program to process student performance using a multi-stage **function composition pipeline**.\n\n### Architectural Requirements\n1. Store three subject marks read from standard input in a list.\n2. Implement `calculate_total(marks)`: receives the list and returns the sum of all elements.\n3. Implement `calculate_average(total, count)`: receives the total and the subject count, returning `total / count`.\n4. Implement `check_result(average)`: returns `\"Pass\"` if average is 40.0 or higher, otherwise `\"Fail\"`.\n5. Chain the functions by passing the return value of each function into the next.\n6. Format the average to exactly **2 decimal places** (e.g., `80.00`, `35.00`).\n\n### Input Format\n3 lines of standard input, each with a single integer mark.\n\n### Output Format\n```text\nTotal: <total>\nAverage: <average_2_decimals>\nResult: <Pass|Fail>\n```",
+    "requirements": [
+      "Define `calculate_total(marks)` using `sum()`.",
+      "Define `calculate_average(total, count)` returning `total / count`.",
+      "Define `check_result(average)` with `if-else` returning 'Pass' or 'Fail'.",
+      "Pass outputs between functions cleanly.",
+      "Format average to two decimal places: `f'{average:.2f}'`."
+    ],
+    "starterCode": "# Define calculate_total(marks) function\n\n# Define calculate_average(total, count) function\n\n# Define check_result(average) function\n\n# Read three integer marks from standard input into a list\n\n# Execute the pipeline: calculate total, pass to average, pass to result\n\n# Display Total, Average (formatted to 2 decimal places), and Result\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "80\n70\n90",
+        "expectedOutput": "Total: 240\nAverage: 80.00\nResult: Pass\n",
+        "description": "Marks 80, 70, 90 -> Total: 240, Average: 80.00, Result: Pass"
+      },
+      {
+        "input": "30\n35\n40",
+        "expectedOutput": "Total: 105\nAverage: 35.00\nResult: Fail\n",
+        "description": "Marks 30, 35, 40 -> Total: 105, Average: 35.00, Result: Fail"
+      },
+      {
+        "input": "40\n50\n60",
+        "expectedOutput": "Total: 150\nAverage: 50.00\nResult: Pass\n",
+        "description": "Marks 40, 50, 60 -> Total: 150, Average: 50.00, Result: Pass"
       }
+    ],
+    "hints": [
+      "Define `calculate_total(marks)`: `return sum(marks)`.",
+      "Define `calculate_average(total, count)`: `return total / count`.",
+      "Define `check_result(average)`: `return 'Pass' if average >= 40 else 'Fail'`.",
+      "Read marks: `marks = [int(input()) for _ in range(3)]`.",
+      "Connect pipeline: `total = calculate_total(marks)`, `avg = calculate_average(total, len(marks))`, `res = check_result(avg)`.",
+      "Print formatted lines: `print(f'Total: {total}')`, `print(f'Average: {avg:.2f}')`, `print(f'Result: {res}')`."
     ]
   }
 ]

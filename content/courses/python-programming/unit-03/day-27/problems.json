@@ -1,16 +1,45 @@
 [
   {
-    "id": "prob-day-27",
-    "title": "Practice: Mutability, Aliasing, and Cloning",
-    "description": "Write a Python script that demonstrates mutability, aliasing, and cloning.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Mutability, Aliasing, and Cloning\nprint('Success')",
+    "id": "calculate-and-update-student-marks",
+    "title": "Calculate and Update Student Marks",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Create a Python program that works with a list of student marks using functions and cloning.\n\nThe program must:\n1. Read marks for 5 subjects from standard input (one mark per line).\n2. Store the marks in a list.\n3. Define a function called `add_bonus(marks)`.\n4. Inside the function, create a separate copy of the list using `.copy()` or slicing `[:]`.\n5. Add 5 bonus marks to every value in the copied list.\n6. Return the updated list.\n7. Print both the original marks and the updated marks.\n\nThe original list must remain unchanged.\n\n### Input Format\n5 integer marks, entered one per line.\n\n### Output Format\nDisplay two lines:\n`Original: <original_list>`\n`Updated: <updated_list>`",
+    "requirements": [
+      "Define a function named `add_bonus` that accepts a list parameter.",
+      "Clone the list inside the function using `.copy()` or `[:]`.",
+      "Traverse the cloned list and increase every mark by 5.",
+      "Return the updated list from the function.",
+      "Read 5 integer marks from user input using a loop and append them to a list.",
+      "Call `add_bonus()` passing the marks list.",
+      "Print both lists in the exact format shown."
+    ],
+    "starterCode": "# Define the add_bonus(marks) function\n# Inside, clone the list, add 5 to each mark in the clone, and return it\n\n# Main program:\n# Read 5 integer marks into a list\n# Call add_bonus(marks)\n# Print the original list and the updated list in the required format\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "input": "80\n70\n90\n60\n75",
+        "expectedOutput": "Original: [80, 70, 90, 60, 75]\nUpdated: [85, 75, 95, 65, 80]\n",
+        "description": "Marks: [80, 70, 90, 60, 75] -> +5 bonus"
+      },
+      {
+        "input": "40\n50\n60\n70\n80",
+        "expectedOutput": "Original: [40, 50, 60, 70, 80]\nUpdated: [45, 55, 65, 75, 85]\n",
+        "description": "Marks: [40, 50, 60, 70, 80] -> +5 bonus"
+      },
+      {
+        "input": "0\n10\n20\n30\n40",
+        "expectedOutput": "Original: [0, 10, 20, 30, 40]\nUpdated: [5, 15, 25, 35, 45]\n",
+        "description": "Marks: [0, 10, 20, 30, 40] -> +5 bonus"
       }
+    ],
+    "hints": [
+      "Define the function: `def add_bonus(marks):`.",
+      "Inside, clone the list: `updated = marks.copy()`.",
+      "Loop through indexes to add 5: `for i in range(len(updated)): updated[i] += 5`.",
+      "Return the updated copy: `return updated`.",
+      "In the main code, read 5 lines: `marks = [int(input()) for _ in range(5)]`.",
+      "Print original and updated: `print('Original:', marks)` and `print('Updated:', add_bonus(marks))`."
     ]
   }
 ]

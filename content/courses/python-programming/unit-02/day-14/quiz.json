@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-14-1",
-    "question": "Which of the following best describes Conditional Execution (if)?",
+    "id": "q1",
+    "question": "What is the primary purpose of an `if-else` statement?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "To initialize a new list of items",
+      "To make a mutually exclusive two-way decision",
+      "To define a reusable function block",
+      "To loop repeatedly over a collection"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An if-else statement provides two distinct execution paths: one if the condition is True, and an alternative if it is False."
+  },
+  {
+    "id": "q2",
+    "question": "Which Python keyword is used to test an additional condition when the preceding `if` condition evaluates to `False`?",
+    "options": [
+      "else if",
+      "elif",
+      "otherwise",
+      "next"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python uses `elif` (short for 'else if') to chain sequential condition checks."
+  },
+  {
+    "id": "q3",
+    "question": "What is printed by the following code?\n```python\nmark = 35\nif mark >= 40:\n    print('Pass')\nelse:\n    print('Fail')\n```",
+    "options": [
+      "Pass",
+      "Fail",
+      "35",
+      "No output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because 35 >= 40 is False, execution moves into the else block, outputting 'Fail'."
+  },
+  {
+    "id": "q4",
+    "question": "What is printed by the following code snippet?\n```python\nmark = 85\nif mark >= 90:\n    print('A')\nelif mark >= 75:\n    print('B')\nelse:\n    print('C')\n```",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "No output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "85 >= 90 is False, but 85 >= 75 is True. Python executes the matching elif block and prints 'B'."
+  },
+  {
+    "id": "q5",
+    "question": "In an `if-elif-else` chain, when does Python stop evaluating subsequent conditions?",
+    "options": [
+      "After every condition is checked regardless of outcome",
+      "Immediately after the first condition that evaluates to True",
+      "Only after evaluating the final else block",
+      "It never stops until all blocks execute"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In chained conditionals, Python stops searching as soon as it encounters the first True condition, skipping all remaining elif and else branches."
+  },
+  {
+    "id": "q6",
+    "question": "What is a nested conditional in Python?",
+    "options": [
+      "An if statement placed inside the body of another conditional block",
+      "An if statement written without an associated condition expression",
+      "Two list structures combined together",
+      "A function defined inside a list"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "A nested conditional occurs when an if, elif, or else block contains another inner conditional statement."
+  },
+  {
+    "id": "q7",
+    "question": "What is the output of this nested conditional?\n```python\nage = 20\nif age >= 18:\n    if age >= 21:\n        print('21+')\n    else:\n        print('18-20')\nelse:\n    print('Minor')\n```",
+    "options": [
+      "Minor",
+      "18-20",
+      "21+",
+      "No output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "20 >= 18 is True (enters outer block). Then 20 >= 21 is False (enters inner else block), displaying '18-20'."
+  },
+  {
+    "id": "q8",
+    "question": "Which construct is most suitable when exactly one category out of several choices must be selected?",
+    "options": [
+      "Several independent if statements",
+      "An if-elif-else chain",
+      "A solitary else block",
+      "A while loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An if-elif-else chain guarantees that exactly one branch executes among multiple mutually exclusive options."
+  },
+  {
+    "id": "q9",
+    "question": "What is logically flawed about the following condition order?\n```python\nif mark >= 40:\n    print('Pass')\nelif mark >= 90:\n    print('Excellent')\n```",
+    "options": [
+      "elif cannot follow an if statement",
+      "Marks of 90 and above satisfy the first condition (>= 40), so the 'Excellent' branch is never reached for them",
+      "Variable mark cannot be compared to numbers",
+      "The if statement must always come after elif"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because conditions are checked top-to-bottom, a score of 95 satisfies mark >= 40 and exits, preventing the >= 90 branch from ever executing."
+  },
+  {
+    "id": "q10",
+    "question": "What is the primary conceptual difference between a nested `if` and an `if-elif-else` chain?",
+    "options": [
+      "Nested if generates list objects, while if-elif-else generates numbers",
+      "if-elif-else works only on integers",
+      "Nested if places one decision inside another (hierarchical), whereas if-elif-else tests alternative choices sequentially at the same level",
+      "There is no difference; they are strictly identical in all aspects"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Nested if represents hierarchical decisions where condition 2 only matters if condition 1 holds, whereas if-elif-else checks mutually exclusive alternatives in sequence."
   }
 ]

@@ -8,8 +8,14 @@ import { ProgressBar } from '../../components/ui/ProgressBar.jsx';
 import { SubNavFrosted } from '../../components/layout/SubNavFrosted.jsx';
 import { getAllCourses, getLanguages } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
+import { useSEO } from '../../hooks/useSEO.js';
 
 export function CourseCatalogPage() {
+  useSEO({
+    title: 'Course Catalog',
+    description: 'Browse available courses and start learning Python programming.'
+  });
+
   const courses = getAllCourses();
   const languages = getLanguages();
   const { completedChapters, getCourseCompletionPercentage } = useProgressStore();

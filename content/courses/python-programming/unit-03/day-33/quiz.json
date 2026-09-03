@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-33-1",
-    "question": "Which of the following best describes Binary Search?",
+    "id": "q1",
+    "question": "What is the primary operational concept behind Merge Sort?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Finding the maximum value and deleting it",
+      "Dividing the list into smaller halves, sorting them recursively, and merging them",
+      "Swapping every adjacent pair until no elements are out of order",
+      "Reversing the entire list"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Merge Sort is built on dividing a problem into smaller subproblems, solving each, and merging the sorted halves."
+  },
+  {
+    "id": "q2",
+    "question": "Which algorithmic design paradigm does Merge Sort utilize?",
+    "options": [
+      "Divide and conquer",
+      "Greedy search",
+      "Dynamic programming",
+      "Exhaustive brute force"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Merge Sort is a classic divide-and-conquer algorithm: it divides the input list, conquers the sublists recursively, and merges the results."
+  },
+  {
+    "id": "q3",
+    "question": "Why does Merge Sort terminate its recursive division when a sublist has a length of 1?",
+    "options": [
+      "A sublist containing a single element is already sorted by definition",
+      "A single element cannot be indexed in Python",
+      "Python cannot divide odd-length lists",
+      "The memory limit of the program is reached"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A list with 1 (or 0) elements requires no comparison or reordering; it serves as the natural base case."
+  },
+  {
+    "id": "q4",
+    "question": "What is the result of merging two sorted sublists `[2, 5]` and `[1, 6]`?",
+    "options": [
+      "[2, 5, 1, 6]",
+      "[1, 2, 5, 6]",
+      "[6, 5, 2, 1]",
+      "[1, 6, 2, 5]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Comparing front elements sequentially (1, 2, 5, 6) yields the combined sorted list [1, 2, 5, 6]."
+  },
+  {
+    "id": "q5",
+    "question": "What does a histogram program primarily display or calculate?",
+    "options": [
+      "The frequency distribution of values within a dataset",
+      "A chronological trace of function execution calls",
+      "The total memory bytes occupied by variables",
+      "A list of syntax errors in a script"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A histogram tallies how many times each distinct value or value range occurs within a collection."
+  },
+  {
+    "id": "q6",
+    "question": "Which Python data structure is ideal for tracking `value -> frequency` tallies?",
+    "options": [
+      "Tuple",
+      "Dictionary",
+      "String",
+      "Function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dictionaries provide O(1) average-time lookups to map items (keys) directly to their frequency counts (values)."
+  },
+  {
+    "id": "q7",
+    "question": "What is the output of `frequency[3]` in the following code?\n```python\nnumbers = [1, 2, 2, 3, 3, 3]\nfrequency = {}\nfor num in numbers:\n    frequency[num] = frequency.get(num, 0) + 1\nprint(frequency[3])\n```",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "6"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The number 3 appears 3 times in numbers, so frequency[3] stores 3."
+  },
+  {
+    "id": "q8",
+    "question": "What does this List Comprehension evaluate to?\n```python\nnumbers = [1, 2, 3, 4]\nresult = [n * 2 for n in numbers if n > 2]\nprint(result)\n```",
+    "options": [
+      "[2, 4]",
+      "[6, 8]",
+      "[1, 2, 3, 4]",
+      "[3, 4]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Elements > 2 are 3 and 4. Multiplying each by 2 gives [6, 8]."
+  },
+  {
+    "id": "q9",
+    "question": "Which data structure is most appropriate for modeling a student registry mapping student names to exam marks?",
+    "options": [
+      "Dictionary",
+      "Tuple",
+      "Float",
+      "Boolean"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A dictionary enables fast lookup and updates by student name (unique keys)."
+  },
+  {
+    "id": "q10",
+    "question": "Which summary correctly identifies the primary action of each sorting algorithm studied?",
+    "options": [
+      "Selection Sort: Find + Swap; Insertion Sort: Shift + Insert; Merge Sort: Divide + Merge",
+      "Selection Sort: Divide; Insertion Sort: Merge; Merge Sort: Swap",
+      "Selection Sort: Insert; Insertion Sort: Find; Merge Sort: Delete",
+      "All three algorithms execute identical steps"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Selection Sort swaps minimums, Insertion Sort shifts elements to insert values, and Merge Sort recursively divides and merges lists."
   }
 ]

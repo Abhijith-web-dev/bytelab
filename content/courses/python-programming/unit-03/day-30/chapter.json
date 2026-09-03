@@ -1,21 +1,30 @@
 {
   "id": "day-30",
   "unitId": "unit-03",
-  "dayNumber": 30,
-  "order": 30,
-  "title": "Day 30: Dictionaries: Operations & Methods",
-  "shortTitle": "Dictionaries: Operations & Methods",
-  "description": "Storing key-value pairs and using dictionary methods.",
-  "simulationType": "Type E: Data Structure Visualizer",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 7,
+  "order": 7,
+  "title": "Day 7: Dictionaries — Structure, Operations & Key-Value Management",
+  "shortTitle": "Dictionaries & Key-Value Operations",
+  "description": "Learn dictionary structure, key-value mappings, accessing elements safely with get(), adding and updating pairs, deletion techniques, and membership testing.",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "What is a Dictionary?",
+    "Key-Value Pair Structure",
+    "Dictionary vs List (Position vs Named Key)",
+    "Accessing Values (Keys & get())",
+    "Adding & Updating Key-Value Pairs",
+    "Deleting Data (del, pop, clear)",
+    "Membership Checking with in and not in",
+    "Dictionary Views (keys, values, items)",
+    "Nested Dictionaries & Collections",
+    "Student Record Manager Practice"
+  ],
   "prerequisites": [
     "day-29"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

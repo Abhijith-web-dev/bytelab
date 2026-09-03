@@ -1,21 +1,31 @@
 {
   "id": "day-20",
   "unitId": "unit-02",
-  "dayNumber": 20,
-  "order": 20,
-  "title": "Day 20: Scope (Local/Global) & Function Composition",
-  "shortTitle": "Scope (Local/Global) & Function Composition",
-  "description": "Understanding variable visibility and chaining functions.",
-  "simulationType": "Type D: Code Execution Tracer",
-  "estimatedMinutes": 20,
-  "difficulty": "beginner",
+  "dayNumber": 8,
+  "order": 8,
+  "title": "Day 8: Strings, String Slices, Immutability & String Methods",
+  "shortTitle": "Strings, Slicing & Methods",
+  "description": "Master string sequences in Python: indexing (positive/negative), slicing, string immutability, operators, built-in functions, and essential methods.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-19"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "Understanding Strings: Representation, Quotes & Data Types",
+    "Positive and Negative Indexing & Memory Offsets",
+    "String Slicing: [start:stop:step] & Reversal via [::-1]",
+    "String Immutability: Why Mutating in Place Raises TypeError",
+    "String Operators: Concatenation (+), Repetition (*), Membership (in)",
+    "Case and Formatting Methods: upper, lower, title, capitalize, strip",
+    "Inspection and Searching: find, count, startswith, endswith",
+    "Splitting and Joining: split() and join()",
+    "Character Classification: isdigit, isalpha, isalnum",
+    "Practice Problem: Student String Analyzer",
+    "Unit-II Day 8 Knowledge Assessment"
+  ]
 }

@@ -1,21 +1,30 @@
 {
   "id": "day-14",
   "unitId": "unit-02",
-  "dayNumber": 14,
-  "order": 14,
-  "title": "Day 14: Conditional Execution (if)",
-  "shortTitle": "Conditional Execution (if)",
-  "description": "Running code blocks conditionally based on Boolean truth.",
-  "simulationType": "Type B: Flowchart / Decision Simulation",
-  "estimatedMinutes": 20,
+  "dayNumber": 2,
+  "order": 2,
+  "title": "Day 2: Alternative, Chained & Nested Conditional Statements",
+  "shortTitle": "if-else, elif & Nested Conditionals",
+  "description": "Master two-way branching with if-else, multi-way decision chains with if-elif-else, and hierarchical decision trees using nested conditionals.",
   "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO2"
   ],
+  "estimatedMinutes": 90,
   "prerequisites": [
     "day-13"
   ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  "topics": [
+    "Why if alone is not enough: Two-Way Branching",
+    "The if-else Statement: Syntax, Mechanics & Execution Flow",
+    "Chained Conditionals: if-elif-else for Multi-Way Decisions",
+    "Condition Ordering & The First-True-Condition Principle",
+    "Nested Conditionals: Hierarchical Decisions Inside Decisions",
+    "Nested Conditionals vs Logical Operators (and/or)",
+    "Illustrative Real-World Programs: ATM, Grade, Billing & Menus",
+    "Common Pitfalls: Independent ifs, Ordering Bugs & Indentation",
+    "Student Grade Calculator Practice",
+    "Unit-II Day 2 Knowledge Assessment"
+  ]
 }

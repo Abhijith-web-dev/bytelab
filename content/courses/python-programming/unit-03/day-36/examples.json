@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-36-1",
-    "title": "Basic Usage of Merge Sort & Histograms",
-    "code": "# Example for Merge Sort & Histograms\nprint('Day 36 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

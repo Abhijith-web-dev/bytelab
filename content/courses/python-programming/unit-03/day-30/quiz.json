@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-30-1",
-    "question": "Which of the following best describes Dictionaries: Operations & Methods?",
+    "id": "q1",
+    "question": "What does a Python dictionary store?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Only integer numbers",
+      "Key-value pairs",
+      "Only text strings",
+      "Only Boolean values"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A dictionary is a collection of key-value pairs where each value is mapped to a unique key."
+  },
+  {
+    "id": "q2",
+    "question": "Which syntax correctly creates a dictionary?",
+    "options": [
+      "student = [\"name\", \"Arun\"]",
+      "student = (\"name\", \"Arun\")",
+      "student = {\"name\": \"Arun\", \"age\": 20}",
+      "student = <\"name\": \"Arun\">"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Dictionaries use curly braces {} with key: value pairs separated by commas."
+  },
+  {
+    "id": "q3",
+    "question": "In the dictionary `student = {\"name\": \"Arun\", \"age\": 20}`, what is `\"name\"`?",
+    "options": [
+      "The value",
+      "The positional index",
+      "The key",
+      "A function"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In key: value syntax, the identifier on the left of the colon is the key."
+  },
+  {
+    "id": "q4",
+    "question": "How do you access \"Arun\" from `student = {\"name\": \"Arun\", \"age\": 20}`?",
+    "options": [
+      "student[0]",
+      "student[\"name\"]",
+      "student(name)",
+      "student.name"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dictionary elements are accessed using bracket notation with the key: student['name']."
+  },
+  {
+    "id": "q5",
+    "question": "What happens when executing `student[\"mark\"] = 80` on `student = {\"name\": \"Arun\"}`?",
+    "options": [
+      "A new key-value pair 'mark': 80 is added to the dictionary",
+      "The 'name' key is deleted",
+      "The dictionary is converted into a list",
+      "A KeyError is raised"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Assigning to a key that does not already exist adds a new key-value pair to the dictionary."
+  },
+  {
+    "id": "q6",
+    "question": "What happens when executing `student[\"mark\"] = 90` on `student = {\"name\": \"Arun\", \"mark\": 70}`?",
+    "options": [
+      "A second duplicate 'mark' key is appended",
+      "The existing mark value 70 is updated to 90",
+      "The entire dictionary is cleared",
+      "A SyntaxError is raised"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because dictionary keys are unique, assigning to an existing key overwrites/updates its value."
+  },
+  {
+    "id": "q7",
+    "question": "Which statement permanently deletes a specific key-value pair from a dictionary?",
+    "options": [
+      "remove student[\"age\"]",
+      "delete student[\"age\"]",
+      "del student[\"age\"]",
+      "clear student[\"age\"]"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'del' statement removes a key and its associated value from the dictionary."
+  },
+  {
+    "id": "q8",
+    "question": "What does the expression `\"name\" in student` test?",
+    "options": [
+      "Whether 'name' exists as a value in student",
+      "Whether 'name' exists as a key in student",
+      "Whether student is a list",
+      "Whether 'name' is a Python function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'in' operator on a dictionary specifically checks for key existence."
+  },
+  {
+    "id": "q9",
+    "question": "Which method safely retrieves a value without crashing with a KeyError if the key is missing?",
+    "options": [
+      "get()",
+      "find()",
+      "search()",
+      "read()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The get(key, default) method returns None or a specified default if the key is not found."
+  },
+  {
+    "id": "q10",
+    "question": "What is printed by the following code?\n```python\nstudent = {\"name\": \"Arun\", \"mark\": 85}\nfor key, value in student.items():\n    print(key, value)\n```",
+    "options": [
+      "Only Arun and 85",
+      "name Arun and mark 85",
+      "0 Arun and 1 85",
+      "KeyError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "student.items() yields (key, value) pairs, printing 'name Arun' followed by 'mark 85'."
   }
 ]

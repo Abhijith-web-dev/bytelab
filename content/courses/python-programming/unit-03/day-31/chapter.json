@@ -1,21 +1,29 @@
 {
   "id": "day-31",
   "unitId": "unit-03",
-  "dayNumber": 31,
-  "order": 31,
-  "title": "Day 31: Finding Maximum of a List",
-  "shortTitle": "Finding Maximum of a List",
-  "description": "Iterating through a sequence to find the maximum element.",
-  "simulationType": "Type F: Algorithm Animation",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "dayNumber": 8,
+  "order": 8,
+  "title": "Day 8: Dictionary Methods, Traversal & List Comprehension",
+  "shortTitle": "Dictionary Traversal & List Comprehension",
+  "description": "Master dictionary traversal, essential methods (get, keys, values, items, update, pop), conditional filtering, and concise list comprehensions.",
+  "difficulty": "beginner",
+  "simulationType": "code",
   "outcomes": [
     "CO3"
   ],
+  "estimatedMinutes": 90,
+  "topics": [
+    "Dictionary Methods (get, keys, values, items, update, pop)",
+    "Traversing Keys, Values & Pairs (.items())",
+    "Practical Dictionary Processing with Conditions",
+    "Combining Dictionaries with Lists & Functions",
+    "Introduction to List Comprehension Syntax",
+    "Filtering with if in List Comprehension",
+    "Transformation vs Filtering in Comprehensions",
+    "Dictionary-to-List Filtering Patterns",
+    "Student Marks Analyzer Practice"
+  ],
   "prerequisites": [
     "day-30"
-  ],
-  "lessonsCount": 1,
-  "problemsCount": 1,
-  "quizCount": 1
+  ]
 }

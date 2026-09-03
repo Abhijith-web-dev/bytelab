@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-25-1",
-    "title": "Basic Usage of Lists: Operations and Slices",
-    "code": "# Example for Lists: Operations and Slices\nprint('Day 25 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

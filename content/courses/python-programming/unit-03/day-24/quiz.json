@@ -1,0 +1,122 @@
+[
+  {
+    "id": "q1",
+    "question": "Which bracket syntax is used to define a list in Python?",
+    "options": [
+      "Parentheses ()",
+      "Curly braces {}",
+      "Square brackets []",
+      "Angle brackets <>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Python lists are constructed using square brackets `[]`."
+  },
+  {
+    "id": "q2",
+    "question": "What is the 0-based index of the first element in a Python list?",
+    "options": [
+      "0",
+      "1",
+      "-1",
+      "2"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python uses 0-based indexing for all ordered sequences, so the first element is at index 0."
+  },
+  {
+    "id": "q3",
+    "question": "What value is printed by `numbers = [10, 20, 30]; print(numbers[1])`?",
+    "options": [
+      "10",
+      "20",
+      "30",
+      "1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Index 1 refers to the second element of the list, which has the value 20."
+  },
+  {
+    "id": "q4",
+    "question": "Which list method adds an element to the very end of the list in place?",
+    "options": [
+      "insert()",
+      "append()",
+      "add()",
+      "push()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`append(value)` appends a single item to the end of the existing list."
+  },
+  {
+    "id": "q5",
+    "question": "Which method removes the first occurrence of a matching value from a list?",
+    "options": [
+      "remove()",
+      "delete()",
+      "erase()",
+      "clearvalue()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`remove(x)` locates the first element equal to `x` and removes it from the list."
+  },
+  {
+    "id": "q6",
+    "question": "What element does `numbers.pop()` remove when called without an argument?",
+    "options": [
+      "The first element",
+      "The middle element",
+      "The last element",
+      "All elements"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`pop()` without arguments removes and returns the last element (index -1)."
+  },
+  {
+    "id": "q7",
+    "question": "What is output by `numbers = [10, 20, 30, 40]; print(numbers[-1])`?",
+    "options": [
+      "10",
+      "20",
+      "30",
+      "40"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Negative index -1 retrieves the last item in the list, which is 40."
+  },
+  {
+    "id": "q8",
+    "question": "Which statement correctly mutates the first element of `numbers = [10, 20, 30]` to 100?",
+    "options": [
+      "numbers[0] = 100",
+      "numbers[0] == 100",
+      "numbers(0) = 100",
+      "numbers{0} = 100"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lists are mutable; item assignment using `numbers[0] = 100` reassigns the element at index 0."
+  },
+  {
+    "id": "q9",
+    "question": "What does the built-in `len(numbers)` function return for a list?",
+    "options": [
+      "The highest numeric value in the list",
+      "The highest index in the list",
+      "The total number of elements in the list",
+      "The sum of all elements"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`len()` returns the count of items in any sequence container."
+  },
+  {
+    "id": "q10",
+    "question": "Which Python keyword operator checks whether a value is present inside a list?",
+    "options": [
+      "has",
+      "contains",
+      "in",
+      "exists"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The membership operator `in` evaluates to `True` if the item is present in the collection."
+  }
+]
