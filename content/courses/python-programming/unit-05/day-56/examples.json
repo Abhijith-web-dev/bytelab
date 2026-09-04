@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-56-1",
-    "title": "Basic Usage of Handling Missing Data",
-    "code": "# Example for Handling Missing Data\nprint('Day 56 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Detecting & Counting Missing Values with isna() and sum()",
+    "code": "import pandas as pd\n\n# Student survey records with missing marks\nstudents = pd.DataFrame({\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\", \"Meena\"],\n    \"Age\": [20, 19, 21, 20],\n    \"Mark\": [85.0, None, 78.0, None]\n})\n\nprint(\"Original DataFrame:\")\nprint(students)\n\nprint(\"\\nBoolean mask of missing values (isna):\")\nprint(students.isna())\n\nprint(\"\\nMissing values count per column:\")\nprint(students.isna().sum())\n\nprint(\"\\nAny missing values in 'Mark'?\", students[\"Mark\"].isna().any())",
+    "explanation": "isna() identifies None/NaN cells and produces a boolean table (True for missing). Chaining .sum() counts missing values per column because True evaluates to 1 and False evaluates to 0."
+  },
+  {
+    "id": "ex-day-56-2",
+    "title": "Handling Missing Data: fillna() vs dropna()",
+    "code": "import pandas as pd\n\nproducts = pd.DataFrame({\n    \"Item\": [\"Laptop\", \"Mouse\", \"Monitor\", \"Cable\"],\n    \"Price\": [55000.0, 650.0, None, 250.0],\n    \"Discount\": [10.0, None, 5.0, None]\n})\n\nprint(\"Original Product Table:\")\nprint(products)\n\n# Strategy A: Impute missing discounts with 0 and missing prices with the mean\nfilled_df = products.copy()\nfilled_df[\"Discount\"] = filled_df[\"Discount\"].fillna(0)\nfilled_df[\"Price\"] = filled_df[\"Price\"].fillna(filled_df[\"Price\"].mean())\nprint(\"\\nStrategy A: After fillna() (Imputation):\")\nprint(filled_df)\n\n# Strategy B: Remove incomplete rows entirely\ndropped_df = products.dropna()\nprint(\"\\nStrategy B: After dropna() (Row Deletion):\")\nprint(dropped_df)",
+    "explanation": "fillna() preserves sample size and substitutes missing entries with domain-appropriate values (0 or average). dropna() discards incomplete rows entirely."
+  },
+  {
+    "id": "ex-day-56-3",
+    "title": "Combining DataFrames with pd.concat() (Stacking)",
+    "code": "import pandas as pd\n\n# Q1 and Q2 sales records\nq1_sales = pd.DataFrame({\n    \"Region\": [\"North\", \"South\"],\n    \"Revenue\": [120000, 95000]\n})\n\nq2_sales = pd.DataFrame({\n    \"Region\": [\"East\", \"West\"],\n    \"Revenue\": [88000, 115000]\n})\n\n# Vertical concatenation (stacking rows)\ncombined_sales = pd.concat([q1_sales, q2_sales], ignore_index=True)\nprint(\"Combined Annual Sales (pd.concat):\")\nprint(combined_sales)",
+    "explanation": "pd.concat([df1, df2], ignore_index=True) stacks rows together vertically, creating a continuous sequential index 0..N-1 across both tables."
+  },
+  {
+    "id": "ex-day-56-4",
+    "title": "Relational Combining with pd.merge() on a Common Key",
+    "code": "import pandas as pd\n\n# Students roster\nstudents = pd.DataFrame({\n    \"StudentID\": [101, 102, 103],\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\"]\n})\n\n# Examination scores\nmarks = pd.DataFrame({\n    \"StudentID\": [101, 102, 103],\n    \"Score\": [88, 94, 76]\n})\n\n# Merge using the shared 'StudentID' key\nreport_card = pd.merge(students, marks, on=\"StudentID\")\nprint(\"Merged Academic Report Card:\")\nprint(report_card)",
+    "explanation": "pd.merge(students, marks, on='StudentID') matches records where StudentID aligns across both DataFrames, producing a consolidated report card table."
   }
 ]

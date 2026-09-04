@@ -1,16 +1,38 @@
 [
   {
-    "id": "prob-day-54",
-    "title": "Practice: Pandas Series & DataFrames",
-    "description": "Write a Python script that demonstrates pandas series & dataframes.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Pandas Series & DataFrames\nprint('Success')",
+    "id": "prob-day-54-01",
+    "title": "Create and Analyze a Student Marks Series",
+    "difficulty": "beginner",
+    "points": 10,
+    "description": "A teacher wants to store and analyze four students' marks using a Pandas Series.\n\nGiven the initial student marks:\n- Arun: 80\n- Priya: 90\n- Rahul: 75\n- Meena: 85\n\nYour program must perform the following:\n1. Import the pandas library as pd and sys.\n2. Read scores from stdin if provided, or default to [80, 90, 75, 85] with index ['Arun', 'Priya', 'Rahul', 'Meena'].\n3. Display 'Student Marks:' followed by the series.\n4. Display Priya's mark using .loc ('Priya's Mark: <val>').\n5. Display the first student's mark using .iloc ('First Student Mark: <val>').\n6. Add 5 bonus marks to every student to create an updated Series.\n7. Display 'Updated Marks:' followed by the updated series.\n8. Display 'Total: <val>' and 'Average: <val>'.\n9. Update Rahul's original mark to 78 using .loc.\n10. Display 'Marks After Rahul Update:' followed by the modified series.",
+    "starterCode": "# Create and Analyze a Student Marks Series\n#\n# Step 1: Import sys and pandas as pd\n# Step 2: Read whitespace-separated student scores from stdin if available;\n#         otherwise default to [80, 90, 75, 85].\n# Step 3: Create a Pandas Series using student names: ['Arun', 'Priya', 'Rahul', 'Meena'].\n# Step 4: Print 'Student Marks:' and the series.\n# Step 5: Print Priya's mark using .loc.\n# Step 6: Print the first student's mark using .iloc.\n# Step 7: Calculate updated marks by adding 5 bonus marks.\n# Step 8: Print 'Updated Marks:' and the updated series.\n# Step 9: Print Total and Average of the updated marks.\n# Step 10: Update Rahul's original mark to 78 in-place using .loc.\n# Step 11: Print 'Marks After Rahul Update:' and the modified series.\n",
+    "solutionCode": "import sys\nimport pandas as pd\n\nraw = sys.stdin.read().split()\nif len(raw) >= 4:\n    marks = pd.Series([int(x) for x in raw[:4]], index=[\"Arun\", \"Priya\", \"Rahul\", \"Meena\"])\nelse:\n    marks = pd.Series([80, 90, 75, 85], index=[\"Arun\", \"Priya\", \"Rahul\", \"Meena\"])\n\nprint(\"Student Marks:\")\nprint(marks.to_string())\nprint()\nprint(f\"Priya's Mark: {marks.loc['Priya']}\")\nprint()\nprint(f\"First Student Mark: {marks.iloc[0]}\")\nprint()\nupdated = marks + 5\nprint(\"Updated Marks:\")\nprint(updated.to_string())\nprint()\nprint(f\"Total: {updated.sum()}\")\nprint(f\"Average: {updated.mean()}\")\nprint()\nmarks.loc[\"Rahul\"] = 78\nprint(\"Marks After Rahul Update:\")\nprint(marks.to_string())\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "input": "80 90 75 85",
+        "expectedOutput": "Student Marks:\nArun     80\nPriya    90\nRahul    75\nMeena    85\n\nPriya's Mark: 90\n\nFirst Student Mark: 80\n\nUpdated Marks:\nArun     85\nPriya    95\nRahul    80\nMeena    90\n\nTotal: 350\nAverage: 87.5\n\nMarks After Rahul Update:\nArun     80\nPriya    90\nRahul    78\nMeena    85",
+        "isPublic": true
+      },
+      {
+        "id": "tc-2",
+        "input": "60 70 80 90",
+        "expectedOutput": "Student Marks:\nArun     60\nPriya    70\nRahul    80\nMeena    90\n\nPriya's Mark: 70\n\nFirst Student Mark: 60\n\nUpdated Marks:\nArun     65\nPriya    75\nRahul    85\nMeena    95\n\nTotal: 320\nAverage: 80.0\n\nMarks After Rahul Update:\nArun     60\nPriya    70\nRahul    78\nMeena    90",
+        "isPublic": true
+      },
+      {
+        "id": "tc-3",
+        "input": "40 50 60 70",
+        "expectedOutput": "Student Marks:\nArun     40\nPriya    50\nRahul    60\nMeena    70\n\nPriya's Mark: 50\n\nFirst Student Mark: 40\n\nUpdated Marks:\nArun     45\nPriya    55\nRahul    65\nMeena    75\n\nTotal: 240\nAverage: 60.0\n\nMarks After Rahul Update:\nArun     40\nPriya    50\nRahul    78\nMeena    70",
+        "isPublic": false
       }
+    ],
+    "hints": [
+      "Create the Series with: marks = pd.Series(values, index=['Arun', 'Priya', 'Rahul', 'Meena'])",
+      "Use .loc['Priya'] to access by student name and .iloc[0] for positional access.",
+      "Add 5 to every element via vectorized addition: updated = marks + 5",
+      "Calculate total and mean directly using updated.sum() and updated.mean()",
+      "Modify an existing label in-place: marks.loc['Rahul'] = 78"
     ]
   }
 ]

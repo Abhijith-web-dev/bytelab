@@ -1,22 +1,88 @@
 {
   "id": "sim-day-39",
-  "type": "Type G",
-  "title": "Simulation: Command Line Arguments",
+  "title": "Data Formatting & sys.argv Processing Simulator",
+  "description": "Step-by-step trace of parsing command-line parameters, tokenizing structured file lines, and interpolating variables with the % format operator.",
+  "codeLines": [
+    "name = 'Arun'",
+    "score = 85",
+    "avg = 82.5678",
+    "row = 'Name: %s | Score: %d | Avg: %.2f' % (name, score, avg)",
+    "print(row)",
+    "argv = ['report.py', 'students.txt']",
+    "filename = argv[1]",
+    "print('Processing file:', filename)"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Initialize string variable name with 'Arun'.",
+      "variables": {
+        "name": "'Arun'"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Initialize integer score with value 85.",
+      "variables": {
+        "name": "'Arun'",
+        "score": 85
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Initialize floating-point value avg with 82.5678 (multiple decimal places).",
+      "variables": {
+        "name": "'Arun'",
+        "score": 85,
+        "avg": 82.5678
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Evaluate the format operator '%'. %s maps to 'Arun', %d maps to 85, and %.2f formats 82.5678 into '82.57'.",
+      "variables": {
+        "name": "'Arun'",
+        "score": 85,
+        "avg": 82.5678,
+        "row": "'Name: Arun | Score: 85 | Avg: 82.57'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Print the formatted string to stdout.",
+      "variables": {
+        "row": "'Name: Arun | Score: 85 | Avg: 82.57'"
+      },
+      "output": "Name: Arun | Score: 85 | Avg: 82.57"
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Simulate sys.argv: argv[0] is the script name 'report.py', and argv[1] is the passed file name 'students.txt'.",
+      "variables": {
+        "argv": "['report.py', 'students.txt']"
+      },
+      "output": "Name: Arun | Score: 85 | Avg: 82.57"
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Extract the first command-line argument argv[1] into filename.",
+      "variables": {
+        "argv": "['report.py', 'students.txt']",
+        "filename": "'students.txt'"
+      },
+      "output": "Name: Arun | Score: 85 | Avg: 82.57"
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Output confirmation message displaying the targeted filename.",
+      "variables": {
+        "filename": "'students.txt'"
+      },
+      "output": "Name: Arun | Score: 85 | Avg: 82.57\nProcessing file: students.txt"
     }
   ]
 }

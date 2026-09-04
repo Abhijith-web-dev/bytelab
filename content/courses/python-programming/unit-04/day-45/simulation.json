@@ -1,22 +1,167 @@
 {
   "id": "sim-day-45",
-  "type": "Type G",
-  "title": "Simulation: Unit IV Practical: Word Count (CLI)",
+  "title": "File Record to Class Object Pipeline Simulator",
+  "description": "Step-by-step visual execution of reading structured text records ('students.txt'), parsing attributes, instantiating Student objects, invoking methods, and aggregating statistics.",
+  "codeLines": [
+    "class Student:",
+    "    def __init__(self, name, mark):",
+    "        self.name = name",
+    "        self.mark = mark",
+    "    def is_pass(self):",
+    "        return self.mark >= 50",
+    "records = ['Arun,85', 'Bala,42']",
+    "students = []",
+    "for line in records:",
+    "    parts = line.strip().split(',')",
+    "    obj = Student(parts[0], int(parts[1]))",
+    "    students.append(obj)",
+    "for s in students:",
+    "    status = 'Pass' if s.is_pass() else 'Fail'",
+    "    print(f'{s.name}: {s.mark} ({status})')"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Python defines the Student class blueprint, setting up its attribute initializer and instance methods.",
+      "variables": {
+        "Student": "<class '__main__.Student'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 7,
+      "explanation": "Raw lines simulating file contents loaded from students.txt into memory.",
+      "variables": {
+        "Student": "<class '__main__.Student'>",
+        "records": "['Arun,85', 'Bala,42']"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 8,
+      "explanation": "An empty list 'students' is initialized to hold the instantiated Student objects.",
+      "variables": {
+        "records": "['Arun,85', 'Bala,42']",
+        "students": "[]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 9,
+      "explanation": "The loop begins iteration 1 with line = 'Arun,85'.",
+      "variables": {
+        "line": "'Arun,85'",
+        "students": "[]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 10,
+      "explanation": "The record string is split by comma into ['Arun', '85'].",
+      "variables": {
+        "line": "'Arun,85'",
+        "parts": "['Arun', '85']"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 11,
+      "explanation": "Student('Arun', 85) is invoked. Python allocates a new instance, passes it as self to __init__, and binds self.name = 'Arun', self.mark = 85.",
+      "variables": {
+        "parts": "['Arun', '85']",
+        "obj": "<Student object: name='Arun', mark=85>"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 12,
+      "explanation": "The new Student object is appended to the students list.",
+      "variables": {
+        "students": "[<Student object: name='Arun', mark=85>]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 9,
+      "explanation": "The loop begins iteration 2 with line = 'Bala,42'.",
+      "variables": {
+        "line": "'Bala,42'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 10,
+      "explanation": "The record string is split by comma into ['Bala', '42'].",
+      "variables": {
+        "parts": "['Bala', '42']"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 11,
+      "explanation": "Student('Bala', 42) is instantiated. Memory allocates instance with self.name = 'Bala', self.mark = 42.",
+      "variables": {
+        "obj": "<Student object: name='Bala', mark=42>"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 12,
+      "explanation": "The second Student object is appended to students.",
+      "variables": {
+        "students": "[<Student 'Arun'>, <Student 'Bala'>]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 13,
+      "explanation": "Loop over Student objects begins. First object s = Arun.",
+      "variables": {
+        "s": "<Student 'Arun'>"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 14,
+      "explanation": "s.is_pass() is called. 85 >= 50 evaluates to True, so status becomes 'Pass'.",
+      "variables": {
+        "s": "<Student 'Arun'>",
+        "status": "'Pass'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 15,
+      "explanation": "Formatted student summary printed to standard output.",
+      "variables": {
+        "s": "<Student 'Arun'>"
+      },
+      "output": "Arun: 85 (Pass)\n"
+    },
+    {
+      "activeLine": 13,
+      "explanation": "Second iteration: s = Bala.",
+      "variables": {
+        "s": "<Student 'Bala'>"
+      },
+      "output": "Arun: 85 (Pass)\n"
+    },
+    {
+      "activeLine": 14,
+      "explanation": "s.is_pass() evaluates 42 >= 50 which is False, returning 'Fail'.",
+      "variables": {
+        "s": "<Student 'Bala'>",
+        "status": "'Fail'"
+      },
+      "output": "Arun: 85 (Pass)\n"
+    },
+    {
+      "activeLine": 15,
+      "explanation": "Formatted student summary for Bala printed.",
+      "variables": {
+        "s": "<Student 'Bala'>"
+      },
+      "output": "Arun: 85 (Pass)\nBala: 42 (Fail)\n"
     }
   ]
 }

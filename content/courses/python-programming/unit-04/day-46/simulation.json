@@ -1,22 +1,116 @@
 {
   "id": "sim-day-46",
-  "type": "Type G",
-  "title": "Simulation: Unit IV Practical: Copy File",
+  "title": "Object State Lifecycle & Encapsulated Operations Simulator",
+  "description": "Visualizing class declaration, instantiation of BankAccount with __init__, mutating state via deposit() and withdraw() methods, and inspecting instance attributes.",
+  "codeLines": [
+    "class BankAccount:",
+    "    def __init__(self, holder, balance):",
+    "        self.holder = holder",
+    "        self.balance = balance",
+    "    def deposit(self, amount):",
+    "        self.balance += amount",
+    "    def withdraw(self, amount):",
+    "        if amount <= self.balance:",
+    "            self.balance -= amount",
+    "account = BankAccount('Arun', 5000)",
+    "account.deposit(1000)",
+    "account.withdraw(2500)",
+    "print(f'Holder: {account.holder} | Balance: {account.balance}')"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Python defines the BankAccount class blueprint, binding its constructor and transaction methods.",
+      "variables": {
+        "BankAccount": "<class '__main__.BankAccount'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 10,
+      "explanation": "BankAccount('Arun', 5000) is called. Python allocates an object instance and passes it as 'self' to __init__.",
+      "variables": {
+        "self": "<BankAccount object at 0x7f>",
+        "holder": "'Arun'",
+        "balance": 5000
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Inside __init__: self.holder is assigned 'Arun', creating the holder attribute on the new object.",
+      "variables": {
+        "self.holder": "'Arun'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Inside __init__: self.balance is assigned 5000, establishing the initial balance attribute.",
+      "variables": {
+        "self.holder": "'Arun'",
+        "self.balance": 5000
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 10,
+      "explanation": "Instantiation complete. The initialized instance is assigned to the variable 'account'.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=5000>"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 11,
+      "explanation": "account.deposit(1000) is invoked. Inside deposit(), self is bound to account and amount is 1000.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=5000>",
+        "amount": 1000
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "self.balance is incremented: 5000 + 1000 = 6000.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=6000>"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 12,
+      "explanation": "account.withdraw(2500) is called. Inside withdraw(), self is bound to account and amount is 2500.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=6000>",
+        "amount": 2500
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Validation check: amount (2500) <= self.balance (6000) evaluates to True.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=6000>",
+        "condition": "True"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 9,
+      "explanation": "self.balance is decremented: 6000 - 2500 = 3500.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=3500>"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 13,
+      "explanation": "Formatted account status string printed to standard output.",
+      "variables": {
+        "account": "<BankAccount holder='Arun', balance=3500>"
+      },
+      "output": "Holder: Arun | Balance: 3500\n"
     }
   ]
 }

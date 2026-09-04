@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-46-1",
-    "title": "Basic Usage of Unit IV Practical: Copy File",
-    "code": "# Example for Unit IV Practical: Copy File\nprint('Day 46 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Class Blueprint, Constructor __init__, and Multiple Instances",
+    "code": "# Defining the Class Blueprint\nclass Student:\n    def __init__(self, name, age, mark):\n        # Binding instance attributes via self\n        self.name = name\n        self.age = age\n        self.mark = mark\n\n    def display(self):\n        print(f\"Scholar: {self.name:<8} | Age: {self.age} | Mark: {self.mark}\")\n\n# Creating multiple independent objects from the same blueprint\ns1 = Student(\"Arun\", 20, 85)\ns2 = Student(\"Priya\", 19, 92)\ns3 = Student(\"Rahul\", 21, 75)\n\nprint(\"===== COHORT ROSTER =====\")\ns1.display()\ns2.display()\ns3.display()\n\n# Modifying s1 has zero effect on s2 or s3\ns1.mark = 88\nprint(f\"Updated {s1.name}'s mark to: {s1.mark} (Priya is still {s2.mark})\")",
+    "explanation": "Demonstrates the relationship between a class blueprint, __init__ constructor, self reference, and creating independent instances with isolated memory state."
+  },
+  {
+    "id": "ex-day-46-2",
+    "title": "Encapsulated State: BankAccount with Transaction Methods",
+    "code": "class BankAccount:\n    def __init__(self, holder, initial_balance=0):\n        if initial_balance < 0:\n            raise ValueError(\"Initial balance cannot be negative\")\n        self.holder = holder\n        self.balance = initial_balance\n\n    def deposit(self, amount):\n        if amount <= 0:\n            print(\"Deposit amount must be positive\")\n            return False\n        self.balance += amount\n        return True\n\n    def withdraw(self, amount):\n        if amount > self.balance:\n            print(f\"Insufficient balance! Attempted: ${amount}, Available: ${self.balance}\")\n            return False\n        self.balance -= amount\n        return True\n\n    def display(self):\n        print(f\"Account Holder: {self.holder} | Current Balance: ${self.balance}\")\n\n# Transaction Workflow\naccount = BankAccount(\"Arun\", 5000)\naccount.deposit(1000)\naccount.withdraw(2500)\naccount.display()\n\n# Attempting overdraft\naccount.withdraw(9000)\naccount.display()",
+    "explanation": "Shows how methods encapsulate business logic, protecting the object's internal state (balance) from invalid mutations and overdrafts."
+  },
+  {
+    "id": "ex-day-46-3",
+    "title": "Classes with Lists: Student Gradebook with Total and Average",
+    "code": "class Gradebook:\n    def __init__(self, student_name, marks):\n        self.student_name = student_name\n        self.marks = marks  # List of numeric marks\n\n    def total(self):\n        return sum(self.marks)\n\n    def average(self):\n        return self.total() / len(self.marks) if self.marks else 0.0\n\n    def is_pass(self, passing_score=40):\n        # All individual marks must satisfy threshold\n        return all(m >= passing_score for m in self.marks)\n\n    def report(self):\n        status = \"PASSED\" if self.is_pass() else \"FAILED\"\n        print(\"===== STUDENT REPORT CARD =====\")\n        print(f\"Name    : {self.student_name}\")\n        print(f\"Marks   : {self.marks}\")\n        print(f\"Total   : {self.total()}\")\n        print(\"Average : %.2f\" % self.average())\n        print(f\"Result  : {status}\")\n\ncard1 = Gradebook(\"Arun\", [80, 75, 90, 85, 70])\ncard1.report()",
+    "explanation": "Demonstrates objects holding collection data types (lists), calculating aggregates across state, and formatting numbers using the %.2f format operator."
+  },
+  {
+    "id": "ex-day-46-4",
+    "title": "Master Unit-IV Integration: Files, Exceptions, and Objects",
+    "code": "# Simulating a persistent file store\nwith open('students_demo.txt', 'w') as f:\n    f.write('Arun,85\\nPriya,92\\nRahul,35\\nMeena,78\\n')\n\nclass StudentRecord:\n    def __init__(self, name, mark):\n        if not (0 <= mark <= 100):\n            raise ValueError(f\"Invalid score: {mark}\")\n        self.name = name\n        self.mark = mark\n\n    def is_pass(self):\n        return self.mark >= 40\n\n# Loading and parsing records with exception safeguards\ncohort = []\ntry:\n    with open('students_demo.txt', 'r') as file:\n        for line in file:\n            line = line.strip()\n            if line:\n                name, mark_str = line.split(',')\n                student_obj = StudentRecord(name.strip(), int(mark_str.strip()))\n                cohort.append(student_obj)\nexcept FileNotFoundError:\n    print(\"Database file not found!\")\n\nprint(\"===== COHORT AUDIT =====\")\nfor s in cohort:\n    verdict = \"Pass\" if s.is_pass() else \"Fail\"\n    print(f\"Name: {s.name:<8} | Mark: {s.mark:>3} | Result: {verdict}\")\nprint(f\"Cohort Size: {len(cohort)} | Pass Count: {sum(1 for s in cohort if s.is_pass())}\")",
+    "explanation": "Integrates all core Unit-IV concepts: text file reading, string parsing, exception handling, and object encapsulation into a single end-to-end data pipeline."
   }
 ]

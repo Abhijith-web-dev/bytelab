@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 50,
   "order": 50,
-  "title": "Day 50: The Shape and Reshaping of NumPy Array",
-  "shortTitle": "The Shape and Reshaping of NumPy Array",
-  "description": "Manipulating dimensions of multi-dimensional arrays.",
+  "title": "Unit–V — Day 2: NumPy Array Shape, Dimensions and Reshaping",
+  "shortTitle": "Array Shape, Dimensions & Reshaping",
+  "description": "What is array shape, dimensions (1D, 2D, 3D), rows and columns, .shape attribute vs .reshape() method, the golden element-count conservation rule, and practical reshaping.",
   "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }

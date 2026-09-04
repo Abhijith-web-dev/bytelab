@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-37-1",
-    "question": "Which of the following best describes Text Files: Reading and Writing?",
+    "id": "q1",
+    "question": "Why is file handling needed in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "To make the code run faster than compiled C code",
+      "To store data permanently in secondary storage even after the program terminates",
+      "To avoid having to define any variables in Python",
+      "To connect Python directly to the internet without a network card"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctAnswer": 1,
+    "explanation": "File handling allows programs to persist data on secondary storage (hard drive, SSD). Normal variables exist only in RAM and are lost when the program finishes."
+  },
+  {
+    "id": "q2",
+    "question": "What is the primary difference between a variable and a file?",
+    "options": [
+      "Variables store data permanently on disk, while files store data temporarily in RAM",
+      "Variables store data temporarily in RAM (volatile), while files store data permanently in non-volatile secondary storage",
+      "Both variables and files store data permanently on disk",
+      "Both variables and files store data temporarily in RAM and vanish on reboot"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Variables live in RAM (volatile memory) and disappear when the program terminates. Files reside in secondary storage (disk/SSD) and remain safe across reboots."
+  },
+  {
+    "id": "q3",
+    "question": "Which built-in Python function is used to establish a stream handle to an external file?",
+    "options": [
+      "file()",
+      "open()",
+      "create()",
+      "access()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python provides the built-in `open(filename, mode)` function to open files and return a file object handle."
+  },
+  {
+    "id": "q4",
+    "question": "What is the default mode if no mode parameter is passed to `open('notes.txt')`?",
+    "options": [
+      "\"w\" (write mode)",
+      "\"a\" (append mode)",
+      "\"r\" (read mode in text format)",
+      "\"x\" (exclusive creation mode)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The default mode for `open()` is `'r'` (read-only in text mode)."
+  },
+  {
+    "id": "q5",
+    "question": "What happens when an existing file with data is opened in 'w' (write) mode?",
+    "options": [
+      "Python automatically appends newly written text to the very end of the file",
+      "Python raises a FileExistsError",
+      "The file is truncated and its existing contents are completely overwritten / erased",
+      "The file opens in read-only mode to safeguard existing records"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Opening an existing file in `'w'` mode immediately truncates the file to 0 bytes, erasing all previous content."
+  },
+  {
+    "id": "q6",
+    "question": "Which file mode is used to write new records to the end of a file without destroying existing contents?",
+    "options": [
+      "\"w\"",
+      "\"r\"",
+      "\"a\"",
+      "\"x\""
+    ],
+    "correctAnswer": 2,
+    "explanation": "Mode `'a'` (append) places the file pointer at the very end of the file, keeping existing content intact."
+  },
+  {
+    "id": "q7",
+    "question": "What happens if a program attempts to open a non-existent file in 'r' mode without exception handling?",
+    "options": [
+      "Python creates an empty new file with that name",
+      "Python raises a FileNotFoundError runtime exception",
+      "Python opens the file in write mode automatically",
+      "Python returns None without raising an error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Opening a file that does not exist in read mode `'r'` causes Python to raise a `FileNotFoundError`."
+  },
+  {
+    "id": "q8",
+    "question": "Why is it critical practice to call `file.close()` after completing file operations?",
+    "options": [
+      "To permanently delete the file from secondary storage",
+      "To flush buffered write data to disk and release operating system file descriptors",
+      "To prevent any other application on the OS from ever opening the file",
+      "It is purely cosmetic and never needed in Python"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calling `.close()` flushes all pending memory buffer chunks to physical disk storage and frees the OS file handle."
+  },
+  {
+    "id": "q9",
+    "question": "What does the `file.read()` method return when executed on a text file without arguments?",
+    "options": [
+      "A list of integer character codes",
+      "A dictionary mapping line numbers to string keys",
+      "A single string containing the entire contents of the file",
+      "A tuple of byte arrays"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`file.read()` reads from the current cursor position to the end of the file and returns the content as a single string."
+  },
+  {
+    "id": "q10",
+    "question": "Which mode is used to create a new file exclusively, raising a `FileExistsError` if it already exists?",
+    "options": [
+      "\"a\"",
+      "\"w\"",
+      "\"x\"",
+      "\"r+\""
+    ],
+    "correctAnswer": 2,
+    "explanation": "Mode `'x'` (exclusive creation) creates a new file for writing and fails with `FileExistsError` if the file already exists, preventing accidental overwrites."
   }
 ]

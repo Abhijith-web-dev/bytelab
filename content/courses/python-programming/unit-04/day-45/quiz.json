@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-45-1",
-    "question": "Which of the following best describes Unit IV Practical: Word Count (CLI)?",
+    "id": "q1",
+    "question": "Which string method is used to divide a block of text into a list of individual words by whitespace?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "split()",
+      "divide()",
+      "separate()",
+      "words()"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "`split()` parses strings by whitespace delimiter (by default), returning a list of individual substring words."
+  },
+  {
+    "id": "q2",
+    "question": "Which built-in Python function is commonly used to count the number of elements in the word list returned by `split()`?",
+    "options": [
+      "count()",
+      "len()",
+      "size()",
+      "total()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`len(words)` counts the total number of items contained within a list."
+  },
+  {
+    "id": "q3",
+    "question": "Which file mode is commonly used to open or overwrite the destination file during a file copy operation?",
+    "options": [
+      "'r'",
+      "'w'",
+      "'a'",
+      "'x' only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mode `'w'` opens a file for writing, creating the file if it does not exist or truncating it if it already exists."
+  },
+  {
+    "id": "q4",
+    "question": "Which exception is raised when Python attempts to open a non-existent source file for reading (`'r'`)?",
+    "options": [
+      "ValueError",
+      "IndexError",
+      "FileNotFoundError",
+      "TypeError"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Opening a non-existent file path in read mode causes the operating system layer to raise `FileNotFoundError`."
+  },
+  {
+    "id": "q5",
+    "question": "Which Python keyword is used to declare and define a new class blueprint?",
+    "options": [
+      "object",
+      "class",
+      "define",
+      "new"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `class` keyword declares a class definition in Python."
+  },
+  {
+    "id": "q6",
+    "question": "In object-oriented programming, what is an object?",
+    "options": [
+      "A class definition blueprint",
+      "A concrete instance created from a class blueprint",
+      "A Python module file on disk",
+      "A terminal text stream"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An object is a specific runtime instance created from a class blueprint, containing its own state and behavior."
+  },
+  {
+    "id": "q7",
+    "question": "What is the primary role of the special `__init__()` method in a Python class?",
+    "options": [
+      "Deleting an object from memory",
+      "Initializing instance attributes when an object is instantiated",
+      "Importing external modules into the class",
+      "Opening physical files on disk"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`__init__()` acts as the object constructor, automatically initializing the object's instance attributes upon creation."
+  },
+  {
+    "id": "q8",
+    "question": "What does the first parameter (`self`) refer to inside an instance method?",
+    "options": [
+      "The Python compiler",
+      "The specific object instance upon which the method was called",
+      "The class name string",
+      "The parent module file"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`self` represents the current instance of the class, allowing access to that specific object's attributes and methods."
+  },
+  {
+    "id": "q9",
+    "question": "What is the key difference between a function and a method?",
+    "options": [
+      "A method is a function defined inside a class that operates on an instance",
+      "A method cannot return values",
+      "A function can only be used with files",
+      "There is no difference"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A method is explicitly bound to a class and receives an instance (`self`) as its first argument, whereas a regular function exists independently."
+  },
+  {
+    "id": "q10",
+    "question": "Given `class Student: pass`, which statement instantiates a new Student object?",
+    "options": [
+      "Student = 'Arun'",
+      "student = Student()",
+      "student.create()",
+      "object.Student()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calling the class name like a function (`Student()`) executes the constructor and instantiates a new object instance."
   }
 ]

@@ -1,16 +1,37 @@
 [
   {
-    "id": "prob-day-53",
-    "title": "Practice: Matrix Operations (Multiply, Inverse) & Verification",
-    "description": "Write a Python script that demonstrates matrix operations (multiply, inverse) & verification.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Matrix Operations (Multiply, Inverse) & Verification\nprint('Success')",
+    "id": "prob-day-53-01",
+    "title": "Analyze Student Marks Using NumPy Functions",
+    "difficulty": "medium",
+    "points": 10,
+    "description": "Write a vectorized Python program using NumPy to analyze student exam marks without loops.\n\nYou are given marks for five students (e.g. `[72, 85, 91, 68, 79]`).\n\nYour program must perform the following steps:\n1. Store marks in a NumPy array.\n2. Add 5 bonus marks to every student using vectorized addition.\n3. Calculate the total of the updated marks using `np.sum()`.\n4. Calculate the average of the updated marks using `np.mean()`.\n5. Calculate each student's difference from the average (`updated - average`).\n6. Calculate the absolute difference using `np.abs()`.\n7. Print all outputs in the required format, formatting the average to 2 decimal places.",
+    "starterCode": "# Write a Python program to analyze student marks using NumPy functions\n# Step 1: Import numpy as np and sys\n# Step 2: Read marks from stdin or use default: [72, 85, 91, 68, 79]\n# Step 3: Add 5 bonus marks to every student\n# Step 4: Calculate total with np.sum() and average with np.mean()\n# Step 5: Calculate difference from average and absolute difference with np.abs()\n# Step 6: Print results in the exact required format with average formatted to 2 decimal places\n",
+    "solutionCode": "import sys\nimport numpy as np\n\n# Read input if provided via stdin, else use default dataset\ninput_data = sys.stdin.read().split()\nif input_data:\n    marks = np.array([int(x) for x in input_data])\nelse:\n    marks = np.array([72, 85, 91, 68, 79])\n\n# 1. Add 5 bonus marks\nupdated = marks + 5\n\n# 2. Total and average\ntotal = np.sum(updated)\naverage = np.mean(updated)\n\n# 3. Differences from average\ndiff = updated - average\nabs_diff = np.abs(diff)\n\n# Display results exactly as expected\nprint(\"Original Marks:\")\nprint(marks)\nprint(\"Updated Marks:\")\nprint(updated)\nprint(\"Total:\")\nprint(total)\nprint(f\"Average:\\n{average:.2f}\")\nprint(\"Difference from Average:\")\nprint(diff)\nprint(\"Absolute Difference:\")\nprint(abs_diff)\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "input": "72 85 91 68 79",
+        "expectedOutput": "Original Marks:\n[72 85 91 68 79]\nUpdated Marks:\n[77 90 96 73 84]\nTotal:\n420\nAverage:\n84.00\nDifference from Average:\n[ -7.   6.  12. -11.   0.]\nAbsolute Difference:\n[ 7.  6. 12. 11.  0.]",
+        "isPublic": true
+      },
+      {
+        "id": "tc-2",
+        "input": "50 60 70 80 90",
+        "expectedOutput": "Original Marks:\n[50 60 70 80 90]\nUpdated Marks:\n[55 65 75 85 95]\nTotal:\n375\nAverage:\n75.00\nDifference from Average:\n[-20. -10.   0.  10.  20.]\nAbsolute Difference:\n[20. 10.  0. 10. 20.]",
+        "isPublic": true
+      },
+      {
+        "id": "tc-3",
+        "input": "40 45 50 55 60",
+        "expectedOutput": "Original Marks:\n[40 45 50 55 60]\nUpdated Marks:\n[45 50 55 60 65]\nTotal:\n275\nAverage:\n55.00\nDifference from Average:\n[-10.  -5.   0.   5.  10.]\nAbsolute Difference:\n[10.  5.  0.  5. 10.]",
+        "isPublic": false
       }
+    ],
+    "hints": [
+      "Create the array with `marks = np.array(...)` and apply bonus with `updated = marks + 5`.",
+      "Calculate total using `np.sum(updated)` and average using `np.mean(updated)`.",
+      "Subtract scalar average from array: `diff = updated - average`.",
+      "Use `np.abs(diff)` to strip negative signs and compute absolute differences from the average."
     ]
   }
 ]

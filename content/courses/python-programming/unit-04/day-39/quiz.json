@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-39-1",
-    "question": "Which of the following best describes Command Line Arguments?",
+    "id": "q1",
+    "question": "Which symbol is used for the Python format operator?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "#",
+      "%",
+      "&",
+      "@"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctAnswer": 1,
+    "explanation": "The percent symbol `%` functions as the string formatting operator in Python, interpolating values into specifiers."
+  },
+  {
+    "id": "q2",
+    "question": "Which format specifier is used to format and substitute string values?",
+    "options": [
+      "%d",
+      "%f",
+      "%s",
+      "%c"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`%s` is the format specifier for string values (`str`)."
+  },
+  {
+    "id": "q3",
+    "question": "Which format specifier is used for formatting decimal integers?",
+    "options": [
+      "%s",
+      "%d",
+      "%f",
+      "%str"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`%d` is used to format base-10 decimal integer values (`int`)."
+  },
+  {
+    "id": "q4",
+    "question": "What does the format specifier `%.2f` indicate?",
+    "options": [
+      "An integer with at least 2 digits",
+      "A string truncated to 2 characters",
+      "A floating-point number formatted with exactly 2 digits after the decimal point",
+      "A two-line file format"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`%.2f` instructs Python to round and format a floating-point number with two decimal places."
+  },
+  {
+    "id": "q5",
+    "question": "What is the output of `average = 82.5678; print('%.2f' % average)`?",
+    "options": [
+      "82",
+      "82.5",
+      "82.57",
+      "82.5678"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`82.5678` rounded to two decimal places yields `'82.57'`."
+  },
+  {
+    "id": "q6",
+    "question": "Which built-in Python standard library module is used to access command-line arguments?",
+    "options": [
+      "math",
+      "string",
+      "sys",
+      "file"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `sys` module provides access to system-specific parameters and functions, including command-line arguments."
+  },
+  {
+    "id": "q7",
+    "question": "Which list object inside the `sys` module stores the command-line arguments passed to a script?",
+    "options": [
+      "sys.input",
+      "sys.argv",
+      "sys.args",
+      "command.argv"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`sys.argv` is the list containing the command-line arguments passed to the script."
+  },
+  {
+    "id": "q8",
+    "question": "When running `python test.py Arun`, what value is stored in `sys.argv[1]`?",
+    "options": [
+      "test.py",
+      "python",
+      "Arun",
+      "1"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`sys.argv[0]` contains the script name `'test.py'`, while `sys.argv[1]` contains the first command-line argument `'Arun'`."
+  },
+  {
+    "id": "q9",
+    "question": "What data type are command-line arguments stored as initially in `sys.argv`?",
+    "options": [
+      "Integer",
+      "Float",
+      "String",
+      "Boolean"
+    ],
+    "correctAnswer": 2,
+    "explanation": "All elements in `sys.argv` are always captured as string (`str`) values."
+  },
+  {
+    "id": "q10",
+    "question": "If a user runs `python add.py 10 20`, how should the values in `sys.argv` be prepared for arithmetic addition?",
+    "options": [
+      "They are automatically parsed as integers",
+      "Convert them to integers explicitly using int()",
+      "Convert them using float() only",
+      "Use str() on them before adding"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Since command-line arguments arrive as strings (`'10'`, `'20'`), they must be explicitly converted using `int(sys.argv[1])` to perform arithmetic."
   }
 ]

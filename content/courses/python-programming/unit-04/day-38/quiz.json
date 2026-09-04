@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-38-1",
-    "question": "Which of the following best describes The Format Operator?",
+    "id": "q1",
+    "question": "Which method reads the complete remaining file content as a single string?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "read()",
+      "readline()",
+      "readlines()",
+      "write()"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "`read()` reads the entire remaining content of a file from current position to end-of-file as one string."
+  },
+  {
+    "id": "q2",
+    "question": "Which method reads exactly one line from a file at a time?",
+    "options": [
+      "read()",
+      "readline()",
+      "readlines()",
+      "line()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`readline()` reads up to and including the next newline character `\\n` and returns that single line."
+  },
+  {
+    "id": "q3",
+    "question": "What data type does `readlines()` return when called on an open file?",
+    "options": [
+      "A single continuous string",
+      "An integer count of bytes",
+      "A list of strings, where each element is one line",
+      "A dictionary mapping line numbers to contents"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`readlines()` reads all lines from the current cursor position to EOF and returns them as a list of strings."
+  },
+  {
+    "id": "q4",
+    "question": "Which method is used to write a string of character data into an open file?",
+    "options": [
+      "write()",
+      "send()",
+      "put()",
+      "save()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`write(str)` writes the provided string directly to the file stream buffer."
+  },
+  {
+    "id": "q5",
+    "question": "Which file mode should be specified to add new content to the end of a file without overwriting existing data?",
+    "options": [
+      "\"r\"",
+      "\"w\"",
+      "\"a\"",
+      "\"x\""
+    ],
+    "correctAnswer": 2,
+    "explanation": "Mode `\"a\"` (append) opens the file and positions the file pointer at the very end, preserving all prior records."
+  },
+  {
+    "id": "q6",
+    "question": "What happens when an existing file with records is opened using 'w' mode?",
+    "options": [
+      "Existing content is overwritten / erased immediately",
+      "Data is automatically appended to the end",
+      "The file opens in read-only mode to prevent data loss",
+      "Python raises an error preventing the file from opening"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Opening in `'w'` mode truncates the file to 0 bytes, replacing whatever was previously stored in that file."
+  },
+  {
+    "id": "q7",
+    "question": "What escape sequence in a string represents a line break (new line)?",
+    "options": [
+      "\\s (space)",
+      "\\n (new line)",
+      "\\t (tab)",
+      "\\eof (end of file)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`\\n` is the newline character in Python and Unix/POSIX systems that moves text to the subsequent line."
+  },
+  {
+    "id": "q8",
+    "question": "If `data.txt` contains lines `Python`, `Java`, and `C`, what does `file.readline()` output on the first call?",
+    "options": [
+      "Python",
+      "Java",
+      "C",
+      "All three lines together"
+    ],
+    "correctAnswer": 0,
+    "explanation": "On the first call, `readline()` reads only the first line (`Python\\n`) and moves the cursor to line 2."
+  },
+  {
+    "id": "q9",
+    "question": "What does the `.strip()` string method commonly remove when processing lines from a text file?",
+    "options": [
+      "All numerical digits",
+      "Leading and trailing whitespace, including the newline character '\\n'",
+      "The entire file from disk",
+      "Only the first character of the string"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`.strip()` strips off leading/trailing whitespace including spaces, tabs, and `\\n` newline characters."
+  },
+  {
+    "id": "q10",
+    "question": "Why is iterating directly with `for line in file:` recommended for processing large text files?",
+    "options": [
+      "It processes the file line-by-line in a memory-efficient stream without loading the whole file into RAM at once",
+      "It deletes the file after reading it",
+      "It automatically renames the file",
+      "It converts the file contents into a Python dictionary"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Iterating directly over the file object reads one line at a time on-demand (generator-like), preventing high memory consumption."
   }
 ]

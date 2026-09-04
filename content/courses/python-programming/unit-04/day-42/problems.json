@@ -1,15 +1,63 @@
 [
   {
-    "id": "prob-day-42",
-    "title": "Practice: Modules and Packages",
-    "description": "Write a Python script that demonstrates modules and packages.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Modules and Packages\nprint('Success')",
+    "id": "prob-day-42-01",
+    "title": "Practice: Safe Student Mark Validator",
+    "description": "Write a Python program that asks the user to enter a student's mark and validates it using a complete `try-except-else-finally` structure with custom `raise` assertions.\n\n### Valid Mark Range:\n- A valid mark must be an integer between `0` and `100` (inclusive).\n\n### Program Requirements:\n1. Read the mark from standard input using `input()`.\n2. In a `try` block, convert the input to an integer.\n   - If the input is non-numeric, catch or raise `ValueError(\"Please enter a number\")`.\n3. Validate the numeric range:\n   - If the mark is less than `0` or greater than `100`, raise `ValueError(\"Mark must be between 0 and 100\")`.\n4. In the `except ValueError as error:` block, print:\n   `Invalid mark: <error_message>`\n5. In the `else:` block (executed only when validation succeeds), print:\n   `Valid mark: <mark>`\n6. In the `finally:` block (executed in all circumstances), print:\n   `Mark validation completed`",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["Exception Handling", "try-except-else-finally", "raise", "ValueError", "Input Validation"],
+    "starterCode": "# Practice: Safe Student Mark Validator\n# Step 1: Read the student's mark from user input using input()\n# Step 2: Use try-except-else-finally blocks to validate the input\n# Step 3: Handle non-numeric input by catching or raising ValueError(\"Please enter a number\")\n# Step 4: Validate numeric range: if mark < 0 or mark > 100, raise ValueError(\"Mark must be between 0 and 100\")\n# Step 5: In except ValueError as error: print \"Invalid mark:\", error\n# Step 6: In else: print \"Valid mark:\", mark\n# Step 7: In finally: print \"Mark validation completed\"\n\n",
+    "solutionCode": "raw_input = input()\n\ntry:\n    try:\n        mark = int(raw_input)\n    except ValueError:\n        raise ValueError(\"Please enter a number\")\n\n    if mark < 0 or mark > 100:\n        raise ValueError(\"Mark must be between 0 and 100\")\nexcept ValueError as error:\n    print(\"Invalid mark:\", error)\nelse:\n    print(\"Valid mark:\", mark)\nfinally:\n    print(\"Mark validation completed\")\n",
+    "hints": [
+      "Read the raw input first: `raw_input = input()`.",
+      "Convert to integer with `int(raw_input)`. If conversion fails, trigger `raise ValueError('Please enter a number')`.",
+      "Check the range using `if mark < 0 or mark > 100:`, and trigger `raise ValueError('Mark must be between 0 and 100')`.",
+      "Use `except ValueError as error:` to capture and print `Invalid mark:`, error.",
+      "Use the `else:` block to output `Valid mark:`, mark when no exception was raised.",
+      "Use the `finally:` block to always output `Mark validation completed`."
+    ],
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
+        "id": "tc-1",
+        "description": "Valid score of 85",
+        "input": "85\n",
+        "expectedOutput": "Valid mark: 85\nMark validation completed",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Negative mark below valid range (-5)",
+        "input": "-5\n",
+        "expectedOutput": "Invalid mark: Mark must be between 0 and 100\nMark validation completed",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Excessive mark above valid range (150)",
+        "input": "150\n",
+        "expectedOutput": "Invalid mark: Mark must be between 0 and 100\nMark validation completed",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Non-numeric input ('abc')",
+        "input": "abc\n",
+        "expectedOutput": "Invalid mark: Please enter a number\nMark validation completed",
+        "isHidden": true
+      },
+      {
+        "id": "tc-5",
+        "description": "Minimum boundary valid score (0)",
+        "input": "0\n",
+        "expectedOutput": "Valid mark: 0\nMark validation completed",
+        "isHidden": true
+      },
+      {
+        "id": "tc-6",
+        "description": "Maximum boundary valid score (100)",
+        "input": "100\n",
+        "expectedOutput": "Valid mark: 100\nMark validation completed",
+        "isHidden": true
       }
     ]
   }

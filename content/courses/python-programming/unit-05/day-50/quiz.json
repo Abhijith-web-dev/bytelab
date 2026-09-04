@@ -1,14 +1,115 @@
 [
   {
-    "id": "quiz-day-50-1",
-    "question": "Which of the following best describes The Shape and Reshaping of NumPy Array?",
+    "id": "q1",
+    "question": "What does the shape of a NumPy array tell us?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      { "id": "opt-a", "text": "The total number of values only", "isCorrect": false },
+      { "id": "opt-b", "text": "How the array is arranged along its dimensional axes", "isCorrect": true },
+      { "id": "opt-c", "text": "The array's variable name and memory address", "isCorrect": false },
+      { "id": "opt-d", "text": "Only the data type of the elements", "isCorrect": false }
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "The shape attribute returns a tuple indicating the number of elements along each axis (e.g. rows and columns)."
+  },
+  {
+    "id": "q2",
+    "question": "What is the shape of np.array([10, 20, 30, 40])?",
+    "codeSnippet": "import numpy as np\narr = np.array([10, 20, 30, 40])\nprint(arr.shape)",
+    "options": [
+      { "id": "opt-a", "text": "(1, 4)", "isCorrect": false },
+      { "id": "opt-b", "text": "(4,)", "isCorrect": true },
+      { "id": "opt-c", "text": "(4, 1)", "isCorrect": false },
+      { "id": "opt-d", "text": "(2, 2)", "isCorrect": false }
+    ],
+    "explanation": "A one-dimensional array with 4 values has shape (4,). The trailing comma signifies a one-element tuple."
+  },
+  {
+    "id": "q3",
+    "question": "What does the shape tuple (2, 3) signify for a 2D NumPy array?",
+    "options": [
+      { "id": "opt-a", "text": "2 columns and 3 rows", "isCorrect": false },
+      { "id": "opt-b", "text": "2 rows and 3 columns", "isCorrect": true },
+      { "id": "opt-c", "text": "6 dimensions with 2 elements each", "isCorrect": false },
+      { "id": "opt-d", "text": "2 elements in the first row and 3 in the second", "isCorrect": false }
+    ],
+    "explanation": "By convention in NumPy 2D arrays, shape is formatted as (rows, columns). Hence (2, 3) means 2 rows and 3 columns."
+  },
+  {
+    "id": "q4",
+    "question": "Which construct is used to change an array's geometric arrangement without changing its data?",
+    "options": [
+      { "id": "opt-a", "text": "shape()", "isCorrect": false },
+      { "id": "opt-b", "text": "reshape()", "isCorrect": true },
+      { "id": "opt-c", "text": "change()", "isCorrect": false },
+      { "id": "opt-d", "text": "resize_shape()", "isCorrect": false }
+    ],
+    "explanation": "The reshape() method creates and returns an array with the requested arrangement while conserving all original elements."
+  },
+  {
+    "id": "q5",
+    "question": "An array contains 12 elements. Which of the following is a valid reshape target?",
+    "options": [
+      { "id": "opt-a", "text": "(2, 5)", "isCorrect": false },
+      { "id": "opt-b", "text": "(3, 4)", "isCorrect": true },
+      { "id": "opt-c", "text": "(5, 3)", "isCorrect": false },
+      { "id": "opt-d", "text": "(7, 2)", "isCorrect": false }
+    ],
+    "explanation": "The product of rows and columns must equal the total number of elements. 3 * 4 = 12, whereas 2 * 5 = 10 and 5 * 3 = 15."
+  },
+  {
+    "id": "q6",
+    "question": "What happens if we execute numbers.reshape(4, 2) on an array containing only 6 elements?",
+    "codeSnippet": "numbers = np.array([1, 2, 3, 4, 5, 6])\nnumbers.reshape(4, 2)",
+    "options": [
+      { "id": "opt-a", "text": "It succeeds and fills missing values with zeros", "isCorrect": false },
+      { "id": "opt-b", "text": "It truncates the dimensions automatically", "isCorrect": false },
+      { "id": "opt-c", "text": "It raises a ValueError", "isCorrect": true },
+      { "id": "opt-d", "text": "It duplicates the first two elements", "isCorrect": false }
+    ],
+    "explanation": "A ValueError is raised: 'cannot reshape array of size 6 into shape (4,2)' because 4 * 2 = 8, which does not match 6."
+  },
+  {
+    "id": "q7",
+    "question": "What is the primary difference between .shape and .reshape()?",
+    "options": [
+      { "id": "opt-a", "text": "They perform the exact same operation with different syntax", "isCorrect": false },
+      { "id": "opt-b", "text": ".shape is an attribute that queries current layout; .reshape() is a method that returns a new layout", "isCorrect": true },
+      { "id": "opt-c", "text": ".shape modifies array values in place; .reshape() deletes elements", "isCorrect": false },
+      { "id": "opt-d", "text": ".reshape() only displays output on screen without returning anything", "isCorrect": false }
+    ],
+    "explanation": ".shape inspects the existing dimensions (attribute), while .reshape() constructs a new view/array with requested dimensions (method)."
+  },
+  {
+    "id": "q8",
+    "question": "If an array contains 8 elements, which shape transformation is valid?",
+    "options": [
+      { "id": "opt-a", "text": "(3, 3)", "isCorrect": false },
+      { "id": "opt-b", "text": "(2, 4)", "isCorrect": true },
+      { "id": "opt-c", "text": "(5, 2)", "isCorrect": false },
+      { "id": "opt-d", "text": "(4, 3)", "isCorrect": false }
+    ],
+    "explanation": "2 * 4 = 8. (3, 3) requires 9 elements, (5, 2) requires 10, and (4, 3) requires 12."
+  },
+  {
+    "id": "q9",
+    "question": "What does the ndim attribute tell us about a NumPy array?",
+    "options": [
+      { "id": "opt-a", "text": "The number of dimensions (axes)", "isCorrect": true },
+      { "id": "opt-b", "text": "The total element count", "isCorrect": false },
+      { "id": "opt-c", "text": "The byte size of each number", "isCorrect": false },
+      { "id": "opt-d", "text": "The memory address of the first item", "isCorrect": false }
+    ],
+    "explanation": "ndim returns an integer representing the number of axes: 1 for vectors, 2 for matrices, 3 for 3D tensors."
+  },
+  {
+    "id": "q10",
+    "question": "What is the shape of the array matrix after running this code?",
+    "codeSnippet": "numbers = np.array([1, 2, 3, 4, 5, 6])\nmatrix = numbers.reshape(3, 2)",
+    "options": [
+      { "id": "opt-a", "text": "(6,)", "isCorrect": false },
+      { "id": "opt-b", "text": "(2, 3)", "isCorrect": false },
+      { "id": "opt-c", "text": "(3, 2)", "isCorrect": true },
+      { "id": "opt-d", "text": "(3,)", "isCorrect": false }
+    ],
+    "explanation": "numbers.reshape(3, 2) organizes the 6 items into 3 rows and 2 columns, resulting in shape (3, 2)."
   }
 ]

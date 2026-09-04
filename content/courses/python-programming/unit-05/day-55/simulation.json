@@ -1,22 +1,95 @@
 {
-  "id": "sim-day-55",
-  "type": "Type H",
-  "title": "Simulation: Selection and Indexing in Pandas",
+  "title": "Pandas DataFrame Architecture & Selection Simulator",
+  "description": "Trace 2D tabular memory layout, column extraction (Series vs DataFrame), row and cell selection (.loc vs .iloc), in-place modification, and calculated column creation.",
   "steps": [
     {
       "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "title": "Instantiate 2D DataFrame in Memory",
+      "code": "df = pd.DataFrame({'Name': ['Arun', 'Priya', 'Rahul', 'Meena'], 'Age': [20, 19, 21, 20], 'Mark': [80, 92, 75, 88]})",
+      "explanation": "Pandas binds columns into a 2D tabular grid. The DataFrame maintains a row index [0, 1, 2, 3] and column index ['Name', 'Age', 'Mark']. Shape is (4, 3).",
+      "variables": {
+        "Shape": "(4, 3)",
+        "Columns": "['Name', 'Age', 'Mark']",
+        "Index": "[0, 1, 2, 3]"
+      },
+      "highlight": [1]
     },
     {
       "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "title": "Single Column Extraction (Series)",
+      "code": "marks_series = df['Mark']",
+      "explanation": "Extracting one column using df['Mark'] yields a 1D Pandas Series. The DataFrame's row index becomes the Series index.",
+      "variables": {
+        "Type": "pandas.Series",
+        "Values": "0: 80, 1: 92, 2: 75, 3: 88"
+      },
+      "highlight": [2]
     },
     {
       "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "title": "Multiple Column Selection (DataFrame)",
+      "code": "subset_df = df[['Name', 'Mark']]",
+      "explanation": "Passing a list of column names inside double brackets df[['Name', 'Mark']] extracts a sub-table, returning a new 2D DataFrame with shape (4, 2).",
+      "variables": {
+        "Type": "pandas.DataFrame",
+        "Shape": "(4, 2)",
+        "Columns": "['Name', 'Mark']"
+      },
+      "highlight": [3]
+    },
+    {
+      "step": 4,
+      "title": "Row Selection with .iloc",
+      "code": "first_student = df.iloc[0]",
+      "explanation": ".iloc[0] performs a positional lookup at index 0, returning Arun's complete record (Name: Arun, Age: 20, Mark: 80) as a Series.",
+      "variables": {
+        "Row 0 Record": "Name: Arun, Age: 20, Mark: 80"
+      },
+      "highlight": [4]
+    },
+    {
+      "step": 5,
+      "title": "Exact Cell Coordinate Access with .loc",
+      "code": "priya_mark = df.loc[1, 'Mark']",
+      "explanation": ".loc[1, 'Mark'] targets the intersection coordinate of row label 1 and column 'Mark', extracting scalar value 92.",
+      "variables": {
+        "Coordinate": "Row 1, Column 'Mark'",
+        "Value": 92
+      },
+      "highlight": [5]
+    },
+    {
+      "step": 6,
+      "title": "Vectorized Column Addition (Bonus Marks)",
+      "code": "df['UpdatedMark'] = df['Mark'] + 5",
+      "explanation": "Vectorized addition calculates Mark + 5 across all rows in parallel, dynamically appending the 'UpdatedMark' column to the table. Shape expands to (4, 4).",
+      "variables": {
+        "UpdatedMark": "[85, 97, 80, 93]",
+        "New Shape": "(4, 4)"
+      },
+      "highlight": [6]
+    },
+    {
+      "step": 7,
+      "title": "In-Place Cell Mutation",
+      "code": "df.loc[2, 'Mark'] = 78; df['UpdatedMark'] = df['Mark'] + 5",
+      "explanation": ".loc mutates Rahul's mark from 75 to 78 in-place, and UpdatedMark recalculates to 83.",
+      "variables": {
+        "Rahul Mark": 78,
+        "Rahul UpdatedMark": 83
+      },
+      "highlight": [7]
+    },
+    {
+      "step": 8,
+      "title": "Conditional Feature Engineering (Result Column)",
+      "code": "df['Result'] = ['Pass' if m >= 40 else 'Fail' for m in df['UpdatedMark']]",
+      "explanation": "Evaluates pass/fail status across UpdatedMark (>= 40 -> Pass). The table expands to (4, 5) with full business analytics.",
+      "variables": {
+        "Result Column": "['Pass', 'Pass', 'Pass', 'Pass']",
+        "Final Shape": "(4, 5)"
+      },
+      "highlight": [8]
     }
   ]
 }

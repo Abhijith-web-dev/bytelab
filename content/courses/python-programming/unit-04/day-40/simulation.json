@@ -1,22 +1,73 @@
 {
   "id": "sim-day-40",
-  "type": "Type G",
-  "title": "Simulation: Errors and Exceptions",
+  "title": "Command-Line Parameter Life Cycle (sys.argv)",
+  "description": "Step-by-step trace of how the OS shell populates sys.argv, converts string arguments to numeric arrays, and performs list aggregation.",
+  "codeLines": [
+    "argv = ['analyzer.py', '10', '20', '30']",
+    "if len(argv) < 2: print('Usage error')",
+    "raw_args = argv[1:]",
+    "numbers = [int(x) for x in raw_args]",
+    "total = sum(numbers)",
+    "avg = total / len(numbers)",
+    "print('Sum: %d | Avg: %.2f' % (total, avg))"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "The OS shell launches Python and populates sys.argv: index 0 is 'analyzer.py', followed by strings '10', '20', '30'.",
+      "variables": {
+        "argv": "['analyzer.py', '10', '20', '30']"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "len(argv) is 4, which is not < 2. The argument check passes successfully, avoiding usage errors.",
+      "variables": {
+        "argc": 4
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "argv[1:] slices the user arguments: ['10', '20', '30'].",
+      "variables": {
+        "raw_args": "['10', '20', '30']"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Each string element is converted via int() into typed integers: [10, 20, 30].",
+      "variables": {
+        "numbers": "[10, 20, 30]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "sum(numbers) calculates the total: 10 + 20 + 30 = 60.",
+      "variables": {
+        "total": 60
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "total / len(numbers) computes the mathematical average: 60 / 3 = 20.0.",
+      "variables": {
+        "avg": 20.0
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Prints the formatted metrics using the % format operator.",
+      "variables": {
+        "total": 60,
+        "avg": 20.0
+      },
+      "output": "Sum: 60 | Avg: 20.00"
     }
   ]
 }

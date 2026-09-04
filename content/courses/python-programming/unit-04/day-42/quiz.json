@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-42-1",
-    "question": "Which of the following best describes Modules and Packages?",
+    "id": "q1",
+    "question": "Which block contains code that may cause an exception?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "else",
+      "finally",
+      "try",
+      "raise"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `try` block encloses statements that might encounter runtime errors or raise exceptions during execution."
+  },
+  {
+    "id": "q2",
+    "question": "Which block is responsible for catching and handling an exception?",
+    "options": [
+      "try",
+      "except",
+      "else",
+      "finally"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `except` block intercepts and handles exceptions raised inside the corresponding `try` block."
+  },
+  {
+    "id": "q3",
+    "question": "Which block executes only when NO exception occurs within the `try` block?",
+    "options": [
+      "raise",
+      "except",
+      "else",
+      "finally"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `else` block runs exclusively when the `try` block completes successfully without triggering any exception."
+  },
+  {
+    "id": "q4",
+    "question": "Which block executes regardless of whether an exception occurred or was handled?",
+    "options": [
+      "try",
+      "except",
+      "else",
+      "finally"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The `finally` block is guaranteed to execute at the end of the try-except statement, making it ideal for cleanup actions like closing files."
+  },
+  {
+    "id": "q5",
+    "question": "Which exception is raised by the expression `int(\"abc\")`?",
+    "options": [
+      "TypeError",
+      "ValueError",
+      "IndexError",
+      "KeyError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because `'abc'` is a string (valid type) but cannot be converted into base-10 numerical digits, Python raises `ValueError`."
+  },
+  {
+    "id": "q6",
+    "question": "Which exception is raised by the mathematical operation `10 / 0`?",
+    "options": [
+      "ValueError",
+      "TypeError",
+      "ZeroDivisionError",
+      "IndexError"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Dividing or taking modulo by zero in Python causes the interpreter to raise a `ZeroDivisionError`."
+  },
+  {
+    "id": "q7",
+    "question": "What is the primary function of the `raise` keyword in Python?",
+    "options": [
+      "Catches an unhandled exception",
+      "Manually triggers an exception",
+      "Suppresses error messages silently",
+      "Closes all open file handles"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `raise` statement allows developers to intentionally generate an exception when custom business rules or domain conditions are violated."
+  },
+  {
+    "id": "q8",
+    "question": "What is the output of this code snippet?\n```python\ntry:\n    number = int(\"abc\")\nexcept ValueError:\n    print(\"Invalid\")\nelse:\n    print(\"Valid\")\nfinally:\n    print(\"Done\")\n```",
+    "options": [
+      "Prints Valid and Done",
+      "Prints Invalid and Done",
+      "Prints only Invalid",
+      "Prints only Done"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`int(\"abc\")` raises `ValueError`, so `except` prints `'Invalid'`, `else` is skipped, and `finally` runs unconditionally to print `'Done'`."
+  },
+  {
+    "id": "q9",
+    "question": "Which exception should be handled when attempting to open a non-existent file for reading?",
+    "options": [
+      "IndexError",
+      "ValueError",
+      "FileNotFoundError",
+      "NameError"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Calling `open(filename, 'r')` on a path that does not exist raises a `FileNotFoundError`."
+  },
+  {
+    "id": "q10",
+    "question": "Why is handling specific exceptions (e.g. `except ValueError:`) strongly preferred over a bare `except:`?",
+    "options": [
+      "It clearly identifies expected failures and avoids accidentally hiding unrelated bugs or keyboard interrupts",
+      "It makes all runtime errors disappear permanently",
+      "It automatically repairs broken files on disk",
+      "It removes the need to test the program"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Targeting specific exceptions ensures you only handle expected error conditions while allowing unintended bugs or system interrupts to surface appropriately."
   }
 ]

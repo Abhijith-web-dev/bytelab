@@ -4,15 +4,20 @@
   "romanNumber": "Unit IV",
   "title": "Files, Modules, Packages",
   "description": "Text file I/O, format operator, command line arguments (sys.argv), exception handling (try-except-finally), modules, packages, and classes/objects.",
-  "periods": 12,
+  "periods": 10,
   "outcomes": [
     "CO4"
   ],
   "chapters": [
-    "01-file-io",
-    "02-cmd-exceptions",
-    "03-modules-packages",
-    "04-classes-objects",
-    "05-illustrative-wordcount"
+    "day-37",
+    "day-38",
+    "day-39",
+    "day-40",
+    "day-41",
+    "day-42",
+    "day-43",
+    "day-44",
+    "day-45",
+    "day-46"
   ]
 }

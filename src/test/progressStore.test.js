@@ -26,7 +26,7 @@ describe('Progress Store & Outcome Mastery Calculations', () => {
 
     const coMastery = useProgressStore.getState().getOutcomeMastery();
     expect(coMastery.CO1.completed).toBe(2);
-    expect(coMastery.CO1.percent).toBe(17); // 2/12 = 17%
+    expect(coMastery.CO1.percent).toBe(33); // 2/6 = 33%
     expect(coMastery.CO2.percent).toBe(0);
   });
 

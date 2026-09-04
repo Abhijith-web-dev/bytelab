@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 54,
   "order": 54,
-  "title": "Day 54: Pandas Series & DataFrames",
-  "shortTitle": "Pandas Series & DataFrames",
-  "description": "Introduction to 1D Series and 2D labeled DataFrames.",
-  "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "title": "Unit–V — Day 6: Introduction to Pandas Series",
+  "shortTitle": "Introduction to Pandas Series",
+  "description": "Introduction to Pandas Series: 1D labeled data structures, default vs custom indexing, .loc vs .iloc access, element modification, vectorized arithmetic, and aggregations (sum, mean, min, max).",
+  "simulationType": "Type G: Pandas Series Labeled Data & Index Alignment",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }

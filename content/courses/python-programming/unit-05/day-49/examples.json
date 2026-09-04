@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-49-1",
-    "title": "Basic Usage of NumPy: Creating a NumPy Array",
-    "code": "# Example for NumPy: Creating a NumPy Array\nprint('Day 49 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Creating 1D Arrays & List vs NumPy Element-Wise Behavior",
+    "code": "import numpy as np\n\n# 1. Standard Python List behavior\npy_list = [10, 20, 30]\nprint(\"Python List * 2 (Repetition):\", py_list * 2)\n# Output: [10, 20, 30, 10, 20, 30]\n\n# 2. NumPy Array behavior\nnp_arr = np.array([10, 20, 30])\nprint(\"NumPy Array * 2 (Vectorized) :\", np_arr * 2)\n# Output: [20 40 60]\n\n# 3. Element-wise scalar arithmetic\nprint(\"Add 5      :\", np_arr + 5)   # [15 25 35]\nprint(\"Subtract 2 :\", np_arr - 2)   # [ 8 18 28]\nprint(\"Divide by 2:\", np_arr / 2)   # [ 5. 10. 15.]",
+    "explanation": "Contrasts Python's sequence repetition behavior on lists with NumPy's vectorized element-by-element arithmetic operations."
+  },
+  {
+    "id": "ex-day-49-2",
+    "title": "Array Metadata Inspection: ndim, shape, size, and dtype",
+    "code": "import numpy as np\n\n# Create a 1D vector and a 2D matrix\nvector = np.array([10, 20, 30, 40, 50])\nmatrix = np.array([\n    [1.5, 2.5, 3.5],\n    [4.5, 5.5, 6.5]\n])\n\nprint(\"=== 1D VECTOR INSPECTION ===\")\nprint(\"Array     :\", vector)\nprint(\"Dimensions:\", vector.ndim)   # 1\nprint(\"Shape     :\", vector.shape)  # (5,)\nprint(\"Total size:\", vector.size)   # 5\nprint(\"Data type :\", vector.dtype)  # int32 or int64\n\nprint(\"\\n=== 2D MATRIX INSPECTION ===\")\nprint(\"Array:\\n\", matrix)\nprint(\"Dimensions:\", matrix.ndim)   # 2\nprint(\"Shape (r,c):\", matrix.shape) # (2, 3)\nprint(\"Total size:\", matrix.size)   # 6\nprint(\"Data type :\", matrix.dtype)  # float64",
+    "explanation": "Shows how to query an array's fundamental architectural properties using ndim, shape, size, and dtype."
+  },
+  {
+    "id": "ex-day-49-3",
+    "title": "2D Array Indexing, Updating, and Sub-Matrix Slicing",
+    "code": "import numpy as np\n\n# Create 3x3 student marks grid (3 students across 3 exams)\ngrid = np.array([\n    [80, 75, 90],\n    [85, 88, 92],\n    [70, 65, 78]\n])\n\nprint(\"Initial Grid:\\n\", grid)\n\n# Access specific element: Student 2 (row index 1), Exam 3 (column index 2)\nprint(\"\\nStudent 2, Exam 3 score:\", grid[1, 2])  # 92\n\n# Update a single element\ngrid[0, 1] = 95\nprint(\"Updated Student 1, Exam 2:\", grid[0, 1])\n\n# Slice the first two students across all exams\nprint(\"\\nFirst two students (rows 0 to 1):\\n\", grid[0:2, :])",
+    "explanation": "Illustrates 2D coordinate-based indexing [row, col], element assignment, and introductory multi-axis slicing syntax."
+  },
+  {
+    "id": "ex-day-49-4",
+    "title": "Practical Application: Sensor Calibration & Component Areas",
+    "code": "import numpy as np\n\n# Application 1: Temperature Sensor Calibration\nraw_readings = np.array([28.4, 30.1, 31.8, 29.5, 32.0])\ncalibration_offset = 0.6\ncalibrated_readings = raw_readings + calibration_offset\nprint(\"Raw Sensor Temps :\", raw_readings)\nprint(\"Calibrated Temps :\", calibrated_readings)\n\n# Application 2: Element-wise Multiplication (Rectangle Areas)\nlengths = np.array([12, 15, 20, 8])\nwidths  = np.array([5,  4,  6,  3])\nareas   = lengths * widths\nprint(\"\\nLengths:\", lengths)\nprint(\"Widths :\", widths)\nprint(\"Areas  :\", areas)  # [60 60 120 24]",
+    "explanation": "Demonstrates practical scientific programming: parallel calibration of sensor data and calculating geometric properties across coordinate arrays."
   }
 ]

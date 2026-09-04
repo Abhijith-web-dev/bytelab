@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-41-1",
-    "title": "Basic Usage of Handling Exceptions (try-except)",
-    "code": "# Example for Handling Exceptions (try-except)\nprint('Day 41 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Syntax Error vs. Runtime Exception",
+    "code": "# 1. A SyntaxError happens BEFORE any code executes.\n# Uncommenting the next line prevents the entire file from running:\n# if True print(\"Missing colon\")\n\n# 2. A Runtime Exception happens DURING execution when an invalid operation is attempted:\nprint(\"Execution started smoothly...\")\nx = 10\ny = 0\n\n# Without a guard, x / y raises ZeroDivisionError:\nif y != 0:\n    result = x / y\n    print(\"Result:\", result)\nelse:\n    print(\"Defensive Check: Cannot divide %d by zero!\" % x)\n\nprint(\"Program completed safely without crashing.\")",
+    "explanation": "Illustrates that SyntaxErrors fail during parsing before execution, whereas Runtime Exceptions occur dynamically when invalid operations execute."
+  },
+  {
+    "id": "ex-day-41-2",
+    "title": "Catalog of Common Python Exceptions",
+    "code": "# Demonstrating common Python exceptions and their causes:\n\n# 1. TypeError: Incompatible types for an operation\ndef show_type_error():\n    try:\n        res = \"Score: \" + 100\n    except TypeError as e:\n        print(\"1. TypeError:\", e)\n\n# 2. ValueError: Valid type, but inappropriate content\ndef show_value_error():\n    try:\n        num = int(\"abc\")\n    except ValueError as e:\n        print(\"2. ValueError:\", e)\n\n# 3. IndexError: Accessing beyond sequence boundaries\ndef show_index_error():\n    items = [\"alpha\", \"beta\"]\n    try:\n        item = items[5]\n    except IndexError as e:\n        print(\"3. IndexError:\", e)\n\n# 4. KeyError: Accessing a missing dictionary key\ndef show_key_error():\n    student = {\"name\": \"Kavi\", \"age\": 19}\n    try:\n        grade = student[\"grade\"]\n    except KeyError as e:\n        print(\"4. KeyError:\", e)\n\nshow_type_error()\nshow_value_error()\nshow_index_error()\nshow_key_error()",
+    "explanation": "Shows four of the most frequent Python runtime exceptions and explains the exact conditions under which each is triggered."
+  },
+  {
+    "id": "ex-day-41-3",
+    "title": "Reading a Traceback (Bottom-to-Top Navigation)",
+    "code": "# Simulating a multi-level function call to examine traceback flow\ndef level_c(divisor):\n    # Root cause occurs here on division by zero:\n    return 100 / divisor\n\ndef level_b(step_val):\n    return level_c(step_val)\n\ndef level_a(init_val):\n    return level_b(init_val)\n\nprint(\"Simulating function call chain: level_a -> level_b -> level_c\")\ntry:\n    level_a(0)\nexcept ZeroDivisionError as err:\n    import traceback\n    print(\"\\n--- CAPTURED TRACEBACK ---\")\n    traceback.print_exc(limit=3)\n    print(\"--- DIAGNOSIS STRATEGY ---\")\n    print(\"1. Read bottom line first: ZeroDivisionError: division by zero\")\n    print(\"2. Read the line above: level_c(divisor) -> 100 / divisor\")\n    print(\"3. Inspect call hierarchy: level_a -> level_b -> level_c\")",
+    "explanation": "Demonstrates the bottom-to-top traceback analysis strategy to locate the failing line and understand the call stack leading to the crash."
+  },
+  {
+    "id": "ex-day-41-4",
+    "title": "Defensive Error Prevention Techniques",
+    "code": "# Four essential defensive patterns to avoid crashes:\n\n# Pattern 1: Guarding division\ndenominator = 0\nresult = (100 / denominator) if denominator != 0 else 0\nprint(\"1. Division Guarded :\", result)\n\n# Pattern 2: Guarding list access\ncolors = [\"red\", \"green\", \"blue\"]\nidx = 4\nselected = colors[idx] if (0 <= idx < len(colors)) else \"<default>\"\nprint(\"2. Index Guarded    :\", selected)\n\n# Pattern 3: Guarding dictionary lookup\nuser_profile = {\"username\": \"devaki\"}\nemail = user_profile.get(\"email\", \"no-email@domain.com\")\nprint(\"3. Key Guarded      :\", email)\n\n# Pattern 4: Guarding string conversion\nraw_data = \"42\"\nclean_int = int(raw_data) if raw_data.isdigit() else None\nprint(\"4. Value Guarded    :\", clean_int)",
+    "explanation": "Presents 4 clean conditional patterns for preventing ZeroDivisionError, IndexError, KeyError, and ValueError before they occur."
   }
 ]

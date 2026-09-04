@@ -1,16 +1,48 @@
 [
   {
-    "id": "prob-day-49",
-    "title": "Practice: NumPy: Creating a NumPy Array",
-    "description": "Write a Python script that demonstrates numpy: creating a numpy array.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for NumPy: Creating a NumPy Array\nprint('Success')",
+    "id": "prob-day-49-01",
+    "title": "Create and Analyze a NumPy Marks Array",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "description": "Read five subject marks from user input, store them in a 1D NumPy array, access first and last elements via indexing, apply element-wise bonus addition (+5), and inspect the array's shape, size, and ndim properties.",
+    "starterCode": "# Create and Analyze a NumPy Marks Array\n#\n# Step 1: Import the numpy library with the alias np.\n# Step 2: Read five marks from user input, convert each to an integer,\n#         and create a 1D NumPy array named marks.\n# Step 3: Print 'Marks:' followed by the array.\n# Step 4: Print 'First mark:' followed by the first element of marks.\n# Step 5: Print 'Last mark:' followed by the last element of marks.\n# Step 6: Add 5 bonus marks to every element using element-wise addition.\n# Step 7: Print 'Updated marks:' followed by the updated array.\n# Step 8: Print the array's 'Shape:', 'Size:', and 'Dimensions:' using\n#         the shape, size, and ndim attributes.\n",
+    "solutionCode": "import numpy as np\n\nmarks_list = []\nfor _ in range(5):\n    marks_list.append(int(input().strip()))\n\nmarks = np.array(marks_list)\n\nprint(\"Marks:\", marks)\nprint(\"First mark:\", marks[0])\nprint(\"Last mark:\", marks[-1])\n\nupdated_marks = marks + 5\nprint(\"Updated marks:\", updated_marks)\n\nprint(\"Shape:\", marks.shape)\nprint(\"Size:\", marks.size)\nprint(\"Dimensions:\", marks.ndim)\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "name": "Standard Cohort Marks",
+        "stdin": "70\n80\n65\n90\n75",
+        "expectedOutput": "Marks: [70 80 65 90 75]\nFirst mark: 70\nLast mark: 75\nUpdated marks: [75 85 70 95 80]\nShape: (5,)\nSize: 5\nDimensions: 1",
+        "explanation": "Five marks loaded into 1D NumPy array. First element is 70, last element is 75. Adding 5 yields [75 85 70 95 80]. Shape is (5,), size is 5, ndim is 1."
+      },
+      {
+        "id": "tc-2",
+        "name": "Ascending Step Marks",
+        "stdin": "40\n50\n60\n70\n80",
+        "expectedOutput": "Marks: [40 50 60 70 80]\nFirst mark: 40\nLast mark: 80\nUpdated marks: [45 55 65 75 85]\nShape: (5,)\nSize: 5\nDimensions: 1",
+        "explanation": "First element is 40, last is 80. Each score receives 5 bonus marks."
+      },
+      {
+        "id": "tc-3",
+        "name": "High Scores with Multi-Digit Alignment",
+        "stdin": "100\n95\n90\n85\n80",
+        "expectedOutput": "Marks: [100  95  90  85  80]\nFirst mark: 100\nLast mark: 80\nUpdated marks: [105 100  95  90  85]\nShape: (5,)\nSize: 5\nDimensions: 1",
+        "explanation": "Demonstrates NumPy's internal character alignment when printing arrays with varying digit widths."
+      },
+      {
+        "id": "tc-4",
+        "name": "Uniform Score Boundary",
+        "stdin": "50\n50\n50\n50\n50",
+        "expectedOutput": "Marks: [50 50 50 50 50]\nFirst mark: 50\nLast mark: 50\nUpdated marks: [55 55 55 55 55]\nShape: (5,)\nSize: 5\nDimensions: 1",
+        "explanation": "Uniform array with identical entries correctly increments each element to 55."
       }
+    ],
+    "hints": [
+      "Import numpy using the standard alias: import numpy as np",
+      "Read 5 inputs into a list using a loop, then convert: marks = np.array(marks_list)",
+      "Access the first element with marks[0] and the last with marks[-1]",
+      "In NumPy, you can add 5 to every element directly with marks + 5 (no loop needed)",
+      "Inspect array metadata using marks.shape, marks.size, and marks.ndim"
     ]
   }
 ]

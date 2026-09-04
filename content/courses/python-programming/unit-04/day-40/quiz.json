@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-40-1",
-    "question": "Which of the following best describes Errors and Exceptions?",
+    "id": "q1",
+    "question": "What is a command-line argument in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A reserved Python syntax keyword",
+      "A value provided to a program when it starts from the shell",
+      "An access mode used exclusively for opening files",
+      "A condition controlling a while loop"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctAnswer": 1,
+    "explanation": "A command-line argument is an input value passed to a script at invocation time from the operating system shell."
+  },
+  {
+    "id": "q2",
+    "question": "Which Python standard library module provides access to command-line arguments?",
+    "options": [
+      "math",
+      "string",
+      "sys",
+      "file"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `sys` module provides access to system-specific variables, including `sys.argv`."
+  },
+  {
+    "id": "q3",
+    "question": "Which object in Python stores command-line arguments as a list?",
+    "options": [
+      "sys.input",
+      "sys.argv",
+      "sys.args",
+      "sys.command"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`sys.argv` is the list containing all command-line arguments passed to the script."
+  },
+  {
+    "id": "q4",
+    "question": "When executing `python test.py Arun`, what is stored in `sys.argv[0]`?",
+    "options": [
+      "Arun",
+      "python",
+      "test.py",
+      "0"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`sys.argv[0]` always holds the script name (`'test.py'`) as invoked in the terminal."
+  },
+  {
+    "id": "q5",
+    "question": "When executing `python test.py Arun`, what value is stored in `sys.argv[1]`?",
+    "options": [
+      "test.py",
+      "Arun",
+      "python",
+      "1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`sys.argv[1]` holds the first user-supplied argument following the script name, which is `'Arun'`."
+  },
+  {
+    "id": "q6",
+    "question": "What data type are command-line arguments stored as initially in Python?",
+    "options": [
+      "Integer",
+      "Float",
+      "String",
+      "Boolean"
+    ],
+    "correctAnswer": 2,
+    "explanation": "All command-line arguments arrive as string (`str`) data types."
+  },
+  {
+    "id": "q7",
+    "question": "What is output by `a = sys.argv[1]; b = sys.argv[2]; print(a + b)` when run with `python add.py 10 20`?",
+    "options": [
+      "30",
+      "1020",
+      "10 20",
+      "TypeError: cannot add arguments"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because `sys.argv` arguments are strings, `'10' + '20'` performs string concatenation, resulting in `'1020'`."
+  },
+  {
+    "id": "q8",
+    "question": "How can the string value `'10'` be converted to an integer for mathematical arithmetic?",
+    "options": [
+      "str('10')",
+      "int('10')",
+      "float('10') only",
+      "number('10')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The built-in `int()` function converts valid integer-formatted strings to integer values."
+  },
+  {
+    "id": "q9",
+    "question": "What does the slice expression `sys.argv[1:]` return?",
+    "options": [
+      "Only the program script name",
+      "A list of all user arguments excluding the program name",
+      "Only the final command-line argument",
+      "The path to the Python interpreter executable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`sys.argv[1:]` slices the list starting from index 1 through the end, returning all user-supplied arguments."
+  },
+  {
+    "id": "q10",
+    "question": "Why should a robust command-line program check `len(sys.argv)` before accessing arguments?",
+    "options": [
+      "To sort the arguments alphabetically",
+      "To verify that required arguments were supplied and avoid IndexError crashes",
+      "To automatically convert strings to integers",
+      "To close any dangling open files"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Checking `len(sys.argv)` guards against `IndexError: list index out of range` if the user runs the script without providing the expected arguments."
   }
 ]

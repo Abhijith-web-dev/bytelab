@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-53-1",
-    "question": "Which of the following best describes Matrix Operations (Multiply, Inverse) & Verification?",
+    "id": "quiz-day-53-01",
+    "question": "Which NumPy function calculates the square root?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "np.square()",
+      "np.sqrt()",
+      "np.power()",
+      "np.root()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "np.sqrt() is the built-in NumPy function that calculates the square root of each element in an array."
+  },
+  {
+    "id": "quiz-day-53-02",
+    "question": "What does np.square() do?",
+    "options": [
+      "Finds square roots",
+      "Squares each element",
+      "Adds elements",
+      "Rounds elements"
+    ],
+    "correctAnswer": 1,
+    "explanation": "np.square() calculates the square of each element (x * x) in the array."
+  },
+  {
+    "id": "quiz-day-53-03",
+    "question": "What is the result of np.square(np.array([2, 3, 4]))?",
+    "options": [
+      "[4, 9, 16]",
+      "[2, 3, 4]",
+      "[8, 27, 64]",
+      "[1, 2, 3]"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Squaring each number yields 2² = 4, 3² = 9, and 4² = 16, resulting in [4, 9, 16]."
+  },
+  {
+    "id": "quiz-day-53-04",
+    "question": "Which function calculates absolute values in NumPy?",
+    "options": [
+      "np.abs()",
+      "np.absolute_value()",
+      "np.remove_negative()",
+      "np.value()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "np.abs() computes the absolute value of each element in an array, removing negative signs."
+  },
+  {
+    "id": "quiz-day-53-05",
+    "question": "What is the result of np.abs(np.array([-5, 10, -3]))?",
+    "options": [
+      "[-5, 10, -3]",
+      "[5, 10, 3]",
+      "[0, 10, 0]",
+      "[25, 100, 9]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "np.abs() strips negative signs: |-5| = 5, |10| = 10, and |-3| = 3, yielding [5, 10, 3]."
+  },
+  {
+    "id": "quiz-day-53-06",
+    "question": "Which function calculates the total sum of all elements in a NumPy array?",
+    "options": [
+      "np.mean()",
+      "np.sum()",
+      "np.total()",
+      "np.add_all()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "np.sum() reduces the array by calculating the grand total sum of all elements."
+  },
+  {
+    "id": "quiz-day-53-07",
+    "question": "Which function calculates the average (arithmetic mean) of array elements?",
+    "options": [
+      "np.sum()",
+      "np.average_value()",
+      "np.mean()",
+      "np.mid()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "np.mean() calculates the arithmetic mean by dividing the sum of all elements by the total count."
+  },
+  {
+    "id": "quiz-day-53-08",
+    "question": "What is the result of np.mean(np.array([10, 20, 30]))?",
+    "options": [
+      "30",
+      "60",
+      "20.0",
+      "10.0"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The sum is 10 + 20 + 30 = 60. With 3 elements, the mean is 60 / 3 = 20.0 (as a floating-point number)."
+  },
+  {
+    "id": "quiz-day-53-09",
+    "question": "Which function rounds values to a specified number of decimal places?",
+    "options": [
+      "np.round()",
+      "np.decimal()",
+      "np.format()",
+      "np.fix()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "np.round(a, decimals=N) rounds values in the array to N decimal places."
+  },
+  {
+    "id": "quiz-day-53-10",
+    "question": "What is the result of:\nnumbers = np.array([2, 3, 4])\nnp.square(numbers) + 1",
+    "options": [
+      "[3, 4, 5]",
+      "[5, 10, 17]",
+      "[4, 9, 16]",
+      "[2, 3, 4]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "First, np.square([2, 3, 4]) produces [4, 9, 16]. Then adding scalar 1 gives [5, 10, 17]."
   }
 ]

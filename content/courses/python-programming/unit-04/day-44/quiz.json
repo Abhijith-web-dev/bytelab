@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-44-1",
-    "question": "Which of the following best describes Object Attributes and Methods?",
+    "id": "q1",
+    "question": "What is a Python package?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A single numeric variable",
+      "A directory (folder) used to organize and group related Python modules",
+      "A built-in while loop construct",
+      "An unhandled runtime exception"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A package is a directory containing Python modules and typically an `__init__.py` file, allowing related modules to be organized hierarchically."
+  },
+  {
+    "id": "q2",
+    "question": "What is the primary definition of a Python module?",
+    "options": [
+      "A single Python file (.py) containing executable code and function definitions",
+      "A directory of images and text files",
+      "A database management system",
+      "An operating system terminal command"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "A module is a single `.py` file containing Python code, whereas a package is a folder that groups multiple modules together."
+  },
+  {
+    "id": "q3",
+    "question": "Which of the following representations correctly illustrates a valid Python package structure?",
+    "options": [
+      "tools.py/",
+      "tools/\n    __init__.py\n    calculator.py",
+      "tools()",
+      "tools[]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Python package consists of a directory named `tools/` containing an `__init__.py` file and one or more `.py` module files."
+  },
+  {
+    "id": "q4",
+    "question": "Which special file is traditionally placed inside a directory to indicate and initialize it as a Python package?",
+    "options": [
+      "__init__.py",
+      "start.py",
+      "package.exe",
+      "main.exe"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`__init__.py` signifies to Python and developers that the folder is an importable package and can contain package initialization logic."
+  },
+  {
+    "id": "q5",
+    "question": "Given a package folder `tools/` containing `calculator.py`, how can you import the `calculator` module in `main.py`?",
+    "options": [
+      "from tools import calculator",
+      "import tools.py",
+      "include calculator",
+      "load tools"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The syntax `from <package> import <module>` imports the specified module file from within the package directory."
+  },
+  {
+    "id": "q6",
+    "question": "How can you import the `add()` function directly from `calculator.py` inside the `tools` package?",
+    "options": [
+      "from tools.calculator import add",
+      "from calculator.py import add",
+      "import add from calculator",
+      "use tools.add"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The syntax `from <package>.<module> import <function>` imports a specific member directly into your current namespace."
+  },
+  {
+    "id": "q7",
+    "question": "What is the key architectural difference between a module and a package?",
+    "options": [
+      "A module is a single file (.py), while a package is a directory grouping related modules",
+      "They are identical and interchangeable in Python",
+      "A package cannot contain modules",
+      "A module is always larger than a package"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A module is an individual file containing reusable code; a package is a folder that encapsulates multiple related modules."
+  },
+  {
+    "id": "q8",
+    "question": "What does the statement `from tools import calculator` mean to the Python interpreter?",
+    "options": [
+      "Import the calculator module from inside the tools package directory",
+      "Create a physical calculator on the desktop",
+      "Delete the tools package from disk",
+      "Import Python's standard operating system calculator"
+    ],
+    "correctAnswer": 0,
+    "explanation": "It instructs Python to search the `tools` directory and load the `calculator.py` module into the current script."
+  },
+  {
+    "id": "q9",
+    "question": "Which error does Python raise when attempting to import a package or module that does not exist?",
+    "options": [
+      "IndexError",
+      "ModuleNotFoundError",
+      "KeyError",
+      "ZeroDivisionError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "If Python cannot resolve the folder or `.py` file path during an import statement, it raises `ModuleNotFoundError`."
+  },
+  {
+    "id": "q10",
+    "question": "Why are packages essential when developing large-scale Python applications?",
+    "options": [
+      "They prevent project clutter by grouping related modules into logical subdirectories",
+      "They eliminate the need to write functions or classes",
+      "They replace standard Python grammar and syntax",
+      "They automatically detect and eliminate all computational bugs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Packages provide hierarchical organization, preventing namespace collisions and making large codebases modular, readable, and maintainable."
   }
 ]

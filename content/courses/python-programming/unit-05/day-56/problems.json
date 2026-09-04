@@ -1,15 +1,25 @@
 [
   {
-    "id": "prob-day-56",
-    "title": "Practice: Handling Missing Data",
-    "description": "Write a Python script that demonstrates handling missing data.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Handling Missing Data\nprint('Success')",
+    "id": "prob-day-56-01",
+    "title": "Clean Missing Marks and Combine Student Data",
+    "description": "### Problem Statement\nYou are tasked with building a robust data-cleaning and combination pipeline for academic records.\n\nYou have two data sources:\n1. **Student Information** (`students`):\n   - `ID`: `[101, 102, 103, 104]`\n   - `Name`: `[\"Arun\", \"Priya\", \"Rahul\", \"Meena\"]`\n2. **Student Marks** (`marks`):\n   - `ID`: `[101, 102, 103, 104]`\n   - `Mark`: `[85, None, 78, 92]` (or provided as inputs)\n\n### Requirements\n1. Detect and count missing values in `marks` using `.isna().sum()` and print the header `Missing values` followed by the Series count.\n2. Clean the missing marks in-place or via column assignment by replacing all `NaN` values with `0` using `.fillna(0)`.\n3. Merge the `students` and `marks` DataFrames together using the common key `ID` via `pd.merge()`.\n4. Print `Final DataFrame` followed by the merged DataFrame.\n5. Print `Summary`, followed by:\n   - `Total Students: <count>`\n   - `Total Marks: <sum>`\n\n### Expected Output (Default Records)\n```text\nMissing values\nID      0\nMark    1\ndtype: int64\nFinal DataFrame\n    ID   Name  Mark\n0  101   Arun  85.0\n1  102  Priya   0.0\n2  103  Rahul  78.0\n3  104  Meena  92.0\nSummary\nTotal Students: 4\nTotal Marks: 255.0\n```",
+    "starterCode": "# Write a Python script to clean missing marks and combine student data\n# Step 1: Create the students DataFrame with ID and Name\n# Step 2: Create the marks DataFrame with ID and Mark (handle missing values)\n# Step 3: Print 'Missing values' header and display marks.isna().sum()\n# Step 4: Fill missing values in 'Mark' with 0 using .fillna(0)\n# Step 5: Merge students and marks on 'ID' using pd.merge()\n# Step 6: Print 'Final DataFrame' and the merged table\n# Step 7: Print 'Summary', 'Total Students: <count>', and 'Total Marks: <sum>'\n",
+    "solutionCode": "import sys\nimport pandas as pd\nimport re\n\nraw = ''.join(c for c in sys.stdin.read() if c.isprintable() and ord(c) < 128)\ntokens = [t.strip() for t in re.split(r'[\\,\\s]+', raw) if t.strip()]\n\nif tokens and len(tokens) >= 4:\n    marks_list = []\n    for t in tokens[:4]:\n        if t.lower() in ('none', 'null', 'nan', 'na'):\n            marks_list.append(None)\n        else:\n            try:\n                marks_list.append(float(t))\n            except ValueError:\n                marks_list.append(None)\nelse:\n    marks_list = [85.0, None, 78.0, 92.0]\n\nstudents = pd.DataFrame({\n    \"ID\": [101, 102, 103, 104],\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\", \"Meena\"]\n})\n\nmarks = pd.DataFrame({\n    \"ID\": [101, 102, 103, 104],\n    \"Mark\": marks_list\n})\n\nprint(\"Missing values\")\nprint(marks.isna().sum())\n\nmarks[\"Mark\"] = marks[\"Mark\"].fillna(0)\n\nmerged = pd.merge(students, marks, on=\"ID\")\n\nprint(\"Final DataFrame\")\nprint(merged)\n\nprint(\"Summary\")\nprint(f\"Total Students: {len(merged)}\")\nprint(f\"Total Marks: {merged['Mark'].sum()}\")",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Missing values\nID      0\nMark    1\ndtype: int64\nFinal DataFrame\n    ID   Name  Mark\n0  101   Arun  85.0\n1  102  Priya   0.0\n2  103  Rahul  78.0\n3  104  Meena  92.0\nSummary\nTotal Students: 4\nTotal Marks: 255.0",
         "isHidden": false
+      },
+      {
+        "input": "80 70 90 60",
+        "expectedOutput": "Missing values\nID      0\nMark    0\ndtype: int64\nFinal DataFrame\n    ID   Name  Mark\n0  101   Arun  80.0\n1  102  Priya  70.0\n2  103  Rahul  90.0\n3  104  Meena  60.0\nSummary\nTotal Students: 4\nTotal Marks: 300.0",
+        "isHidden": false
+      },
+      {
+        "input": "None None 50 100",
+        "expectedOutput": "Missing values\nID      0\nMark    2\ndtype: int64\nFinal DataFrame\n    ID   Name   Mark\n0  101   Arun    0.0\n1  102  Priya    0.0\n2  103  Rahul   50.0\n3  104  Meena  100.0\nSummary\nTotal Students: 4\nTotal Marks: 150.0",
+        "isHidden": true
       }
     ]
   }

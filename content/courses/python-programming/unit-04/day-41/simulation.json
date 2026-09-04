@@ -1,22 +1,66 @@
 {
   "id": "sim-day-41",
-  "type": "Type G",
-  "title": "Simulation: Handling Exceptions (try-except)",
+  "title": "Exception Prevention & Bounds Checking Simulator",
+  "description": "Visualizing how defensive conditional guards intercept invalid index accesses before Python raises an unhandled IndexError exception.",
+  "codeLines": [
+    "numbers = [10, 20, 30]",
+    "index = 5",
+    "length = len(numbers)",
+    "is_valid = 0 <= index < length",
+    "if is_valid: result = numbers[index]",
+    "else: print('Invalid index: bounds check prevented crash')"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Initialize list numbers with 3 elements: [10, 20, 30]. Valid indexes are 0, 1, and 2.",
+      "variables": {
+        "numbers": "[10, 20, 30]"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Target index is set to 5 (which is outside the list bounds).",
+      "variables": {
+        "numbers": "[10, 20, 30]",
+        "index": 5
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "len(numbers) evaluates to 3.",
+      "variables": {
+        "numbers": "[10, 20, 30]",
+        "index": 5,
+        "length": 3
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Evaluating condition: 0 <= 5 < 3. 5 is not less than 3, so is_valid evaluates to False.",
+      "variables": {
+        "is_valid": false
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Condition is False. The direct access numbers[5] is safely skipped, avoiding an IndexError.",
+      "variables": {
+        "is_valid": false
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "The else branch executes cleanly, notifying the user without halting the program.",
+      "variables": {
+        "status": "'Guarded cleanly'"
+      },
+      "output": "Invalid index: bounds check prevented crash"
     }
   ]
 }

@@ -1,14 +1,122 @@
 [
   {
     "id": "quiz-day-49-1",
-    "question": "Which of the following best describes NumPy: Creating a NumPy Array?",
+    "question": "What does the library name 'NumPy' stand for?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Number Python",
+      "Numerical Python",
+      "New Python",
+      "Numeric Programming"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctIndex": 1,
+    "explanation": "NumPy stands for Numerical Python. It is the foundational library for scientific and numerical computing in Python."
+  },
+  {
+    "id": "quiz-day-49-2",
+    "question": "Which import statement follows the universally accepted standard convention for NumPy?",
+    "options": [
+      "import np",
+      "import numpy as np",
+      "from python import numpy",
+      "include numpy as np"
+    ],
+    "correctIndex": 1,
+    "explanation": "'import numpy as np' is the standard convention, allowing all NumPy functions and types to be accessed concisely via the 'np' prefix."
+  },
+  {
+    "id": "quiz-day-49-3",
+    "question": "Which function is used to create an array object from a Python list in NumPy?",
+    "options": [
+      "np.list()",
+      "np.array()",
+      "np.create()",
+      "np.new()"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 'np.array()' function takes a Python sequence (such as a list or tuple) and constructs a high-performance NumPy ndarray object."
+  },
+  {
+    "id": "quiz-day-49-4",
+    "question": "What kind of data structure is created by 'np.array([10, 20, 30])'?",
+    "options": [
+      "A Python string",
+      "A key-value dictionary",
+      "A one-dimensional (1D) NumPy array",
+      "A user-defined function"
+    ],
+    "correctIndex": 2,
+    "explanation": "'np.array([10, 20, 30])' creates a one-dimensional array (1D vector) with a single axis of length 3."
+  },
+  {
+    "id": "quiz-day-49-5",
+    "question": "What is the evaluated result of 'np.array([10, 20, 30]) + 5'?",
+    "options": [
+      "[15, 25, 35]",
+      "[10, 20, 30, 5]",
+      "[50]",
+      "TypeError: unsupported operand"
+    ],
+    "correctIndex": 0,
+    "explanation": "NumPy performs vectorized element-wise arithmetic. Adding a scalar (+5) adds 5 to each individual element of the array."
+  },
+  {
+    "id": "quiz-day-49-6",
+    "question": "What property of a NumPy array does the 'ndim' attribute describe?",
+    "options": [
+      "The total count of elements",
+      "The data type of elements",
+      "The number of dimensions (axes) in the array",
+      "The total byte size in RAM"
+    ],
+    "correctIndex": 2,
+    "explanation": "'ndim' returns an integer representing the number of axes or dimensions of the array (e.g., 1 for a vector, 2 for a matrix)."
+  },
+  {
+    "id": "quiz-day-49-7",
+    "question": "What is the shape of 'np.array([[1, 2, 3], [4, 5, 6]])'?",
+    "options": [
+      "(6,)",
+      "(2, 3)",
+      "(3, 2)",
+      "(2,)"
+    ],
+    "correctIndex": 1,
+    "explanation": "The array has 2 rows and 3 columns, so its shape tuple is (2, 3)."
+  },
+  {
+    "id": "quiz-day-49-8",
+    "question": "Which expression accesses the element at row index 1, column index 2 in a 2D NumPy array named 'matrix'?",
+    "options": [
+      "matrix[1, 2]",
+      "matrix[2, 1]",
+      "matrix(1, 2)",
+      "matrix->[1, 2]"
+    ],
+    "correctIndex": 0,
+    "explanation": "In NumPy, 2D array elements are indexed using comma-separated row and column indices inside square brackets: 'matrix[row, column]'."
+  },
+  {
+    "id": "quiz-day-49-9",
+    "question": "What information is provided by the 'size' attribute of a NumPy array?",
+    "options": [
+      "The number of dimensions",
+      "The total number of elements in the entire array",
+      "The byte size of a single element",
+      "The memory address of the buffer"
+    ],
+    "correctIndex": 1,
+    "explanation": "'size' returns an integer giving the total number of elements across all dimensions (equal to the product of the shape tuple elements)."
+  },
+  {
+    "id": "quiz-day-49-10",
+    "question": "Why is NumPy favored over native Python lists for numerical and scientific computing?",
+    "options": [
+      "It is primarily designed for building HTML web interfaces",
+      "It provides contiguous memory storage, fast vectorized operations, and native multi-dimensional support",
+      "It replaces Python syntax with C syntax entirely",
+      "It only allows storing textual strings"
+    ],
+    "correctIndex": 1,
+    "explanation": "NumPy stores data in contiguous memory buffers and implements vectorized math in optimized C code, allowing operations on millions of numbers orders of magnitude faster than Python lists."
   }
 ]

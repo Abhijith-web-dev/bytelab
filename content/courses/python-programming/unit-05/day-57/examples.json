@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-57-1",
-    "title": "Basic Usage of Merging, Joining, Concatenating",
-    "code": "# Example for Merging, Joining, Concatenating\nprint('Day 57 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "GroupBy Aggregations: The Split-Apply-Combine Pattern",
+    "code": "import pandas as pd\n\n# Academic departments and student performance\nstudents = pd.DataFrame({\n    \"Department\": [\"CS\", \"Math\", \"CS\", \"Physics\", \"Math\", \"CS\"],\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\", \"Meena\", \"Kiran\", \"Divya\"],\n    \"Mark\": [85, 92, 78, 88, 95, 90]\n})\n\nprint(\"Average Mark per Department:\")\nprint(students.groupby(\"Department\")[\"Mark\"].mean())\n\nprint(\"\\nMultiple Aggregations (mean, count, max):\")\nprint(students.groupby(\"Department\")[\"Mark\"].agg([\"mean\", \"count\", \"max\"]))",
+    "explanation": "df.groupby('Department') splits rows into departmental subsets, applies aggregation functions (.mean(), .agg()) to each subgroup, and combines results into a clean summary table."
+  },
+  {
+    "id": "ex-day-57-2",
+    "title": "Custom Data Transformation with apply() and Lambda",
+    "code": "import pandas as pd\n\nscores = pd.DataFrame({\n    \"Student\": [\"Arun\", \"Priya\", \"Rahul\", \"Meena\"],\n    \"RawScore\": [82, 95, 45, 68]\n})\n\n# Transform raw score to letter grade using a custom lambda\ndef assign_grade(score):\n    if score >= 90: return \"A\"\n    elif score >= 75: return \"B\"\n    elif score >= 50: return \"C\"\n    else: return \"Fail\"\n\nscores[\"Grade\"] = scores[\"RawScore\"].apply(assign_grade)\n# Also compute a curved score (+5% bonus capped at 100)\nscores[\"Curved\"] = scores[\"RawScore\"].apply(lambda s: min(100, round(s * 1.05)))\n\nprint(\"Evaluated Grades with apply():\")\nprint(scores)",
+    "explanation": ".apply() evaluates custom functions or lambda expressions for every element in a Series, enabling conditional grading and scaling transformations."
+  },
+  {
+    "id": "ex-day-57-3",
+    "title": "Sorting DataFrames: Values vs Index",
+    "code": "import pandas as pd\n\nproducts = pd.DataFrame({\n    \"Item\": [\"Laptop\", \"Mouse\", \"Keyboard\", \"Monitor\"],\n    \"Price\": [55000, 650, 1800, 14500],\n    \"UnitsSold\": [12, 140, 85, 30]\n}, index=[\"P104\", \"P101\", \"P103\", \"P102\"])\n\nprint(\"Sorted by Price (Descending):\")\nprint(products.sort_values(by=\"Price\", ascending=False))\n\nprint(\"\\nSorted by Index (Ascending):\")\nprint(products.sort_index(ascending=True))",
+    "explanation": "sort_values(by='Price', ascending=False) ranks rows by numerical value from highest to lowest. sort_index() organizes rows by product code label (P101, P102, ...)."
+  },
+  {
+    "id": "ex-day-57-4",
+    "title": "Mapping and String Transformations",
+    "code": "import pandas as pd\n\nemployees = pd.DataFrame({\n    \"Name\": [\"  arun kumar \", \"priya s\", \"rahul dev  \"],\n    \"Role\": [\"E1\", \"E2\", \"E1\"]\n})\n\n# 1. Clean and uppercase text strings with .str accessor\nemployees[\"Name\"] = employees[\"Name\"].str.strip().str.title()\n\n# 2. Map role codes to official corporate titles\nrole_titles = {\"E1\": \"Software Engineer\", \"E2\": \"Senior Architect\"}\nemployees[\"Title\"] = employees[\"Role\"].map(role_titles)\n\nprint(\"Cleaned and Mapped Employee Table:\")\nprint(employees)",
+    "explanation": ".str methods (.strip(), .title()) perform vectorized string cleanup. .map(dict) replaces codes with descriptive text based on key matching."
   }
 ]

@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-43-1",
-    "title": "Basic Usage of Classes and Objects Intro",
-    "code": "# Example for Classes and Objects Intro\nprint('Day 43 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Creating and Using a User-Defined Module",
+    "code": "# In a multi-file project, math_tools.py would be saved as a separate file.\n# Here we simulate defining and importing functions from a module namespace:\n\nclass MathToolsModule:\n    def square(self, n):\n        return n * n\n    def cube(self, n):\n        return n * n * n\n    def is_even(self, n):\n        return n % 2 == 0\n\n# Simulated 'import math_tools'\nmath_tools = MathToolsModule()\n\nnum = 6\nprint(\"Number :\", num)\nprint(\"Square :\", math_tools.square(num))\nprint(\"Cube   :\", math_tools.cube(num))\nprint(\"Even?  :\", math_tools.is_even(num))",
+    "explanation": "Demonstrates the syntax and mental model of grouping related functions into a module namespace and accessing them via dot notation."
+  },
+  {
+    "id": "ex-day-43-2",
+    "title": "Importing from Python's Standard Library (math, random, string)",
+    "code": "import math\nimport random\nimport string\n\n# 1. math module: Constants and functions\nradius = 5\ncircle_area = math.pi * math.pow(radius, 2)\nprint(\"1. math: Circle Area for r=5 -> %.2f (sqrt(81) = %.1f)\" % (circle_area, math.sqrt(81)))\n\n# 2. random module: Pseudo-random choices\noptions = [\"Python\", \"JavaScript\", \"Rust\", \"Go\"]\npicked = random.choice(options)\nroll = random.randint(1, 6)\nprint(\"2. random: Selected language '%s', Dice roll: %d\" % (picked, roll))\n\n# 3. string module: Predefined character sets\nsample_code = \"Student_ID_402\"\ndigits_only = [c for c in sample_code if c in string.digits]\nprint(\"3. string: Extracted digits:\", \"\".join(digits_only))",
+    "explanation": "Showcases essential built-in modules provided with Python's standard library for mathematics, randomness, and text processing."
+  },
+  {
+    "id": "ex-day-43-3",
+    "title": "Comparing Import Styles: Full, Specific, and Aliased",
+    "code": "# Style 1: Direct module import (Source remains clear)\nimport math\nprint(\"Style 1 (import math)          : math.sqrt(49) =\", math.sqrt(49))\n\n# Style 2: Specific function import (Direct access without prefix)\nfrom math import factorial\nprint(\"Style 2 (from math import ...)   : factorial(5)  =\", factorial(5))\n\n# Style 3: Module alias with 'as' (Concise namespace shorthand)\nimport math as m\nprint(\"Style 3 (import math as m)       : m.ceil(4.14)  =\", m.ceil(4.14))",
+    "explanation": "Presents the three primary import patterns in Python and clarifies when each style is most readable and effective."
+  },
+  {
+    "id": "ex-day-43-4",
+    "title": "Modular Architecture: Separation of Concerns",
+    "code": "# Demonstrating multi-module separation of concerns:\n\n# Module A: Data calculation logic\ndef calculate_grade(marks):\n    avg = sum(marks) / len(marks)\n    status = \"Pass\" if all(m >= 40 for m in marks) else \"Fail\"\n    return avg, status\n\n# Module B: Presentation formatting logic\ndef format_report(student_name, marks, avg, status):\n    return f\"[REPORT] {student_name:<10} | Avg: {avg:5.1f} | Status: {status}\"\n\n# Main driver coordinator\nstudents = [\n    (\"Arun\", [85, 90, 78]),\n    (\"Kavya\", [92, 88, 95]),\n    (\"Rahul\", [35, 70, 60])\n]\n\nfor name, scores in students:\n    average, result = calculate_grade(scores)\n    card = format_report(name, scores, average, result)\n    print(card)",
+    "explanation": "Illustrates how breaking a program into calculation and reporting concerns mirrors real-world multi-module project structures."
   }
 ]

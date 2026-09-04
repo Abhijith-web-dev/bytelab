@@ -1,15 +1,44 @@
 [
   {
-    "id": "prob-day-37",
-    "title": "Practice: Text Files: Reading and Writing",
-    "description": "Write a Python script that demonstrates text files: reading and writing.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Text Files: Reading and Writing\nprint('Success')",
+    "id": "prob-day-37-01",
+    "title": "Practice: Student File Saver",
+    "description": "Write a Python program that collects information about one student and saves it into a text file named `student.txt`.\n\n### Requirements:\n1. Collect 3 inputs from the user in this exact order:\n   - Student name (e.g., `Arun`)\n   - Student age (e.g., `20`)\n   - Student mark (e.g., `85`)\n2. Open `student.txt` in write mode (`\"w\"`).\n3. Write the student information into `student.txt` in the following format (each record on a separate line):\n   ```text\n   Name: <name>\n   Age: <age>\n   Mark: <mark>\n   ```\n4. Close the file using `file.close()`.\n5. Print the confirmation message to the console:\n   ```text\n   Student details saved successfully\n   ```\n6. Finally, read and print the contents of `student.txt` to verify the written file data.",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["File Handling", "open()", "write()", "close()", "Text Files"],
+    "starterCode": "# Practice: Student File Saver\n# Step 1: Read student name, age, and mark from user input using input()\n# Step 2: Open 'student.txt' in write mode ('w')\n# Step 3: Write the formatted lines (Name: ..., Age: ..., Mark: ...) with newline '\\n'\n# Step 4: Close the file using .close()\n# Step 5: Print 'Student details saved successfully'\n# Step 6: Open 'student.txt' in read mode ('r'), read its content, print it, and close the file\n\n",
+    "solutionCode": "name = input()\nage = input()\nmark = input()\n\nfile = open(\"student.txt\", \"w\")\nfile.write(f\"Name: {name}\\n\")\nfile.write(f\"Age: {age}\\n\")\nfile.write(f\"Mark: {mark}\\n\")\nfile.close()\n\nprint(\"Student details saved successfully\")\n\nread_file = open(\"student.txt\", \"r\")\ncontent = read_file.read().strip()\nread_file.close()\nprint(content)\n",
+    "hints": [
+      "Use input() three times in sequence to get the student's name, age, and mark.",
+      "Open the file with `file = open('student.txt', 'w')`.",
+      "Remember to include '\\n' at the end of each line so each field appears on its own line.",
+      "Call `file.close()` immediately after writing to flush all data to the file.",
+      "Print 'Student details saved successfully', then open 'student.txt' in 'r' mode to display its contents."
+    ],
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
+        "id": "tc-1",
+        "input": "Arun\n20\n85\n",
+        "expectedOutput": "Student details saved successfully\nName: Arun\nAge: 20\nMark: 85",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "input": "Priya\n19\n92\n",
+        "expectedOutput": "Student details saved successfully\nName: Priya\nAge: 19\nMark: 92",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "input": "Rahul\n21\n76\n",
+        "expectedOutput": "Student details saved successfully\nName: Rahul\nAge: 21\nMark: 76",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "input": "Meena\n22\n88\n",
+        "expectedOutput": "Student details saved successfully\nName: Meena\nAge: 22\nMark: 88",
+        "isHidden": true
       }
     ]
   }

@@ -1,8 +1,20 @@
 [
   {
     "id": "ex-day-39-1",
-    "title": "Basic Usage of Command Line Arguments",
-    "code": "# Example for Command Line Arguments\nprint('Day 39 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "String Formatting with the Format Operator %",
+    "code": "name = 'Arun'\nage = 20\naverage = 82.5678\n\n# Single and multiple value interpolation\nprint('Hello %s' % name)\nprint('Age: %d' % age)\nprint('Average: %.2f' % average)\nprint('Name: %s | Age: %d | Avg: %.2f' % (name, age, average))",
+    "explanation": "Illustrates the fundamental format specifiers: %s for strings, %d for integers, and %.2f for two-decimal float rounding."
+  },
+  {
+    "id": "ex-day-39-2",
+    "title": "Creating a Formatted Tabular Report in a File",
+    "code": "students = [\n    ('Arun', 85, 82.67),\n    ('Priya', 92, 91.50),\n    ('Rahul', 75, 74.25)\n]\n\nfile = open('grades_table.txt', 'w')\nfile.write('%-10s %-8s %-8s\\n' % ('Student', 'Mark', 'Average'))\nfile.write('-' * 28 + '\\n')\nfor name, mark, avg in students:\n    file.write('%-10s %-8d %-8.2f\\n' % (name, mark, avg))\nfile.close()\n\n# Read back and inspect\nwith open('grades_table.txt', 'r') as f:\n    print(f.read())",
+    "explanation": "Demonstrates width formatting with %-10s to align columns neatly in text file reports."
+  },
+  {
+    "id": "ex-day-39-3",
+    "title": "Command-Line Arguments with sys.argv",
+    "code": "import sys\n\n# Simulate sys.argv invocation: python app.py report.txt 100\nsys_args = ['app.py', 'records.txt', '100']\n\nscript_name = sys_args[0]\ntarget_file = sys_args[1]\nthreshold = int(sys_args[2])\n\nprint('Script Name :', script_name)\nprint('Target File :', target_file)\nprint('Threshold   : %d' % threshold)",
+    "explanation": "Shows how sys.argv indexes work and reminds that arguments arrive as strings requiring int() conversion."
   }
 ]

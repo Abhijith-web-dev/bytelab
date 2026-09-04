@@ -3,17 +3,17 @@
   "unitId": "unit-05",
   "dayNumber": 49,
   "order": 49,
-  "title": "Day 49: NumPy: Creating a NumPy Array",
-  "shortTitle": "NumPy: Creating a NumPy Array",
-  "description": "Initializing homogeneous arrays for high-performance math.",
+  "title": "Unit–V — Day 1: Introduction to NumPy and NumPy Arrays",
+  "shortTitle": "Intro to NumPy & Arrays",
+  "description": "What is NumPy, NumPy vs Python Lists, np.array(), 1D & 2D arrays, indexing, element-wise arithmetic, shape, size, ndim, and dtype.",
   "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
   "prerequisites": [
-    "day-48"
+    "day-46"
   ],
   "lessonsCount": 1,
   "problemsCount": 1,

@@ -1,22 +1,81 @@
 {
   "id": "sim-day-38",
-  "type": "Type G",
-  "title": "Simulation: The Format Operator",
+  "title": "File Reading & Pointer Movement: readline() vs Iteration",
+  "description": "Visualizing file cursor progression, reading line-by-line, stripping newline escapes, and splitting CSV records in memory.",
+  "codeLines": [
+    "file = open('students.txt', 'r')",
+    "line1 = file.readline()",
+    "clean_line1 = line1.strip()",
+    "name, mark = clean_line1.split(',')",
+    "line2 = file.readline()",
+    "clean_line2 = line2.strip()",
+    "file.close()"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "open('students.txt', 'r') opens the file in read mode. The file pointer is positioned at byte 0 (very start of the file).",
+      "variables": {
+        "file": "<_io.TextIOWrapper name='students.txt' mode='r' encoding='UTF-8'>",
+        "file_pointer_offset": 0
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "file.readline() reads until '\\n'. It loads 'Arun,85\\n' into variable line1 and moves the file pointer forward by 8 bytes.",
+      "variables": {
+        "file": "<_io.TextIOWrapper mode='r'>",
+        "file_pointer_offset": 8,
+        "line1": "'Arun,85\\n'"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "line1.strip() removes the trailing newline '\\n' character, resulting in a clean string 'Arun,85'.",
+      "variables": {
+        "line1": "'Arun,85\\n'",
+        "clean_line1": "'Arun,85'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "clean_line1.split(',') splits the string into two tokens: name = 'Arun' and mark = '85'.",
+      "variables": {
+        "name": "'Arun'",
+        "mark": "'85'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Calling file.readline() a second time begins at byte 8 (the saved pointer position). It reads 'Priya,92\\n' and advances the pointer.",
+      "variables": {
+        "file_pointer_offset": 17,
+        "line2": "'Priya,92\\n'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "clean_line2 removes the newline delimiter from the second line, yielding 'Priya,92'.",
+      "variables": {
+        "line2": "'Priya,92\\n'",
+        "clean_line2": "'Priya,92'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "file.close() closes the file handle and releases system resources. Pointer tracking is finalized.",
+      "variables": {
+        "file": "<closed TextIOWrapper>",
+        "name": "'Arun'",
+        "mark": "'85'"
+      },
+      "output": ""
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "id": "c",
+  "name": "C",
+  "version": "C17 (GCC)",
+  "extension": "c",
+  "monacoLanguage": "c",
+  "runtime": "c-wasm",
+  "defaultStarterCode": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello from ByteLab C Systems!\\n\");\n    return 0;\n}\n",
+  "keywords": ["int", "char", "float", "double", "void", "struct", "union", "typedef", "sizeof", "static", "const", "volatile", "extern", "return", "if", "else", "for", "while"]
+}

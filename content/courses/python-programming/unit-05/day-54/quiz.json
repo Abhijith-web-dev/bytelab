@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-54-1",
-    "question": "Which of the following best describes Pandas Series & DataFrames?",
+    "id": "quiz-day-54-01",
+    "question": "What is Pandas mainly used for in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Game development",
+      "Data processing and analysis",
+      "Creating operating systems",
+      "Drawing graphics"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pandas is the primary Python library for data manipulation, structured data processing, and analytical operations."
+  },
+  {
+    "id": "quiz-day-54-02",
+    "question": "What is a Pandas Series?",
+    "options": [
+      "A two-dimensional table only",
+      "A one-dimensional labeled data structure",
+      "A Python loop",
+      "A file"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Pandas Series is a one-dimensional array-like structure where each data value is bound to an explicit index label."
+  },
+  {
+    "id": "quiz-day-54-03",
+    "question": "Which function is used to instantiate a new Series in Pandas?",
+    "options": [
+      "pd.array()",
+      "pd.Series()",
+      "pd.data()",
+      "pd.column()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "pd.Series(data, index=...) is the constructor used to create a Pandas Series object."
+  },
+  {
+    "id": "quiz-day-54-04",
+    "question": "What does the index of a Pandas Series represent?",
+    "options": [
+      "Labels/positions used to identify entries",
+      "Only the data type",
+      "The number of functions",
+      "File names"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "The index provides unique, meaningful labels or coordinate keys used to look up and align data entries."
+  },
+  {
+    "id": "quiz-day-54-05",
+    "question": "What does the .loc indexer primarily use to access Series values?",
+    "options": [
+      "Positions",
+      "Labels",
+      "Random numbers",
+      "Data types"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".loc is label-based: you pass custom string/label keys (e.g. marks.loc['Priya']) to retrieve values."
+  },
+  {
+    "id": "quiz-day-54-06",
+    "question": "What does the .iloc indexer primarily use to access Series values?",
+    "options": [
+      "Labels",
+      "Integer positions",
+      "File names",
+      "Strings only"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".iloc is integer position-based: you pass 0-based physical memory positions (e.g. marks.iloc[0])."
+  },
+  {
+    "id": "quiz-day-54-07",
+    "question": "What is the result of:\nmarks = pd.Series([10, 20, 30])\nmarks + 5",
+    "options": [
+      "[10, 20, 30, 5]",
+      "[15, 25, 35]",
+      "[50, 100, 150]",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pandas Series supports vectorized scalar arithmetic, adding 5 to each element without a loop: [15, 25, 35]."
+  },
+  {
+    "id": "quiz-day-54-08",
+    "question": "Which method calculates the total sum of elements in a Series?",
+    "options": [
+      "total()",
+      "sum()",
+      "add_all()",
+      "count_total()"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".sum() is the built-in Series method that calculates the total accumulation of all numeric values."
+  },
+  {
+    "id": "quiz-day-54-09",
+    "question": "Which method calculates the arithmetic average of a Series?",
+    "options": [
+      "average()",
+      "mean()",
+      "avg_value()",
+      "middle()"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".mean() computes the arithmetic mean (sum divided by number of observations)."
+  },
+  {
+    "id": "quiz-day-54-10",
+    "question": "What is the primary difference between a NumPy array and a Pandas Series?",
+    "options": [
+      "NumPy is focused on numerical arrays, while a Series provides one-dimensional labeled data",
+      "They are exactly the same",
+      "NumPy is only for strings",
+      "Pandas Series cannot store numbers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "NumPy focuses on high-performance raw n-dimensional numerical arrays, while a Pandas Series adds human-readable index labels and data alignment capabilities."
   }
 ]

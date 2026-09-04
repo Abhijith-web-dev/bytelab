@@ -1,14 +1,122 @@
 [
   {
     "id": "quiz-day-57-1",
-    "question": "Which of the following best describes Merging, Joining, Concatenating?",
+    "question": "What is the primary computational lifecycle behind Pandas groupby() operations?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Load-Transform-Export",
+      "Split-Apply-Combine",
+      "Map-Filter-Reduce",
+      "Index-Select-Iterate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pandas groupby() implements the Split-Apply-Combine pattern: split data into categorical groups, apply a function (e.g. mean, sum) to each group, and combine the results into a unified structure."
+  },
+  {
+    "id": "quiz-day-57-2",
+    "question": "What is returned if you call df.groupby('Department') without chaining an aggregate function?",
+    "options": [
+      "A new sorted DataFrame",
+      "A dictionary of lists",
+      "A DataFrameGroupBy object waiting for an aggregation method",
+      "An empty Series"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Calling df.groupby() creates a lazy DataFrameGroupBy object that defines the group keys but performs no calculation until an aggregation like .mean(), .sum(), or .agg() is called."
+  },
+  {
+    "id": "quiz-day-57-3",
+    "question": "Which statement computes the average salary for each department?",
+    "options": [
+      "df.groupby('Department')['Salary'].mean()",
+      "df['Department'].mean('Salary')",
+      "df.sort_values('Department').average('Salary')",
+      "df.split('Department')['Salary'].avg()"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "df.groupby('Department')['Salary'].mean() groups rows by Department, isolates the Salary column, and calculates the arithmetic mean for each group."
+  },
+  {
+    "id": "quiz-day-57-4",
+    "question": "How can you calculate both the mean and total sum of Salary for each department in a single call?",
+    "options": [
+      "df.groupby('Department')['Salary'].both('mean', 'sum')",
+      "df.groupby('Department')['Salary'].agg(['mean', 'sum'])",
+      "df.groupby('Department')['Salary'].combine(mean, sum)",
+      "df.groupby('Department')['Salary'].calculate('mean+sum')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The .agg() method allows passing a list of aggregation functions (like ['mean', 'sum', 'count']) to compute multiple metrics simultaneously."
+  },
+  {
+    "id": "quiz-day-57-5",
+    "question": "What is the primary role of the .apply() method in Pandas?",
+    "options": [
+      "To sort columns alphabetically",
+      "To run a custom Python function or lambda element-wise or row-wise across data",
+      "To remove duplicate rows automatically",
+      "To connect to an external SQL database"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".apply() executes arbitrary Python functions or lambda expressions across a Series or along DataFrame axes (rows or columns)."
+  },
+  {
+    "id": "quiz-day-57-6",
+    "question": "What does df['Salary'].apply(lambda x: x * 1.10) do?",
+    "options": [
+      "Permanently deletes salaries lower than 1.10",
+      "Computes a 10% increase on every salary in the Series",
+      "Filters for employees who received a 10% bonus",
+      "Renames the column to 1.10"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The lambda receives each scalar x from the Salary series and evaluates x * 1.10, scaling each salary value up by 10%."
+  },
+  {
+    "id": "quiz-day-57-7",
+    "question": "How do you sort a DataFrame by a column named 'Mark' in descending order (highest score first)?",
+    "options": [
+      "df.sort_values(by='Mark', ascending=False)",
+      "df.sort_values(by='Mark', descending=True)",
+      "df.order_by('Mark', reverse=True)",
+      "df.sort('Mark', order='desc')"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In Pandas, sort_values() uses the boolean parameter ascending=False to sort data in descending order from highest to lowest."
+  },
+  {
+    "id": "quiz-day-57-8",
+    "question": "What is the difference between sort_values() and sort_index()?",
+    "options": [
+      "sort_values() is only for numbers; sort_index() is only for text",
+      "sort_values() sorts by column cell data; sort_index() sorts by row or column index labels",
+      "sort_values() is deprecated in favor of sort_index()",
+      "They are exact synonyms for the same function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "sort_values() reorganizes rows according to values inside specified columns; sort_index() orders rows by the index labels (e.g., 0, 1, 2... or custom labels)."
+  },
+  {
+    "id": "quiz-day-57-9",
+    "question": "When calling df.apply(func, axis=1), what does the function receive as its input argument?",
+    "options": [
+      "Each individual cell as a single character",
+      "An entire column as a Series",
+      "An entire row as a Series",
+      "The entire DataFrame all at once"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Passing axis=1 instructs apply() to operate horizontally across columns for each row, delivering the entire row as a Series to the function."
+  },
+  {
+    "id": "quiz-day-57-10",
+    "question": "Which method efficiently maps dictionary key-value pairs to transform values in a Series?",
+    "options": [
+      "series.map({'Old': 'New'})",
+      "series.transpose({'Old': 'New'})",
+      "series.reindex({'Old': 'New'})",
+      "series.swap({'Old': 'New'})"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The .map() method substitutes each value in a Series according to input mapping correspondence defined in a Python dictionary or function."
   }
 ]

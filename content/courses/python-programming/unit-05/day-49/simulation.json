@@ -1,22 +1,122 @@
 {
   "id": "sim-day-49",
-  "type": "Type H",
-  "title": "Simulation: NumPy: Creating a NumPy Array",
+  "title": "NumPy 1D Array Allocation & Element-Wise Arithmetic Simulator",
+  "description": "Visual step-by-step trace of importing NumPy, allocating a 1D ndarray in contiguous memory, indexing elements, inspecting metadata (shape, size, ndim), and executing vectorized element-wise addition.",
+  "codeLines": [
+    "import numpy as np",
+    "marks = np.array([70, 80, 65, 90, 75])",
+    "first_mark = marks[0]",
+    "last_mark = marks[-1]",
+    "updated_marks = marks + 5",
+    "print('Marks:', marks)",
+    "print('First mark:', first_mark)",
+    "print('Last mark:', last_mark)",
+    "print('Updated marks:', updated_marks)",
+    "print('Shape:', marks.shape)",
+    "print('Size:', marks.size)",
+    "print('Dimensions:', marks.ndim)"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Imports the numerical computing library NumPy with the standard alias 'np'.",
+      "variables": {
+        "np": "<module 'numpy'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "np.array() converts the Python list into a contiguous 1D NumPy array with 5 integer elements.",
+      "variables": {
+        "np": "<module 'numpy'>",
+        "marks": "array([70, 80, 65, 90, 75])"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Accesses element at index 0: marks[0] = 70.",
+      "variables": {
+        "marks": "array([70, 80, 65, 90, 75])",
+        "first_mark": 70
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Accesses element at negative index -1 (the final element): marks[-1] = 75.",
+      "variables": {
+        "marks": "array([70, 80, 65, 90, 75])",
+        "first_mark": 70,
+        "last_mark": 75
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Vectorized element-wise operation: +5 is added to every element across the array in parallel without a loop.",
+      "variables": {
+        "marks": "array([70, 80, 65, 90, 75])",
+        "updated_marks": "array([75, 85, 70, 95, 80])"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Prints the formatted string representation of the original marks array.",
+      "variables": {
+        "marks": "array([70, 80, 65, 90, 75])"
+      },
+      "output": "Marks: [70 80 65 90 75]\n"
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Prints the first mark retrieved by indexing.",
+      "variables": {
+        "first_mark": 70
+      },
+      "output": "Marks: [70 80 65 90 75]\nFirst mark: 70\n"
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Prints the last mark retrieved via negative indexing.",
+      "variables": {
+        "last_mark": 75
+      },
+      "output": "Marks: [70 80 65 90 75]\nFirst mark: 70\nLast mark: 75\n"
+    },
+    {
+      "activeLine": 9,
+      "explanation": "Prints the updated array after element-wise addition.",
+      "variables": {
+        "updated_marks": "array([75, 85, 70, 95, 80])"
+      },
+      "output": "Marks: [70 80 65 90 75]\nFirst mark: 70\nLast mark: 75\nUpdated marks: [75 85 70 95 80]\n"
+    },
+    {
+      "activeLine": 10,
+      "explanation": "marks.shape returns (5,), indicating a 1D array of 5 elements.",
+      "variables": {
+        "marks.shape": "(5,)"
+      },
+      "output": "Marks: [70 80 65 90 75]\nFirst mark: 70\nLast mark: 75\nUpdated marks: [75 85 70 95 80]\nShape: (5,)\n"
+    },
+    {
+      "activeLine": 11,
+      "explanation": "marks.size returns 5, the total number of elements in the array.",
+      "variables": {
+        "marks.size": 5
+      },
+      "output": "Marks: [70 80 65 90 75]\nFirst mark: 70\nLast mark: 75\nUpdated marks: [75 85 70 95 80]\nShape: (5,)\nSize: 5\n"
+    },
+    {
+      "activeLine": 12,
+      "explanation": "marks.ndim returns 1, representing a single axis / dimension.",
+      "variables": {
+        "marks.ndim": 1
+      },
+      "output": "Marks: [70 80 65 90 75]\nFirst mark: 70\nLast mark: 75\nUpdated marks: [75 85 70 95 80]\nShape: (5,)\nSize: 5\nDimensions: 1\n"
     }
   ]
 }

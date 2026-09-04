@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-43-1",
-    "question": "Which of the following best describes Classes and Objects Intro?",
+    "id": "q1",
+    "question": "What is a Python module?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A type of iterative loop construct",
+      "A Python file (.py) containing reusable code such as functions and variables",
+      "A special built-in data type for storing strings",
+      "A conditional branch statement"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Python module is simply a file with a .py extension containing definitions, functions, and statements that can be imported into other scripts."
+  },
+  {
+    "id": "q2",
+    "question": "Which Python keyword is used to load and include external or standard library modules?",
+    "options": [
+      "include",
+      "import",
+      "module",
+      "use"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `import` keyword instructs the Python interpreter to locate, load, and bind the symbols from a specified module."
+  },
+  {
+    "id": "q3",
+    "question": "If a program executes `import calculator`, how should it call the `add()` function defined inside that module?",
+    "options": [
+      "add.calculator()",
+      "calculator.add()",
+      "import.add()",
+      "calculator()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When importing using `import <module>`, members are accessed using the dot operator: `<module_name>.<function_name>()`."
+  },
+  {
+    "id": "q4",
+    "question": "Which Python standard library module provides mathematical functions such as `sqrt()`, `ceil()`, and `floor()`?",
+    "options": [
+      "random",
+      "math",
+      "string",
+      "sys"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The built-in `math` module supplies mathematical functions for floating-point arithmetic and constants like `pi`."
+  },
+  {
+    "id": "q5",
+    "question": "Which built-in Python module is used to generate random numbers and select random items from a sequence?",
+    "options": [
+      "random",
+      "math",
+      "os",
+      "file"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "The `random` module implements pseudo-random number generators for various distributions, including `randint()` and `choice()`."
+  },
+  {
+    "id": "q6",
+    "question": "Which module exposes command-line arguments via the `sys.argv` list?",
+    "options": [
+      "string",
+      "math",
+      "sys",
+      "os"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `sys` module provides parameters and functions specific to the Python interpreter, including `sys.argv`."
+  },
+  {
+    "id": "q7",
+    "question": "Which import statement imports ONLY the `square` function from the `math_tools` module into the current namespace?",
+    "options": [
+      "import square",
+      "from math_tools import square",
+      "import math_tools.square",
+      "use math_tools square"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The syntax `from <module> import <name>` imports specific functions directly into the local namespace without requiring the module prefix."
+  },
+  {
+    "id": "q8",
+    "question": "What category of module is `calculator.py` when written and saved by a developer for their own project?",
+    "options": [
+      "Built-in module",
+      "User-defined module",
+      "Standard library module",
+      "Virtual machine module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Modules authored by programmers to structure their own applications are termed user-defined modules."
+  },
+  {
+    "id": "q9",
+    "question": "What is the effect of executing `import math as m`?",
+    "options": [
+      "Deletes the math module from disk",
+      "Renames the actual file on the operating system",
+      "Creates an alias `m` for referencing the `math` module",
+      "Creates a blank module named `m`"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `as` keyword defines an alias or shorthand nickname, allowing the developer to write `m.sqrt()` instead of `math.sqrt()`."
+  },
+  {
+    "id": "q10",
+    "question": "What exception does Python raise if an `import` statement requests a module file that cannot be located in the search path?",
+    "options": [
+      "IndexError",
+      "ModuleNotFoundError",
+      "KeyError",
+      "ZeroDivisionError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python raises `ModuleNotFoundError` when it cannot find a file or package matching the specified module name in `sys.path`."
   }
 ]

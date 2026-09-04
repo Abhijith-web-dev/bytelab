@@ -1,15 +1,55 @@
 [
   {
-    "id": "prob-day-41",
-    "title": "Practice: Handling Exceptions (try-except)",
-    "description": "Write a Python script that demonstrates handling exceptions (try-except).",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Handling Exceptions (try-except)\nprint('Success')",
+    "id": "prob-day-41-01",
+    "title": "Practice: Fix the Python Errors (IndexError Prevention)",
+    "description": "The following starter program was intended to retrieve an item from a list and add it to a user-provided number, but it is prone to crashing:\n\n```python\nnumbers = [10, 20, 30]\nnumber = int(input())\nprint(\"Result:\", numbers[3] + number)  # Bug: index 3 does not exist!\n```\n\nYour task is to fix and enhance the program so it validates user input before accessing the list and never crashes due to an `IndexError`.\n\n### Input Format:\n- Line 1: An integer representing the target list `index`.\n- Line 2: An integer representing the `number` to add.\n\n### Program Requirements:\n1. Initialize `numbers = [10, 20, 30]`.\n2. Read the `index` as an integer using `int(input())`.\n3. Read the `number` to add as an integer using `int(input())`.\n4. Check whether the `index` is valid for the `numbers` list (`0 <= index < len(numbers)`).\n5. If the index is valid:\n   - Add the selected element (`numbers[index]`) to the user's `number`.\n   - Print the exact message: `Result: <sum>`\n6. If the index is invalid:\n   - Print the exact message: `Invalid index`\n   - Do NOT attempt to access the list; do NOT allow the program to crash with an `IndexError`.",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["Debugging", "IndexError", "Error Prevention", "List Indexing", "Conditionals", "Input Handling"],
+    "starterCode": "# Practice: Fix the Python Errors (IndexError Prevention)\n# Step 1: Define the list of numbers: numbers = [10, 20, 30]\n# Step 2: Read the index from user input as an integer using int(input())\n# Step 3: Read the number to add as an integer using int(input())\n# Step 4: Check if the index is within valid bounds: 0 <= index < len(numbers)\n# Step 5: If valid, add numbers[index] + number and print 'Result: <sum>'\n# Step 6: If invalid, print 'Invalid index' safely without crashing\n\n",
+    "solutionCode": "numbers = [10, 20, 30]\n\nindex = int(input())\nnumber = int(input())\n\nif 0 <= index < len(numbers):\n    print(\"Result:\", numbers[index] + number)\nelse:\n    print(\"Invalid index\")\n",
+    "hints": [
+      "The list `[10, 20, 30]` has length 3, meaning valid 0-based indexes are 0, 1, and 2.",
+      "Hardcoding `numbers[3]` causes an immediate `IndexError: list index out of range`.",
+      "Read the index first: `index = int(input())`, then the number: `number = int(input())`.",
+      "Use Python's chained comparison `0 <= index < len(numbers)` to test whether the index is valid.",
+      "If the condition evaluates to True, calculate `numbers[index] + number`. Otherwise, print `'Invalid index'`."
+    ],
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
+        "id": "tc-1",
+        "description": "Valid access at index 1: 20 + 5 = 25",
+        "input": "1\n5\n",
+        "expectedOutput": "Result: 25",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Out of bounds access at index 5 -> safely handles invalid index",
+        "input": "5\n5\n",
+        "expectedOutput": "Invalid index",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Boundary access at index 0: 10 + 10 = 20",
+        "input": "0\n10\n",
+        "expectedOutput": "Result: 20",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Last valid element at index 2: 30 + 15 = 45",
+        "input": "2\n15\n",
+        "expectedOutput": "Result: 45",
+        "isHidden": true
+      },
+      {
+        "id": "tc-5",
+        "description": "Off-by-one boundary test at index 3 (length is 3) -> invalid index",
+        "input": "3\n10\n",
+        "expectedOutput": "Invalid index",
+        "isHidden": true
       }
     ]
   }

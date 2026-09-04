@@ -1,22 +1,90 @@
 {
   "id": "sim-day-52",
-  "type": "Type H",
-  "title": "Simulation: Maths & Basic Arithmetic with NumPy Arrays",
+  "title": "NumPy Vectorized Arithmetic Visualizer",
+  "description": "Step-by-step visual trace of element-wise multiplication (prices * quantities), scalar scaling (total * 0.10), vector subtraction, 2D scalar addition, and column-specific bonus arithmetic.",
+  "codeLines": [
+    "import numpy as np",
+    "prices = np.array([100, 200, 150])",
+    "quantities = np.array([2, 3, 4])",
+    "total_sales = prices * quantities",
+    "discount = total_sales * 0.10",
+    "final_amount = total_sales - discount",
+    "marks = np.array([[70, 80, 90], [65, 75, 85]])",
+    "bonus_marks = marks + 5",
+    "science_bonus = marks[:, 2] + 10"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Imports the NumPy numerical computing library under the conventional alias 'np'.",
+      "variables": {
+        "np": "<module 'numpy'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Allocates a 1D NumPy array of product unit prices with shape (3,).",
+      "variables": {
+        "prices": "[100, 200, 150]"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Allocates a 1D NumPy array of corresponding quantities sold with shape (3,). Both shapes match.",
+      "variables": {
+        "quantities": "[2, 3, 4]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Executes prices * quantities element-wise: 100*2=200, 200*3=600, 150*4=600 without any Python for loop.",
+      "variables": {
+        "total_sales": "[200, 600, 600]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Broadcasts scalar multiplication (* 0.10) to every item in total_sales: 200*0.1=20.0, 600*0.1=60.0, 600*0.1=60.0.",
+      "variables": {
+        "discount": "[20.0, 60.0, 60.0]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Subtracts discount array from total_sales element-wise: 200-20=180.0, 600-60=540.0, 600-60=540.0.",
+      "variables": {
+        "final_amount": "[180.0, 540.0, 540.0]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Allocates a 2D matrix of student scores with shape (2, 3).",
+      "variables": {
+        "marks": "[[70, 80, 90], [65, 75, 85]]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Adds scalar (+ 5) to every single cell in the 2D array simultaneously.",
+      "variables": {
+        "bonus_marks": "[[75, 85, 95], [70, 80, 90]]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 9,
+      "explanation": "Extracts column 2 (Science: [90, 85]) and adds scalar 10, producing [100, 95] without affecting Maths or English scores.",
+      "variables": {
+        "science_bonus": "[100, 95]"
+      },
+      "output": ""
     }
   ]
 }

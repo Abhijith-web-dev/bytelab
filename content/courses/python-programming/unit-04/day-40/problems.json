@@ -1,15 +1,55 @@
 [
   {
-    "id": "prob-day-40",
-    "title": "Practice: Errors and Exceptions",
-    "description": "Write a Python script that demonstrates errors and exceptions.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Errors and Exceptions\nprint('Success')",
+    "id": "prob-day-40-01",
+    "title": "Practice: Command-Line Number Analyzer",
+    "description": "Create a Python program named `analyzer.py` that accepts multiple numbers through command-line arguments using `sys.argv`.\n\nExample invocation from the terminal:\n```bash\npython analyzer.py 10 20 15 5 30\n```\n\n### Program Requirements:\n1. Import the `sys` module to access command-line arguments.\n2. Check if arguments were provided. If `len(sys.argv) < 2`, display this exact usage message and terminate:\n   ```text\n   Usage: python analyzer.py <number1> <number2> ...\n   ```\n3. Extract all numeric arguments from `sys.argv[1:]`.\n4. Convert each argument from a string to an integer and append it to a list named `numbers`.\n5. Compute the `Sum` of all numbers.\n6. Compute the `Average` rounded to 2 decimal places (`%.2f`).\n7. Traverse the list manually to determine the `Largest` and `Smallest` numbers (do not use the built-in `max()` or `min()` functions).\n8. Count how many numbers in the list are `Even` (`num % 2 == 0`).\n9. Display the analysis formatted with the `%` format operator in this exact structure:\n\n```text\n===== NUMBER ANALYZER =====\nNumbers : [10, 20, 15, 5, 30]\nSum     : 80\nAverage : 16.00\nLargest : 30\nSmallest: 5\nEven    : 3\n```",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["sys.argv", "Command Line Arguments", "List Traversal", "Type Conversion", "Format Operator %"],
+    "setupCode": "import sys\nsys.argv = ['analyzer.py', '10', '20', '15', '5', '30']",
+    "starterCode": "# Practice: Command-Line Number Analyzer\n# Step 1: Import the sys module to access sys.argv\n# Step 2: Check if len(sys.argv) < 2; if so, print the usage message and exit\n# Step 3: Extract arguments from index 1 onward (sys.argv[1:]) and convert them to integers\n# Step 4: Store all converted integers into a list named 'numbers'\n# Step 5: Compute the sum and average (total / len(numbers))\n# Step 6: Traverse the numbers list to find the largest, smallest, and count of even numbers\n# Step 7: Print the formatted results using the % format operator (%s, %d, %.2f)\n\n",
+    "solutionCode": "import sys\n\nif len(sys.argv) < 2:\n    print(\"Usage: python analyzer.py <number1> <number2> ...\")\nelse:\n    numbers = []\n    for val in sys.argv[1:]:\n        numbers.append(int(val))\n    \n    total = sum(numbers)\n    average = total / len(numbers)\n    \n    largest = numbers[0]\n    smallest = numbers[0]\n    even_count = 0\n    \n    for n in numbers:\n        if n > largest:\n            largest = n\n        if n < smallest:\n            smallest = n\n        if n % 2 == 0:\n            even_count += 1\n            \n    print(\"===== NUMBER ANALYZER =====\")\n    print(\"Numbers : %s\" % numbers)\n    print(\"Sum     : %d\" % total)\n    print(\"Average : %.2f\" % average)\n    print(\"Largest : %d\" % largest)\n    print(\"Smallest: %d\" % smallest)\n    print(\"Even    : %d\" % even_count)\n",
+    "hints": [
+      "Always start by importing `sys` to access `sys.argv`.",
+      "Check `if len(sys.argv) < 2:` to catch runs where no numbers were supplied.",
+      "Remember that user arguments begin at index 1 (`sys.argv[1:]`) because `sys.argv[0]` is the script name.",
+      "Every element in `sys.argv` is a string! Use `int(val)` before performing mathematical calculations.",
+      "Initialize `largest = numbers[0]` and `smallest = numbers[0]` before looping through the list.",
+      "Use `n % 2 == 0` to identify even numbers.",
+      "Format the average using `'Average : %.2f' % average` to ensure 2 decimal places."
+    ],
     "testCases": [
       {
+        "id": "tc-1",
+        "description": "Standard list of three positive even numbers",
+        "setupCode": "import sys\nsys.argv = ['analyzer.py', '10', '20', '30']",
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "===== NUMBER ANALYZER =====\nNumbers : [10, 20, 30]\nSum     : 60\nAverage : 20.00\nLargest : 30\nSmallest: 10\nEven    : 3",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "List of three odd numbers (0 even numbers)",
+        "setupCode": "import sys\nsys.argv = ['analyzer.py', '5', '7', '9']",
+        "input": "",
+        "expectedOutput": "===== NUMBER ANALYZER =====\nNumbers : [5, 7, 9]\nSum     : 21\nAverage : 7.00\nLargest : 9\nSmallest: 5\nEven    : 0",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Mixed list with negative numbers and zero",
+        "setupCode": "import sys\nsys.argv = ['analyzer.py', '-10', '20', '-5', '15', '0']",
+        "input": "",
+        "expectedOutput": "===== NUMBER ANALYZER =====\nNumbers : [-10, 20, -5, 15, 0]\nSum     : 20\nAverage : 4.00\nLargest : 20\nSmallest: -10\nEven    : 3",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "No arguments provided (validates usage message)",
+        "setupCode": "import sys\nsys.argv = ['analyzer.py']",
+        "input": "",
+        "expectedOutput": "Usage: python analyzer.py <number1> <number2> ...",
+        "isHidden": true
       }
     ]
   }

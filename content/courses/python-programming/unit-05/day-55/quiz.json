@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-55-1",
-    "question": "Which of the following best describes Selection and Indexing in Pandas?",
+    "id": "quiz-day-55-01",
+    "question": "What is a Pandas DataFrame?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A one-dimensional list",
+      "A two-dimensional labeled data structure",
+      "A Python function",
+      "A file mode"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Pandas DataFrame is a two-dimensional labeled tabular data structure with columns of potentially different types."
+  },
+  {
+    "id": "quiz-day-55-02",
+    "question": "Which function is used to create a DataFrame in Pandas?",
+    "options": [
+      "pd.Table()",
+      "pd.Frame()",
+      "pd.DataFrame()",
+      "pd.Data()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "pd.DataFrame(data, ...) is the official constructor function for creating DataFrame objects."
+  },
+  {
+    "id": "quiz-day-55-03",
+    "question": "What does a single row usually represent in a DataFrame?",
+    "options": [
+      "One type of column",
+      "One record or entity observation",
+      "One function",
+      "One module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In tabular datasets, each horizontal row represents a single complete record (e.g. one student, one product, or one transaction)."
+  },
+  {
+    "id": "quiz-day-55-04",
+    "question": "What does one column usually represent in a DataFrame?",
+    "options": [
+      "One type of information or attribute",
+      "One complete record",
+      "One program",
+      "One index only"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "A column represents a single feature or attribute (e.g. 'Age', 'Mark', 'Price') shared across all records."
+  },
+  {
+    "id": "quiz-day-55-05",
+    "question": "What does students[\"Name\"] return when students is a DataFrame?",
+    "options": [
+      "A row",
+      "A column as a Pandas Series",
+      "A single integer",
+      "A DataFrame containing all columns"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Extracting a single column using single bracket notation df['Col'] returns a one-dimensional Pandas Series."
+  },
+  {
+    "id": "quiz-day-55-06",
+    "question": "What does students.iloc[0] select?",
+    "options": [
+      "First column",
+      "First row by 0-based integer position",
+      "First cell only",
+      "Column named 0"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".iloc[0] accesses the very first row of the DataFrame using physical 0-based integer positional indexing."
+  },
+  {
+    "id": "quiz-day-55-07",
+    "question": "What does the .loc indexer primarily use to access DataFrame data?",
+    "options": [
+      "Integer memory offsets",
+      "Index and column labels",
+      "Random numbers",
+      "Data types"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".loc is strictly label-based, accepting row index labels and column names."
+  },
+  {
+    "id": "quiz-day-55-08",
+    "question": "What does the .iloc indexer primarily use to access DataFrame data?",
+    "options": [
+      "Column string names",
+      "Integer positions",
+      "File names",
+      "Dictionary keys"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".iloc is integer position-based, accepting 0-based integer row and column coordinates."
+  },
+  {
+    "id": "quiz-day-55-09",
+    "question": "How do you select multiple columns (e.g. 'Name' and 'Mark') from a DataFrame?",
+    "options": [
+      "students[\"Name\", \"Mark\"]",
+      "students[[\"Name\", \"Mark\"]]",
+      "students[\"Name\" + \"Mark\"]",
+      "students.columns(\"Name\", \"Mark\")"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Passing a Python list of column names inside outer indexing brackets students[['Name', 'Mark']] returns a DataFrame subset."
+  },
+  {
+    "id": "quiz-day-55-10",
+    "question": "What does students.loc[1, \"Mark\"] select?",
+    "options": [
+      "Row 1 only",
+      "Mark column only",
+      "The cell at row label 1 and column 'Mark'",
+      "The first column"
+    ],
+    "correctAnswer": 2,
+    "explanation": "students.loc[row_label, col_label] targets the exact single cell at the intersection of row 1 and column 'Mark'."
   }
 ]

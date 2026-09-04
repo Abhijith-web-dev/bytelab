@@ -1,14 +1,122 @@
 [
   {
     "id": "quiz-day-56-1",
-    "question": "Which of the following best describes Handling Missing Data?",
+    "question": "What is missing data in a dataset?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "Extra data generated during computations",
+      "A value that is unavailable or absent for a row or column",
+      "A newly added empty column name",
+      "A completely new DataFrame object"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Missing data refers to records where expected observations or measurements are absent or unavailable (e.g., skipped survey questions, sensor failure)."
+  },
+  {
+    "id": "quiz-day-56-2",
+    "question": "Which value commonly represents missing numerical data in Pandas?",
+    "options": [
+      "0",
+      "-1",
+      "NaN",
+      "False"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Pandas represents missing numerical observations using NaN (Not a Number), derived from IEEE floating-point standards."
+  },
+  {
+    "id": "quiz-day-56-3",
+    "question": "Which Pandas function is used to detect missing values by returning a boolean mask?",
+    "options": [
+      "df.missing()",
+      "df.isna()",
+      "df.findnull()",
+      "df.checkempty()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "isna() (and its alias isnull()) evaluates each cell and returns True for missing (NaN/None) values and False for present values."
+  },
+  {
+    "id": "quiz-day-56-4",
+    "question": "Which function checks for values that are present and NOT missing?",
+    "options": [
+      "notna()",
+      "notnullvalue()",
+      "available()",
+      "present()"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "notna() returns True for valid, present values and False for missing (NaN) values, the exact inverse of isna()."
+  },
+  {
+    "id": "quiz-day-56-5",
+    "question": "Which function replaces missing values with a specified replacement value?",
+    "options": [
+      "replace_missing()",
+      "fillna()",
+      "fillmissing()",
+      "setna()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "fillna() replaces NaN occurrences with a specified value (such as 0, 'Unknown', or a column mean) without dropping rows."
+  },
+  {
+    "id": "quiz-day-56-6",
+    "question": "Which function removes rows containing missing values by default?",
+    "options": [
+      "remove()",
+      "clearna()",
+      "dropna()",
+      "delete_missing()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "dropna() removes entire rows that contain at least one NaN value (by default along axis=0)."
+  },
+  {
+    "id": "quiz-day-56-7",
+    "question": "Which method is usually used to stack DataFrames vertically or horizontally?",
+    "options": [
+      "pd.merge()",
+      "df.join()",
+      "pd.concat()",
+      "pd.stack_data()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "pd.concat([df1, df2]) is designed to stack DataFrames together vertically (rows, axis=0) or horizontally (columns, axis=1)."
+  },
+  {
+    "id": "quiz-day-56-8",
+    "question": "Which method is commonly used to combine related rows using a common key column?",
+    "options": [
+      "pd.concat()",
+      "pd.merge()",
+      "df.fillna()",
+      "df.dropna()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "pd.merge(df1, df2, on='Key') performs relational join operations, matching records across two DataFrames using a shared column."
+  },
+  {
+    "id": "quiz-day-56-9",
+    "question": "Which method commonly combines DataFrames based on their row indexes?",
+    "options": [
+      "df.join()",
+      "pd.merge()",
+      "pd.concat()",
+      "df.index_add()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "df1.join(df2) combines two DataFrames horizontally by aligning their row indices by default."
+  },
+  {
+    "id": "quiz-day-56-10",
+    "question": "What is the easiest memory rule to differentiate concat, merge, and join?",
+    "options": [
+      "concat = match, merge = stack, join = delete",
+      "concat = stack, merge = match, join = index",
+      "concat = delete, merge = fill, join = stack",
+      "All three methods perform the exact same underlying operation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The golden mental model: Concat = Stack (putting tables together), Merge = Match (linking via common key), Join = Index (aligning by index)."
   }
 ]

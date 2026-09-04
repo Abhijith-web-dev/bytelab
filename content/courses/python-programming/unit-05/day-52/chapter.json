@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 52,
   "order": 52,
-  "title": "Day 52: Maths & Basic Arithmetic with NumPy Arrays",
-  "shortTitle": "Maths & Basic Arithmetic with NumPy Arrays",
-  "description": "Vectorized element-wise addition, subtraction, multiplication, and division.",
+  "title": "Unit–V — Day 4: Mathematical Operations with NumPy Arrays",
+  "shortTitle": "Mathematical Operations with NumPy",
+  "description": "Vectorized element-wise addition, subtraction, multiplication, division, array-scalar broadcasting, array-to-array arithmetic, and real-world calculation pipelines.",
   "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }

@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 53,
   "order": 53,
-  "title": "Day 53: Matrix Operations (Multiply, Inverse) & Verification",
-  "shortTitle": "Matrix Operations (Multiply, Inverse) & Verification",
-  "description": "Using loops and library functions for matrix multiplication and finding the inverse.",
-  "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "title": "Unit–V — Day 5: Advanced NumPy Arithmetic and Mathematical Functions",
+  "shortTitle": "Advanced NumPy Arithmetic & Mathematical Functions",
+  "description": "Master NumPy mathematical functions (sqrt, square, power, abs, round, floor, ceil) and aggregations (sum, mean) for multi-step data analysis and numerical modeling.",
+  "simulationType": "Type G: NumPy Mathematical Operations & Aggregations",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner-intermediate",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }

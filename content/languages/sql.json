@@ -1,0 +1,10 @@
+{
+  "id": "sql",
+  "name": "SQL",
+  "version": "ANSI SQL:2016 / SQLite WASM",
+  "extension": "sql",
+  "monacoLanguage": "sql",
+  "runtime": "sqlite-wasm",
+  "defaultStarterCode": "-- ByteLab Database Systems\nSELECT * FROM courses WHERE status = 'active';\n",
+  "keywords": ["SELECT", "FROM", "WHERE", "JOIN", "LEFT", "RIGHT", "INNER", "GROUP", "BY", "ORDER", "HAVING", "LIMIT", "INSERT", "UPDATE", "DELETE", "CREATE", "TABLE", "PRIMARY", "KEY"]
+}

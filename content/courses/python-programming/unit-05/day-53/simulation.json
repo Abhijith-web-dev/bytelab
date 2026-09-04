@@ -1,22 +1,86 @@
 {
-  "id": "sim-day-53",
-  "type": "Type H",
-  "title": "Simulation: Matrix Operations (Multiply, Inverse) & Verification",
+  "title": "NumPy Mathematical Functions & Pipeline Simulator",
+  "description": "Visualize memory allocation, scalar broadcasting, array aggregations, absolute deviations, and combined mathematical pipelines.",
   "steps": [
     {
       "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "title": "Allocate Raw Marks Array in Memory",
+      "code": "marks = np.array([72, 85, 91, 68, 79])",
+      "explanation": "NumPy allocates a contiguous 1D block of 5 integers in memory. Each index [0..4] stores an individual student exam score.",
+      "variables": {
+        "marks": "[72, 85, 91, 68, 79]",
+        "shape": "(5,)",
+        "dtype": "int64"
+      },
+      "highlight": [1]
     },
     {
       "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "title": "Vectorized Scalar Bonus Addition",
+      "code": "updated = marks + 5",
+      "explanation": "NumPy broadcasts scalar value 5 across all 5 elements in parallel without an explicit for-loop: 72+5=77, 85+5=90, 91+5=96, 68+5=73, 79+5=84.",
+      "variables": {
+        "marks": "[72, 85, 91, 68, 79]",
+        "updated": "[77, 90, 96, 73, 84]"
+      },
+      "highlight": [2]
     },
     {
       "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "title": "Compute Total Sum Aggregation",
+      "code": "total = np.sum(updated)",
+      "explanation": "np.sum() executes a reduction aggregation across all array elements: 77 + 90 + 96 + 73 + 84 = 420. The result is a single scalar number.",
+      "variables": {
+        "updated": "[77, 90, 96, 73, 84]",
+        "total": 420
+      },
+      "highlight": [3]
+    },
+    {
+      "step": 4,
+      "title": "Compute Class Mean Average",
+      "code": "average = np.mean(updated)",
+      "explanation": "np.mean() calculates the central tendency: total sum (420) divided by array length (5) = 84.0 (returned as float64).",
+      "variables": {
+        "total": 420,
+        "average": "84.0"
+      },
+      "highlight": [4]
+    },
+    {
+      "step": 5,
+      "title": "Element-Wise Deviations from Class Benchmark",
+      "code": "diff = updated - average",
+      "explanation": "NumPy subtracts scalar average 84.0 from each element in updated: 77-84 = -7.0, 90-84 = +6.0, 96-84 = +12.0, 73-84 = -11.0, 84-84 = 0.0.",
+      "variables": {
+        "updated": "[77, 90, 96, 73, 84]",
+        "average": "84.0",
+        "diff": "[-7.0, 6.0, 12.0, -11.0, 0.0]"
+      },
+      "highlight": [5]
+    },
+    {
+      "step": 6,
+      "title": "Apply np.abs() to Measure Error Magnitude",
+      "code": "abs_diff = np.abs(diff)",
+      "explanation": "np.abs() evaluates every element in diff and strips the negative signs, leaving pure variance magnitudes: |-7|=7, |6|=6, |12|=12, |-11|=11, |0|=0.",
+      "variables": {
+        "diff": "[-7.0, 6.0, 12.0, -11.0, 0.0]",
+        "abs_diff": "[7.0, 6.0, 12.0, 11.0, 0.0]"
+      },
+      "highlight": [6]
+    },
+    {
+      "step": 7,
+      "title": "Chaining Operations: 2D Euclidean Distance",
+      "code": "distance = np.sqrt(np.square(x) + np.square(y))",
+      "explanation": "Chained mathematical pipeline: x and y arrays are squared with np.square(), added element-wise with +, and passed into np.sqrt(). For (3, 4), sqrt(9 + 16) = 5.0.",
+      "variables": {
+        "x": "[3, 5, 6]",
+        "y": "[4, 12, 8]",
+        "distance": "[5.0, 13.0, 10.0]"
+      },
+      "highlight": [7]
     }
   ]
 }

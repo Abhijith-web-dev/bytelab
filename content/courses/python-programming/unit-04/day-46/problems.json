@@ -1,16 +1,48 @@
 [
   {
-    "id": "prob-day-46",
-    "title": "Practice: Unit IV Practical: Copy File",
-    "description": "Write a Python script that demonstrates unit iv practical: copy file.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Unit IV Practical: Copy File\nprint('Success')",
+    "id": "prob-day-46-01",
+    "title": "Build a Bank Account Class",
+    "difficulty": "intermediate",
+    "estimatedMinutes": 25,
+    "description": "Create a BankAccount class with holder and balance attributes, deposit(amount), withdraw(amount) with balance validation, and display() methods. Prevent negative balances by printing 'Insufficient balance' when a withdrawal exceeds available funds.",
+    "starterCode": "# Build a Bank Account Class\n#\n# Step 1: Define a class named BankAccount.\n# Step 2: Implement the __init__(self, holder, balance) constructor.\n#         Store self.holder and self.balance.\n# Step 3: Implement deposit(self, amount) to add amount to balance.\n# Step 4: Implement withdraw(self, amount):\n#         If amount <= self.balance, subtract amount from self.balance.\n#         Otherwise, print 'Insufficient balance' and leave balance unchanged.\n# Step 5: Implement display(self) to print:\n#         Holder: <holder>\n#         Balance: <balance>\n# Step 6: Read holder, initial balance, deposit amount, and withdrawal amount from input.\n# Step 7: Create a BankAccount object, perform deposit and withdrawal,\n#         print '===== ACCOUNT DETAILS =====', and call display().\n",
+    "solutionCode": "class BankAccount:\n    def __init__(self, holder, balance):\n        self.holder = holder\n        self.balance = balance\n\n    def deposit(self, amount):\n        self.balance += amount\n\n    def withdraw(self, amount):\n        if amount <= self.balance:\n            self.balance -= amount\n            return True\n        else:\n            print(\"Insufficient balance\")\n            return False\n\n    def display(self):\n        print(f\"Holder: {self.holder}\")\n        print(f\"Balance: {self.balance}\")\n\nholder = input().strip()\nbalance = int(input().strip())\ndep_amount = int(input().strip())\nwith_amount = int(input().strip())\n\naccount = BankAccount(holder, balance)\naccount.deposit(dep_amount)\naccount.withdraw(with_amount)\n\nprint(\"===== ACCOUNT DETAILS =====\")\naccount.display()\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "name": "Standard Deposit and Withdrawal",
+        "stdin": "Arun\n5000\n1000\n2500",
+        "expectedOutput": "===== ACCOUNT DETAILS =====\nHolder: Arun\nBalance: 3500",
+        "explanation": "Initial 5000 + 1000 deposit = 6000. 6000 - 2500 withdrawal leaves 3500 balance."
+      },
+      {
+        "id": "tc-2",
+        "name": "Insufficient Balance Protection",
+        "stdin": "Priya\n2000\n500\n3000",
+        "expectedOutput": "Insufficient balance\n===== ACCOUNT DETAILS =====\nHolder: Priya\nBalance: 2500",
+        "explanation": "Initial 2000 + 500 = 2500. Withdrawal of 3000 exceeds 2500, printing Insufficient balance and keeping balance unchanged at 2500."
+      },
+      {
+        "id": "tc-3",
+        "name": "Zero Deposit with Valid Withdrawal",
+        "stdin": "Rahul\n1000\n0\n500",
+        "expectedOutput": "===== ACCOUNT DETAILS =====\nHolder: Rahul\nBalance: 500",
+        "explanation": "Initial 1000 + 0 = 1000. 1000 - 500 withdrawal leaves 500 balance."
+      },
+      {
+        "id": "tc-4",
+        "name": "Exact Balance Withdrawal (Zero Balance Boundary)",
+        "stdin": "Deepa\n3000\n0\n3000",
+        "expectedOutput": "===== ACCOUNT DETAILS =====\nHolder: Deepa\nBalance: 0",
+        "explanation": "Withdrawal exactly equals the current balance, successfully reducing balance to 0 without triggering insufficient balance error."
       }
+    ],
+    "hints": [
+      "Define the class using: class BankAccount:",
+      "In __init__(self, holder, balance), store self.holder = holder and self.balance = balance.",
+      "In deposit(self, amount), update self.balance += amount.",
+      "In withdraw(self, amount), check if amount <= self.balance. If False, print 'Insufficient balance'.",
+      "Instantiate the object: account = BankAccount(holder, balance), then call account.deposit() and account.withdraw()."
     ]
   }
 ]

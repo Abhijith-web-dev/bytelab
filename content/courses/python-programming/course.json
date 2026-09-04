@@ -110,7 +110,7 @@
       "romanNumber": "Unit IV",
       "title": "Files, Modules, Packages",
       "description": "Text files, format operator, command line arguments, errors and exceptions, modules, packages, Classes, objects, word count, copy file.",
-      "periods": 12,
+      "periods": 10,
       "outcomes": [
         "CO4"
       ],
@@ -124,9 +124,7 @@
         "day-43",
         "day-44",
         "day-45",
-        "day-46",
-        "day-47",
-        "day-48"
+        "day-46"
       ]
     },
     {

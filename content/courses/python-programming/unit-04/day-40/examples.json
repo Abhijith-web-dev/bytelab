@@ -1,8 +1,20 @@
 [
   {
     "id": "ex-day-40-1",
-    "title": "Basic Usage of Errors and Exceptions",
-    "code": "# Example for Errors and Exceptions\nprint('Day 40 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Basic Command-Line Argument Extraction",
+    "code": "import sys\n\n# Simulated execution: python greet.py Arun Chennai\nfake_argv = ['greet.py', 'Arun', 'Chennai']\n\nscript = fake_argv[0]\nname = fake_argv[1]\ncity = fake_argv[2]\n\nprint('Script Name : %s' % script)\nprint('Name        : %s' % name)\nprint('City        : %s' % city)",
+    "explanation": "Demonstrates the indexing anatomy of sys.argv where index 0 is the script and indices 1..n contain user parameters."
+  },
+  {
+    "id": "ex-day-40-2",
+    "title": "Validating Argument Count with len(sys.argv)",
+    "code": "import sys\n\n# Safely handling missing CLI arguments\ndef run_cli(args):\n    if len(args) < 3:\n        print('Usage: python student.py <name> <age>')\n        return\n    name = args[1]\n    age = int(args[2])\n    print('Student %s is %d years old' % (name, age))\n\nprint('Test with missing arguments:')\nrun_cli(['student.py'])\n\nprint('\\nTest with correct arguments:')\nrun_cli(['student.py', 'Arun', '20'])",
+    "explanation": "Shows how checking len(sys.argv) prevents unhandled IndexError crashes when arguments are omitted."
+  },
+  {
+    "id": "ex-day-40-3",
+    "title": "Processing Dynamic Lists of Numbers with sys.argv[1:]",
+    "code": "import sys\n\n# Simulated: python sum.py 10 20 30 40\nsimulated_argv = ['sum.py', '10', '20', '30', '40']\n\nraw_nums = simulated_argv[1:]\nnumbers = [int(x) for x in raw_nums]\ntotal = sum(numbers)\navg = total / len(numbers)\n\nprint('Parsed Numbers :', numbers)\nprint('Sum            : %d' % total)\nprint('Average        : %.2f' % avg)",
+    "explanation": "Illustrates slicing sys.argv[1:] to process arbitrarily long lists of numbers passed from the command line."
   }
 ]

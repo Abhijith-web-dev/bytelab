@@ -1,15 +1,55 @@
 [
   {
-    "id": "prob-day-39",
-    "title": "Practice: Command Line Arguments",
-    "description": "Write a Python script that demonstrates command line arguments.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Command Line Arguments\nprint('Success')",
+    "id": "prob-day-39-01",
+    "title": "Practice: Student File Report Generator",
+    "description": "A text file named `students.txt` contains student records in `Name,Mark` format:\n\n```text\nArun,85\nPriya,92\nRahul,35\nMeena,78\n```\n\nWrite a Python program that reads the file and generates a structured summary report using the format operator `%`.\n\n### Requirements:\n1. Open `students.txt` in read mode (`\"r\"`).\n2. Process the file line by line using a loop.\n3. Clean line endings with `.strip()` and separate values with `.split(\",\")`.\n4. Convert the mark to an integer (`int()`).\n5. Accumulate the total number of students (`count`) and total marks (`total`).\n6. Calculate the class average mark (`total / count`).\n7. Find the highest mark and the name of the top-scoring student without using the built-in `max()` function.\n8. Count the number of students who passed (Pass rule: `mark >= 40`).\n9. Close the file using `file.close()`.\n10. Display the report using the format operator `%` in the exact format shown below:\n\n```text\n===== STUDENT REPORT =====\nStudents : 4\nTotal    : 290\nAverage  : 72.50\nHighest  : 92\nTop      : Priya\nPassed   : 3\n```",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["File Handling", "Format Operator %", "String Formatting", "Accumulator Patterns", "Loops"],
+    "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,85\\nPriya,92\\nRahul,35\\nMeena,78\\n')",
+    "starterCode": "# Practice: Student File Report Generator\n# Step 1: Open 'students.txt' in read mode ('r')\n# Step 2: Initialize accumulator variables (count, total, passed, highest mark, top student name)\n# Step 3: Iterate through each line in the file using a for loop\n# Step 4: Remove leading/trailing whitespace with .strip() and tokenize with .split(',')\n# Step 5: Convert mark to integer and update total students and sum of marks\n# Step 6: Check if mark >= 40 to increment passed count\n# Step 7: Compare against highest mark to update maximum and top student name\n# Step 8: Close the file stream using .close()\n# Step 9: Compute the class average (total / count)\n# Step 10: Print the formatted report using %s, %d, and %.2f\n\n",
+    "solutionCode": "file = open(\"students.txt\", \"r\")\n\ncount = 0\ntotal = 0\npassed = 0\nhighest = -1\ntop_student = \"\"\n\nfor line in file:\n    line = line.strip()\n    if not line:\n        continue\n    data = line.split(\",\")\n    name = data[0]\n    mark = int(data[1])\n    \n    count += 1\n    total += mark\n    \n    if mark >= 40:\n        passed += 1\n    if mark > highest:\n        highest = mark\n        top_student = name\n\nfile.close()\n\naverage = total / count\n\nprint(\"===== STUDENT REPORT =====\")\nprint(\"Students : %d\" % count)\nprint(\"Total    : %d\" % total)\nprint(\"Average  : %.2f\" % average)\nprint(\"Highest  : %d\" % highest)\nprint(\"Top      : %s\" % top_student)\nprint(\"Passed   : %d\" % passed)\n",
+    "hints": [
+      "Open the file with `file = open('students.txt', 'r')`.",
+      "Initialize `count = 0`, `total = 0`, `passed = 0`, `highest = -1`, and `top_student = ''` before traversing the file.",
+      "In the loop, use `clean = line.strip()` followed by `parts = clean.split(',')`.",
+      "Extract the name using `name = parts[0]` and mark using `mark = int(parts[1])`.",
+      "Check `if mark > highest:` to update both `highest = mark` and `top_student = name`.",
+      "Compute `average = total / count` after closing the file.",
+      "Use `\"Average  : %.2f\" % average` to ensure the average is rounded to exactly two decimal places."
+    ],
     "testCases": [
       {
+        "id": "tc-1",
+        "description": "Standard class of 4 students with passing and failing scores",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,85\\nPriya,92\\nRahul,35\\nMeena,78\\n')",
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "===== STUDENT REPORT =====\nStudents : 4\nTotal    : 290\nAverage  : 72.50\nHighest  : 92\nTop      : Priya\nPassed   : 3",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Class where all students score below passing mark (0 passed)",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,30\\nPriya,25\\nRahul,35\\n')",
+        "input": "",
+        "expectedOutput": "===== STUDENT REPORT =====\nStudents : 3\nTotal    : 90\nAverage  : 30.00\nHighest  : 35\nTop      : Rahul\nPassed   : 0",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Class where all students pass with 40 or higher",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,40\\nPriya,50\\nRahul,60\\n')",
+        "input": "",
+        "expectedOutput": "===== STUDENT REPORT =====\nStudents : 3\nTotal    : 150\nAverage  : 50.00\nHighest  : 60\nTop      : Rahul\nPassed   : 3",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Larger student roster with decimal average",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Deepak,95\\nKavita,88\\nSuresh,42\\nDivya,38\\nMohan,91\\n')",
+        "input": "",
+        "expectedOutput": "===== STUDENT REPORT =====\nStudents : 5\nTotal    : 354\nAverage  : 70.80\nHighest  : 95\nTop      : Deepak\nPassed   : 4",
+        "isHidden": true
       }
     ]
   }

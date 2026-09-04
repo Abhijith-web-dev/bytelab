@@ -2,12 +2,13 @@
   "id": "day-45",
   "unitId": "unit-04",
   "dayNumber": 45,
+  "unitDayNumber": 9,
   "order": 45,
-  "title": "Day 45: Unit IV Practical: Word Count (CLI)",
-  "shortTitle": "Unit IV Practical: Word Count (CLI)",
-  "description": "Building a program that takes command line arguments and counts words in a file.",
+  "title": "Unit–IV — Day 9: File Processing, Modules, Exceptions, Classes and Objects",
+  "shortTitle": "File Processing, Modules & OOP Intro",
+  "description": "Integrate file processing (word count, copy file) with modules, exceptions, and object-oriented programming. Master classes, objects, __init__, self, attributes, methods, and instantiating objects from file records.",
   "simulationType": "Type G: File / Data Pipeline Simulation",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 90,
   "difficulty": "intermediate",
   "outcomes": [
     "CO4"

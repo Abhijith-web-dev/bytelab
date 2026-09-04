@@ -1,22 +1,88 @@
 {
   "id": "sim-day-43",
-  "type": "Type G",
-  "title": "Simulation: Classes and Objects Intro",
+  "title": "Module Loading and Namespace Resolution Simulator",
+  "description": "Visualizing how Python imports an external module file (number_tools.py), binds its exported functions to the module namespace, and accesses them from main.py.",
+  "codeLines": [
+    "import number_tools",
+    "number = 6",
+    "sq = number_tools.square(number)",
+    "cb = number_tools.cube(number)",
+    "ev = number_tools.is_even(number)",
+    "print('Square =', sq)",
+    "print('Cube =', cb)",
+    "print('Even =', ev)"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Python searches the current directory for number_tools.py, executes its definitions, and binds the module object to the 'number_tools' identifier in main.py.",
+      "variables": {
+        "number_tools": "<module 'number_tools' (square, cube, is_even)>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Variable 'number' is initialized with integer value 6.",
+      "variables": {
+        "number_tools": "<module 'number_tools'>",
+        "number": 6
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Calling number_tools.square(6). The function inside number_tools computes 6 * 6 and returns 36.",
+      "variables": {
+        "number": 6,
+        "sq": 36
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Calling number_tools.cube(6). The function inside number_tools computes 6 * 6 * 6 and returns 216.",
+      "variables": {
+        "number": 6,
+        "sq": 36,
+        "cb": 216
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Calling number_tools.is_even(6). 6 % 2 == 0 evaluates to True.",
+      "variables": {
+        "number": 6,
+        "sq": 36,
+        "cb": 216,
+        "ev": true
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Displaying square calculation result.",
+      "variables": {
+        "sq": 36
+      },
+      "output": "Square = 36"
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Displaying cube calculation result.",
+      "variables": {
+        "cb": 216
+      },
+      "output": "Cube = 216"
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Displaying parity evaluation result.",
+      "variables": {
+        "ev": true
+      },
+      "output": "Even = True"
     }
   ]
 }

@@ -2,18 +2,19 @@
   "id": "day-37",
   "unitId": "unit-04",
   "dayNumber": 37,
+  "unitDayNumber": 1,
   "order": 37,
-  "title": "Day 37: Text Files: Reading and Writing",
-  "shortTitle": "Text Files: Reading and Writing",
-  "description": "Opening, reading, writing, and closing text files.",
+  "title": "Unit–IV — Day 1: Files and Exceptions — Introduction to File Handling",
+  "shortTitle": "Introduction to File Handling",
+  "description": "What is a file, variable vs file, text vs binary files, file paths, open(), close(), file modes (r, w, a, x), reading and writing basics, student file saver, and Moodle IDE practice.",
   "simulationType": "Type G: File / Data Pipeline Simulation",
-  "estimatedMinutes": 20,
-  "difficulty": "intermediate",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO4"
   ],
   "prerequisites": [
-    "day-36"
+    "day-33"
   ],
   "lessonsCount": 1,
   "problemsCount": 1,

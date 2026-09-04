@@ -1,8 +1,34 @@
 [
   {
-    "id": "ex-day-52-1",
-    "title": "Basic Usage of Maths & Basic Arithmetic with NumPy Arrays",
-    "code": "# Example for Maths & Basic Arithmetic with NumPy Arrays\nprint('Day 52 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-01",
+    "title": "Scalar Arithmetic on NumPy Arrays",
+    "description": "Demonstrates how adding, subtracting, multiplying, and dividing by a single scalar broadcasts across every element.",
+    "code": "import numpy as np\n\nnumbers = np.array([10, 20, 30])\n\nprint(\"Original:\", numbers)\nprint(\"Add 5:\", numbers + 5)\nprint(\"Subtract 5:\", numbers - 5)\nprint(\"Multiply 2:\", numbers * 2)\nprint(\"Divide 2:\", numbers / 2)\n",
+    "expectedOutput": "Original: [10 20 30]\nAdd 5: [15 25 35]\nSubtract 5: [ 5 15 25]\nMultiply 2: [20 40 60]\nDivide 2: [ 5. 10. 15.]\n",
+    "explanation": "Every element receives the scalar operation independently. True division (/) automatically casts integer elements to floating-point numbers."
+  },
+  {
+    "id": "ex-02",
+    "title": "Array-to-Array Element-Wise Arithmetic",
+    "description": "Perform element-by-element product and subtraction across matching-shape arrays to model store revenue.",
+    "code": "import numpy as np\n\nprices = np.array([100, 200, 50])\nquantities = np.array([2, 3, 4])\n\n# Element-wise multiplication: prices * quantities\ntotal_sales = prices * quantities\nprint(\"Total Sales:\", total_sales)\n\n# 10% discount\ndiscount = total_sales * 0.10\nprint(\"Discount:\", discount)\n\n# Array - Array subtraction\nfinal_amount = total_sales - discount\nprint(\"Final Amount:\", final_amount)\n",
+    "expectedOutput": "Total Sales: [200 600 200]\nDiscount: [20. 60. 20.]\nFinal Amount: [180. 540. 180.]\n",
+    "explanation": "Corresponding items at index 0, 1, and 2 are multiplied and subtracted position-by-position without writing a single for-loop."
+  },
+  {
+    "id": "ex-03",
+    "title": "Multi-Step Formula: Celsius to Fahrenheit",
+    "description": "Vectorized unit conversion applying standard algebra F = (C * 9 / 5) + 32 across an array of temperatures.",
+    "code": "import numpy as np\n\ncelsius = np.array([0, 10, 20, 30])\n\n# Vectorized conversion formula\nfahrenheit = (celsius * 9 / 5) + 32\n\nprint(\"Celsius:\", celsius)\nprint(\"Fahrenheit:\", fahrenheit)\n",
+    "expectedOutput": "Celsius: [ 0 10 20 30]\nFahrenheit: [32. 50. 68. 86.]\n",
+    "explanation": "NumPy evaluates mathematical expressions with standard operator precedence across every value in the array in C-speed vector operations."
+  },
+  {
+    "id": "ex-04",
+    "title": "Targeted Updates with Slicing & Arithmetic",
+    "description": "Combine row and column indexing with arithmetic to apply bonuses to specific sections of a gradebook.",
+    "code": "import numpy as np\n\nmarks = np.array([\n    [70, 80, 90],\n    [60, 75, 85]\n])\n\n# Add 5 bonus marks only to the first student (row 0)\nmarks[0] = marks[0] + 5\nprint(\"After Row 0 +5:\\n\", marks)\n\n# Add 10 bonus marks only to Science (column 2)\nmarks[:, 2] = marks[:, 2] + 10\nprint(\"\\nAfter Science (Col 2) +10:\\n\", marks)\n",
+    "expectedOutput": "After Row 0 +5:\n [[75 85 95]\n [60 75 85]]\n\nAfter Science (Col 2) +10:\n [[ 75  85 105]\n [ 60  75  95]]\n",
+    "explanation": "Indexing and slicing isolate specific array slices so mathematical operations can be applied selectively without affecting other students or subjects."
   }
 ]

@@ -84,23 +84,23 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
   };
 
   return (
-    <aside className={`w-full md:w-[320px] lg:w-[340px] bg-white border-r border-[#e5e5e5] flex flex-col h-full overflow-hidden select-none ${className}`}>
+    <aside className={`w-full md:w-[320px] lg:w-[340px] bg-white border-r border-[#d9d9dd] flex flex-col h-full overflow-hidden select-none ${className}`}>
       {/* Course Header & Progress Bar */}
-      <div className="p-4 border-b border-[#e5e5e5] bg-[#fafafa] space-y-3 shrink-0">
+      <div className="p-4 border-b border-[#d9d9dd] bg-[#eeece7]/40 space-y-3 shrink-0">
         <div className="flex items-center justify-between">
-          <span className="text-[12px] font-bold uppercase tracking-wider text-[#000000] font-mono">
+          <span className="text-[12px] font-bold uppercase tracking-wider text-[#17171c] font-mono">
             {course.code}
           </span>
-          <span className="text-[12px] text-[#737373] font-mono font-medium">
+          <span className="text-[12px] text-[#75758a] font-mono font-medium">
             {completedChapters.length} / {totalChaptersCount} Days
           </span>
         </div>
 
         <div className="flex items-center justify-between gap-2">
-          <h2 className="text-[14px] font-semibold text-[#000000] leading-snug truncate">
+          <h2 className="text-[14px] font-semibold text-[#17171c] leading-snug truncate">
             {course.title}
           </h2>
-          <span className="text-[11px] font-mono font-bold bg-black text-white px-2 py-0.5 rounded-full shrink-0">
+          <span className="text-[11px] font-mono font-medium bg-[#17171c] text-white px-2.5 py-0.5 rounded-full shrink-0">
             65-Day
           </span>
         </div>
@@ -109,35 +109,35 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
         <ProgressBar
           value={completionPercent}
           size="sm"
-          barColor="bg-[#000000]"
+          barColor="bg-[#17171c]"
         />
 
         {/* Quick Day Search Box */}
         <div className="relative pt-1">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-[#a3a3a3]" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-[#93939f]" />
           <input
             type="text"
             placeholder="Search 65 days (e.g. Day 14, loops)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-7 py-1.5 bg-white border border-[#e5e5e5] rounded-[8px] text-[12px] focus:outline-none focus:border-black transition-colors"
+            className="w-full pl-8 pr-7 py-1.5 bg-white border border-[#d9d9dd] rounded-full text-[12px] focus:outline-none focus:border-[#17171c] transition-colors"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-3 text-[#a3a3a3] hover:text-black"
+              className="absolute right-2.5 top-3 text-[#93939f] hover:text-[#17171c]"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        <div className="flex items-center justify-between text-[11px] text-[#737373] pt-0.5">
+        <div className="flex items-center justify-between text-[11px] text-[#75758a] pt-0.5">
           <span>Syllabus Directory</span>
           <div className="flex items-center gap-2">
-            <button onClick={expandAll} className="hover:text-black cursor-pointer">Expand</button>
+            <button onClick={expandAll} className="hover:text-[#17171c] cursor-pointer">Expand</button>
             <span>•</span>
-            <button onClick={collapseAll} className="hover:text-black cursor-pointer">Collapse</button>
+            <button onClick={collapseAll} className="hover:text-[#17171c] cursor-pointer">Collapse</button>
           </div>
         </div>
       </div>
@@ -167,30 +167,30 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
           const completedInUnit = unitChapters.filter(ch => completedChapters.includes(ch)).length;
 
           return (
-            <div key={unit.id} className="rounded-[10px] border border-[#e5e5e5] overflow-hidden bg-white shadow-2xs">
+            <div key={unit.id} className="rounded-[14px] border border-[#d9d9dd] overflow-hidden bg-white">
               {/* Unit Section Accordion Header */}
               <button
                 onClick={() => toggleUnit(unit.id)}
-                className="w-full px-3.5 py-2.5 flex items-start justify-between text-left hover:bg-[#fafafa] transition-colors cursor-pointer bg-[#fafafa]/80"
+                className="w-full px-3.5 py-2.5 flex items-start justify-between text-left hover:bg-[#eeece7]/50 transition-colors cursor-pointer bg-[#eeece7]/30"
               >
                 <div className="space-y-0.5 overflow-hidden pr-2">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] font-bold text-[#000000] font-mono">
+                    <span className="text-[11px] font-bold text-[#17171c] font-mono">
                       {unit.romanNumber.toUpperCase()}
                     </span>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-black text-white font-mono">
+                    <span className="text-[10px] px-2 py-0.2 rounded-full bg-[#17171c] text-white font-mono">
                       {unit.outcomes[0]}
                     </span>
                   </div>
-                  <h3 className="text-[12px] font-semibold text-[#000000] truncate">
+                  <h3 className="text-[12px] font-semibold text-[#17171c] truncate">
                     {unit.title}
                   </h3>
-                  <div className="text-[10px] text-[#737373]">
+                  <div className="text-[10px] text-[#75758a]">
                     {completedInUnit} / {unit.chapters?.length || 12} Days Completed
                   </div>
                 </div>
 
-                <div className="shrink-0 mt-1 text-[#737373]">
+                <div className="shrink-0 mt-1 text-[#75758a]">
                   {isExpanded ? (
                     <ChevronDown className="w-3.5 h-3.5" />
                   ) : (
@@ -201,7 +201,7 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
 
               {/* Day-by-Day Topics List */}
               {isExpanded && (
-                <div className="divide-y divide-[#f0f0f0] border-t border-[#e5e5e5]">
+                <div className="divide-y divide-[#d9d9dd]/60 border-t border-[#d9d9dd]">
                   {unitChapters.map((chFolder, chIdx) => {
                     const chapter = getChapter(courseId, unit.id, chFolder);
                     const isChapterActive = activeChapterId === chFolder;
@@ -215,8 +215,8 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
                         to={`/courses/${courseId}/chapter/${chFolder}`}
                         className={`flex items-center justify-between p-2.5 text-[12px] transition-all group ${
                           isChapterActive
-                            ? 'bg-[#171717] text-white font-medium shadow-xs'
-                            : 'text-[#000000] hover:bg-[#fafafa]'
+                            ? 'bg-[#17171c] text-white font-medium shadow-xs'
+                            : 'text-[#212121] hover:bg-[#eeece7]/40'
                         }`}
                       >
                         <div className="flex items-start gap-2 overflow-hidden">
@@ -226,7 +226,7 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
                             ) : isChapterActive ? (
                               <PlayCircle className="w-3.5 h-3.5 text-white animate-pulse" />
                             ) : (
-                              <Circle className="w-3 h-3 text-[#d4d4d4]" />
+                              <Circle className="w-3 h-3 text-[#d9d9dd]" />
                             )}
                           </div>
 
@@ -234,14 +234,14 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
                             <span className="truncate block leading-snug">
                               {chapter?.title || `Day ${dayNum}: ${chFolder}`}
                             </span>
-                            <div className={`flex items-center gap-2 text-[10px] ${isChapterActive ? 'text-white/70' : 'text-[#737373]'}`}>
+                            <div className={`flex items-center gap-2 text-[10px] ${isChapterActive ? 'text-white/70' : 'text-[#75758a]'}`}>
                               <span className="flex items-center gap-1">
                                 <Clock className="w-2.5 h-2.5" />
                                 <span>~20 min</span>
                               </span>
                               {chapter?.simulationType && (
-                                <span className={`truncate text-[9px] px-1 py-0.2 rounded font-mono ${
-                                  isChapterActive ? 'bg-white/20 text-white' : 'bg-[#e5e5e5] text-[#525252]'
+                                <span className={`truncate text-[9px] px-1.5 py-0.2 rounded font-mono ${
+                                  isChapterActive ? 'bg-white/20 text-white' : 'bg-[#eeece7] text-[#75758a]'
                                 }`}>
                                   {chapter.simulationType.split(':')[0]}
                                 </span>
@@ -251,7 +251,7 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
                         </div>
 
                         <ChevronRight className={`w-3 h-3 shrink-0 ml-1 ${
-                          isChapterActive ? 'text-white' : 'text-[#a3a3a3] group-hover:text-black'
+                          isChapterActive ? 'text-white' : 'text-[#93939f] group-hover:text-[#17171c]'
                         }`} />
                       </Link>
                     );

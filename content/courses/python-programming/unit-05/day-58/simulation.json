@@ -1,22 +1,100 @@
 {
-  "id": "sim-day-58",
-  "type": "Type H",
-  "title": "Simulation: Groupby and Apply Functions",
+  "title": "End-to-End CSV Pipeline & NumPy-Pandas Integration Simulator",
+  "description": "Trace the full data engineering lifecycle: reading raw CSV text, vectorized feature synthesis, conditional priority labeling with np.where(), categorical aggregation, descending ranking, NumPy array interop, and exporting to clean CSV.",
   "steps": [
     {
       "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "title": "Parse In-Memory CSV Stream",
+      "code": "df = pd.read_csv(io.StringIO(csv_data))",
+      "explanation": "Pandas parses the tabular text stream, automatically recognizing row 0 as header column names ['OrderID', 'Product', 'Category', 'Price', 'Quantity'] and inferring numerical float/int datatypes.",
+      "variables": {
+        "Shape": "(6, 5)",
+        "Columns": "['OrderID', 'Product', 'Category', 'Price', 'Quantity']",
+        "Records": 6
+      },
+      "highlight": [1]
     },
     {
       "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "title": "Vectorized Revenue Synthesis",
+      "code": "df['TotalRevenue'] = df['Price'] * df['Quantity']",
+      "explanation": "Pandas evaluates element-wise vector multiplication across Price and Quantity series simultaneously in C-speed without Python loops, producing total order amounts.",
+      "variables": {
+        "Row 0 (Laptop) Revenue": "110,000.0 (55000.0 * 2)",
+        "Row 1 (Mouse) Revenue": "3,250.0 (650.0 * 5)",
+        "Row 4 (Monitor) Revenue": "42,000.0 (14000.0 * 3)"
+      },
+      "highlight": [2]
     },
     {
       "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "title": "Conditional Vectorization: np.where()",
+      "code": "df['Priority'] = np.where(df['TotalRevenue'] >= 30000.0, 'Express', 'Standard')",
+      "explanation": "NumPy's vectorized ternary conditional evaluates the boolean mask. Orders >= 30,000 receive 'Express', while smaller orders receive 'Standard' without any Python if-else loops.",
+      "variables": {
+        "Condition Mask": "[True, False, False, False, True, False]",
+        "Express Orders": "Laptop (110k), Monitor (42k)",
+        "Standard Orders": "Mouse (3.2k), Desk (12k), Chair (18k), Lamp (3k)"
+      },
+      "highlight": [3]
+    },
+    {
+      "step": 4,
+      "title": "Category Aggregation via GroupBy",
+      "code": "cat_rev = df.groupby('Category')['TotalRevenue'].sum()",
+      "explanation": "The Split-Apply-Combine engine partitions rows into Electronics and Furniture buckets, summing the revenue for each sector: Electronics=155,250.0 and Furniture=33,000.0.",
+      "variables": {
+        "Electronics Revenue": "155,250.0",
+        "Furniture Revenue": "33,000.0",
+        "Result Type": "pd.Series (index=Category)"
+      },
+      "highlight": [4]
+    },
+    {
+      "step": 5,
+      "title": "Descending Rank Sorting & Index Reset",
+      "code": "sorted_df = df.sort_values(by='TotalRevenue', ascending=False).reset_index(drop=True)",
+      "explanation": "Orders are arranged from greatest to smallest revenue. reset_index(drop=True) establishes a crisp 0-to-5 sequential rank order.",
+      "variables": {
+        "Rank 0": "OrderID 1001 (Laptop) - 110,000.0",
+        "Rank 1": "OrderID 1005 (Monitor) - 42,000.0",
+        "Rank 5": "OrderID 1006 (Lamp) - 3,000.0"
+      },
+      "highlight": [5]
+    },
+    {
+      "step": 6,
+      "title": "NumPy Array Extraction: to_numpy()",
+      "code": "matrix = sorted_df[['Price', 'Quantity', 'TotalRevenue']].to_numpy()",
+      "explanation": "Strips DataFrame labels, indices, and series metadata to produce a high-performance, contiguous C-memory 2D float64 NumPy ndarray of shape (6, 3) ready for linear algebra.",
+      "variables": {
+        "Array Shape": "(6, 3)",
+        "dtype": "float64",
+        "Row 0 Array": "[55000.0, 2.0, 110000.0]"
+      },
+      "highlight": [6]
+    },
+    {
+      "step": 7,
+      "title": "NumPy Matrix to DataFrame Reconstruction",
+      "code": "df_new = pd.DataFrame(matrix, columns=['Price', 'Qty', 'Revenue'])",
+      "explanation": "Demonstrates bidirectional interop: wraps the raw ndarray back into an indexed, labeled 2D DataFrame with explicit column headings.",
+      "variables": {
+        "Reconstructed Shape": "(6, 3)",
+        "Columns": "['Price', 'Qty', 'Revenue']"
+      },
+      "highlight": [7]
+    },
+    {
+      "step": 8,
+      "title": "Exporting to Persistent CSV",
+      "code": "csv_output = sorted_df.to_csv(index=False)",
+      "explanation": "Serializes the analyzed tabular data into standard RFC 4180 CSV string format. index=False prevents writing extraneous row numbers '0, 1, 2...' into the destination file.",
+      "variables": {
+        "index": "False (clean tabular output)",
+        "Header Written": "OrderID,Product,Category,Price,Quantity,TotalRevenue,Priority"
+      },
+      "highlight": [8]
     }
   ]
 }

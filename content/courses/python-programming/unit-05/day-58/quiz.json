@@ -1,14 +1,122 @@
 [
   {
     "id": "quiz-day-58-1",
-    "question": "Which of the following best describes Groupby and Apply Functions?",
+    "question": "Which Pandas function is used to read comma-separated values (CSV) into a DataFrame?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "pd.import_csv()",
+      "pd.read_csv()",
+      "pd.load_table()",
+      "pd.open_csv()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "pd.read_csv('filename.csv') is the primary high-performance parser in Pandas for importing CSV files into tabular DataFrames."
+  },
+  {
+    "id": "quiz-day-58-2",
+    "question": "Why is index=False commonly specified when saving a DataFrame with df.to_csv('output.csv', index=False)?",
+    "options": [
+      "It compresses the CSV file using gzip",
+      "It prevents Pandas from writing the integer row indices as an unwanted extra column",
+      "It prevents the column headers from being written",
+      "It encrypts the exported file for security"
+    ],
+    "correctAnswer": 1,
+    "explanation": "By default, to_csv() includes the row index in the first column. Passing index=False omits the index labels so only the actual data columns are saved."
+  },
+  {
+    "id": "quiz-day-58-3",
+    "question": "How do you extract the underlying NumPy ndarray representation from a Pandas DataFrame df?",
+    "options": [
+      "df.to_numpy()",
+      "df.as_matrix_array()",
+      "df.get_ndarray()",
+      "df.to_raw_bytes()"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "df.to_numpy() (and property df.values) extracts the underlying continuous 2D NumPy ndarray buffer backing the DataFrame."
+  },
+  {
+    "id": "quiz-day-58-4",
+    "question": "How do you construct a Pandas DataFrame from a 2D NumPy array arr with explicit column names ['A', 'B']?",
+    "options": [
+      "pd.DataFrame(arr, columns=['A', 'B'])",
+      "pd.from_numpy(arr, headers=['A', 'B'])",
+      "arr.to_dataframe(columns=['A', 'B'])",
+      "pd.Table(arr, labels=['A', 'B'])"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The pd.DataFrame() constructor accepts a 2D NumPy array as its first argument along with the optional columns parameter to assign column labels."
+  },
+  {
+    "id": "quiz-day-58-5",
+    "question": "Which NumPy function enables fast vectorized conditional assignment (if/else) across Pandas columns?",
+    "options": [
+      "np.choose_if()",
+      "np.where(condition, value_if_true, value_if_false)",
+      "np.switch()",
+      "np.branch()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "np.where(condition, x, y) returns elements chosen from x or y depending on whether the condition evaluates to True or False, executing at compiled C speed."
+  },
+  {
+    "id": "quiz-day-58-6",
+    "question": "Which parameter in pd.read_csv() allows parsing files with tab or semicolon delimiters?",
+    "options": [
+      "delimiter_type",
+      "sep",
+      "split_by",
+      "format"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The sep parameter (or alias delimiter) specifies the character used to separate fields, such as sep='\\t' for tab-delimited files or sep=';' for semicolon-delimited files."
+  },
+  {
+    "id": "quiz-day-58-7",
+    "question": "How does pd.read_csv() handle blank or empty cells in numerical columns during parsing?",
+    "options": [
+      "It raises a FileParsingException and halts execution",
+      "It automatically converts empty cells to NaN (Not a Number)",
+      "It replaces them with negative infinity",
+      "It converts them to string 'EMPTY'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pandas identifies blank fields, 'NA', 'null', and empty commas, automatically parsing them as float64 NaN values."
+  },
+  {
+    "id": "quiz-day-58-8",
+    "question": "What does series.to_numpy() return when called on a Pandas Series?",
+    "options": [
+      "A Python dictionary",
+      "A 1D NumPy ndarray containing the series elements",
+      "A string JSON array",
+      "A Python generator object"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calling .to_numpy() on a Series converts the 1D labeled series into a 1D NumPy ndarray without the index."
+  },
+  {
+    "id": "quiz-day-58-9",
+    "question": "Which standard Python library module allows simulating a file buffer from a string using StringIO?",
+    "options": [
+      "sys",
+      "io",
+      "os",
+      "csv"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The io module provides io.StringIO, which creates an in-memory text stream that can be passed directly to pd.read_csv() like a real file."
+  },
+  {
+    "id": "quiz-day-58-10",
+    "question": "Across the entire Unit V curriculum, what is the foundational relationship between NumPy and Pandas?",
+    "options": [
+      "NumPy and Pandas are completely unrelated competitors",
+      "Pandas is built directly on top of NumPy, adding labeled indices and relational operations to NumPy numerical arrays",
+      "NumPy is a sub-module inside Pandas",
+      "Pandas is written in pure Python while NumPy is only for GPU hardware"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pandas Series and DataFrames are built on top of NumPy ndarrays, pairing NumPy's lightning-fast C-level numerical speed with labeled indices, relational joins, and missing-data handling."
   }
 ]

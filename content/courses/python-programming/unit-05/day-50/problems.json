@@ -1,16 +1,48 @@
 [
   {
-    "id": "prob-day-50",
-    "title": "Practice: The Shape and Reshaping of NumPy Array",
-    "description": "Write a Python script that demonstrates the shape and reshaping of numpy array.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for The Shape and Reshaping of NumPy Array\nprint('Success')",
+    "id": "prob-day-50-01",
+    "title": "Reshape Sensor Readings into a Table",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "description": "A scientific telemetry sensor has recorded 12 ambient temperature readings. Read the 12 integer values from user input, store them in a 1D NumPy array, display the original array and its shape, reshape it into a 2D matrix of 3 rows and 4 columns, and display the reshaped matrix, new shape, and number of dimensions.",
+    "starterCode": "# Reshape Sensor Readings into a Table\n#\n# Step 1: Import the numpy library as np and sys.\n# Step 2: Read 12 integer readings from user input and create a 1D NumPy array named readings.\n# Step 3: Print 'Original:' followed by the original array on the next line.\n# Step 4: Print 'Original Shape:' followed by readings.shape.\n# Step 5: Reshape the array into 3 rows and 4 columns and store it in reshaped.\n# Step 6: Print 'Reshaped:' followed by the reshaped matrix on the next line.\n# Step 7: Print 'New Shape:' followed by reshaped.shape.\n# Step 8: Print 'Dimensions:' followed by reshaped.ndim.\n",
+    "solutionCode": "import sys\nimport numpy as np\n\nraw_data = sys.stdin.read().split()\nreadings = np.array([int(x) for x in raw_data[:12]])\n\nprint(\"Original:\")\nprint(readings)\nprint(\"Original Shape:\", readings.shape)\n\nreshaped = readings.reshape(3, 4)\nprint(\"Reshaped:\")\nprint(reshaped)\nprint(\"New Shape:\", reshaped.shape)\nprint(\"Dimensions:\", reshaped.ndim)\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "name": "Standard Sensor Telemetry",
+        "stdin": "28 30 31 29 27 26 30 32 33 31 29 28",
+        "expectedOutput": "Original:\n[28 30 31 29 27 26 30 32 33 31 29 28]\nOriginal Shape: (12,)\nReshaped:\n[[28 30 31 29]\n [27 26 30 32]\n [33 31 29 28]]\nNew Shape: (3, 4)\nDimensions: 2",
+        "explanation": "12 readings loaded into a 1D array of shape (12,). Reshaped into a 3x4 matrix with 2 dimensions."
+      },
+      {
+        "id": "tc-2",
+        "name": "Sequential Calibration Series",
+        "stdin": "20 21 22 23 24 25 26 27 28 29 30 31",
+        "expectedOutput": "Original:\n[20 21 22 23 24 25 26 27 28 29 30 31]\nOriginal Shape: (12,)\nReshaped:\n[[20 21 22 23]\n [24 25 26 27]\n [28 29 30 31]]\nNew Shape: (3, 4)\nDimensions: 2",
+        "explanation": "Sequential values from 20 to 31 formatted into 3 rows of 4 elements each."
+      },
+      {
+        "id": "tc-3",
+        "name": "Stepped Ambient Readings",
+        "stdin": "15 18 16 19 17 20 18 21 19 22 20 23",
+        "expectedOutput": "Original:\n[15 18 16 19 17 20 18 21 19 22 20 23]\nOriginal Shape: (12,)\nReshaped:\n[[15 18 16 19]\n [17 20 18 21]\n [19 22 20 23]]\nNew Shape: (3, 4)\nDimensions: 2",
+        "explanation": "Stepped sensor observations rearranged into 3 batches of 4 readings."
+      },
+      {
+        "id": "tc-4",
+        "name": "Sub-Zero Thermal Profile",
+        "stdin": "-5 -2 0 3 5 8 10 12 11 9 6 2",
+        "expectedOutput": "Original:\n[-5 -2  0  3  5  8 10 12 11  9  6  2]\nOriginal Shape: (12,)\nReshaped:\n[[-5 -2  0  3]\n [ 5  8 10 12]\n [11  9  6  2]]\nNew Shape: (3, 4)\nDimensions: 2",
+        "explanation": "Sub-zero and positive readings handled correctly with proper space padding alignment."
       }
+    ],
+    "hints": [
+      "Import both numpy and sys to read all input tokens: import numpy as np, sys",
+      "Parse 12 values from input: readings = np.array([int(x) for x in sys.stdin.read().split()[:12]])",
+      "Check the initial 1D shape with readings.shape",
+      "Reshape into 3 rows and 4 columns: reshaped = readings.reshape(3, 4)",
+      "Verify the new shape and dimensions using reshaped.shape and reshaped.ndim"
     ]
   }
 ]

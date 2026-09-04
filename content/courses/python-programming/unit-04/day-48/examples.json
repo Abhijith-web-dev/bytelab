@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-48-1",
-    "title": "Basic Usage of Consolidation: Exception-Safe Pipelines",
-    "code": "# Example for Consolidation: Exception-Safe Pipelines\nprint('Day 48 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

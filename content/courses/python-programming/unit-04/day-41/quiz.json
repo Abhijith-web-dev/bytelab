@@ -1,14 +1,122 @@
 [
   {
-    "id": "quiz-day-41-1",
-    "question": "Which of the following best describes Handling Exceptions (try-except)?",
+    "id": "q1",
+    "question": "What is a syntax error in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "An incorrect mathematical calculation",
+      "A violation of Python's formal language grammar and structure",
+      "A missing external file on disk",
+      "An incorrect list element value"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A syntax error occurs when the code violates Python's formal grammar rules, preventing the interpreter from parsing the program."
+  },
+  {
+    "id": "q2",
+    "question": "What happens when Python attempts to parse the line `print(\"Hello\"`?",
+    "options": [
+      "ValueError",
+      "IndexError",
+      "SyntaxError",
+      "KeyError"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Because the closing parenthesis `)` is omitted, Python raises a `SyntaxError: unexpected EOF while parsing` before the code can execute."
+  },
+  {
+    "id": "q3",
+    "question": "Which exception is raised when a program attempts to divide a number by zero?",
+    "options": [
+      "ValueError",
+      "ZeroDivisionError",
+      "TypeError",
+      "NameError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python raises `ZeroDivisionError: division by zero` whenever the denominator in a division or modulo operation evaluates to zero."
+  },
+  {
+    "id": "q4",
+    "question": "What exception is raised when executing `number = int(\"hello\")`?",
+    "options": [
+      "ValueError",
+      "NameError",
+      "IndexError",
+      "KeyError"
     ],
     "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "`int()` accepts strings as arguments (correct type), but `'hello'` is not a valid representation of an integer value, raising `ValueError`."
+  },
+  {
+    "id": "q5",
+    "question": "What exception is raised when attempting to access a list element outside of its valid index bounds?",
+    "options": [
+      "IndexError",
+      "KeyError",
+      "TypeError",
+      "ValueError"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Accessing an index that does not exist within a sequence container raises `IndexError: list index out of range`."
+  },
+  {
+    "id": "q6",
+    "question": "What exception occurs when querying a dictionary for a key that does not exist?",
+    "options": [
+      "IndexError",
+      "KeyError",
+      "NameError",
+      "FileNotFoundError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Looking up a missing key via dictionary subscripting `dict[key]` raises `KeyError`."
+  },
+  {
+    "id": "q7",
+    "question": "What exception is raised when trying to use or print a variable that has never been defined?",
+    "options": [
+      "ValueError",
+      "TypeError",
+      "NameError",
+      "IndexError"
+    ],
+    "correctAnswer": 2,
+    "explanation": "When Python cannot resolve an identifier in local or global scope, it raises `NameError: name '...' is not defined`."
+  },
+  {
+    "id": "q8",
+    "question": "What is the key distinction between a TypeError and a ValueError?",
+    "options": [
+      "They are identical and interchangeable in Python",
+      "TypeError relates to an incompatible data type for an operation, while ValueError relates to an inappropriate value for a valid type",
+      "ValueError occurs only with list indices",
+      "TypeError occurs only when opening files"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`TypeError` indicates the wrong kind of object was provided (e.g. `'10' + 5`), whereas `ValueError` indicates the object type was acceptable but its content was invalid (e.g. `int('abc')`)."
+  },
+  {
+    "id": "q9",
+    "question": "Which exception is raised when opening a non-existent file in read mode (`'r'`)?",
+    "options": [
+      "KeyError",
+      "FileNotFoundError",
+      "NameError",
+      "IndexError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Attempting to open a missing path in read mode causes Python to raise `FileNotFoundError: [Errno 2] No such file or directory`."
+  },
+  {
+    "id": "q10",
+    "question": "When Python displays an error traceback, where should a developer look first to diagnose the failure?",
+    "options": [
+      "Only the first line of the traceback",
+      "The bottom line containing the exception name and explanatory message",
+      "The path to the Python interpreter executable",
+      "The system CPU utilization"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python tracebacks present the specific exception type and error summary on the very last line, followed by the line number and offending code immediately above it."
   }
 ]

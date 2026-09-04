@@ -1,15 +1,25 @@
 [
   {
-    "id": "prob-day-57",
-    "title": "Practice: Merging, Joining, Concatenating",
-    "description": "Write a Python script that demonstrates merging, joining, concatenating.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Merging, Joining, Concatenating\nprint('Success')",
+    "id": "prob-day-57-01",
+    "title": "Department Performance Analyzer & Ranker",
+    "description": "### Problem Statement\nYou are building an enterprise organizational performance analytics tool using Pandas.\n\nYou are provided with an employee DataFrame containing:\n- `ID`: `[101, 102, 103, 104, 105, 106]`\n- `Name`: `[\"Arun\", \"Priya\", \"Rahul\", \"Meena\", \"Kiran\", \"Divya\"]`\n- `Department`: `[\"IT\", \"HR\", \"IT\", \"HR\", \"Sales\", \"Sales\"]`\n- `Salary`: `[50000.0, 45000.0, 60000.0, 48000.0, 52000.0, 58000.0]` (or provided as inputs)\n- `Experience`: `[2, 1, 4, 3, 2, 5]`\n\n### Requirements\n1. Group the DataFrame by `Department` and calculate the average `Salary` using `.groupby('Department')['Salary'].mean()`. Print the header `Department Average Salary` followed by the result.\n2. Compute a 10% annual bonus for each employee using `.apply(lambda s: s * 0.10)` on the `Salary` column, creating a new `Bonus` column.\n3. Compute total compensation by creating a `TotalPay` column equal to `Salary + Bonus`.\n4. Sort all employees by `TotalPay` in descending order (`ascending=False`) and reset the index (`reset_index(drop=True)`).\n5. Print the header `Ranked Employees` followed by the subset containing only columns `[\"Name\", \"Department\", \"TotalPay\"]`.\n6. Print the header `Summary`, followed by:\n   - `Top Earner: <Name> (<TotalPay>)`\n   - `Total Payroll: <sum>`\n\n### Expected Output (Default Records)\n```text\nDepartment Average Salary\nDepartment\nHR       46500.0\nIT       55000.0\nSales    55000.0\nName: Salary, dtype: float64\nRanked Employees\n    Name Department  TotalPay\n0  Rahul         IT   66000.0\n1  Divya      Sales   63800.0\n2  Kiran      Sales   57200.0\n3   Arun         IT   55000.0\n4  Meena         HR   52800.0\n5  Priya         HR   49500.0\nSummary\nTop Earner: Rahul (66000.0)\nTotal Payroll: 344300.0\n```",
+    "starterCode": "# Write a Python script to analyze department payroll and rank employees\n# Step 1: Create the employee DataFrame with ID, Name, Department, Salary, and Experience\n# Step 2: Group by Department and print 'Department Average Salary' followed by the mean Salary\n# Step 3: Use .apply(lambda s: s * 0.10) to calculate a 10% Bonus column\n# Step 4: Add Salary and Bonus to create the TotalPay column\n# Step 5: Sort by TotalPay descending using .sort_values(by='TotalPay', ascending=False).reset_index(drop=True)\n# Step 6: Print 'Ranked Employees' and display columns ['Name', 'Department', 'TotalPay']\n# Step 7: Print 'Summary', 'Top Earner: <Name> (<TotalPay>)', and 'Total Payroll: <sum>'\n",
+    "solutionCode": "import sys, re\nimport pandas as pd\n\nraw = ''\nif not sys.stdin.isatty():\n    raw = ''.join(c for c in sys.stdin.read() if c.isprintable() and ord(c) < 128)\ntokens = [t.strip() for t in re.split(r'[\\,\\s]+', raw) if t.strip()]\n\nif tokens and len(tokens) >= 6:\n    salaries = []\n    for t in tokens[:6]:\n        try:\n            salaries.append(float(t))\n        except ValueError:\n            salaries.append(50000.0)\nelse:\n    salaries = [50000.0, 45000.0, 60000.0, 48000.0, 52000.0, 58000.0]\n\ndata = pd.DataFrame({\n    \"ID\": [101, 102, 103, 104, 105, 106],\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\", \"Meena\", \"Kiran\", \"Divya\"],\n    \"Department\": [\"IT\", \"HR\", \"IT\", \"HR\", \"Sales\", \"Sales\"],\n    \"Salary\": salaries,\n    \"Experience\": [2, 1, 4, 3, 2, 5]\n})\n\nprint(\"Department Average Salary\")\ndept_avg = data.groupby(\"Department\")[\"Salary\"].mean()\nprint(dept_avg)\n\ndata[\"Bonus\"] = data[\"Salary\"].apply(lambda s: s * 0.10)\ndata[\"TotalPay\"] = data[\"Salary\"] + data[\"Bonus\"]\n\nsorted_df = data.sort_values(by=\"TotalPay\", ascending=False).reset_index(drop=True)\n\nprint(\"Ranked Employees\")\nprint(sorted_df[[\"Name\", \"Department\", \"TotalPay\"]])\n\nprint(\"Summary\")\nprint(f\"Top Earner: {sorted_df.iloc[0]['Name']} ({sorted_df.iloc[0]['TotalPay']})\")\nprint(f\"Total Payroll: {data['TotalPay'].sum()}\")",
     "testCases": [
       {
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Department Average Salary\nDepartment\nHR       46500.0\nIT       55000.0\nSales    55000.0\nName: Salary, dtype: float64\nRanked Employees\n    Name Department  TotalPay\n0  Rahul         IT   66000.0\n1  Divya      Sales   63800.0\n2  Kiran      Sales   57200.0\n3   Arun         IT   55000.0\n4  Meena         HR   52800.0\n5  Priya         HR   49500.0\nSummary\nTop Earner: Rahul (66000.0)\nTotal Payroll: 344300.0",
         "isHidden": false
+      },
+      {
+        "input": "60000 50000 70000 55000 65000 75000",
+        "expectedOutput": "Department Average Salary\nDepartment\nHR       52500.0\nIT       65000.0\nSales    70000.0\nName: Salary, dtype: float64\nRanked Employees\n    Name Department  TotalPay\n0  Divya      Sales   82500.0\n1  Rahul         IT   77000.0\n2  Kiran      Sales   71500.0\n3   Arun         IT   66000.0\n4  Meena         HR   60500.0\n5  Priya         HR   55000.0\nSummary\nTop Earner: Divya (82500.0)\nTotal Payroll: 412500.0",
+        "isHidden": false
+      },
+      {
+        "input": "40000 40000 40000 40000 40000 40000",
+        "expectedOutput": "Department Average Salary\nDepartment\nHR       40000.0\nIT       40000.0\nSales    40000.0\nName: Salary, dtype: float64\nRanked Employees\n    Name Department  TotalPay\n0   Arun         IT   44000.0\n1  Priya         HR   44000.0\n2  Rahul         IT   44000.0\n3  Meena         HR   44000.0\n4  Kiran      Sales   44000.0\n5  Divya      Sales   44000.0\nSummary\nTop Earner: Arun (44000.0)\nTotal Payroll: 264000.0",
+        "isHidden": true
       }
     ]
   }

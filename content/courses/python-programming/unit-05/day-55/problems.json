@@ -1,16 +1,39 @@
 [
   {
-    "id": "prob-day-55",
-    "title": "Practice: Selection and Indexing in Pandas",
-    "description": "Write a Python script that demonstrates selection and indexing in pandas.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Selection and Indexing in Pandas\nprint('Success')",
+    "id": "prob-day-55-01",
+    "title": "Create and Manage a Student DataFrame",
+    "difficulty": "beginner",
+    "points": 10,
+    "description": "Create and manage a Pandas DataFrame representing student records.\n\nGiven the initial student information:\n- Arun: Age 20, Mark 80\n- Priya: Age 19, Mark 92\n- Rahul: Age 21, Mark 75\n- Meena: Age 20, Mark 88\n\nYour program must perform the following tasks:\n1. Import sys and pandas as pd.\n2. Read input from stdin if available, or default to the four students above.\n3. Display 'Student Data:' followed by the complete DataFrame.\n4. Display 'Name and Mark:' followed by only the 'Name' and 'Mark' columns.\n5. Display 'First Student:' followed by the first row using .iloc[0].\n6. Display 'Priya's Mark:' followed by Priya's mark using .loc[1, 'Mark'].\n7. Add 5 bonus marks to every student, stored in a new column named 'UpdatedMark'.\n8. Display 'After Bonus:' followed by the DataFrame.\n9. If Rahul's mark is 75 (or default), update it in-place to 78 and recalculate 'UpdatedMark'.\n10. Add a 'Result' column: 'Pass' if UpdatedMark >= 40 else 'Fail'.\n11. Display 'Final DataFrame:' followed by the final DataFrame.",
+    "starterCode": "# Create and Manage a Student DataFrame\n#\n# Step 1: Import sys and pandas as pd\n# Step 2: Read student data from stdin or default to:\n#         Arun (20, 80), Priya (19, 92), Rahul (21, 75), Meena (20, 88)\n# Step 3: Create a DataFrame with columns ['Name', 'Age', 'Mark']\n# Step 4: Print 'Student Data:' and the DataFrame\n# Step 5: Print 'Name and Mark:' and df[['Name', 'Mark']]\n# Step 6: Print 'First Student:' and df.iloc[0].to_string()\n# Step 7: Print 'Priya\\'s Mark:' and df.loc[1, 'Mark']\n# Step 8: Add bonus marks: df['UpdatedMark'] = df['Mark'] + 5\n# Step 9: Print 'After Bonus:' and the DataFrame\n# Step 10: Update Rahul's mark to 78 if initial was 75 and refresh UpdatedMark\n# Step 11: Add 'Result' column ('Pass' if UpdatedMark >= 40 else 'Fail')\n# Step 12: Print 'Final DataFrame:' and the final DataFrame\n",
+    "solutionCode": "import sys\nimport pandas as pd\n\nraw = sys.stdin.read().strip()\nrecords = []\nif raw:\n    for line in raw.splitlines():\n        line = line.strip()\n        if not line:\n            continue\n        if ',' in line:\n            parts = [p.strip() for p in line.split(',')]\n        else:\n            parts = line.split()\n        if len(parts) >= 3:\n            records.append({'Name': parts[0], 'Age': int(parts[1]), 'Mark': int(parts[2])})\n\nif len(records) >= 4:\n    df = pd.DataFrame(records[:4])\nelse:\n    df = pd.DataFrame({\n        'Name': ['Arun', 'Priya', 'Rahul', 'Meena'],\n        'Age': [20, 19, 21, 20],\n        'Mark': [80, 92, 75, 88]\n    })\n\nprint('Student Data:')\nprint(df)\nprint()\nprint('Name and Mark:')\nprint(df[['Name', 'Mark']])\nprint()\nprint('First Student:')\nprint(df.iloc[0].to_string())\nprint()\nprint(\"Priya's Mark:\")\nprint(df.loc[1, 'Mark'])\nprint()\ndf['UpdatedMark'] = df['Mark'] + 5\nprint('After Bonus:')\nprint(df)\nprint()\nif (not raw) or ('Rahul,21,75' in raw) or (df.loc[2, 'Mark'] == 75):\n    df.loc[2, 'Mark'] = 78\n    df['UpdatedMark'] = df['Mark'] + 5\ndf['Result'] = ['Pass' if m >= 40 else 'Fail' for m in df['UpdatedMark']]\nprint('Final DataFrame:')\nprint(df)\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "input": "Arun,20,80\nPriya,19,92\nRahul,21,75\nMeena,20,88",
+        "expectedOutput": "Student Data:\n    Name  Age  Mark\n0   Arun   20    80\n1  Priya   19    92\n2  Rahul   21    75\n3  Meena   20    88\n\nName and Mark:\n    Name  Mark\n0   Arun    80\n1  Priya    92\n2  Rahul    75\n3  Meena    88\n\nFirst Student:\nName    Arun\nAge       20\nMark      80\n\nPriya's Mark:\n92\n\nAfter Bonus:\n    Name  Age  Mark  UpdatedMark\n0   Arun   20    80           85\n1  Priya   19    92           97\n2  Rahul   21    75           80\n3  Meena   20    88           93\n\nFinal DataFrame:\n    Name  Age  Mark  UpdatedMark Result\n0   Arun   20    80           85   Pass\n1  Priya   19    92           97   Pass\n2  Rahul   21    78           83   Pass\n3  Meena   20    88           93   Pass",
+        "isPublic": true
+      },
+      {
+        "id": "tc-2",
+        "input": "Arun,20,35\nPriya,19,60\nRahul,21,45\nMeena,20,30",
+        "expectedOutput": "Student Data:\n    Name  Age  Mark\n0   Arun   20    35\n1  Priya   19    60\n2  Rahul   21    45\n3  Meena   20    30\n\nName and Mark:\n    Name  Mark\n0   Arun    35\n1  Priya    60\n2  Rahul    45\n3  Meena    30\n\nFirst Student:\nName    Arun\nAge       20\nMark      35\n\nPriya's Mark:\n60\n\nAfter Bonus:\n    Name  Age  Mark  UpdatedMark\n0   Arun   20    35           40\n1  Priya   19    60           65\n2  Rahul   21    45           50\n3  Meena   20    30           35\n\nFinal DataFrame:\n    Name  Age  Mark  UpdatedMark Result\n0   Arun   20    35           40   Pass\n1  Priya   19    60           65   Pass\n2  Rahul   21    45           50   Pass\n3  Meena   20    30           35   Fail",
+        "isPublic": true
+      },
+      {
+        "id": "tc-3",
+        "input": "Arun,20,0\nPriya,19,40\nRahul,21,39\nMeena,20,100",
+        "expectedOutput": "Student Data:\n    Name  Age  Mark\n0   Arun   20     0\n1  Priya   19    40\n2  Rahul   21    39\n3  Meena   20   100\n\nName and Mark:\n    Name  Mark\n0   Arun     0\n1  Priya    40\n2  Rahul    39\n3  Meena   100\n\nFirst Student:\nName    Arun\nAge       20\nMark       0\n\nPriya's Mark:\n40\n\nAfter Bonus:\n    Name  Age  Mark  UpdatedMark\n0   Arun   20     0            5\n1  Priya   19    40           45\n2  Rahul   21    39           44\n3  Meena   20   100          105\n\nFinal DataFrame:\n    Name  Age  Mark  UpdatedMark Result\n0   Arun   20     0            5   Fail\n1  Priya   19    40           45   Pass\n2  Rahul   21    39           44   Pass\n3  Meena   20   100          105   Pass",
+        "isPublic": false
       }
+    ],
+    "hints": [
+      "Create DataFrame with pd.DataFrame({'Name': [...], 'Age': [...], 'Mark': [...]})",
+      "Select multiple columns using double brackets: df[['Name', 'Mark']]",
+      "Use df.iloc[0].to_string() for the first student row",
+      "Access Priya's mark cell at row label 1 with df.loc[1, 'Mark']",
+      "Add calculated column: df['UpdatedMark'] = df['Mark'] + 5",
+      "Determine Result based on UpdatedMark >= 40 ('Pass' vs 'Fail')"
     ]
   }
 ]

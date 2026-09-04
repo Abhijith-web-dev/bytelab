@@ -1,15 +1,55 @@
 [
   {
-    "id": "prob-day-38",
-    "title": "Practice: The Format Operator",
-    "description": "Write a Python script that demonstrates the format operator.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for The Format Operator\nprint('Success')",
+    "id": "prob-day-38-01",
+    "title": "Practice: Student Marks File Analyzer",
+    "description": "A text file named `students.txt` contains student records in the following format:\n\n```text\nArun,85\nPriya,92\nRahul,35\nMeena,78\n```\n\nWrite a Python program that:\n1. Opens `students.txt` in read mode (`\"r\"`).\n2. Reads the file line by line.\n3. Extracts the student name and mark from each line.\n4. Counts the total number of students.\n5. Finds the highest mark.\n6. Finds the name of the student who scored the highest mark.\n7. Counts the number of students who passed (Pass rule: `mark >= 40`).\n8. Displays the results in the exact format shown below:\n\n```text\nNumber of Students: 4\nHighest Mark: 92\nTop Student: Priya\nPassed Students: 3\n```\n\n### Constraints & Requirements:\n- Must open `students.txt` using `open(\"students.txt\", \"r\")`.\n- Use a `for` loop to iterate directly over the file object or lines.\n- Clean whitespace and line breaks using `.strip()` and separate fields using `.split(\",\")`.\n- Convert mark strings to integers using `int()`.\n- Do not use the built-in `max()` function—find the maximum mark manually using a comparison loop.\n- Close the file using `.close()` when finished.",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["File Handling", "open()", "readline()", "strip()", "split()", "Loops", "Data Processing"],
+    "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,85\\nPriya,92\\nRahul,35\\nMeena,78\\n')",
+    "starterCode": "# Practice: Student Marks File Analyzer\n# Step 1: Open 'students.txt' in read mode ('r')\n# Step 2: Initialize tracking variables for total students, passed students, highest mark, and top student name\n# Step 3: Iterate through the file line by line using a for loop\n# Step 4: Clean whitespace/newlines with .strip() and split comma-separated values using .split(',')\n# Step 5: Convert the mark to an integer and update student counts\n# Step 6: Check if mark >= 40 for passed student count\n# Step 7: Compare marks to update highest mark and top student name\n# Step 8: Close the file using .close()\n# Step 9: Print the four required summary metrics in exact specified format\n\n",
+    "solutionCode": "file = open(\"students.txt\", \"r\")\n\ntotal_students = 0\nhighest_mark = -1\ntop_student = \"\"\npassed_students = 0\n\nfor line in file:\n    line = line.strip()\n    if not line:\n        continue\n    data = line.split(\",\")\n    name = data[0]\n    mark = int(data[1])\n    \n    total_students += 1\n    if mark >= 40:\n        passed_students += 1\n    if mark > highest_mark:\n        highest_mark = mark\n        top_student = name\n\nfile.close()\n\nprint(f\"Number of Students: {total_students}\")\nprint(f\"Highest Mark: {highest_mark}\")\nprint(f\"Top Student: {top_student}\")\nprint(f\"Passed Students: {passed_students}\")\n",
+    "hints": [
+      "Open the file with `file = open('students.txt', 'r')`.",
+      "Initialize `highest_mark = -1`, `top_student = ''`, `total_students = 0`, and `passed_students = 0` before the loop.",
+      "In each iteration, call `line = line.strip()` to eliminate the trailing newline '\\n'.",
+      "Use `data = line.split(',')` to split into `[name, mark]`. Remember that `data[0]` is the name and `data[1]` is the mark string.",
+      "Convert the mark into an integer using `mark = int(data[1])` before making comparisons.",
+      "Check `if mark >= 40:` to increment `passed_students`.",
+      "Check `if mark > highest_mark:` to update both `highest_mark = mark` and `top_student = name`."
+    ],
     "testCases": [
       {
+        "id": "tc-1",
+        "description": "Standard class of 4 students with passing and failing marks",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,85\\nPriya,92\\nRahul,35\\nMeena,78\\n')",
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "Number of Students: 4\nHighest Mark: 92\nTop Student: Priya\nPassed Students: 3",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Class where all students score below passing mark (0 passed)",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Kumar,30\\nRavi,25\\nAnu,35\\n')",
+        "input": "",
+        "expectedOutput": "Number of Students: 3\nHighest Mark: 35\nTop Student: Anu\nPassed Students: 0",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Class with exact boundary score 40 and all passing",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,40\\nPriya,40\\nRahul,60\\nMeena,80\\n')",
+        "input": "",
+        "expectedOutput": "Number of Students: 4\nHighest Mark: 80\nTop Student: Meena\nPassed Students: 4",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Larger student roster with varied scores",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Deepak,95\\nKavita,88\\nSuresh,42\\nDivya,38\\nMohan,91\\n')",
+        "input": "",
+        "expectedOutput": "Number of Students: 5\nHighest Mark: 95\nTop Student: Deepak\nPassed Students: 4",
+        "isHidden": true
       }
     ]
   }

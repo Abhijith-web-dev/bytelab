@@ -1,22 +1,94 @@
 {
   "id": "sim-day-44",
-  "type": "Type G",
-  "title": "Simulation: Object Attributes and Methods",
+  "title": "Package Resolution & Module Traversal Simulator",
+  "description": "Visualizing how Python traverses a package directory (student_tools/), executes __init__.py, loads submodules (marks.py, result.py), and resolves member function calls.",
+  "codeLines": [
+    "from student_tools import marks",
+    "from student_tools import result",
+    "scores = [80, 75, 90, 65, 85]",
+    "total = marks.calculate_total(scores)",
+    "average = marks.calculate_average(scores)",
+    "status = result.check_result(scores)",
+    "print('Total:', total)",
+    "print('Average: %.2f' % average)",
+    "print('Result:', status)"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Python locates the student_tools/ directory, runs __init__.py, and loads marks.py as student_tools.marks.",
+      "variables": {
+        "marks": "<module 'student_tools.marks'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Python loads result.py from the student_tools package as student_tools.result.",
+      "variables": {
+        "marks": "<module 'student_tools.marks'>",
+        "result": "<module 'student_tools.result'>"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "List of student marks is initialized with 5 exam scores.",
+      "variables": {
+        "scores": "[80, 75, 90, 65, 85]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Calling marks.calculate_total(scores). Computes sum(scores) = 395.",
+      "variables": {
+        "scores": "[80, 75, 90, 65, 85]",
+        "total": 395
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Calling marks.calculate_average(scores). Computes 395 / 5 = 79.0.",
+      "variables": {
+        "scores": "[80, 75, 90, 65, 85]",
+        "total": 395,
+        "average": 79.0
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Calling result.check_result(scores). All scores are >= 40, so status is 'Pass'.",
+      "variables": {
+        "status": "'Pass'"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Printing the total marks.",
+      "variables": {
+        "total": 395
+      },
+      "output": "Total: 395"
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Printing formatted average to two decimal places.",
+      "variables": {
+        "average": 79.0
+      },
+      "output": "Average: 79.00"
+    },
+    {
+      "activeLine": 9,
+      "explanation": "Printing the final pass/fail result status.",
+      "variables": {
+        "status": "'Pass'"
+      },
+      "output": "Result: Pass"
     }
   ]
 }

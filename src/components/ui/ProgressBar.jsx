@@ -9,25 +9,25 @@ export function ProgressBar({
   label = '',
   size = 'md', // 'sm' | 'md' | 'lg'
   className = '',
-  barColor = 'bg-[#0066cc]'
+  barColor = 'bg-[#17171c]'
 }) {
   const percentage = Math.min(100, Math.max(0, Math.round((value / max) * 100)));
 
   const sizeStyles = {
     sm: 'h-1.5',
-    md: 'h-2.5',
-    lg: 'h-4'
+    md: 'h-2',
+    lg: 'h-3.5'
   };
 
   return (
     <div className={twMerge('w-full', className)}>
       {showLabel && (
-        <div className="flex justify-between items-center mb-1.5 text-[13px] text-[#7a7a7a]">
+        <div className="flex justify-between items-center mb-1.5 text-[12px] font-medium text-[#75758a]">
           <span>{label}</span>
-          <span className="font-medium text-[#1d1d1f]">{percentage}%</span>
+          <span className="font-mono text-[#212121]">{percentage}%</span>
         </div>
       )}
-      <div className={clsx('w-full bg-[#f0f0f0] rounded-full overflow-hidden', sizeStyles[size])}>
+      <div className={clsx('w-full bg-[#eeece7] rounded-full overflow-hidden', sizeStyles[size])}>
         <div
           className={clsx('h-full transition-all duration-500 ease-out rounded-full', barColor)}
           style={{ width: `${percentage}%` }}

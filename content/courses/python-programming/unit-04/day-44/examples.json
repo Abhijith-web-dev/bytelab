@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-44-1",
-    "title": "Basic Usage of Object Attributes and Methods",
-    "code": "# Example for Object Attributes and Methods\nprint('Day 44 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Package Namespace Architecture & Directory Structure",
+    "code": "# Visualizing the directory anatomy of a Python package:\n\"\"\"\nproject/\n│\n├── main.py\n│\n└── tools/\n    ├── __init__.py      <- Marks directory as a Python package\n    ├── calculator.py    <- Submodule A\n    └── string_utils.py  <- Submodule B\n\"\"\"\n\n# Simulated package object representation:\nclass ToolsPackage:\n    class Calculator:\n        @staticmethod\n        def add(a, b):\n            return a + b\n        @staticmethod\n        def multiply(a, b):\n            return a * b\n\n# Simulating 'from tools import calculator'\ncalculator = ToolsPackage.Calculator\n\nprint(\"Package demonstration:\")\nprint(\"tools.calculator.add(10, 20)      =\", calculator.add(10, 20))\nprint(\"tools.calculator.multiply(5, 6)   =\", calculator.multiply(5, 6))",
+    "explanation": "Illustrates how package directories act as parent namespaces grouping multiple submodules under a single logical folder."
+  },
+  {
+    "id": "ex-day-44-2",
+    "title": "Comparing Package Import Syntax Forms",
+    "code": "# Demonstrating the two primary styles of importing from a package:\n\n# Style 1: Import module from package\n# from tools import calculator\n# Usage: calculator.add(15, 25)\n\n# Style 2: Import specific function from package module\n# from tools.calculator import add\n# Usage: add(15, 25)\n\ndef simulate_imports():\n    def add(x, y):\n        return x + y\n    \n    print(\"Style 1 (from package import module)       : calculator.add(15, 25) ->\", add(15, 25))\n    print(\"Style 2 (from package.module import func) : add(15, 25)            ->\", add(15, 25))\n\nsimulate_imports()",
+    "explanation": "Compares importing a whole submodule versus importing individual functions directly from a package."
+  },
+  {
+    "id": "ex-day-44-3",
+    "title": "Multi-Module Package: Student Evaluation Suite",
+    "code": "# Simulating student_tools/ with marks.py and result.py\n\ndef calculate_total(marks):\n    return sum(marks)\n\ndef calculate_average(marks):\n    return sum(marks) / len(marks) if len(marks) > 0 else 0.0\n\ndef check_result(marks, pass_threshold=40):\n    return \"Pass\" if all(m >= pass_threshold for m in marks) else \"Fail\"\n\n# Sample student marks\nscores = [85, 78, 92, 65, 88]\ntotal = calculate_total(scores)\navg = calculate_average(scores)\nstatus = check_result(scores)\n\nprint(\"===== STUDENT REPORT =====\")\nprint(\"Scores  :\", scores)\nprint(\"Total   :\", total)\nprint(\"Average : %.2f\" % avg)\nprint(\"Status  :\", status)",
+    "explanation": "Shows how dividing calculation and result evaluation into separate modules inside a student_tools package organizes real-world applications."
+  },
+  {
+    "id": "ex-day-44-4",
+    "title": "E-Commerce Billing Package Organization",
+    "code": "# Simulating billing/ package with calculation.py and invoice.py\ndef compute_subtotal(unit_price, quantity):\n    return unit_price * quantity\n\ndef compute_discount(amount):\n    return amount * 0.10 if amount >= 1000 else 0.0\n\ndef generate_invoice(item_name, price, qty):\n    sub = compute_subtotal(price, qty)\n    disc = compute_discount(sub)\n    final = sub - disc\n    return f\"[INVOICE] {item_name} x {qty} | Subtotal: ${sub:.2f} | Discount: ${disc:.2f} | Final: ${final:.2f}\"\n\nprint(generate_invoice(\"Mechanical Keyboard\", 120.0, 10))\nprint(generate_invoice(\"USB-C Cable\", 15.0, 2))",
+    "explanation": "Demonstrates practical separation of concerns in a billing package where calculations feed into invoice generation."
   }
 ]

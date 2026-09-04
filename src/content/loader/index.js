@@ -2,6 +2,11 @@ import pythonCourse from '@content/courses/python-programming/course.json';
 import pythonSyllabus from '@content/courses/python-programming/syllabus.json';
 import pythonLang from '@content/languages/python.json';
 import jsLang from '@content/languages/javascript.json';
+import tsLang from '@content/languages/typescript.json';
+import cppLang from '@content/languages/cpp.json';
+import cLang from '@content/languages/c.json';
+import rustLang from '@content/languages/rust.json';
+import sqlLang from '@content/languages/sql.json';
 
 // Eagerly glob content for all units & chapters
 const chapterMetaGlob = import.meta.glob('../../../content/courses/**/chapter.json', { eager: true });
@@ -23,7 +28,12 @@ const SYLLABI = {
 
 const LANGUAGES = {
   'python': pythonLang,
-  'javascript': jsLang
+  'javascript': jsLang,
+  'typescript': tsLang,
+  'cpp': cppLang,
+  'c': cLang,
+  'rust': rustLang,
+  'sql': sqlLang
 };
 
 export function getLanguages() {
@@ -198,7 +208,145 @@ export function normalizeChapterId(chapterId) {
     'u3-day-10': 'day-33',
     'unit-03-day-10': 'day-33',
     'unit-3-day-10': 'day-33',
-    'day-33': 'day-33'
+    'day-33': 'day-33',
+
+    // Unit 4 - Day 1: Files and Exceptions — Introduction to File Handling
+    'u4-day-01': 'day-37',
+    'u4-day-1': 'day-37',
+    'unit-04-day-01': 'day-37',
+    'unit-4-day-1': 'day-37',
+    'day-37': 'day-37',
+
+    // Unit 4 - Day 2: Reading and Writing Text Files
+    'u4-day-02': 'day-38',
+    'u4-day-2': 'day-38',
+    'unit-04-day-02': 'day-38',
+    'unit-4-day-2': 'day-38',
+    'day-38': 'day-38',
+
+    // Unit 4 - Day 3: Format Operator, File Data Formatting & Command Line Arguments
+    'u4-day-03': 'day-39',
+    'u4-day-3': 'day-39',
+    'unit-04-day-03': 'day-39',
+    'unit-4-day-3': 'day-39',
+    'day-39': 'day-39',
+
+    // Unit 4 - Day 4: Command-Line Arguments and sys.argv
+    'u4-day-04': 'day-40',
+    'u4-day-4': 'day-40',
+    'unit-04-day-04': 'day-40',
+    'unit-4-day-4': 'day-40',
+    'day-40': 'day-40',
+
+    // Unit 4 - Day 5: Errors and Exceptions in Python
+    'u4-day-05': 'day-41',
+    'u4-day-5': 'day-41',
+    'unit-04-day-05': 'day-41',
+    'unit-4-day-5': 'day-41',
+    'day-41': 'day-41',
+
+    // Unit 4 - Day 6: Handling Exceptions in Python
+    'u4-day-06': 'day-42',
+    'u4-day-6': 'day-42',
+    'unit-04-day-06': 'day-42',
+    'unit-4-day-6': 'day-42',
+    'day-42': 'day-42',
+
+    // Unit 4 - Day 7: Modules in Python
+    'u4-day-07': 'day-43',
+    'u4-day-7': 'day-43',
+    'unit-04-day-07': 'day-43',
+    'unit-4-day-7': 'day-43',
+    'day-43': 'day-43',
+
+    // Unit 4 - Day 8: Packages in Python
+    'u4-day-08': 'day-44',
+    'u4-day-8': 'day-44',
+    'unit-04-day-08': 'day-44',
+    'unit-4-day-8': 'day-44',
+    'day-44': 'day-44',
+
+    // Unit 4 - Day 9: File Processing, Modules, Exceptions, Classes and Objects
+    'u4-day-09': 'day-45',
+    'u4-day-9': 'day-45',
+    'unit-04-day-09': 'day-45',
+    'unit-4-day-9': 'day-45',
+    'day-45': 'day-45',
+
+    // Unit 4 - Day 10: Classes and Objects — Introduction to Object-Oriented Programming
+    'u4-day-10': 'day-46',
+    'unit-04-day-10': 'day-46',
+    'unit-4-day-10': 'day-46',
+    'day-46': 'day-46',
+
+    // Unit 5 - Day 1: Introduction to NumPy and NumPy Arrays
+    'u5-day-01': 'day-49',
+    'u5-day-1': 'day-49',
+    'unit-05-day-01': 'day-49',
+    'unit-5-day-1': 'day-49',
+    'day-49': 'day-49',
+
+    // Unit 5 - Day 2: NumPy Array Shape, Dimensions and Reshaping
+    'u5-day-02': 'day-50',
+    'u5-day-2': 'day-50',
+    'unit-05-day-02': 'day-50',
+    'unit-5-day-2': 'day-50',
+    'day-50': 'day-50',
+
+    // Unit 5 - Day 3: NumPy Array Indexing and Slicing
+    'u5-day-03': 'day-51',
+    'u5-day-3': 'day-51',
+    'unit-05-day-03': 'day-51',
+    'unit-5-day-3': 'day-51',
+    'day-51': 'day-51',
+
+    // Unit 5 - Day 4: Mathematical Operations with NumPy Arrays
+    'u5-day-04': 'day-52',
+    'u5-day-4': 'day-52',
+    'unit-05-day-04': 'day-52',
+    'unit-5-day-4': 'day-52',
+    'day-52': 'day-52',
+
+    // Unit 5 - Day 5: Advanced NumPy Arithmetic and Mathematical Functions
+    'u5-day-05': 'day-53',
+    'u5-day-5': 'day-53',
+    'unit-05-day-05': 'day-53',
+    'unit-5-day-5': 'day-53',
+    'day-53': 'day-53',
+
+    // Unit 5 - Day 6: Introduction to Pandas Series
+    'u5-day-06': 'day-54',
+    'u5-day-6': 'day-54',
+    'unit-05-day-06': 'day-54',
+    'unit-5-day-6': 'day-54',
+    'day-54': 'day-54',
+
+    // Unit 5 - Day 7: Pandas DataFrame — Rows, Columns, Selection and Modification
+    'u5-day-07': 'day-55',
+    'u5-day-7': 'day-55',
+    'unit-05-day-07': 'day-55',
+    'unit-5-day-7': 'day-55',
+    'day-55': 'day-55',
+
+    // Unit 5 - Day 8: Missing Data and Combining DataFrames
+    'u5-day-08': 'day-56',
+    'u5-day-8': 'day-56',
+    'unit-05-day-08': 'day-56',
+    'unit-5-day-8': 'day-56',
+    'day-56': 'day-56',
+
+    // Unit 5 - Day 9: GroupBy Operations, Apply Functions, Data Transformation, and Sorting
+    'u5-day-09': 'day-57',
+    'u5-day-9': 'day-57',
+    'unit-05-day-09': 'day-57',
+    'unit-5-day-9': 'day-57',
+    'day-57': 'day-57',
+
+    // Unit 5 - Day 10: File Read and Write Support in Pandas; NumPy-Pandas Integration; Capstone Revision
+    'u5-day-10': 'day-58',
+    'unit-05-day-10': 'day-58',
+    'unit-5-day-10': 'day-58',
+    'day-58': 'day-58'
   };
   return aliases[chapterId] || chapterId;
 }

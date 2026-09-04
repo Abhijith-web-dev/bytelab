@@ -1,8 +1,34 @@
 [
   {
-    "id": "ex-day-51-1",
-    "title": "Basic Usage of Indexing and Slicing of NumPy Array",
-    "code": "# Example for Indexing and Slicing of NumPy Array\nprint('Day 51 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-01",
+    "title": "1D Array Indexing (Positive & Negative)",
+    "description": "Access individual elements in a 1D NumPy array using 0-based positive indexes and negative indexes counting from the end.",
+    "code": "import numpy as np\n\nnumbers = np.array([10, 20, 30, 40, 50])\n\nprint(\"First element (index 0):\", numbers[0])\nprint(\"Third element (index 2):\", numbers[2])\nprint(\"Last element (index -1):\", numbers[-1])\nprint(\"Second-last element (index -2):\", numbers[-2])\n",
+    "expectedOutput": "First element (index 0): 10\nThird element (index 2): 30\nLast element (index -1): 50\nSecond-last element (index -2): 40\n",
+    "explanation": "Indexing in Python starts at 0. Negative indexes start at -1 from the end of the array, so numbers[-1] gives 50 without needing the array length."
+  },
+  {
+    "id": "ex-02",
+    "title": "1D Array Slicing (Ranges & Steps)",
+    "description": "Extract sub-ranges of values using start:stop and start:stop:step syntax where start is included and stop is excluded.",
+    "code": "import numpy as np\n\nnumbers = np.array([10, 20, 30, 40, 50, 60])\n\nprint(\"Slice [1:4]:\", numbers[1:4])\nprint(\"Slice [:3]:\", numbers[:3])\nprint(\"Slice [2:]:\", numbers[2:])\nprint(\"Slice [-3:]:\", numbers[-3:])\nprint(\"Step slice [0:6:2]:\", numbers[0:6:2])\n",
+    "expectedOutput": "Slice [1:4]: [20 30 40]\nSlice [:3]: [10 20 30]\nSlice [2:]: [30 40 50 60]\nSlice [-3:]: [40 50 60]\nStep slice [0:6:2]: [10 30 50]\n",
+    "explanation": "In numbers[1:4], values at indices 1, 2, and 3 are returned. Stop index 4 is excluded. Omitting start defaults to index 0, and omitting stop defaults to the end."
+  },
+  {
+    "id": "ex-03",
+    "title": "2D Row & Column Selection with Colon (:)",
+    "description": "Select individual elements, complete rows, and complete columns from a 2D matrix.",
+    "code": "import numpy as np\n\nmarks = np.array([\n    [80, 75, 90],\n    [70, 85, 88],\n    [92, 78, 95]\n])\n\nprint(\"Specific element [1, 2]:\", marks[1, 2])\nprint(\"Row 0 (First student):\", marks[0])\nprint(\"Column 0 (Maths marks):\", marks[:, 0])\nprint(\"Column 1 (English marks):\", marks[:, 1])\n",
+    "expectedOutput": "Specific element [1, 2]: 88\nRow 0 (First student): [80 75 90]\nColumn 0 (Maths marks): [80 70 92]\nColumn 1 (English marks): [75 85 78]\n",
+    "explanation": "marks[row, col] accesses a single scalar. marks[0] selects the entire first row. marks[:, 0] uses the colon (:) to select all rows across column 0."
+  },
+  {
+    "id": "ex-04",
+    "title": "2D Sub-Matrix Slicing & In-Place Updates",
+    "description": "Extract rectangular sub-regions of a 2D array and perform in-place vector arithmetic.",
+    "code": "import numpy as np\n\nmarks = np.array([\n    [80, 75, 90],\n    [70, 85, 88],\n    [92, 78, 95]\n])\n\n# Slicing rows 0:2 and columns 1:3\nsub_grid = marks[0:2, 1:3]\nprint(\"Sub-grid [0:2, 1:3]:\\n\", sub_grid)\n\n# Add 5 bonus marks to Maths (column 0) for first two students\nmarks[0:2, 0] = marks[0:2, 0] + 5\nprint(\"\\nUpdated array after +5 bonus to Maths for first two students:\\n\", marks)\n",
+    "expectedOutput": "Sub-grid [0:2, 1:3]:\n [[75 90]\n [85 88]]\n\nUpdated array after +5 bonus to Maths for first two students:\n [[85 75 90]\n [75 85 88]\n [92 78 95]]\n",
+    "explanation": "marks[0:2, 1:3] extracts a 2x2 rectangular sub-matrix. Assignment to slices allows fast in-place vector updates on targeted sub-regions."
   }
 ]

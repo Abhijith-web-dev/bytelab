@@ -73,8 +73,12 @@ export const usePracticeStore = create((set, get) => ({
     // Execute against each test case
     for (let i = 0; i < testCases.length; i++) {
       const tc = testCases[i];
+      const codeToRun = tc.setupCode 
+        ? `${tc.setupCode}\n${state.code}` 
+        : (state.problem.setupCode ? `${state.problem.setupCode}\n${state.code}` : state.code);
+
       const execResult = await runtime.execute({
-        sourceCode: state.code,
+        sourceCode: codeToRun,
         stdin: tc.input || '',
         timeoutMs: state.problem.timeLimitMs || 5000
       });

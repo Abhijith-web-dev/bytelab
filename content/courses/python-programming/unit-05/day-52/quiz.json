@@ -1,14 +1,114 @@
 [
   {
-    "id": "quiz-day-52-1",
-    "question": "Which of the following best describes Maths & Basic Arithmetic with NumPy Arrays?",
+    "id": "q1",
+    "question": "What does an element-wise operation mean?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      { "id": "opt-a", "text": "Operation on the whole array as one single scalar value", "isCorrect": false },
+      { "id": "opt-b", "text": "Operation performed separately on corresponding elements", "isCorrect": true },
+      { "id": "opt-c", "text": "Deleting array elements", "isCorrect": false },
+      { "id": "opt-d", "text": "Changing array shape", "isCorrect": false }
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "An element-wise operation executes the mathematical calculation independently on each corresponding value or matching coordinate."
+  },
+  {
+    "id": "q2",
+    "question": "What is the result of np.array([10, 20, 30]) + 5?",
+    "codeSnippet": "import numpy as np\nnumbers = np.array([10, 20, 30])\nprint(numbers + 5)",
+    "options": [
+      { "id": "opt-a", "text": "[15 25 35]", "isCorrect": true },
+      { "id": "opt-b", "text": "[50 100 150]", "isCorrect": false },
+      { "id": "opt-c", "text": "[10 20 30 5]", "isCorrect": false },
+      { "id": "opt-d", "text": "Raises a TypeError", "isCorrect": false }
+    ],
+    "explanation": "Adding a scalar (+ 5) applies the addition to every element in the array: 10+5=15, 20+5=25, 30+5=35."
+  },
+  {
+    "id": "q3",
+    "question": "What is the result of np.array([10, 20, 30]) * 2?",
+    "codeSnippet": "import numpy as np\nnumbers = np.array([10, 20, 30])\nprint(numbers * 2)",
+    "options": [
+      { "id": "opt-a", "text": "[12 22 32]", "isCorrect": false },
+      { "id": "opt-b", "text": "[20 40 60]", "isCorrect": true },
+      { "id": "opt-c", "text": "[10, 20, 30, 10, 20, 30]", "isCorrect": false },
+      { "id": "opt-d", "text": "[5 10 15]", "isCorrect": false }
+    ],
+    "explanation": "Unlike Python lists which replicate elements, NumPy multiplies each element numerically by the scalar 2."
+  },
+  {
+    "id": "q4",
+    "question": "What is the result of np.array([20, 40, 60]) / 2?",
+    "codeSnippet": "import numpy as np\nnumbers = np.array([20, 40, 60])\nprint(numbers / 2)",
+    "options": [
+      { "id": "opt-a", "text": "[10. 20. 30.]", "isCorrect": true },
+      { "id": "opt-b", "text": "[40 80 120]", "isCorrect": false },
+      { "id": "opt-c", "text": "[18 38 58]", "isCorrect": false },
+      { "id": "opt-d", "text": "[20 40 60]", "isCorrect": false }
+    ],
+    "explanation": "The division operator (/) performs true division on every element, returning floating-point results: 20/2=10.0, 40/2=20.0, 60/2=30.0."
+  },
+  {
+    "id": "q5",
+    "question": "What is the result of np.array([10, 20]) + np.array([1, 2])?",
+    "codeSnippet": "import numpy as np\na = np.array([10, 20])\nb = np.array([1, 2])\nprint(a + b)",
+    "options": [
+      { "id": "opt-a", "text": "[11 22]", "isCorrect": true },
+      { "id": "opt-b", "text": "[10 20 1 2]", "isCorrect": false },
+      { "id": "opt-c", "text": "[1 2]", "isCorrect": false },
+      { "id": "opt-d", "text": "Raises a ValueError", "isCorrect": false }
+    ],
+    "explanation": "Element-wise addition combines corresponding positions: 10 + 1 = 11, and 20 + 2 = 22."
+  },
+  {
+    "id": "q6",
+    "question": "What does 'a * b' mean for two NumPy arrays of the same shape?",
+    "options": [
+      { "id": "opt-a", "text": "Element-wise multiplication", "isCorrect": true },
+      { "id": "opt-b", "text": "Array concatenation / joining", "isCorrect": false },
+      { "id": "opt-c", "text": "String repetition", "isCorrect": false },
+      { "id": "opt-d", "text": "Matrix transposition", "isCorrect": false }
+    ],
+    "explanation": "In NumPy, the * operator between two arrays performs element-by-element (Hadamard) multiplication."
+  },
+  {
+    "id": "q7",
+    "question": "Why is the expression 'marks + 5' especially useful in data processing?",
+    "options": [
+      { "id": "opt-a", "text": "It adds 5 to every mark in one vectorized operation without a loop", "isCorrect": true },
+      { "id": "opt-b", "text": "It adds 5 only to the first mark", "isCorrect": false },
+      { "id": "opt-c", "text": "It appends one new element with value 5 to the end", "isCorrect": false },
+      { "id": "opt-d", "text": "It changes the array's dimensional shape", "isCorrect": false }
+    ],
+    "explanation": "Vectorized scalar addition broadcasts across the entire array, cleanly avoiding manual for-loop iteration."
+  },
+  {
+    "id": "q8",
+    "question": "If prices.shape == (5,) and quantities.shape == (5,), can they be multiplied element-wise directly?",
+    "options": [
+      { "id": "opt-a", "text": "Yes, because their shapes are identical", "isCorrect": true },
+      { "id": "opt-b", "text": "No, because arrays must have 2 dimensions to multiply", "isCorrect": false }
+    ],
+    "explanation": "Because both arrays have the exact same shape (5,), each element maps directly to an index partner for multiplication."
+  },
+  {
+    "id": "q9",
+    "question": "Which operation calculates total product sales when price and quantity are NumPy arrays?",
+    "options": [
+      { "id": "opt-a", "text": "price + quantity", "isCorrect": false },
+      { "id": "opt-b", "text": "price - quantity", "isCorrect": false },
+      { "id": "opt-c", "text": "price * quantity", "isCorrect": true },
+      { "id": "opt-d", "text": "price / quantity", "isCorrect": false }
+    ],
+    "explanation": "Total sales per item is unit price multiplied by quantity sold, computed across all items via price * quantity."
+  },
+  {
+    "id": "q10",
+    "question": "What is the main difference between a Python list and a NumPy array when multiplying by 2 (* 2)?",
+    "options": [
+      { "id": "opt-a", "text": "Both always behave identically", "isCorrect": false },
+      { "id": "opt-b", "text": "A list repeats its contents; a NumPy array performs numerical multiplication", "isCorrect": true },
+      { "id": "opt-c", "text": "A NumPy array repeats its contents; a list doubles values", "isCorrect": false },
+      { "id": "opt-d", "text": "Lists cannot store numbers at all", "isCorrect": false }
+    ],
+    "explanation": "Multiplying a list by 2 repeats its elements ([10, 20] * 2 -> [10, 20, 10, 20]), whereas multiplying a NumPy array doubles each numeric value (array([20, 40]))."
   }
 ]

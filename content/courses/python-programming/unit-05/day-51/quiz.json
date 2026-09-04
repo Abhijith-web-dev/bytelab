@@ -1,14 +1,113 @@
 [
   {
-    "id": "quiz-day-51-1",
-    "question": "Which of the following best describes Indexing and Slicing of NumPy Array?",
+    "id": "q1",
+    "question": "What is indexing?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      { "id": "opt-a", "text": "Changing the shape of an array", "isCorrect": false },
+      { "id": "opt-b", "text": "Accessing an element using its position", "isCorrect": true },
+      { "id": "opt-c", "text": "Sorting an array", "isCorrect": false },
+      { "id": "opt-d", "text": "Deleting an array", "isCorrect": false }
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "explanation": "Indexing refers to accessing or referencing an element of an array directly by its positional coordinate."
+  },
+  {
+    "id": "q2",
+    "question": "What is the index of the first element in a NumPy array?",
+    "options": [
+      { "id": "opt-a", "text": "1", "isCorrect": false },
+      { "id": "opt-b", "text": "-1", "isCorrect": false },
+      { "id": "opt-c", "text": "0", "isCorrect": true },
+      { "id": "opt-d", "text": "2", "isCorrect": false }
+    ],
+    "explanation": "Python and NumPy use 0-based indexing, meaning the very first element is stored at index 0."
+  },
+  {
+    "id": "q3",
+    "question": "What does array[-1] normally access?",
+    "options": [
+      { "id": "opt-a", "text": "First element", "isCorrect": false },
+      { "id": "opt-b", "text": "Second element", "isCorrect": false },
+      { "id": "opt-c", "text": "Last element", "isCorrect": true },
+      { "id": "opt-d", "text": "Middle element", "isCorrect": false }
+    ],
+    "explanation": "Negative indexing counts backwards from the end of the array; -1 always accesses the last element."
+  },
+  {
+    "id": "q4",
+    "question": "What does array[1:4] select?",
+    "options": [
+      { "id": "opt-a", "text": "Indexes 1, 2, 3", "isCorrect": true },
+      { "id": "opt-b", "text": "Indexes 1, 2, 3, 4", "isCorrect": false },
+      { "id": "opt-c", "text": "Indexes 0, 1, 2, 3", "isCorrect": false },
+      { "id": "opt-d", "text": "Only index 4", "isCorrect": false }
+    ],
+    "explanation": "Slicing uses the start:stop convention where start is included and stop is excluded. Thus, 1:4 selects indices 1, 2, and 3."
+  },
+  {
+    "id": "q5",
+    "question": "What is the difference between indexing and slicing?",
+    "options": [
+      { "id": "opt-a", "text": "Indexing selects one element; slicing selects a range", "isCorrect": true },
+      { "id": "opt-b", "text": "They are the same", "isCorrect": false },
+      { "id": "opt-c", "text": "Slicing selects one element", "isCorrect": false },
+      { "id": "opt-d", "text": "Indexing selects all elements", "isCorrect": false }
+    ],
+    "explanation": "Indexing accesses a single value at a specific coordinate, whereas slicing selects a continuous or stepped sub-range of values."
+  },
+  {
+    "id": "q6",
+    "question": "For the given array, what does marks[1, 2] return?",
+    "codeSnippet": "import numpy as np\nmarks = np.array([\n    [80, 75, 90],\n    [70, 85, 88]\n])\nprint(marks[1, 2])",
+    "options": [
+      { "id": "opt-a", "text": "70", "isCorrect": false },
+      { "id": "opt-b", "text": "75", "isCorrect": false },
+      { "id": "opt-c", "text": "88", "isCorrect": true },
+      { "id": "opt-d", "text": "90", "isCorrect": false }
+    ],
+    "explanation": "In 2D syntax marks[row, column], row 1 is [70, 85, 88] and column 2 within that row is 88."
+  },
+  {
+    "id": "q7",
+    "question": "In a 2D array, what does marks[1] select?",
+    "options": [
+      { "id": "opt-a", "text": "Column 1", "isCorrect": false },
+      { "id": "opt-b", "text": "Row 1", "isCorrect": true },
+      { "id": "opt-c", "text": "Element 1", "isCorrect": false },
+      { "id": "opt-d", "text": "All columns except 1", "isCorrect": false }
+    ],
+    "explanation": "Supplying a single index to a 2D array selects the entire row corresponding to that index."
+  },
+  {
+    "id": "q8",
+    "question": "What does marks[:, 0] select in a 2D NumPy array?",
+    "options": [
+      { "id": "opt-a", "text": "Row 0", "isCorrect": false },
+      { "id": "opt-b", "text": "Column 0", "isCorrect": true },
+      { "id": "opt-c", "text": "Only element 0", "isCorrect": false },
+      { "id": "opt-d", "text": "The complete array", "isCorrect": false }
+    ],
+    "explanation": "The colon (:) represents all rows along axis 0, and 0 specifies column 0 along axis 1, yielding all elements of column 0."
+  },
+  {
+    "id": "q9",
+    "question": "In marks[0:2, :], what does the colon (:) in the second position mean?",
+    "options": [
+      { "id": "opt-a", "text": "No values", "isCorrect": false },
+      { "id": "opt-b", "text": "All columns", "isCorrect": true },
+      { "id": "opt-c", "text": "All rows", "isCorrect": false },
+      { "id": "opt-d", "text": "Delete values", "isCorrect": false }
+    ],
+    "explanation": "The second position corresponds to columns. A colon with no bounds means all columns across the selected rows (rows 0 and 1)."
+  },
+  {
+    "id": "q10",
+    "question": "Which exception occurs when attempting to access an index that does not exist?",
+    "options": [
+      { "id": "opt-a", "text": "ValueError", "isCorrect": false },
+      { "id": "opt-b", "text": "KeyError", "isCorrect": false },
+      { "id": "opt-c", "text": "IndexError", "isCorrect": true },
+      { "id": "opt-d", "text": "NameError", "isCorrect": false }
+    ],
+    "explanation": "When an integer index is out of the bounds defined by the array's dimension, Python raises an IndexError."
   }
 ]

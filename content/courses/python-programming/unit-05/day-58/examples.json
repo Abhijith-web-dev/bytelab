@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-58-1",
-    "title": "Basic Usage of Groupby and Apply Functions",
-    "code": "# Example for Groupby and Apply Functions\nprint('Day 58 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Reading & Writing CSV Data with pd.read_csv() and to_csv()",
+    "code": "import io\nimport pandas as pd\n\n# Simulated CSV string representation of warehouse inventory\ncsv_text = '''SKU,Item,Category,Price,Stock\n101,Keyboard,Electronics,1800,45\n102,Notebook,Stationery,120,200\n103,Mouse,Electronics,650,80\n104,Stapler,Stationery,350,30'''\n\n# 1. Parse CSV into DataFrame\ninventory = pd.read_csv(io.StringIO(csv_text))\nprint(\"Loaded Inventory DataFrame:\")\nprint(inventory)\n\n# 2. Add total inventory value column\ninventory[\"TotalValue\"] = inventory[\"Price\"] * inventory[\"Stock\"]\n\n# 3. Export back to CSV string without redundant row indices\noutput_csv = inventory.to_csv(index=False)\nprint(\"\\nExported CSV Representation (index=False):\")\nprint(output_csv.strip())",
+    "explanation": "pd.read_csv() seamlessly converts comma-separated strings or file streams into structured DataFrames. to_csv(index=False) serializes the table back to CSV format without polluting records with integer index labels."
+  },
+  {
+    "id": "ex-day-58-2",
+    "title": "Bidirectional Integration: NumPy Array to DataFrame and Back",
+    "code": "import numpy as np\nimport pandas as pd\n\n# Step 1: Create a 2D NumPy array of sensor temperatures (3 days x 2 rooms)\nraw_matrix = np.array([\n    [22.5, 24.1],\n    [23.0, 25.2],\n    [21.8, 23.9]\n])\n\n# Step 2: Convert raw array to labeled DataFrame\ntemp_df = pd.DataFrame(raw_matrix, columns=[\"Room_A\", \"Room_B\"], index=[\"Mon\", \"Tue\", \"Wed\"])\nprint(\"Labeled DataFrame constructed from NumPy array:\")\nprint(temp_df)\n\n# Step 3: Extract back as a pure continuous NumPy ndarray\nmatrix_back = temp_df.to_numpy()\nprint(\"\\nExtracted NumPy ndarray (type:\", type(matrix_back), \"):\")\nprint(matrix_back)",
+    "explanation": "pd.DataFrame(matrix, columns=...) adds semantic human labels to raw numerical matrices. .to_numpy() discards labels and returns the raw C-contiguous memory buffer for scientific computing."
+  },
+  {
+    "id": "ex-day-58-3",
+    "title": "Fast Conditional Vectorization with np.where()",
+    "code": "import numpy as np\nimport pandas as pd\n\nstudents = pd.DataFrame({\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\", \"Meena\"],\n    \"Score\": [88, 94, 42, 68]\n})\n\n# Vectorized ternary: condition, value_if_true, value_if_false\nstudents[\"Result\"] = np.where(students[\"Score\"] >= 50, \"Pass\", \"Fail\")\nstudents[\"Tier\"] = np.where(students[\"Score\"] >= 85, \"Distinction\", \"Standard\")\n\nprint(\"Evaluated Student Tiers using np.where:\")\nprint(students)",
+    "explanation": "np.where(condition, x, y) provides compiled, vectorized conditional branching across Pandas columns without slow Python if-else loops."
+  },
+  {
+    "id": "ex-day-58-4",
+    "title": "Full Capstone Pipeline: Parse -> Group -> Vectorize -> Sort",
+    "code": "import io\nimport numpy as np\nimport pandas as pd\n\nraw_data = '''Employee,Dept,Salary,Rating\nArun,IT,55000,4.5\nPriya,HR,48000,4.8\nRahul,IT,62000,3.9\nMeena,HR,52000,4.2\nKiran,Sales,58000,4.7'''\n\ndf = pd.read_csv(io.StringIO(raw_data))\n\n# 1. Vectorized bonus calculation using np.where\ndf[\"BonusPct\"] = np.where(df[\"Rating\"] >= 4.5, 0.15, 0.08)\ndf[\"TotalComp\"] = df[\"Salary\"] * (1 + df[\"BonusPct\"])\n\n# 2. GroupBy department performance summary\ndept_summary = df.groupby(\"Dept\")[\"TotalComp\"].mean()\nprint(\"Department Mean Total Compensation:\")\nprint(dept_summary)\n\n# 3. Sort employees by compensation descending\nranked = df.sort_values(by=\"TotalComp\", ascending=False).reset_index(drop=True)\nprint(\"\\nRanked Compensation Table:\")\nprint(ranked[[\"Employee\", \"Dept\", \"TotalComp\"]])",
+    "explanation": "Combines CSV stream parsing, NumPy conditional vectorization, Pandas grouping, and descending sorting into an executive data science pipeline."
   }
 ]

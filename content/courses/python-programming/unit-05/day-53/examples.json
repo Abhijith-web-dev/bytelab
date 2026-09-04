@@ -1,8 +1,26 @@
 [
   {
-    "id": "ex-day-53-1",
-    "title": "Basic Usage of Matrix Operations (Multiply, Inverse) & Verification",
-    "code": "# Example for Matrix Operations (Multiply, Inverse) & Verification\nprint('Day 53 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-day-53-01",
+    "title": "Basic Mathematical Transforms: sqrt, square, power",
+    "description": "Demonstrates vectorized square roots, squares, and arbitrary exponents across numerical arrays.",
+    "code": "import numpy as np\n\nnumbers = np.array([4, 9, 16, 25])\n\nprint(\"Original Array:\", numbers)\nprint(\"Square Roots (np.sqrt):\", np.sqrt(numbers))\nprint(\"Squares (np.square):   \", np.square(numbers))\nprint(\"Cubes (np.power):      \", np.power(numbers, 3))\n"
+  },
+  {
+    "id": "ex-day-53-02",
+    "title": "Rounding & Sign Handling: abs, round, floor, ceil",
+    "description": "Compare absolute magnitude with three distinct rounding behaviors: round, floor, and ceil.",
+    "code": "import numpy as np\n\nvalues = np.array([-3.8, -1.2, 2.3, 4.7])\n\nprint(\"Original Values:          \", values)\nprint(\"Absolute Values (np.abs): \", np.abs(values))\nprint(\"Rounded (np.round):       \", np.round(values))\nprint(\"Floor (downward):         \", np.floor(values))\nprint(\"Ceil (upward):            \", np.ceil(values))\n"
+  },
+  {
+    "id": "ex-day-53-03",
+    "title": "Array Aggregations: Total Sum and Mean Average",
+    "description": "Calculate class totals, benchmarks, and student score deviations from the mean.",
+    "code": "import numpy as np\n\nmarks = np.array([80, 75, 90, 85, 70])\n\ntotal = np.sum(marks)\naverage = np.mean(marks)\ndeviations = marks - average\n\nprint(\"Student Scores:\", marks)\nprint(\"Total Marks:   \", total)\nprint(f\"Average Score:  {average:.2f}\")\nprint(\"Deviations:    \", deviations)\n"
+  },
+  {
+    "id": "ex-day-53-04",
+    "title": "Combined Multi-Step Mathematical Pipelines",
+    "description": "Chain multiple operations to calculate 2D Euclidean distance and Celsius-to-Fahrenheit conversion.",
+    "code": "import numpy as np\n\n# 1. 2D Euclidean Distance: sqrt(x^2 + y^2)\nx = np.array([3, 5, 6])\ny = np.array([4, 12, 8])\ndistance = np.sqrt(np.square(x) + np.square(y))\nprint(\"2D Point Distances:\", distance)\n\n# 2. Temperature Conversion with Rounding: (C * 9/5) + 32\ncelsius = np.array([12.5, 23.8, 31.2])\nfahrenheit = (celsius * 9 / 5) + 32\nprint(\"Rounded Fahrenheit:\", np.round(fahrenheit, 1))\n"
   }
 ]

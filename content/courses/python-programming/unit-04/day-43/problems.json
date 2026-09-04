@@ -1,15 +1,48 @@
 [
   {
-    "id": "prob-day-43",
-    "title": "Practice: Classes and Objects Intro",
-    "description": "Write a Python script that demonstrates classes and objects intro.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Classes and Objects Intro\nprint('Success')",
+    "id": "prob-day-43-01",
+    "title": "Practice: Build and Use a Number Tools Module",
+    "description": "In modular software engineering, related helper functions are organized into reusable module files rather than duplicated in a monolithic script.\n\nYour project environment has provided a user-defined module named `number_tools.py` containing three functions:\n- `square(number)`: Returns the square of the number (`number * number`).\n- `cube(number)`: Returns the cube of the number (`number * number * number`).\n- `is_even(number)`: Returns `True` if the number is even (`number % 2 == 0`), else `False`.\n\n### Your Task:\nWrite the driver program in `main.py` that:\n1. Imports the `number_tools` module.\n2. Reads an integer from standard input using `int(input())`.\n3. Invokes `number_tools.square()`, `number_tools.cube()`, and `number_tools.is_even()`.\n4. Prints the output in the exact format shown below:\n   ```text\n   Square = <square>\n   Cube = <cube>\n   Even = <is_even>\n   ```",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["Modules", "import", "Modular Architecture", "Function Reuse", "Namespaces"],
+    "setupCode": "with open('number_tools.py', 'w') as _f:\n    _f.write('''def square(number):\n    return number * number\n\ndef cube(number):\n    return number * number * number\n\ndef is_even(number):\n    return number % 2 == 0\n''')",
+    "starterCode": "# Practice: Build and Use a Number Tools Module\n# Note: The number_tools module is provided in your environment with square(), cube(), and is_even()\n# Step 1: Import the number_tools module\n# Step 2: Read an integer from user input using int(input())\n# Step 3: Call number_tools.square(number) and print \"Square =\", <result>\n# Step 4: Call number_tools.cube(number) and print \"Cube =\", <result>\n# Step 5: Call number_tools.is_even(number) and print \"Even =\", <result>\n\n",
+    "solutionCode": "import number_tools\n\nnumber = int(input())\n\nprint(\"Square =\", number_tools.square(number))\nprint(\"Cube =\", number_tools.cube(number))\nprint(\"Even =\", number_tools.is_even(number))\n",
+    "hints": [
+      "Import the helper module at the top of your program using: `import number_tools`.",
+      "Read the input number: `number = int(input())`.",
+      "Access functions from the module using the dot syntax: `number_tools.function_name(number)`.",
+      "Output the labels with spaces around `=`: `print(\"Square =\", number_tools.square(number))`."
+    ],
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
+        "id": "tc-1",
+        "description": "Standard positive even number (6)",
+        "input": "6\n",
+        "expectedOutput": "Square = 36\nCube = 216\nEven = True",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Standard positive odd number (5)",
+        "input": "5\n",
+        "expectedOutput": "Square = 25\nCube = 125\nEven = False",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Zero boundary value (0 is even, 0 squared is 0, 0 cubed is 0)",
+        "input": "0\n",
+        "expectedOutput": "Square = 0\nCube = 0\nEven = True",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Negative odd number (-3)",
+        "input": "-3\n",
+        "expectedOutput": "Square = 9\nCube = -27\nEven = False",
+        "isHidden": true
       }
     ]
   }

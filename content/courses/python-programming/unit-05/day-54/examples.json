@@ -1,8 +1,26 @@
 [
   {
-    "id": "ex-day-54-1",
-    "title": "Basic Usage of Pandas Series & DataFrames",
-    "code": "# Example for Pandas Series & DataFrames\nprint('Day 54 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-day-54-01",
+    "title": "Creating Series: Default vs Custom Indexing",
+    "description": "Compare default 0-indexed Series with semantically labeled custom indices.",
+    "code": "import pandas as pd\n\n# 1. Default integer index\ndefault_s = pd.Series([10, 20, 30])\nprint(\"Default Index Series:\")\nprint(default_s)\n\n# 2. Custom string labels\ncustom_s = pd.Series([85, 92, 78], index=[\"Arun\", \"Priya\", \"Rahul\"])\nprint(\"\\nCustom Labeled Series:\")\nprint(custom_s)\n"
+  },
+  {
+    "id": "ex-day-54-02",
+    "title": "Accessing Elements: .loc vs .iloc",
+    "description": "Retrieve values by name using .loc and by integer offset using .iloc.",
+    "code": "import pandas as pd\n\nmarks = pd.Series([85, 92, 78, 88], index=[\"Arun\", \"Priya\", \"Rahul\", \"Meena\"])\n\n# Label-based (.loc)\nprint(\"Priya's Score (.loc):\", marks.loc[\"Priya\"])\nprint(\"Multi-Select (.loc):\\n\", marks.loc[[\"Arun\", \"Rahul\"]], sep=\"\")\n\n# Position-based (.iloc)\nprint(\"\\nFirst Student (.iloc[0]):\", marks.iloc[0])\nprint(\"Last Student (.iloc[-1]): \", marks.iloc[-1])\nprint(\"Sliced (.iloc[1:3]):\\n\", marks.iloc[1:3], sep=\"\")\n"
+  },
+  {
+    "id": "ex-day-54-03",
+    "title": "Modifying Series and Appending Labels",
+    "description": "Mutate existing values and expand a Series dynamically with new labels.",
+    "code": "import pandas as pd\n\nscores = pd.Series([80, 70, 90], index=[\"Maths\", \"English\", \"Science\"])\nprint(\"Original Series:\\n\", scores, sep=\"\")\n\n# Update English in-place\nscores.loc[\"English\"] = 85\n\n# Add Computer as a new subject\nscores.loc[\"Computer\"] = 95\n\nprint(\"\\nModified & Expanded Series:\\n\", scores, sep=\"\")\n"
+  },
+  {
+    "id": "ex-day-54-04",
+    "title": "Series Arithmetic & Summary Statistics",
+    "description": "Apply vectorized scalar calculations and compute essential descriptive statistics.",
+    "code": "import pandas as pd\n\nsales = pd.Series([1000, 1500, 1200, 1800], index=[\"Mon\", \"Tue\", \"Wed\", \"Thu\"])\n\n# 10% bonus scaling\nscaled_sales = sales * 1.10\nprint(\"10% Scaled Sales:\\n\", scaled_sales, sep=\"\")\n\n# Summary stats\nprint(\"\\nTotal Sales:  \", sales.sum())\nprint(\"Average Sales:\", sales.mean())\nprint(\"Peak Day:     \", sales.max())\nprint(\"Slowest Day:  \", sales.min())\n"
   }
 ]

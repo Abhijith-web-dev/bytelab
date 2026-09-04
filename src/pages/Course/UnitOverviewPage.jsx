@@ -41,31 +41,31 @@ export function UnitOverviewPage() {
         ctaLink={`/courses/${courseId}/chapter/${chapters[0] || 'day-01'}`}
       />
 
-      <main className="max-w-[1140px] mx-auto w-full px-4 md:px-8 py-10 space-y-10">
+      <main className="max-w-[1140px] mx-auto w-full px-4 md:px-8 py-10 sm:py-14 space-y-10">
         {/* Unit Hero Card */}
-        <div className="p-8 rounded-[12px] bg-[#fafafa] border border-[#e5e5e5] space-y-4 shadow-xs">
+        <div className="p-8 sm:p-10 rounded-[22px] bg-[#eeece7]/40 border border-[#d9d9dd] space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-[13px] font-bold text-black font-mono">
+            <span className="text-[12px] font-bold text-[#17171c] font-mono bg-white border border-[#d9d9dd] px-2.5 py-0.5 rounded-full">
               {course.code} • {unit.romanNumber}
             </span>
             <div className="flex items-center gap-2">
-              <Badge variant="co">{unit.outcomes[0]}</Badge>
-              <Badge variant="default">{unit.periods} Periods</Badge>
+              <Badge variant="coral">{unit.outcomes[0]}</Badge>
+              <Badge variant="stone">{unit.periods} Periods</Badge>
             </div>
           </div>
 
-          <h1 className="text-[28px] sm:text-[34px] font-semibold text-[#000000] tracking-tight">
+          <h1 className="text-[28px] sm:text-[38px] font-medium text-[#17171c] tracking-tight leading-tight">
             {unit.title}
           </h1>
 
-          <p className="text-[15px] text-[#737373] max-w-2xl leading-relaxed">
+          <p className="text-[16px] text-[#75758a] max-w-2xl leading-relaxed">
             {unit.description}
           </p>
 
-          <div className="pt-3 flex items-center gap-4 text-[13px] text-[#737373]">
+          <div className="pt-3 flex items-center gap-4 text-[13px] text-[#75758a]">
             <span>{completedInUnit} of {chapters.length} lectures completed</span>
             <span>•</span>
-            <Link to={`/tests?unit=${unit.id}`} className="text-black hover:underline flex items-center gap-1 font-medium">
+            <Link to={`/tests?unit=${unit.id}`} className="text-[#17171c] hover:underline flex items-center gap-1 font-medium">
               <span>Take Section Assessment</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -74,7 +74,7 @@ export function UnitOverviewPage() {
 
         {/* Chapters Grid */}
         <div className="space-y-4">
-          <h2 className="text-[20px] font-semibold text-[#000000] tracking-tight">
+          <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
             Section Lectures & Simulations
           </h2>
 
@@ -86,12 +86,12 @@ export function UnitOverviewPage() {
               return (
                 <Card
                   key={chFolder}
-                  className="p-6 flex flex-col justify-between"
+                  className="p-6 flex flex-col justify-between rounded-[18px] bg-white border border-[#d9d9dd]"
                   hoverable={true}
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[12px] font-mono text-[#737373]">
+                      <span className="text-[12px] font-mono text-[#75758a]">
                         Lecture {idx + 1}
                       </span>
                       {isCompleted ? (
@@ -100,24 +100,24 @@ export function UnitOverviewPage() {
                           <span>Completed</span>
                         </div>
                       ) : (
-                        <Badge variant={ch?.difficulty || 'beginner'}>
+                        <Badge variant="stone">
                           {ch?.difficulty || 'Beginner'}
                         </Badge>
                       )}
                     </div>
 
-                    <h3 className="text-[16px] font-semibold text-[#000000] leading-snug">
+                    <h3 className="text-[17px] font-medium text-[#17171c] leading-snug">
                       {ch?.title || chFolder}
                     </h3>
 
-                    <p className="text-[13px] text-[#737373] leading-relaxed line-clamp-2">
+                    <p className="text-[13px] text-[#75758a] leading-relaxed line-clamp-2">
                       {ch?.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-[#f0f0f0] mt-4 flex items-center justify-between">
-                    <span className="text-[12px] text-[#737373] flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5" />
+                  <div className="pt-4 border-t border-[#d9d9dd] mt-4 flex items-center justify-between">
+                    <span className="text-[12px] text-[#75758a] flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-[#17171c]" />
                       <span>~{ch?.estimatedMinutes || 20} min lecture</span>
                     </span>
 

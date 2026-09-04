@@ -1,16 +1,41 @@
 [
   {
-    "id": "prob-day-51",
-    "title": "Practice: Indexing and Slicing of NumPy Array",
-    "description": "Write a Python script that demonstrates indexing and slicing of numpy array.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Indexing and Slicing of NumPy Array\nprint('Success')",
+    "id": "prob-day-51-01",
+    "title": "Select Student Marks Using NumPy Indexing and Slicing",
+    "difficulty": "beginner",
+    "estimatedMinutes": 20,
+    "description": "A teacher stores the marks of 4 students in 3 subjects (Maths, English, Science) using a 2D NumPy array with shape (4, 3). Write a Python program that reads 12 integer values from input if provided (or uses the default marks matrix) and displays the first student's marks, last student's marks, all Maths marks (column 0), all Science marks (column 2), the second student's English mark (row 1, column 1), the first two students' marks (rows 0:2), and the Science marks of the first two students.",
+    "starterCode": "# Select Student Marks Using NumPy Indexing and Slicing\n#\n# Step 1: Import the numpy library as np and sys.\n# Step 2: Read 12 integer marks from sys.stdin.read().split() if available, or initialize the 4x3 array:\n#         [[80, 75, 90], [70, 85, 88], [92, 78, 95], [65, 72, 80]]\n# Step 3: Print 'First Student:' followed by the first row using indexing marks[0].\n# Step 4: Print 'Last Student:' followed by the last row using negative indexing marks[-1].\n# Step 5: Print 'Maths Marks:' followed by column 0 across all rows marks[:, 0].\n# Step 6: Print 'Science Marks:' followed by column 2 across all rows marks[:, 2].\n# Step 7: Print 'Second Student English Mark:' followed by row 1, column 1 marks[1, 1].\n# Step 8: Print 'First Two Students:' followed by rows 0 to 2 slice marks[0:2, :].\n# Step 9: Print 'Science Marks of First Two Students:' followed by marks[0:2, 2].\n",
+    "solutionCode": "import sys\nimport numpy as np\n\nraw = sys.stdin.read().split()\nif len(raw) >= 12:\n    marks = np.array([int(x) for x in raw[:12]]).reshape(4, 3)\nelse:\n    marks = np.array([\n        [80, 75, 90],\n        [70, 85, 88],\n        [92, 78, 95],\n        [65, 72, 80]\n    ])\n\nprint(\"First Student:\", marks[0])\nprint(\"Last Student:\", marks[-1])\nprint(\"Maths Marks:\", marks[:, 0])\nprint(\"Science Marks:\", marks[:, 2])\nprint(\"Second Student English Mark:\", marks[1, 1])\nprint(\"First Two Students:\")\nprint(marks[0:2, :])\nprint(\"Science Marks of First Two Students:\", marks[0:2, 2])\n",
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
-        "isHidden": false
+        "id": "tc-1",
+        "name": "Standard Cohort Marks",
+        "stdin": "80 75 90 70 85 88 92 78 95 65 72 80",
+        "expectedOutput": "First Student: [80 75 90]\nLast Student: [65 72 80]\nMaths Marks: [80 70 92 65]\nScience Marks: [90 88 95 80]\nSecond Student English Mark: 85\nFirst Two Students:\n[[80 75 90]\n [70 85 88]]\nScience Marks of First Two Students: [90 88]",
+        "explanation": "Extracts first/last row, Maths/Science columns, individual cell marks[1, 1], and 2D sub-matrix slices."
+      },
+      {
+        "id": "tc-2",
+        "name": "Secondary Assessment Scores",
+        "stdin": "60 70 80 75 85 95 90 88 92 65 78 85",
+        "expectedOutput": "First Student: [60 70 80]\nLast Student: [65 78 85]\nMaths Marks: [60 75 90 65]\nScience Marks: [80 95 92 85]\nSecond Student English Mark: 85\nFirst Two Students:\n[[60 70 80]\n [75 85 95]]\nScience Marks of First Two Students: [80 95]",
+        "explanation": "Alternative mark matrix verifying dynamic input parsing and multi-axis slicing."
+      },
+      {
+        "id": "tc-3",
+        "name": "High Achievement Cohort",
+        "stdin": "88 92 95 84 86 90 91 94 96 79 83 87",
+        "expectedOutput": "First Student: [88 92 95]\nLast Student: [79 83 87]\nMaths Marks: [88 84 91 79]\nScience Marks: [95 90 96 87]\nSecond Student English Mark: 86\nFirst Two Students:\n[[88 92 95]\n [84 86 90]]\nScience Marks of First Two Students: [95 90]",
+        "explanation": "High scoring batch correctly sliced across rows and columns."
       }
+    ],
+    "hints": [
+      "Access the first student with row index 0: marks[0]",
+      "Access the last student with negative index -1: marks[-1]",
+      "To select a whole column, use the colon for rows: marks[:, 0] for Maths and marks[:, 2] for Science",
+      "For student 2's English mark, specify row 1 and column 1: marks[1, 1]",
+      "Slice the first two students with marks[0:2, :], and their Science marks with marks[0:2, 2]"
     ]
   }
 ]

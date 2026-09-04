@@ -1,8 +1,26 @@
 [
   {
-    "id": "ex-day-55-1",
-    "title": "Basic Usage of Selection and Indexing in Pandas",
-    "code": "# Example for Selection and Indexing in Pandas\nprint('Day 55 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-day-55-01",
+    "title": "Creating DataFrames: Dictionaries of Lists vs Records",
+    "description": "Demonstrates the two most popular ways to instantiate 2D labeled DataFrames.",
+    "code": "import pandas as pd\n\n# 1. Dictionary of lists (column-oriented)\ndata_cols = {\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\"],\n    \"Age\": [20, 19, 21],\n    \"Mark\": [85, 92, 78]\n}\ndf1 = pd.DataFrame(data_cols)\nprint(\"Column-Oriented DataFrame:\\n\", df1, sep=\"\")\n\n# 2. List of dictionaries (row-oriented)\ndata_rows = [\n    {\"Name\": \"Arun\", \"City\": \"Chennai\"},\n    {\"Name\": \"Priya\", \"City\": \"Bengaluru\"}\n]\ndf2 = pd.DataFrame(data_rows)\nprint(\"\\nRow-Oriented DataFrame:\\n\", df2, sep=\"\")\n"
+  },
+  {
+    "id": "ex-day-55-02",
+    "title": "Accessing Columns, Rows, and Cells (.loc vs .iloc)",
+    "description": "Select individual columns as Series, multi-columns as DataFrames, and target specific cells.",
+    "code": "import pandas as pd\n\nstudents = pd.DataFrame({\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\"],\n    \"Age\": [20, 19, 21],\n    \"Mark\": [85, 92, 78]\n})\n\n# 1. Column selection\nprint(\"Single Column (Series):\\n\", students[\"Name\"], sep=\"\")\nprint(\"\\nMulti-Column (DataFrame):\\n\", students[[\"Name\", \"Mark\"]], sep=\"\")\n\n# 2. Row access\nprint(\"\\nFirst Row (.iloc[0]):\\n\", students.iloc[0].to_string(), sep=\"\")\n\n# 3. Cell coordinate access\nprint(\"\\nPriya's Mark (.loc[1, 'Mark']):\", students.loc[1, \"Mark\"])\nprint(\"Priya's Mark (.iloc[1, 2]):      \", students.iloc[1, 2])\n"
+  },
+  {
+    "id": "ex-day-55-03",
+    "title": "Modifying Cells & Adding Calculated Columns",
+    "description": "Perform in-place mutations and vectorized column arithmetic to expand tables dynamically.",
+    "code": "import pandas as pd\n\nstudents = pd.DataFrame({\n    \"Name\": [\"Arun\", \"Priya\", \"Rahul\"],\n    \"Mark\": [80, 90, 75]\n})\n\n# Add calculated bonus column\nstudents[\"UpdatedMark\"] = students[\"Mark\"] + 5\n\n# Modify one cell in-place\nstudents.loc[2, \"Mark\"] = 78\nstudents[\"UpdatedMark\"] = students[\"Mark\"] + 5\n\n# Add conditional status column\nstudents[\"Result\"] = [\"Pass\" if m >= 80 else \"Review\" for m in students[\"UpdatedMark\"]]\n\nprint(\"Expanded DataFrame:\\n\", students, sep=\"\")\n"
+  },
+  {
+    "id": "ex-day-55-04",
+    "title": "Real-World Table: Product Inventory Billing",
+    "description": "Build a multi-step commercial billing pipeline calculating subtotals, discounts, and final amounts.",
+    "code": "import pandas as pd\n\nproducts = pd.DataFrame({\n    \"Product\": [\"Pen\", \"Bag\", \"Shoes\"],\n    \"Price\": [20, 500, 1500],\n    \"Quantity\": [5, 2, 1]\n})\n\n# Calculate subtotal\nproducts[\"Subtotal\"] = products[\"Price\"] * products[\"Quantity\"]\n\n# Apply 10% discount\nproducts[\"Discount\"] = products[\"Subtotal\"] * 0.10\n\n# Calculate final bill\nproducts[\"Payable\"] = products[\"Subtotal\"] - products[\"Discount\"]\n\nprint(\"Commercial Inventory Table:\\n\", products, sep=\"\")\nprint(\"\\nGrand Total Payable:\", products[\"Payable\"].sum())\n"
   }
 ]

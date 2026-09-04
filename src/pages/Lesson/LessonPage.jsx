@@ -257,13 +257,13 @@ export function LessonPage() {
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Difficulty Badge */}
             <div className="hidden sm:flex mr-1">
-              <Badge variant="success" className="text-[11px] px-2 py-0.5">Beginner</Badge>
+              <Badge variant="stone" className="text-[11px] px-2.5 py-0.5">Beginner</Badge>
             </div>
 
             {/* Mobile Syllabus Drawer Trigger */}
             <button
               onClick={toggleMobileCurriculum}
-              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-[#fafafa] border border-[#e5e5e5] text-[12px] font-medium text-black"
+              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-white border border-[#d9d9dd] text-[12px] font-medium text-[#17171c]"
               aria-label="Open Syllabus"
             >
               <Menu className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1" />
@@ -275,8 +275,8 @@ export function LessonPage() {
               onClick={toggleFocusMode}
               className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 ${
                 isFocusMode
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'bg-[#fafafa] text-[#525252] hover:text-black border border-[#e5e5e5]'
+                  ? 'bg-[#17171c] text-white shadow-xs'
+                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
               }`}
               title="Toggle Focus Mode"
             >
@@ -293,8 +293,8 @@ export function LessonPage() {
               onClick={toggleStoryMode}
               className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 ${
                 isStoryMode
-                  ? 'bg-amber-500 text-white shadow-xs'
-                  : 'bg-[#fafafa] text-[#525252] hover:text-black border border-[#e5e5e5]'
+                  ? 'bg-[#ff7759] text-white shadow-xs'
+                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
               }`}
               title="Toggle Story Mode"
             >
@@ -319,12 +319,12 @@ export function LessonPage() {
           <div className="fixed inset-0 z-50 md:hidden flex animate-in fade-in duration-150">
             <div className="fixed inset-0 bg-black/40 backdrop-blur-xs" onClick={closeMobileCurriculum} />
             <div className="relative w-[300px] sm:w-[360px] max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
-              <div className="p-4 border-b border-[#e5e5e5] flex items-center justify-between bg-[#fafafa]">
+              <div className="p-4 border-b border-[#d9d9dd] flex items-center justify-between bg-[#eeece7]/40">
                 <div className="flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-black" />
-                  <span className="font-semibold text-[14px]">65-Day Syllabus</span>
+                  <BookOpen className="w-4 h-4 text-[#17171c]" />
+                  <span className="font-semibold text-[14px] text-[#17171c]">65-Day Syllabus</span>
                 </div>
-                <button onClick={closeMobileCurriculum} className="p-1 text-[#737373] hover:text-black rounded-full">
+                <button onClick={closeMobileCurriculum} className="p-1 text-[#75758a] hover:text-[#17171c] rounded-full">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -338,19 +338,19 @@ export function LessonPage() {
         {/* Center: Main Lecture Player Workspace */}
         <main className="flex-1 min-w-0 p-4 md:p-8 lg:p-10 max-w-4xl mx-auto space-y-8">
           {/* Lecture Hero Banner */}
-          <div className="space-y-3 pb-6 border-b border-[#e5e5e5]">
+          <div className="space-y-3 pb-6 border-b border-[#d9d9dd]">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div className="flex items-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap pb-1 sm:pb-0 w-full sm:w-auto">
-                <Badge variant="co">{chapter?.outcomes?.[0] || 'CO1'}</Badge>
-                <Badge variant={chapter?.difficulty || 'beginner'}>
+                <Badge variant="coral">{chapter?.outcomes?.[0] || 'CO1'}</Badge>
+                <Badge variant="stone">
                   {chapter?.difficulty || 'Beginner'}
                 </Badge>
-                <span className="text-[13px] text-[#737373] flex items-center gap-1 font-mono shrink-0">
+                <span className="text-[13px] text-[#75758a] flex items-center gap-1 font-mono shrink-0">
                   <Clock className="w-3.5 h-3.5" />
                   <span>~20 min</span>
                 </span>
                 {chapter?.simulationType && (
-                  <span className="text-[11px] font-mono bg-[#fafafa] border border-[#e5e5e5] text-black px-2 py-0.5 rounded-full shrink-0">
+                  <span className="text-[11px] font-mono bg-white border border-[#d9d9dd] text-[#17171c] px-2.5 py-0.5 rounded-full shrink-0">
                     {chapter.simulationType}
                   </span>
                 )}
@@ -364,35 +364,35 @@ export function LessonPage() {
               )}
             </div>
 
-            <h1 className="text-[24px] sm:text-[32px] font-semibold text-[#000000] tracking-tight leading-tight">
+            <h1 className="text-[26px] sm:text-[36px] font-medium text-[#17171c] tracking-tight leading-tight">
               {chapter?.title || chapterId}
             </h1>
 
-            <p className="text-[14px] sm:text-[15px] text-[#737373] leading-relaxed">
+            <p className="text-[15px] text-[#75758a] leading-relaxed">
               {chapter?.description}
             </p>
 
             {/* Story Mode vs Academic Mode Toggle Banner */}
-            <div className="p-3.5 rounded-[10px] bg-[#fafafa] border border-[#e5e5e5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isStoryMode ? 'bg-amber-500 text-white' : 'bg-black text-white'}`}>
+            <div className="p-4 rounded-[16px] bg-[#eeece7]/40 border border-[#d9d9dd] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isStoryMode ? 'bg-[#ff7759] text-white' : 'bg-[#17171c] text-white'}`}>
                   {isStoryMode ? <Sparkles className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
                 </div>
                 <div>
-                  <span className="text-[13px] font-semibold text-black block">
+                  <span className="text-[13px] font-semibold text-[#17171c] block">
                     {isStoryMode ? 'Storytelling & Intuitive Analogy Mode' : 'Standard Academic Mode'}
                   </span>
-                  <span className="text-[12px] text-[#737373]">
+                  <span className="text-[12px] text-[#75758a]">
                     {isStoryMode ? 'Explained with everyday real-world metaphors for intuitive understanding.' : 'Direct, technical explanations with code examples.'}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 bg-white p-1 rounded-full border border-[#e5e5e5] shrink-0 self-start sm:self-auto">
+              <div className="flex items-center gap-1 bg-white p-1 rounded-full border border-[#d9d9dd] shrink-0 self-start sm:self-auto">
                 <button
                   onClick={() => useUIStore.getState().setStoryMode(false)}
                   className={`px-3 py-1 rounded-full text-[12px] font-medium transition-all cursor-pointer ${
-                    !isStoryMode ? 'bg-black text-white shadow-xs' : 'text-[#737373] hover:text-black'
+                    !isStoryMode ? 'bg-[#17171c] text-white shadow-xs' : 'text-[#75758a] hover:text-[#17171c]'
                   }`}
                 >
                   Standard
@@ -400,7 +400,7 @@ export function LessonPage() {
                 <button
                   onClick={() => useUIStore.getState().setStoryMode(true)}
                   className={`px-3 py-1 rounded-full text-[12px] font-medium transition-all cursor-pointer flex items-center gap-1 ${
-                    isStoryMode ? 'bg-amber-500 text-white shadow-xs' : 'text-[#737373] hover:text-black'
+                    isStoryMode ? 'bg-[#ff7759] text-white shadow-xs' : 'text-[#75758a] hover:text-[#17171c]'
                   }`}
                 >
                   <Sparkles className="w-3 h-3 fill-current" />
@@ -410,13 +410,13 @@ export function LessonPage() {
             </div>
 
             {/* Learning Workspace Tab Navigation */}
-            <div className="flex items-center gap-2 pt-4 overflow-x-auto no-scrollbar border-t border-[#f0f0f0]">
+            <div className="flex items-center gap-2 pt-4 overflow-x-auto no-scrollbar border-t border-[#d9d9dd]">
               <button
                 onClick={() => setActiveTab('notes')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'notes'
-                    ? 'bg-[#000000] text-white shadow-xs'
-                    : 'bg-[#fafafa] text-[#525252] hover:text-[#000000] border border-[#e5e5e5]'
+                    ? 'bg-[#17171c] text-white shadow-xs'
+                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
                 }`}
               >
                 <BookOpen className="w-3.5 h-3.5" />
@@ -428,11 +428,11 @@ export function LessonPage() {
                   onClick={() => setActiveTab('simulation')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'simulation'
-                      ? 'bg-[#000000] text-white shadow-xs'
-                      : 'bg-[#fafafa] text-[#525252] hover:text-[#000000] border border-[#e5e5e5]'
+                      ? 'bg-[#17171c] text-white shadow-xs'
+                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
                   }`}
                 >
-                  <Cpu className="w-3.5 h-3.5 text-emerald-500" />
+                  <Cpu className="w-3.5 h-3.5 text-[#003c33]" />
                   <span>Interactive Simulation</span>
                 </button>
               )}
@@ -441,11 +441,11 @@ export function LessonPage() {
                 onClick={() => setActiveTab('sandbox')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'sandbox'
-                    ? 'bg-[#000000] text-white shadow-xs'
-                    : 'bg-[#fafafa] text-[#525252] hover:text-[#000000] border border-[#e5e5e5]'
+                    ? 'bg-[#17171c] text-white shadow-xs'
+                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
                 }`}
               >
-                <Terminal className="w-3.5 h-3.5 text-blue-500" />
+                <Terminal className="w-3.5 h-3.5 text-[#1863dc]" />
                 <span>Live Sandbox & Diagnostics</span>
               </button>
 
@@ -454,11 +454,11 @@ export function LessonPage() {
                   onClick={() => setActiveTab('quiz')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'quiz'
-                      ? 'bg-[#000000] text-white shadow-xs'
-                      : 'bg-[#fafafa] text-[#525252] hover:text-[#000000] border border-[#e5e5e5]'
+                      ? 'bg-[#17171c] text-white shadow-xs'
+                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
                   }`}
                 >
-                  <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
+                  <HelpCircle className="w-3.5 h-3.5 text-[#ff7759]" />
                   <span>Quick Check ({quizQuestions.length})</span>
                 </button>
               )}
@@ -468,11 +468,11 @@ export function LessonPage() {
                   onClick={() => setActiveTab('practice')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'practice'
-                      ? 'bg-[#000000] text-white shadow-xs'
-                      : 'bg-[#fafafa] text-[#525252] hover:text-[#000000] border border-[#e5e5e5]'
+                      ? 'bg-[#17171c] text-white shadow-xs'
+                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
                   }`}
                 >
-                  <Target className="w-3.5 h-3.5 text-purple-500" />
+                  <Target className="w-3.5 h-3.5 text-[#ff7759]" />
                   <span>Practice ({problems.length})</span>
                 </button>
               )}
@@ -493,22 +493,22 @@ export function LessonPage() {
 
               {/* Interactive Examples Section (W3Schools-style) */}
               {examples.length > 0 && (
-                <section className="space-y-6 pt-6 border-t border-[#e5e5e5]">
+                <section className="space-y-6 pt-6 border-t border-[#d9d9dd]">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-[18px] sm:text-[20px] font-semibold text-[#000000] tracking-tight flex items-center gap-2">
-                      <Terminal className="w-5 h-5 text-[#000000]" />
+                    <h2 className="text-[19px] sm:text-[22px] font-medium text-[#17171c] tracking-tight flex items-center gap-2">
+                      <Terminal className="w-5 h-5 text-[#17171c]" />
                       <span>Try It Yourself (Interactive Demos)</span>
                     </h2>
-                    <span className="text-[12px] text-[#737373]">
+                    <span className="text-[12px] text-[#75758a]">
                       Executable Sandbox Blocks
                     </span>
                   </div>
 
                   <div className="space-y-6">
                     {examples.map((ex) => (
-                      <div key={ex.id} className="rounded-[12px] bg-white border border-[#e5e5e5] overflow-hidden shadow-xs">
-                        <div className="px-5 py-3 bg-[#fafafa] border-b border-[#e5e5e5] flex items-center justify-between">
-                          <h3 className="text-[14px] font-semibold text-[#000000]">{ex.title}</h3>
+                      <div key={ex.id} className="rounded-[16px] bg-white border border-[#d9d9dd] overflow-hidden">
+                        <div className="px-5 py-3 bg-[#eeece7]/40 border-b border-[#d9d9dd] flex items-center justify-between">
+                          <h3 className="text-[14px] font-semibold text-[#17171c]">{ex.title}</h3>
                           <Button
                             variant="primary"
                             size="sm"
@@ -522,19 +522,19 @@ export function LessonPage() {
 
                         <div className="p-5 space-y-4">
                           {ex.description && (
-                            <p className="text-[14px] text-[#737373]">{ex.description}</p>
+                            <p className="text-[14px] text-[#75758a]">{ex.description}</p>
                           )}
 
-                          <div className="rounded-[8px] bg-[#171717] text-white p-4 font-mono text-[13px] overflow-x-auto">
+                          <div className="rounded-[10px] bg-[#17171c] text-white p-4 font-mono text-[13px] overflow-x-auto">
                             <pre><code>{ex.code}</code></pre>
                           </div>
 
-                          <div className="p-3.5 rounded-[8px] bg-[#fafafa] border border-[#e5e5e5] text-[13px] font-mono">
-                            <span className="text-[#737373] text-[11px] block font-sans mb-1 font-semibold uppercase">Expected Output:</span>
-                            <pre className="text-emerald-700 whitespace-pre-wrap"><code>{ex.expectedOutput}</code></pre>
+                          <div className="p-3.5 rounded-[10px] bg-[#eeece7]/40 border border-[#d9d9dd] text-[13px] font-mono">
+                            <span className="text-[#75758a] text-[11px] block font-sans mb-1 font-semibold uppercase">Expected Output:</span>
+                            <pre className="text-[#003c33] font-semibold whitespace-pre-wrap"><code>{ex.expectedOutput}</code></pre>
                           </div>
 
-                          <p className="text-[13px] text-[#525252] leading-relaxed bg-[#fafafa] p-3 rounded-[8px] border border-[#e5e5e5]">
+                          <p className="text-[13px] text-[#212121] leading-relaxed bg-[#eeece7]/30 p-3 rounded-[10px] border border-[#d9d9dd]">
                             💡 <b>Deep Explanation:</b> {ex.explanation}
                           </p>
                         </div>
@@ -550,10 +550,10 @@ export function LessonPage() {
           {activeTab === 'simulation' && simulationData && (
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="space-y-1">
-                <h2 className="text-[20px] font-semibold text-[#000000] tracking-tight">
+                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
                   Visual Execution Simulation ({chapter?.simulationType || 'Simulation'})
                 </h2>
-                <p className="text-[14px] text-[#737373]">
+                <p className="text-[14px] text-[#75758a]">
                   Step through execution line by line to watch variable bindings and states update in real time.
                 </p>
               </div>
@@ -571,14 +571,14 @@ export function LessonPage() {
           {activeTab === 'sandbox' && (
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="space-y-1">
-                <h2 className="text-[20px] font-semibold text-[#000000] tracking-tight">
+                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
                   Interactive Python 3.11 Sandbox & Diagnostic Engine
                 </h2>
-                <p className="text-[14px] text-[#737373]">
+                <p className="text-[14px] text-[#75758a]">
                   Write, run, and debug Python code. In case of errors, the diagnostic engine highlights the exact line and provides fix recommendations.
                 </p>
               </div>
-              <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#e5e5e5] rounded-[16px] text-[#737373]">Loading interactive IDE...</div>}>
+              <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#75758a]">Loading interactive IDE...</div>}>
                 <CodePlayground
                   code={sandboxCode}
                   onChange={(c) => setSandboxCode(c)}
@@ -599,48 +599,47 @@ export function LessonPage() {
           {/* TAB 4: Concept Quiz */}
           {activeTab === 'quiz' && quizQuestions.length > 0 && (
             <div className="space-y-6 animate-in fade-in duration-150">
-              <div className="space-y-2">
-                <h2 className="text-[22px] font-bold text-slate-900 tracking-tight">
+              <div className="space-y-1">
+                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
                   Knowledge Check & Predictions
                 </h2>
-                <p className="text-[15px] text-slate-600 font-medium">
+                <p className="text-[14px] text-[#75758a]">
                   Verify your comprehension of the day's concepts before moving forward.
                 </p>
               </div>
 
               <div className="space-y-6">
                 {randomizedQuiz.map((q, qIdx) => (
-                  <div key={q.id || qIdx} className="p-6 rounded-[16px] bg-white border border-slate-200 shadow-sm space-y-5">
-                    <p className="text-[16px] font-semibold text-slate-900 leading-relaxed">
+                  <div key={q.id || qIdx} className="p-6 rounded-[18px] bg-white border border-[#d9d9dd] space-y-5">
+                    <p className="text-[16px] font-medium text-[#17171c] leading-relaxed">
                       {qIdx + 1}. {q.question}
                     </p>
 
                     {q.codeSnippet && (
-                      <pre className="p-4 bg-[#0f111a] text-slate-50 text-[14px] leading-loose rounded-[10px] border border-slate-800 font-mono overflow-x-auto shadow-inner">
+                      <pre className="p-4 bg-[#17171c] text-white text-[13px] leading-loose rounded-[10px] border border-white/10 font-mono overflow-x-auto">
                         <code>{q.codeSnippet}</code>
                       </pre>
                     )}
 
-                    <div className="space-y-3">
+                    <div className="space-y-2.5">
                       {q.options.map((optItem, optIdx) => {
-                        // Handle both string options and object options safely
                         const optId = typeof optItem === 'object' ? optItem.id : String(optIdx);
                         const optText = typeof optItem === 'object' ? optItem.text : String(optItem);
                         const isCorrect = typeof optItem === 'object' ? optItem.isCorrect : (q.correctAnswer === optIdx);
                         
                         const isSelected = selectedAnswers[q.id] === optId;
-                        let optionStyle = 'bg-white border-slate-200 text-slate-700 hover:border-slate-400 hover:bg-slate-50 shadow-sm';
+                        let optionStyle = 'bg-white border-[#d9d9dd] text-[#212121] hover:border-[#17171c]';
 
                         if (quizSubmitted) {
                           if (isCorrect) {
-                            optionStyle = 'bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-sm ring-1 ring-emerald-500';
+                            optionStyle = 'bg-emerald-50 border-emerald-500 text-emerald-900 font-semibold ring-1 ring-emerald-500';
                           } else if (isSelected && !isCorrect) {
-                            optionStyle = 'bg-red-50 border-red-300 text-red-900 font-semibold opacity-90';
+                            optionStyle = 'bg-red-50 border-red-300 text-red-900 font-medium';
                           } else {
-                            optionStyle = 'bg-white border-slate-200 text-slate-400 opacity-60 cursor-not-allowed';
+                            optionStyle = 'bg-white border-[#d9d9dd] text-[#93939f] opacity-60 cursor-not-allowed';
                           }
                         } else if (isSelected) {
-                          optionStyle = 'bg-slate-900 text-white border-slate-900 shadow-md ring-2 ring-slate-900 ring-offset-1 font-semibold';
+                          optionStyle = 'bg-[#17171c] text-white border-[#17171c] font-medium';
                         }
 
                         return (
@@ -648,7 +647,7 @@ export function LessonPage() {
                             key={optId}
                             onClick={() => !quizSubmitted && handleOptionSelect(q.id, optId)}
                             disabled={quizSubmitted}
-                            className={`w-full text-left px-4 py-3.5 rounded-[10px] border text-[14px] transition-all duration-200 ease-in-out flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-slate-400 ${
+                            className={`w-full text-left px-4 py-3 rounded-[10px] border text-[14px] transition-all duration-150 flex items-center justify-between ${
                               !quizSubmitted ? 'cursor-pointer' : ''
                             } ${optionStyle}`}
                           >
@@ -662,9 +661,9 @@ export function LessonPage() {
                     </div>
 
                     {quizSubmitted && q.explanation && (
-                      <div className="mt-4 p-4 bg-blue-50/80 rounded-[10px] border border-blue-200 text-[14px] text-blue-900 leading-relaxed shadow-sm">
-                        <span className="font-bold mr-2">💡 Explanation:</span>
-                        <span className="font-medium">{q.explanation}</span>
+                      <div className="mt-4 p-4 bg-[#eeece7]/50 rounded-[10px] border border-[#d9d9dd] text-[13px] text-[#212121] leading-relaxed">
+                        <span className="font-semibold text-[#17171c] mr-2">💡 Explanation:</span>
+                        <span>{q.explanation}</span>
                       </div>
                     )}
                   </div>
@@ -673,10 +672,10 @@ export function LessonPage() {
                 <div className="flex justify-end pt-4">
                   <Button
                     variant="primary"
-                    size="lg"
+                    size="md"
                     onClick={handleQuizSubmit}
                     disabled={quizSubmitted || Object.keys(selectedAnswers).length === 0}
-                    className="shadow-md px-8 rounded-full font-semibold"
+                    className="px-8"
                   >
                     <span>{quizSubmitted ? 'Quiz Submitted ✓' : 'Submit Answers'}</span>
                   </Button>
@@ -689,40 +688,40 @@ export function LessonPage() {
           {activeTab === 'practice' && problems && problems.length > 0 && (
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="space-y-1">
-                <h2 className="text-[20px] font-semibold text-[#000000] tracking-tight">
+                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
                   Moodle-Style Practice Assessment
                 </h2>
-                <p className="text-[14px] text-[#737373]">
-                  Write code to solve the challenge. Your solution will be automatically graded against hidden test cases.
+                <p className="text-[14px] text-[#75758a]">
+                  Write code to solve the challenge. Your solution will be automatically graded against test cases.
                 </p>
               </div>
 
-              <div className="p-6 rounded-[12px] bg-slate-50 border border-slate-200 space-y-4">
+              <div className="p-6 rounded-[18px] bg-[#eeece7]/40 border border-[#d9d9dd] space-y-4">
                 <div className="flex items-center gap-2">
-                  <Badge variant="beginner">Beginner</Badge>
-                  <h3 className="text-[18px] font-semibold tracking-tight">{problems[0].title}</h3>
+                  <Badge variant="stone">Beginner</Badge>
+                  <h3 className="text-[18px] font-medium text-[#17171c] tracking-tight">{problems[0].title}</h3>
                 </div>
                 
-                <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap">
+                <div className="text-[14px] text-[#212121] leading-relaxed whitespace-pre-wrap">
                   {problems[0].description}
                 </div>
 
                 {(problems[0].exampleInput || problems[0].exampleOutput) && (
                   <div className="pt-2">
-                    <h4 className="text-[14px] font-bold text-slate-800 mb-2">For example:</h4>
-                    <table className="text-left text-[13px] border border-slate-300 bg-white shadow-xs">
+                    <h4 className="text-[13px] font-semibold text-[#17171c] mb-2 uppercase font-mono">Example:</h4>
+                    <table className="text-left text-[13px] border border-[#d9d9dd] bg-white rounded-[8px] overflow-hidden">
                       <thead>
-                        <tr className="bg-slate-100 border-b border-slate-300">
-                          <th className="py-2 px-4 font-semibold w-[200px] border-r border-slate-300">Input</th>
-                          <th className="py-2 px-4 font-semibold min-w-[200px]">Result</th>
+                        <tr className="bg-[#eeece7]/40 border-b border-[#d9d9dd]">
+                          <th className="py-2 px-4 font-medium w-[200px] border-r border-[#d9d9dd] text-[#17171c]">Input</th>
+                          <th className="py-2 px-4 font-medium min-w-[200px] text-[#17171c]">Result</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-slate-300 text-slate-600">
+                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-[#d9d9dd] text-[#75758a]">
                             {problems[0].exampleInput}
                           </td>
-                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap text-slate-600">
+                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap text-[#75758a]">
                             {problems[0].exampleOutput}
                           </td>
                         </tr>
@@ -733,10 +732,10 @@ export function LessonPage() {
               </div>
 
               <div className="space-y-2 pt-2">
-                <div className="text-[14px] font-bold text-slate-800 flex items-center justify-between">
-                  <span>Answer:</span>
+                <div className="text-[13px] font-medium text-[#17171c] flex items-center justify-between">
+                  <span>Your Solution:</span>
                 </div>
-                <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#e5e5e5] rounded-[16px] text-[#737373]">Loading practice IDE...</div>}>
+                <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#75758a]">Loading practice IDE...</div>}>
                 <CodePlayground
                   code={practiceCode || problems[0].starterCode}
                   onChange={updatePracticeCode}
@@ -757,7 +756,7 @@ export function LessonPage() {
           )}
 
           {/* Bottom Day Pagination Controls */}
-          <div className="pt-8 border-t border-[#e5e5e5] flex items-center justify-between gap-4">
+          <div className="pt-8 border-t border-[#d9d9dd] flex items-center justify-between gap-4">
             {prev ? (
               <Link to={`/courses/${courseId}/chapter/${prev.chapterId}`}>
                 <Button variant="secondary" size="md" className="gap-2">
@@ -782,37 +781,37 @@ export function LessonPage() {
 
         {/* Right: Sleek Desktop Quick-Jump & Day Overview Sidebar */}
         {!isFocusMode && (
-          <aside className="hidden xl:flex flex-col w-[260px] 2xl:w-[280px] shrink-0 border-l border-[#e5e5e5] bg-[#fafafa]/50 p-5 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto space-y-6 select-none transition-all">
+          <aside className="hidden xl:flex flex-col w-[260px] 2xl:w-[280px] shrink-0 border-l border-[#d9d9dd] bg-[#eeece7]/20 p-5 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto space-y-6 select-none transition-all">
             {/* Day Overview Badge */}
-          <div className="space-y-2 pb-4 border-b border-[#e5e5e5]">
-            <span className="text-[11px] uppercase font-bold text-[#737373] tracking-wider block font-mono">
+          <div className="space-y-2 pb-4 border-b border-[#d9d9dd]">
+            <span className="text-[11px] uppercase font-bold text-[#75758a] tracking-wider block font-mono">
               Day Navigation
             </span>
             <div className="flex items-center justify-between">
-              <span className="text-[14px] font-bold text-black font-mono">
+              <span className="text-[14px] font-bold text-[#17171c] font-mono">
                 Day {currentIndex} of {totalCount}
               </span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-black text-white font-mono">
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#17171c] text-white font-mono">
                 {unit.outcomes[0]}
               </span>
             </div>
-            <div className="text-[12px] text-[#525252] leading-snug">
+            <div className="text-[12px] text-[#212121] leading-snug">
               {chapter?.title}
             </div>
           </div>
 
           {/* Quick Section Jump */}
           <div className="space-y-2">
-            <span className="text-[11px] uppercase font-bold text-[#737373] tracking-wider block font-mono">
+            <span className="text-[11px] uppercase font-bold text-[#75758a] tracking-wider block font-mono">
               On This Page
             </span>
             <nav className="space-y-1 text-[12px]">
               <button
                 onClick={() => setActiveTab('notes')}
-                className={`w-full text-left px-2.5 py-1.5 rounded-[6px] transition-colors flex items-center justify-between cursor-pointer ${
+                className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
                   activeTab === 'notes'
-                    ? 'bg-black text-white font-medium shadow-2xs'
-                    : 'text-[#525252] hover:bg-[#e5e5e5]/60 hover:text-black'
+                    ? 'bg-[#17171c] text-white font-medium shadow-xs'
+                    : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
                 }`}
               >
                 <div className="flex items-center gap-2 truncate">
@@ -824,14 +823,14 @@ export function LessonPage() {
               {simulationData && (
                 <button
                   onClick={() => setActiveTab('simulation')}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-[6px] transition-colors flex items-center justify-between cursor-pointer ${
+                  className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
                     activeTab === 'simulation'
-                      ? 'bg-black text-white font-medium shadow-2xs'
-                      : 'text-[#525252] hover:bg-[#e5e5e5]/60 hover:text-black'
+                      ? 'bg-[#17171c] text-white font-medium shadow-xs'
+                      : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <Cpu className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <Cpu className="w-3.5 h-3.5 text-[#003c33] shrink-0" />
                     <span className="truncate">Visual Simulation</span>
                   </div>
                 </button>
@@ -839,14 +838,14 @@ export function LessonPage() {
 
               <button
                 onClick={() => setActiveTab('sandbox')}
-                className={`w-full text-left px-2.5 py-1.5 rounded-[6px] transition-colors flex items-center justify-between cursor-pointer ${
+                className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
                   activeTab === 'sandbox'
-                    ? 'bg-black text-white font-medium shadow-2xs'
-                    : 'text-[#525252] hover:bg-[#e5e5e5]/60 hover:text-black'
+                    ? 'bg-[#17171c] text-white font-medium shadow-xs'
+                    : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
                 }`}
               >
                 <div className="flex items-center gap-2 truncate">
-                  <Terminal className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                  <Terminal className="w-3.5 h-3.5 text-[#1863dc] shrink-0" />
                   <span className="truncate">Live Sandbox & Errors</span>
                 </div>
               </button>
@@ -854,14 +853,14 @@ export function LessonPage() {
               {quizQuestions.length > 0 && (
                 <button
                   onClick={() => setActiveTab('quiz')}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-[6px] transition-colors flex items-center justify-between cursor-pointer ${
+                  className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
                     activeTab === 'quiz'
-                      ? 'bg-black text-white font-medium shadow-2xs'
-                      : 'text-[#525252] hover:bg-[#e5e5e5]/60 hover:text-black'
+                      ? 'bg-[#17171c] text-white font-medium shadow-xs'
+                      : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <HelpCircle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <HelpCircle className="w-3.5 h-3.5 text-[#ff7759] shrink-0" />
                     <span className="truncate">Knowledge Check</span>
                   </div>
                 </button>
@@ -871,21 +870,21 @@ export function LessonPage() {
 
           {/* Quick Simulation Type Card */}
           {chapter?.simulationType && (
-            <div className="p-3.5 bg-white rounded-[10px] border border-[#e5e5e5] space-y-1.5 shadow-2xs">
-              <span className="text-[10px] uppercase font-bold text-[#a3a3a3] font-mono block">
+            <div className="p-3.5 bg-white rounded-[14px] border border-[#d9d9dd] space-y-1.5 shadow-2xs">
+              <span className="text-[10px] uppercase font-bold text-[#93939f] font-mono block">
                 Simulation Engine
               </span>
-              <div className="text-[12px] font-semibold text-black">
+              <div className="text-[12px] font-semibold text-[#17171c]">
                 {chapter.simulationType}
               </div>
-              <p className="text-[11px] text-[#737373] leading-snug">
+              <p className="text-[11px] text-[#75758a] leading-snug">
                 Step-by-step state visualization for {chapter.shortTitle || chapter.title}.
               </p>
             </div>
           )}
 
           {/* Fast Day Jump Controls */}
-          <div className="pt-2 space-y-2 border-t border-[#e5e5e5]">
+          <div className="pt-2 space-y-2 border-t border-[#d9d9dd]">
             <Button
               variant="secondary"
               size="sm"

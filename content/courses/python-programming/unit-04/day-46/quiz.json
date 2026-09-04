@@ -1,14 +1,122 @@
 [
   {
     "id": "quiz-day-46-1",
-    "question": "Which of the following best describes Unit IV Practical: Copy File?",
+    "question": "What is a class in Python?",
     "options": [
-      "It manages data or execution flow.",
-      "It is a hardware component.",
-      "It only works on Windows.",
-      "It is deprecated."
+      "A blueprint or template for creating objects",
+      "A file access mode",
+      "A loop structure for processing lists",
+      "A variable that holds raw binary data"
     ],
-    "correctAnswer": 0,
-    "explanation": "Python uses this concept to manage data or execution flow logically."
+    "correctIndex": 0,
+    "explanation": "A class is an architectural blueprint or template that defines the attributes (data) and methods (behavior) that objects instantiated from it will possess."
+  },
+  {
+    "id": "quiz-day-46-2",
+    "question": "What is an object in Python?",
+    "options": [
+      "A file handling function",
+      "An instance of a class containing real data in memory",
+      "A Python module file",
+      "A directory containing an __init__.py file"
+    ],
+    "correctIndex": 1,
+    "explanation": "An object is a concrete instance created from a class blueprint, occupying memory and holding its own distinct state."
+  },
+  {
+    "id": "quiz-day-46-3",
+    "question": "Which Python keyword is used to define a class?",
+    "options": [
+      "object",
+      "define",
+      "class",
+      "new"
+    ],
+    "correctIndex": 2,
+    "explanation": "Python defines classes using the 'class' keyword followed by the class identifier and a colon, e.g., 'class Student:'."
+  },
+  {
+    "id": "quiz-day-46-4",
+    "question": "What is the primary purpose of the __init__() method?",
+    "options": [
+      "To delete an object when no longer referenced",
+      "To initialize an object's attributes upon creation",
+      "To import standard library modules",
+      "To open a file from disk"
+    ],
+    "correctIndex": 1,
+    "explanation": "The __init__() method serves as the constructor in Python; it is called automatically upon instantiation to initialize the object's instance attributes."
+  },
+  {
+    "id": "quiz-day-46-5",
+    "question": "What does the 'self' parameter refer to inside an instance method?",
+    "options": [
+      "The Python interpreter engine",
+      "The current instance of the class being operated upon",
+      "The parent module file",
+      "The root package directory"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 'self' parameter represents the specific instance on which a method is invoked, enabling access to and modification of its individual attributes."
+  },
+  {
+    "id": "quiz-day-46-6",
+    "question": "What is an attribute in the context of Object-Oriented Programming?",
+    "options": [
+      "A piece of data or state associated with an object",
+      "A loop control statement like break or continue",
+      "A directory containing submodules",
+      "An unhandled runtime exception"
+    ],
+    "correctIndex": 0,
+    "explanation": "Attributes represent state—what an object 'has'—and are accessed using the dot operator (e.g., student.name)."
+  },
+  {
+    "id": "quiz-day-46-7",
+    "question": "What is a method in Python?",
+    "options": [
+      "A standalone global variable",
+      "A function defined inside a class that operates on an instance",
+      "A system command-line argument",
+      "A file format operator"
+    ],
+    "correctIndex": 1,
+    "explanation": "Methods are functions defined inside a class definition that take 'self' as their first argument and define the behavior of the object."
+  },
+  {
+    "id": "quiz-day-46-8",
+    "question": "Given 'class Student: pass', which statement properly instantiates an object?",
+    "options": [
+      "student = Student",
+      "student = Student()",
+      "student.Student()",
+      "new Student"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Student()' calls the constructor and instantiates a new object. 'student = Student' merely assigns an alias to the class blueprint itself."
+  },
+  {
+    "id": "quiz-day-46-9",
+    "question": "Which expression correctly accesses the 'name' attribute of an object named 'student'?",
+    "options": [
+      "student.name",
+      "student.name()",
+      "student->name",
+      "student[name]"
+    ],
+    "correctIndex": 0,
+    "explanation": "Attributes are accessed directly via the dot operator without parentheses: 'student.name'."
+  },
+  {
+    "id": "quiz-day-46-10",
+    "question": "Which expression correctly calls the 'display()' method of an object named 'student'?",
+    "options": [
+      "student.display",
+      "student.display()",
+      "display.student()",
+      "student->display"
+    ],
+    "correctIndex": 1,
+    "explanation": "Methods are functions bound to objects and are invoked with parentheses and any necessary arguments: 'student.display()'."
   }
 ]

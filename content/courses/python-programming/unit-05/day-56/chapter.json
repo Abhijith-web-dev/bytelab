@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 56,
   "order": 56,
-  "title": "Day 56: Handling Missing Data",
-  "shortTitle": "Handling Missing Data",
-  "description": "Detecting, dropping, and imputing missing (NaN) values.",
+  "title": "Unit–V — Day 8: Missing Data and Combining DataFrames",
+  "shortTitle": "Missing Data & Combining DataFrames",
+  "description": "Detecting and handling missing values with isna(), fillna(), and dropna(); combining datasets using concat() (stack), merge() (match by key), and join() (match by index).",
   "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }

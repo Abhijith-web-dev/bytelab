@@ -1,15 +1,48 @@
 [
   {
-    "id": "prob-day-44",
-    "title": "Practice: Object Attributes and Methods",
-    "description": "Write a Python script that demonstrates object attributes and methods.",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Object Attributes and Methods\nprint('Success')",
+    "id": "prob-day-44-01",
+    "title": "Practice: Create and Use a Student Utility Package",
+    "description": "In professional Python software design, related modules are organized into directory-based **packages** to keep codebases scalable and cleanly separated.\n\nYour project environment has pre-configured a package named `student_tools/` containing two modules:\n1. `student_tools/marks.py`:\n   - `calculate_total(marks)`: Returns the numeric sum of the list of marks.\n   - `calculate_average(marks)`: Returns the floating-point average of the marks.\n2. `student_tools/result.py`:\n   - `check_result(marks)`: Returns `\"Pass\"` if every mark in the list is `>= 40`, otherwise returns `\"Fail\"`.\n\n### Your Task:\nWrite the driver program in `main.py` that:\n1. Imports the `marks` and `result` modules from the `student_tools` package.\n2. Reads 5 integer marks from standard input (one mark per line) and stores them in a list.\n3. Calculates total marks using `marks.calculate_total()`.\n4. Calculates average marks using `marks.calculate_average()`.\n5. Determines final pass/fail status using `result.check_result()`.\n6. Prints the results in the exact format shown below:\n   ```text\n   Total: <total>\n   Average: <average formatted to 2 decimal places>\n   Result: <status>\n   ```",
+    "difficulty": "beginner",
+    "coMapping": ["CO4"],
+    "skills": ["Packages", "from package import module", "Modular Architecture", "__init__.py", "Separation of Concerns"],
+    "setupCode": "import os\nos.makedirs('student_tools', exist_ok=True)\nwith open('student_tools/__init__.py', 'w') as _f:\n    _f.write('')\nwith open('student_tools/marks.py', 'w') as _f:\n    _f.write('''def calculate_total(marks):\n    return sum(marks)\n\ndef calculate_average(marks):\n    return sum(marks) / len(marks) if len(marks) > 0 else 0.0\n''')\nwith open('student_tools/result.py', 'w') as _f:\n    _f.write('''def check_result(marks):\n    for m in marks:\n        if m < 40:\n            return \"Fail\"\n    return \"Pass\"\n''')",
+    "starterCode": "# Practice: Create and Use a Student Utility Package\n# Note: The student_tools package is provided in your environment with:\n#   - student_tools.marks: calculate_total(marks), calculate_average(marks)\n#   - student_tools.result: check_result(marks)\n# Step 1: Import the marks and result modules from student_tools\n# Step 2: Read 5 integer marks from user input using a loop and store in a list\n# Step 3: Calculate total using marks.calculate_total(scores) and print \"Total:\", total\n# Step 4: Calculate average using marks.calculate_average(scores) and print \"Average: %.2f\" % average\n# Step 5: Determine result using result.check_result(scores) and print \"Result:\", status\n\n",
+    "solutionCode": "from student_tools import marks\nfrom student_tools import result\n\nscores = []\nfor _ in range(5):\n    scores.append(int(input()))\n\ntotal = marks.calculate_total(scores)\naverage = marks.calculate_average(scores)\nstatus = result.check_result(scores)\n\nprint(\"Total:\", total)\nprint(\"Average: %.2f\" % average)\nprint(\"Result:\", status)\n",
+    "hints": [
+      "Import the package modules using: `from student_tools import marks, result`.",
+      "Read 5 marks by iterating `for _ in range(5): scores.append(int(input()))`.",
+      "Call package functions using dot notation: `marks.calculate_total(scores)`.",
+      "Format the average to two decimal places using `%` formatting: `print(\"Average: %.2f\" % average)`."
+    ],
     "testCases": [
       {
-        "input": "",
-        "expectedOutput": "Success",
+        "id": "tc-1",
+        "description": "Standard passing marks across 5 subjects (all >= 40)",
+        "input": "80\n75\n90\n65\n85\n",
+        "expectedOutput": "Total: 395\nAverage: 79.00\nResult: Pass",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Failing case with one subject below 40 (35)",
+        "input": "80\n35\n90\n65\n85\n",
+        "expectedOutput": "Total: 355\nAverage: 71.00\nResult: Fail",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Exact passing boundary marks (all 40)",
+        "input": "40\n40\n40\n40\n40\n",
+        "expectedOutput": "Total: 200\nAverage: 40.00\nResult: Pass",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Off-by-one boundary failure with a single 39 mark",
+        "input": "50\n60\n39\n80\n70\n",
+        "expectedOutput": "Total: 299\nAverage: 59.80\nResult: Fail",
+        "isHidden": true
       }
     ]
   }

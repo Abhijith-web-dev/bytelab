@@ -1,8 +1,34 @@
 [
   {
-    "id": "ex-day-50-1",
-    "title": "Basic Usage of The Shape and Reshaping of NumPy Array",
-    "code": "# Example for The Shape and Reshaping of NumPy Array\nprint('Day 50 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "id": "ex-01",
+    "title": "Inspecting 1D & 2D Array Shapes",
+    "description": "Understand how .shape, .size, and .ndim describe 1-dimensional vectors and 2-dimensional matrices.",
+    "code": "import numpy as np\n\n# 1D Vector (One line)\nvector = np.array([10, 20, 30, 40])\nprint(\"Vector:\", vector)\nprint(\"Vector shape:\", vector.shape)\nprint(\"Vector dimensions (ndim):\", vector.ndim)\nprint(\"Vector total size:\", vector.size)\n\n# 2D Matrix (Rows and Columns)\nmatrix = np.array([\n    [10, 20],\n    [30, 40]\n])\nprint(\"\\nMatrix:\\n\", matrix)\nprint(\"Matrix shape:\", matrix.shape)\nprint(\"Matrix dimensions (ndim):\", matrix.ndim)\nprint(\"Matrix total size:\", matrix.size)\n",
+    "expectedOutput": "Vector: [10 20 30 40]\nVector shape: (4,)\nVector dimensions (ndim): 1\nVector total size: 4\n\nMatrix:\n [[10 20]\n [30 40]]\nMatrix shape: (2, 2)\nMatrix dimensions (ndim): 2\nMatrix total size: 4\n",
+    "explanation": "vector.shape returns (4,) because it has one axis with 4 items. matrix.shape returns (2, 2) representing 2 rows and 2 columns. Both have size 4, but different dimensional arrangements."
+  },
+  {
+    "id": "ex-02",
+    "title": "Reshaping 1D Array to 2D Matrix",
+    "description": "Transform 6 elements into a 2x3 matrix and verify that the total element count is conserved.",
+    "code": "import numpy as np\n\nnumbers = np.array([10, 20, 30, 40, 50, 60])\nprint(\"Original 1D array:\", numbers)\nprint(\"Original shape:\", numbers.shape)\n\n# Reshape to 2 rows and 3 columns\ngrid = numbers.reshape(2, 3)\nprint(\"\\nReshaped 2D matrix (2x3):\\n\", grid)\nprint(\"New shape:\", grid.shape)\nprint(\"New dimensions:\", grid.ndim)\n\n# Alternative valid reshape: 3 rows and 2 columns\ngrid_3x2 = numbers.reshape(3, 2)\nprint(\"\\nAlternative 2D matrix (3x2):\\n\", grid_3x2)\nprint(\"Alternative shape:\", grid_3x2.shape)\n",
+    "expectedOutput": "Original 1D array: [10 20 30 40 50 60]\nOriginal shape: (6,)\n\nReshaped 2D matrix (2x3):\n [[10 20 30]\n [40 50 60]]\nNew shape: (2, 3)\nNew dimensions: 2\n\nAlternative 2D matrix (3x2):\n [[10 20]\n [30 40]\n [50 60]]\nAlternative shape: (3, 2)\n",
+    "explanation": "Both reshape(2, 3) and reshape(3, 2) succeed because 2*3 = 6 and 3*2 = 6. The values stay identical; only the tabular grid arrangement shifts."
+  },
+  {
+    "id": "ex-03",
+    "title": "Row Vectors vs Column Vectors",
+    "description": "Compare a 1x4 row vector with a 4x1 column vector.",
+    "code": "import numpy as np\n\ndata = np.array([10, 20, 30, 40])\n\n# Reshape to a Row Vector (1 row, 4 columns)\nrow_vector = data.reshape(1, 4)\nprint(\"Row Vector (1, 4):\\n\", row_vector)\nprint(\"Row Vector shape:\", row_vector.shape)\n\n# Reshape to a Column Vector (4 rows, 1 column)\ncol_vector = data.reshape(4, 1)\nprint(\"\\nColumn Vector (4, 1):\\n\", col_vector)\nprint(\"Column Vector shape:\", col_vector.shape)\n",
+    "expectedOutput": "Row Vector (1, 4):\n [[10 20 30 40]]\nRow Vector shape: (1, 4)\n\nColumn Vector (4, 1):\n [[10]\n [20]\n [30]\n [40]]\nColumn Vector shape: (4, 1)\n",
+    "explanation": "A shape of (1, 4) produces a horizontal single-row matrix. A shape of (4, 1) produces a vertical 4-row column. Both are 2D arrays (ndim=2), unlike the flat 1D vector (4,)."
+  },
+  {
+    "id": "ex-04",
+    "title": "Tuple Unpacking with Array Shape",
+    "description": "Unpack rows and columns directly from the shape tuple and access values via coordinate indexing.",
+    "code": "import numpy as np\n\nmarks = np.array([\n    80, 75, 90,\n    70, 85, 88,\n    92, 78, 95\n])\n\n# Reshape into a 3x3 table (3 students x 3 subjects)\ngradebook = marks.reshape(3, 3)\n\n# Tuple unpacking\nnum_students, num_subjects = gradebook.shape\nprint(f\"Roster: {num_students} students x {num_subjects} subjects\")\nprint(\"Gradebook:\\n\", gradebook)\n\n# Coordinate indexing: gradebook[row, col]\n# Student 2 (row 1), Subject 3 (col 2)\nval = gradebook[1, 2]\nprint(f\"Student 2, Subject 3 Mark: {val}\")\n",
+    "expectedOutput": "Roster: 3 students x 3 subjects\nGradebook:\n [[80 75 90]\n [70 85 88]\n [92 78 95]]\nStudent 2, Subject 3 Mark: 88\n",
+    "explanation": "gradebook.shape returns the tuple (3, 3), which can be unpacked into two variables: num_students and num_subjects. gradebook[1, 2] retrieves the element at row index 1 and column index 2."
   }
 ]

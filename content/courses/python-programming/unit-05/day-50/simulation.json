@@ -1,22 +1,118 @@
 {
   "id": "sim-day-50",
-  "type": "Type H",
-  "title": "Simulation: The Shape and Reshaping of NumPy Array",
+  "title": "NumPy Array Shape & Reshaping Visualizer",
+  "description": "Step-by-step trace of creating a 12-element 1D array, querying .shape, transforming into a 3x4 2D matrix via .reshape(3, 4), inspecting new dimensional metadata (.ndim, .size), and accessing elements via coordinate indexing.",
+  "codeLines": [
+    "import numpy as np",
+    "readings = np.array([28, 30, 31, 29, 27, 26, 30, 32, 33, 31, 29, 28])",
+    "orig_shape = readings.shape",
+    "table = readings.reshape(3, 4)",
+    "new_shape = table.shape",
+    "dims = table.ndim",
+    "sample_reading = table[1, 2]",
+    "print('Original Shape:', orig_shape)",
+    "print('Reshaped (3x4):\\n', table)",
+    "print('New Shape:', new_shape)",
+    "print('Dimensions:', dims)",
+    "print('Element at [1, 2]:', sample_reading)"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Imports the numerical computing library NumPy with standard alias 'np'.",
+      "variables": {
+        "np": "<module 'numpy'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Allocates a contiguous 1D NumPy array with 12 temperature values.",
+      "variables": {
+        "readings": "[28, 30, 31, 29, 27, 26, 30, 32, 33, 31, 29, 28]"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Queries the .shape attribute. For a 1D vector of length 12, it returns the tuple (12,).",
+      "variables": {
+        "orig_shape": "(12,)"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Calls readings.reshape(3, 4). Validates that 3 * 4 = 12 elements. Returns a new 2D matrix organized into 3 rows and 4 columns without altering raw values.",
+      "variables": {
+        "readings": "[28, 30, 31, 29, ...]",
+        "table": "[[28, 30, 31, 29], [27, 26, 30, 32], [33, 31, 29, 28]]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Queries the new array's .shape attribute, which returns (3, 4).",
+      "variables": {
+        "new_shape": "(3, 4)"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Queries table.ndim, which returns 2 (indicating 2 axes: rows and columns).",
+      "variables": {
+        "dims": 2
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Performs coordinate indexing table[1, 2] (Row index 1, Column index 2). Accesses 30.",
+      "variables": {
+        "sample_reading": 30
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Prints the original 1D shape.",
+      "variables": {
+        "orig_shape": "(12,)"
+      },
+      "output": "Original Shape: (12,)\n"
+    },
+    {
+      "activeLine": 9,
+      "explanation": "Prints the reshaped 3x4 matrix representation.",
+      "variables": {
+        "table": "[[28 30 31 29]\n [27 26 30 32]\n [33 31 29 28]]"
+      },
+      "output": "Original Shape: (12,)\nReshaped (3x4):\n [[28 30 31 29]\n [27 26 30 32]\n [33 31 29 28]]\n"
+    },
+    {
+      "activeLine": 10,
+      "explanation": "Prints the new 2D shape tuple.",
+      "variables": {
+        "new_shape": "(3, 4)"
+      },
+      "output": "Original Shape: (12,)\nReshaped (3x4):\n [[28 30 31 29]\n [27 26 30 32]\n [33 31 29 28]]\nNew Shape: (3, 4)\n"
+    },
+    {
+      "activeLine": 11,
+      "explanation": "Prints the dimension count (2).",
+      "variables": {
+        "dims": 2
+      },
+      "output": "Original Shape: (12,)\nReshaped (3x4):\n [[28 30 31 29]\n [27 26 30 32]\n [33 31 29 28]]\nNew Shape: (3, 4)\nDimensions: 2\n"
+    },
+    {
+      "activeLine": 12,
+      "explanation": "Prints the element retrieved at row 1, column 2.",
+      "variables": {
+        "sample_reading": 30
+      },
+      "output": "Original Shape: (12,)\nReshaped (3x4):\n [[28 30 31 29]\n [27 26 30 32]\n [33 31 29 28]]\nNew Shape: (3, 4)\nDimensions: 2\nElement at [1, 2]: 30\n"
     }
   ]
 }

@@ -1,22 +1,82 @@
 {
-  "id": "sim-day-54",
-  "type": "Type H",
-  "title": "Simulation: Pandas Series & DataFrames",
+  "title": "Pandas Series Architecture & Access Simulator",
+  "description": "Visualize 1D labeled series creation, label-based (.loc) vs positional (.iloc) lookups, vectorized arithmetic, in-place modification, and label alignment.",
   "steps": [
     {
       "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "title": "Create 1D Labeled Series in Memory",
+      "code": "marks = pd.Series([80, 90, 75, 85], index=['Arun', 'Priya', 'Rahul', 'Meena'])",
+      "explanation": "Pandas creates a two-column internal structure: the Index mapping semantic strings ('Arun', 'Priya', ...) and the Values array storing the numerical integers [80, 90, 75, 85].",
+      "variables": {
+        "Index": "['Arun', 'Priya', 'Rahul', 'Meena']",
+        "Values": "[80, 90, 75, 85]",
+        "dtype": "int64"
+      },
+      "highlight": [1]
     },
     {
       "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "title": "Label-Based Access with .loc",
+      "code": "priya_mark = marks.loc['Priya']",
+      "explanation": ".loc searches the Index column for label string 'Priya'. It retrieves the corresponding entry at that row, returning 90.",
+      "variables": {
+        "Target Label": "'Priya'",
+        "Matched Value": 90
+      },
+      "highlight": [2]
     },
     {
       "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "title": "Position-Based Access with .iloc",
+      "code": "first_student = marks.iloc[0]",
+      "explanation": ".iloc bypasses custom text labels and uses physical zero-based memory offsets. Offset 0 points to Arun's slot, returning 80.",
+      "variables": {
+        "Position Offset": 0,
+        "Matched Value": 80
+      },
+      "highlight": [3]
+    },
+    {
+      "step": 4,
+      "title": "Vectorized Scalar Arithmetic",
+      "code": "updated = marks + 5",
+      "explanation": "Vectorized addition broadcasts scalar +5 across every entry. The index labels remain intact while values become [85, 95, 80, 90].",
+      "variables": {
+        "updated": "Arun: 85, Priya: 95, Rahul: 80, Meena: 90"
+      },
+      "highlight": [4]
+    },
+    {
+      "step": 5,
+      "title": "Compute Summary Statistics",
+      "code": "total = updated.sum(); avg = updated.mean()",
+      "explanation": "Built-in reduction methods aggregate values across the Series: total sum is 85+95+80+90 = 350, and mean average is 350 / 4 = 87.5.",
+      "variables": {
+        "total": 350,
+        "average": "87.5"
+      },
+      "highlight": [5]
+    },
+    {
+      "step": 6,
+      "title": "In-Place Label Mutation",
+      "code": "marks.loc['Rahul'] = 78",
+      "explanation": "Series objects are mutable. Locating label 'Rahul' in the original series updates its value from 75 to 78 without creating a new object.",
+      "variables": {
+        "Original Rahul": 75,
+        "Updated Rahul": 78
+      },
+      "highlight": [6]
+    },
+    {
+      "step": 7,
+      "title": "Automatic Label Alignment",
+      "code": "s1 = pd.Series([10, 20], index=['A', 'B']); s2 = pd.Series([5, 15], index=['B', 'C']); s1 + s2",
+      "explanation": "When operating between two Series, Pandas aligns rows by matching index labels: 'B' aligns (20+5=25), while unmatched labels 'A' and 'C' evaluate to NaN.",
+      "variables": {
+        "Aligned Result": "A: NaN, B: 25.0, C: NaN"
+      },
+      "highlight": [7]
     }
   ]
 }

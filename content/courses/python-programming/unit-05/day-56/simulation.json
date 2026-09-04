@@ -1,22 +1,96 @@
 {
-  "id": "sim-day-56",
-  "type": "Type H",
-  "title": "Simulation: Handling Missing Data",
+  "title": "Missing Data Cleaner & DataFrame Combiner Simulator",
+  "description": "Step-by-step visual trace of detecting missing NaN values with isna(), aggregating counts with sum(), imputing with fillna(), and performing relational merges and concatenations.",
   "steps": [
     {
       "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "title": "Instantiate Marks DataFrame with Missing NaN",
+      "code": "marks = pd.DataFrame({'ID': [101, 102, 103, 104], 'Mark': [85.0, None, 78.0, 92.0]})",
+      "explanation": "Pandas loads numerical data into a 2D tabular structure. Because row 1 has a None value in the numerical 'Mark' column, Pandas casts the missing element to NaN (Not a Number) of float64 type.",
+      "variables": {
+        "Shape": "(4, 2)",
+        "Row 1 (Priya)": "ID: 102, Mark: NaN",
+        "Dtype 'Mark'": "float64"
+      },
+      "highlight": [1]
     },
     {
       "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "title": "Generate Missing Value Boolean Mask with .isna()",
+      "code": "mask = marks.isna()",
+      "explanation": "marks.isna() inspects each cell individually. Valid entries evaluate to False, while missing entries (NaN) evaluate to True.",
+      "variables": {
+        "Mask ID": "[False, False, False, False]",
+        "Mask Mark": "[False, True, False, False]"
+      },
+      "highlight": [2]
     },
     {
       "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "title": "Aggregate Missing Value Counts with .sum()",
+      "code": "missing_counts = marks.isna().sum()",
+      "explanation": "Summing the boolean mask treats True as 1 and False as 0. Column 'ID' has 0 missing values, and column 'Mark' has 1 missing value.",
+      "variables": {
+        "Missing in ID": "0",
+        "Missing in Mark": "1"
+      },
+      "highlight": [3]
+    },
+    {
+      "step": 4,
+      "title": "Impute Missing Values with .fillna(0)",
+      "code": "marks['Mark'] = marks['Mark'].fillna(0)",
+      "explanation": "fillna(0) replaces the NaN cell at index 1 with 0.0 without dropping Priya's row from the dataset.",
+      "variables": {
+        "Row 1 Updated Mark": "0.0",
+        "Cleaned Marks": "[85.0, 0.0, 78.0, 92.0]"
+      },
+      "highlight": [4]
+    },
+    {
+      "step": 5,
+      "title": "Instantiate Student Roster DataFrame",
+      "code": "students = pd.DataFrame({'ID': [101, 102, 103, 104], 'Name': ['Arun', 'Priya', 'Rahul', 'Meena']})",
+      "explanation": "The second data source contains demographic records (ID and Name). Both DataFrames share the primary key column 'ID'.",
+      "variables": {
+        "Students Shape": "(4, 2)",
+        "Shared Key": "'ID'"
+      },
+      "highlight": [5]
+    },
+    {
+      "step": 6,
+      "title": "Relational Combination with pd.merge()",
+      "code": "merged = pd.merge(students, marks, on='ID')",
+      "explanation": "pd.merge() aligns rows by matching values in the 'ID' column (101=Arun=85.0, 102=Priya=0.0, etc.), expanding the DataFrame to shape (4, 3).",
+      "variables": {
+        "Operation": "MERGE (Match by Key)",
+        "Result Shape": "(4, 3)",
+        "Columns": "['ID', 'Name', 'Mark']"
+      },
+      "highlight": [6]
+    },
+    {
+      "step": 7,
+      "title": "Stacking Comparison with pd.concat()",
+      "code": "stacked = pd.concat([df_jan, df_feb], ignore_index=True)",
+      "explanation": "Unlike merge() which matches by key columns, concat() stacks records vertically (axis=0), generating an extended row series with a fresh 0..N-1 index.",
+      "variables": {
+        "Operation": "CONCAT (Stack Rows)",
+        "Axis": "0 (Vertical)"
+      },
+      "highlight": [7]
+    },
+    {
+      "step": 8,
+      "title": "Final Summary & Verification",
+      "code": "total_students = len(merged); total_marks = merged['Mark'].sum()",
+      "explanation": "Calculates total student headcount (4) and sums the clean 'Mark' column (85.0 + 0.0 + 78.0 + 92.0 = 255.0).",
+      "variables": {
+        "Total Students": 4,
+        "Total Marks": 255.0
+      },
+      "highlight": [8]
     }
   ]
 }

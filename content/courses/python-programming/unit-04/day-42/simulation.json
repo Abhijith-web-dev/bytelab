@@ -1,22 +1,66 @@
 {
   "id": "sim-day-42",
-  "type": "Type G",
-  "title": "Simulation: Modules and Packages",
+  "title": "Exception Lifecycle (try-except-else-finally & raise) Simulator",
+  "description": "Visualizing how Python intercepts a manual raise statement, bypasses normal execution, branches to the matching except handler, and guarantees execution of the finally block.",
+  "codeLines": [
+    "raw_input = '150'",
+    "try:",
+    "    mark = int(raw_input)",
+    "    if mark < 0 or mark > 100: raise ValueError('Mark must be between 0 and 100')",
+    "    print('Valid mark:', mark)",
+    "except ValueError as error: print('Invalid mark:', error)",
+    "finally: print('Mark validation completed')"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Incoming raw input string is received as '150'.",
+      "variables": {
+        "raw_input": "'150'"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Entering the try block to monitor for runtime exceptions.",
+      "variables": {
+        "raw_input": "'150'",
+        "status": "'try block active'"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "int('150') converts successfully to the integer value 150.",
+      "variables": {
+        "mark": 150
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Validation condition (mark > 100) evaluates to True. The program intentionally raises a ValueError with message 'Mark must be between 0 and 100'.",
+      "variables": {
+        "mark": 150,
+        "raised_exception": "ValueError('Mark must be between 0 and 100')"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Normal flow in try is interrupted. Python skips line 5 (else logic) and jumps directly into except ValueError as error.",
+      "variables": {
+        "error": "'Mark must be between 0 and 100'"
+      },
+      "output": "Invalid mark: Mark must be between 0 and 100"
+    },
+    {
+      "activeLine": 7,
+      "explanation": "The finally block executes unconditionally to ensure clean completion.",
+      "variables": {
+        "status": "'completed'"
+      },
+      "output": "Mark validation completed"
     }
   ]
 }

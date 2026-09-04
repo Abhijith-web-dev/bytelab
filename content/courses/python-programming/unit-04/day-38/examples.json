@@ -1,8 +1,20 @@
 [
   {
     "id": "ex-day-38-1",
-    "title": "Basic Usage of The Format Operator",
-    "code": "# Example for The Format Operator\nprint('Day 38 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Three Reading Approaches: read, readline, and readlines",
+    "code": "# 1. read() - entire content as single string\nwith open('students.txt', 'w') as f:\n    f.write('Arun,85\\nPriya,92\\nRahul,35\\n')\n\nfile = open('students.txt', 'r')\nall_content = file.read()\nprint('--- read() ---')\nprint(all_content)\nfile.close()\n\n# 2. readline() - line by line\nfile = open('students.txt', 'r')\nprint('--- readline() ---')\nprint('First:', file.readline().strip())\nprint('Second:', file.readline().strip())\nfile.close()\n\n# 3. readlines() - list of lines\nfile = open('students.txt', 'r')\nprint('--- readlines() ---')\nlines = file.readlines()\nprint('List of lines:', lines)\nfile.close()",
+    "explanation": "Demonstrates the distinct return types of read() (string), readline() (one string), and readlines() (list of strings)."
+  },
+  {
+    "id": "ex-day-38-2",
+    "title": "Preserving Records: Append Mode ('a') vs Overwrite ('w')",
+    "code": "# Initial file write\nfile = open('log.txt', 'w')\nfile.write('Event 1: System Boot\\n')\nfile.close()\n\n# Safe append\nfile = open('log.txt', 'a')\nfile.write('Event 2: User Login\\n')\nfile.close()\n\n# Verify content\nfile = open('log.txt', 'r')\nprint(file.read())\nfile.close()",
+    "explanation": "Shows how mode 'a' appends new entries to the end of a file without destroying existing log history."
+  },
+  {
+    "id": "ex-day-38-3",
+    "title": "Processing CSV File Lines with strip() and split()",
+    "code": "records = 'Arun,85\\nPriya,92\\nRahul,35\\nMeena,78'\nwith open('grades.txt', 'w') as f:\n    f.write(records)\n\nfile = open('grades.txt', 'r')\nprint('Processed Student Records:')\nfor line in file:\n    clean_line = line.strip()\n    name, mark_str = clean_line.split(',')\n    mark = int(mark_str)\n    status = 'Pass' if mark >= 40 else 'Fail'\n    print(f'  {name:<8}: {mark:>2} ({status})')\nfile.close()",
+    "explanation": "Iterates line-by-line using low memory, cleans whitespace with strip(), and tokenizes fields using split(',')."
   }
 ]

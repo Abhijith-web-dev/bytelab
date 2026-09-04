@@ -1,0 +1,10 @@
+{
+  "id": "rust",
+  "name": "Rust",
+  "version": "1.75+ (rustc WASM)",
+  "extension": "rs",
+  "monacoLanguage": "rust",
+  "runtime": "rust-wasm",
+  "defaultStarterCode": "// Rust Systems Programming\nfn main() {\n    let message = String::from(\"Hello from ByteLab Rust!\");\n    println!(\"{}\", message);\n}\n",
+  "keywords": ["fn", "let", "mut", "struct", "enum", "impl", "trait", "pub", "match", "loop", "while", "for", "in", "break", "continue", "return", "where", "async", "await", "unsafe"]
+}

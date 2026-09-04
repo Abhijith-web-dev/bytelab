@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-42-1",
-    "title": "Basic Usage of Modules and Packages",
-    "code": "# Example for Modules and Packages\nprint('Day 42 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Basic try-except with Specific Exception Handlers",
+    "code": "# Demonstrating basic exception catching with distinct feedback\ndef calculate_ratio(num_str, denom_str):\n    try:\n        numerator = float(num_str)\n        denominator = float(denom_str)\n        result = numerator / denominator\n        print(\"Ratio:\", result)\n    except ValueError:\n        print(\"Error: Both inputs must be numeric values.\")\n    except ZeroDivisionError:\n        print(\"Error: Cannot divide by zero.\")\n\nprint(\"1. Valid calculation:\")\ncalculate_ratio(\"10\", \"2\")\n\nprint(\"\\n2. Non-numeric input:\")\ncalculate_ratio(\"abc\", \"2\")\n\nprint(\"\\n3. Zero denominator:\")\ncalculate_ratio(\"10\", \"0\")",
+    "explanation": "Illustrates how multiple specific except blocks intercept different error types (ValueError vs ZeroDivisionError) to provide targeted user feedback."
+  },
+  {
+    "id": "ex-day-42-2",
+    "title": "Complete try-except-else-finally Execution Lifecycle",
+    "code": "# Tracing when else and finally execute\ndef process_transaction(raw_amount):\n    print(\"--- Processing:\", raw_amount, \"---\")\n    try:\n        amount = int(raw_amount)\n        balance = 500 / amount\n    except ValueError:\n        print(\"EXCEPT: Invalid number provided\")\n    except ZeroDivisionError:\n        print(\"EXCEPT: Amount cannot be zero\")\n    else:\n        # Runs ONLY when try finishes with NO exceptions\n        print(\"ELSE: Transaction approved. Balance factor:\", balance)\n    finally:\n        # ALWAYS runs, even after exceptions\n        print(\"FINALLY: Audit log recorded\")\n\nprocess_transaction(\"50\")   # Success case: try -> else -> finally\nprocess_transaction(\"abc\")  # Error case: try -> except -> finally\nprocess_transaction(\"0\")    # Zero case: try -> except -> finally",
+    "explanation": "Demonstrates the complete try-except-else-finally lifecycle, highlighting that else executes only on success, while finally always executes."
+  },
+  {
+    "id": "ex-day-42-3",
+    "title": "Enforcing Domain Rules with the raise Keyword",
+    "code": "# Manually raising an exception when business constraints are violated\ndef register_voter(name, age_input):\n    try:\n        age = int(age_input)\n        if age < 0:\n            raise ValueError(\"Age cannot be negative\")\n        if age < 18:\n            raise ValueError(\"Must be at least 18 years old to register\")\n    except ValueError as error:\n        print(\"Registration Failed for %s: %s\" % (name, error))\n    else:\n        print(\"Registration Successful: %s is eligible to vote!\" % name)\n    finally:\n        print(\"Voter status check complete\\n\")\n\nregister_voter(\"Ananya\", \"21\")  # Valid\nregister_voter(\"Kavya\", \"15\")   # Too young (manual raise)\nregister_voter(\"Rohan\", \"-4\")   # Negative (manual raise)\nregister_voter(\"Suresh\", \"abc\") # Non-numeric (automatic raise)",
+    "explanation": "Shows how the raise statement enforces application-specific rules and how 'as error' captures the message for clean reporting."
+  },
+  {
+    "id": "ex-day-42-4",
+    "title": "Robust File Processing with Exception Handling & Cleanup",
+    "code": "# Safely parsing lines of CSV records with try-except\nfile_records = [\n    \"Arun,85\",\n    \"Priya,92\",\n    \"Rahul,invalid_score\",\n    \"Meena,78\"\n]\n\nvalid_count = 0\ninvalid_count = 0\n\nfor line in file_records:\n    parts = line.split(\",\")\n    name = parts[0]\n    raw_score = parts[1]\n    \n    try:\n        score = int(raw_score)\n    except ValueError:\n        print(\"Invalid record skipped: %s (score '%s' is not numeric)\" % (name, raw_score))\n        invalid_count += 1\n    else:\n        print(\"Valid student logged: %-8s | Score: %d\" % (name, score))\n        valid_count += 1\n    finally:\n        pass  # Per-record cleanup if necessary\n\nprint(\"\\nSummary: %d valid records, %d invalid records processed.\" % (valid_count, invalid_count))",
+    "explanation": "Simulates robust file line processing where corrupt records are safely logged and skipped without halting the overall data pipeline."
   }
 ]

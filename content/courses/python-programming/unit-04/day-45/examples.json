@@ -1,8 +1,26 @@
 [
   {
     "id": "ex-day-45-1",
-    "title": "Basic Usage of Unit IV Practical: Word Count (CLI)",
-    "code": "# Example for Unit IV Practical: Word Count (CLI)\nprint('Day 45 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
+    "title": "Word Count & Streaming File Copy with Exception Handling",
+    "code": "# 1. Word Count Function\ndef count_file_stats(filename):\n    try:\n        with open(filename, 'r') as file:\n            content = file.read()\n            lines = content.splitlines()\n            words = content.split()\n            characters = len(content)\n            return {\n                'lines': len(lines),\n                'words': len(words),\n                'chars': characters\n            }\n    except FileNotFoundError:\n        return None\n\n# 2. Safe Line-by-Line File Copy\ndef copy_file_safe(src, dest):\n    try:\n        with open(src, 'r') as infile, open(dest, 'w') as outfile:\n            line_count = 0\n            for line in infile:\n                outfile.write(line)\n                line_count += 1\n        return True, line_count\n    except FileNotFoundError:\n        return False, 0\n\n# Demonstration with in-memory files\nwith open('source_sample.txt', 'w') as f:\n    f.write('Python is expressive and clean.\\nObject-oriented programming bundles data and code.')\n\nstats = count_file_stats('source_sample.txt')\nprint(\"Source File Stats:\", stats)\n\nsuccess, copied_lines = copy_file_safe('source_sample.txt', 'backup_sample.txt')\nprint(f\"File Copy Success: {success} ({copied_lines} lines copied)\")",
+    "explanation": "Demonstrates counting words/lines/chars from a file and safely copying data line-by-line using context managers and FileNotFoundError handling."
+  },
+  {
+    "id": "ex-day-45-2",
+    "title": "Defining Classes, Attributes, Methods, and Instantiating Objects",
+    "code": "# Defining the blueprint\nclass Student:\n    def __init__(self, name, marks):\n        # Instance attributes\n        self.name = name\n        self.marks = marks  # List of numeric marks\n\n    # Instance methods\n    def calculate_total(self):\n        return sum(self.marks)\n\n    def calculate_average(self):\n        return self.calculate_total() / len(self.marks) if self.marks else 0.0\n\n    def is_pass(self, threshold=50):\n        return self.calculate_average() >= threshold\n\n    def display_card(self):\n        status = 'PASS' if self.is_pass() else 'FAIL'\n        print(f\"{self.name:<10} | Avg: {self.calculate_average():>5.1f} | Status: {status}\")\n\n# Instantiating distinct objects\ns1 = Student(\"Divya\", [85, 92, 78])\ns2 = Student(\"Karan\", [45, 52, 48])\n\nprint(\"===== STUDENT REPORT CARDS =====\")\ns1.display_card()\ns2.display_card()",
+    "explanation": "Illustrates how a class serves as a blueprint with __init__ and self, encapsulating state (name, marks) and behavior (calculate_total, is_pass, display_card)."
+  },
+  {
+    "id": "ex-day-45-3",
+    "title": "Object-Oriented File Record Pipeline",
+    "code": "class Book:\n    def __init__(self, title, author, price):\n        self.title = title\n        self.author = author\n        self.price = float(price)\n\n    def apply_discount(self, percent):\n        self.price -= self.price * (percent / 100)\n\n# Create a mock database file\nwith open('catalog.txt', 'w') as f:\n    f.write('Clean Code,Robert Martin,45.00\\n')\n    f.write('The Pragmatic Programmer,Andy Hunt,50.00\\n')\n    f.write('Fluent Python,Luciano Ramalho,60.00\\n')\n\n# Parse raw lines into domain objects\ninventory = []\nwith open('catalog.txt', 'r') as f:\n    for line in f:\n        line = line.strip()\n        if line:\n            title, author, price = line.split(',')\n            book_obj = Book(title, author, price)\n            inventory.append(book_obj)\n\nprint(f\"Loaded {len(inventory)} books from catalog:\")\nfor book in inventory:\n    book.apply_discount(10)  # Apply 10% holiday discount\n    print(f\"- {book.title} by {book.author}: ${book.price:.2f}\")",
+    "explanation": "Demonstrates the bridge between flat file lines and structured object lists, applying object methods to manipulate domain entities."
+  },
+  {
+    "id": "ex-day-45-4",
+    "title": "Comparing Dictionary vs Class Encapsulation",
+    "code": "# Approach A: Dictionary (Raw data without bundled behavior)\nstudent_dict = {'name': 'Sneha', 'mark': 82}\n# Any function can arbitrarily mutate keys or misspell field names\n# print(student_dict['mrk']) -> KeyError\n\n# Approach B: Class (Data with type contract, validation, and self-contained methods)\nclass StudentRecord:\n    def __init__(self, name, mark):\n        if not (0 <= mark <= 100):\n            raise ValueError(\"Mark must be between 0 and 100\")\n        self.name = name\n        self.mark = mark\n\n    def grade(self):\n        if self.mark >= 90: return 'A'\n        if self.mark >= 75: return 'B'\n        if self.mark >= 50: return 'C'\n        return 'F'\n\nstudent_obj = StudentRecord('Sneha', 82)\nprint(\"Dictionary approach:\", student_dict['name'], '-> mark:', student_dict['mark'])\nprint(\"Class approach     :\", student_obj.name, '-> grade:', student_obj.grade())",
+    "explanation": "Highlights why classes provide superior structure over plain dictionaries by ensuring type safety, validation at initialization, and self-governing methods."
   }
 ]

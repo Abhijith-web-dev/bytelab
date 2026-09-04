@@ -1,22 +1,87 @@
 {
   "id": "sim-day-37",
-  "type": "Type G",
-  "title": "Simulation: Text Files: Reading and Writing",
+  "title": "File I/O Lifecycle: Write, Flush, and Read",
+  "description": "Step-by-step trace of opening a file handle, streaming formatted student records to disk buffer, closing the stream descriptor, and reading back persisted data.",
+  "codeLines": [
+    "f = open('records.txt', 'w')",
+    "f.write('RegNo: 101, Name: Arun\\n')",
+    "f.write('Marks: 94.5\\n')",
+    "f.close()",
+    "f_read = open('records.txt', 'r')",
+    "content = f_read.read()",
+    "print(content)",
+    "f_read.close()"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Calling open('records.txt', 'w') requests a file descriptor from the OS in write mode. If records.txt does not exist, an empty file is created on storage.",
+      "variables": {
+        "f": "<_io.TextIOWrapper name='records.txt' mode='w' encoding='UTF-8'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "f.write(...) writes 'RegNo: 101, Name: Arun\\n' into Python's internal memory stream buffer. The OS prepares disk sectors for synchronization.",
+      "variables": {
+        "f": "<_io.TextIOWrapper name='records.txt' mode='w'>",
+        "buffer": "RegNo: 101, Name: Arun\\n"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "The second f.write(...) appends 'Marks: 94.5\\n' into the stream buffer. Notice that write() does not add automatic newlines.",
+      "variables": {
+        "f": "<_io.TextIOWrapper name='records.txt' mode='w'>",
+        "buffer": "RegNo: 101, Name: Arun\\nMarks: 94.5\\n"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Calling f.close() flushes all remaining buffered bytes from RAM onto permanent secondary storage and releases the file descriptor back to the OS kernel.",
+      "variables": {
+        "f": "<closed TextIOWrapper>",
+        "disk_file": "records.txt (persisted on disk)"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Calling open('records.txt', 'r') opens the saved file in read-only mode. The file pointer cursor is initialized at offset byte 0 (start of file).",
+      "variables": {
+        "f_read": "<_io.TextIOWrapper name='records.txt' mode='r' encoding='UTF-8'>",
+        "cursor_offset": 0
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Calling f_read.read() traverses the whole file from start to EOF (End Of File) and loads the contents as a single Python string into variable 'content'.",
+      "variables": {
+        "f_read": "<_io.TextIOWrapper name='records.txt' mode='r'>",
+        "content": "RegNo: 101, Name: Arun\\nMarks: 94.5\\n"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "The print(content) function writes the string to standard output (stdout), displaying the saved multi-line records on the terminal.",
+      "variables": {
+        "content": "RegNo: 101, Name: Arun\\nMarks: 94.5\\n"
+      },
+      "output": "RegNo: 101, Name: Arun\nMarks: 94.5\n"
+    },
+    {
+      "activeLine": 8,
+      "explanation": "f_read.close() closes the reading stream. The file is cleanly preserved on disk for future program runs.",
+      "variables": {
+        "f_read": "<closed TextIOWrapper>",
+        "content": "RegNo: 101, Name: Arun\\nMarks: 94.5\\n"
+      },
+      "output": "RegNo: 101, Name: Arun\nMarks: 94.5\n"
     }
   ]
 }

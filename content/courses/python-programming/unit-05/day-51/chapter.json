@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 51,
   "order": 51,
-  "title": "Day 51: Indexing and Slicing of NumPy Array",
-  "shortTitle": "Indexing and Slicing of NumPy Array",
-  "description": "Accessing elements, rows, and sub-matrices.",
+  "title": "Unit–V — Day 3: NumPy Array Indexing and Slicing",
+  "shortTitle": "Array Indexing and Slicing",
+  "description": "Master 1D and 2D indexing, positive and negative indices, row & column selection with the colon (:) operator, sub-matrix slicing, and updating numerical data.",
   "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }

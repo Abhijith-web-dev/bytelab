@@ -1,15 +1,52 @@
 [
   {
-    "id": "prob-day-45",
-    "title": "Practice: Unit IV Practical: Word Count (CLI)",
-    "description": "Write a Python script that demonstrates unit iv practical: word count (cli).",
-    "starterCode": "# Write your code here\n",
-    "solutionCode": "# Expected logic for Unit IV Practical: Word Count (CLI)\nprint('Success')",
+    "id": "prob-day-45-01",
+    "title": "Practice: Student File Object Analyzer",
+    "description": "Write a Python program that reads student records from a text file named `students.txt`, instantiates custom `Student` objects, evaluates academic outcomes, and prints a formatted report.\n\n### Input File Format (`students.txt`):\nEach line contains a student's name and integer mark separated by a comma:\n```text\nArun,85\nPriya,92\nRahul,35\nMeena,78\n```\n\n### Program Requirements:\n1. Define a `Student` class:\n   - `__init__(self, name, mark)`: Stores `name` (string) and `mark` (integer) as instance attributes.\n   - `is_pass(self)`: Returns `True` if `self.mark >= 40`, else `False`.\n   - `display(self)`: Prints: `Name: <name> | Mark: <mark> | Result: <Pass/Fail>`.\n2. In a `try` block:\n   - Open and read `students.txt` line by line.\n   - Strip each line, split by `\",\"`, convert the mark to an integer, instantiate a `Student` object, and append to a `students` list.\n   - Print the exact header: `===== STUDENT REPORT =====\\n`.\n   - Loop through `students`, invoke `s.display()`, and count how many students passed.\n   - Print the summary:\n     ```text\n     \n     Total Students: <total>\n     Passed Students: <passed>\n     ```\n3. In an `except FileNotFoundError:` block:\n   - Print the exact message: `Student file not found`\n   - Do NOT allow the program to crash with an unhandled exception.",
+    "difficulty": "intermediate",
+    "coMapping": ["CO4"],
+    "skills": ["OOP", "Classes and Objects", "File Processing", "Exception Handling", "String Splitting", "List Accumulation"],
+    "starterCode": "# Practice: Student File Object Analyzer\n# Step 1: Define the Student class with __init__(self, name, mark)\n# Step 2: Define is_pass(self) returning True if mark >= 40, else False\n# Step 3: Define display(self) printing 'Name: %s | Mark: %d | Result: %s'\n# Step 4: In a try block, open 'students.txt' and read line by line\n# Step 5: For each line, strip and split by ',', create a Student object, append to list\n# Step 6: Print '===== STUDENT REPORT =====\\n'\n# Step 7: Iterate over student objects, call display(), and tally passed students\n# Step 8: Print '\\nTotal Students: %d' and 'Passed Students: %d'\n# Step 9: In except FileNotFoundError: print 'Student file not found'\n\n",
+    "solutionCode": "class Student:\n    def __init__(self, name, mark):\n        self.name = name\n        self.mark = mark\n\n    def is_pass(self):\n        return self.mark >= 40\n\n    def display(self):\n        status = \"Pass\" if self.is_pass() else \"Fail\"\n        print(\"Name: %s | Mark: %d | Result: %s\" % (self.name, self.mark, status))\n\ntry:\n    students = []\n    with open(\"students.txt\", \"r\") as file:\n        for line in file:\n            line = line.strip()\n            if line:\n                name, mark_str = line.split(\",\")\n                students.append(Student(name, int(mark_str)))\n\n    print(\"===== STUDENT REPORT =====\\n\")\n    passed_count = 0\n    for s in students:\n        s.display()\n        if s.is_pass():\n            passed_count += 1\n\n    print(\"\\nTotal Students: %d\" % len(students))\n    print(\"Passed Students: %d\" % passed_count)\n\nexcept FileNotFoundError:\n    print(\"Student file not found\")\n",
+    "hints": [
+      "Define `class Student:` with `def __init__(self, name, mark): self.name = name; self.mark = mark`.",
+      "In `display(self)`, determine the status with `status = 'Pass' if self.is_pass() else 'Fail'`.",
+      "Open `students.txt` inside a `try` block: `with open('students.txt', 'r') as file:`.",
+      "Inside the loop, clean and split: `name, mark_str = line.strip().split(',')` and instantiate `Student(name, int(mark_str))`.",
+      "Handle missing files cleanly with `except FileNotFoundError: print('Student file not found')`."
+    ],
     "testCases": [
       {
+        "id": "tc-1",
+        "description": "Standard cohort of 4 students with passing and failing marks",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,85\\nPriya,92\\nRahul,35\\nMeena,78\\n')",
         "input": "",
-        "expectedOutput": "Success",
+        "expectedOutput": "===== STUDENT REPORT =====\n\nName: Arun | Mark: 85 | Result: Pass\nName: Priya | Mark: 92 | Result: Pass\nName: Rahul | Mark: 35 | Result: Fail\nName: Meena | Mark: 78 | Result: Pass\n\nTotal Students: 4\nPassed Students: 3",
         "isHidden": false
+      },
+      {
+        "id": "tc-2",
+        "description": "Cohort where all students fail (marks below 40)",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,35\\nPriya,25\\nRahul,30\\n')",
+        "input": "",
+        "expectedOutput": "===== STUDENT REPORT =====\n\nName: Arun | Mark: 35 | Result: Fail\nName: Priya | Mark: 25 | Result: Fail\nName: Rahul | Mark: 30 | Result: Fail\n\nTotal Students: 3\nPassed Students: 0",
+        "isHidden": false
+      },
+      {
+        "id": "tc-3",
+        "description": "Cohort with boundary passing mark 40 and all passing",
+        "setupCode": "with open('students.txt', 'w') as _f:\n    _f.write('Arun,40\\nPriya,50\\nRahul,60\\n')",
+        "input": "",
+        "expectedOutput": "===== STUDENT REPORT =====\n\nName: Arun | Mark: 40 | Result: Pass\nName: Priya | Mark: 50 | Result: Pass\nName: Rahul | Mark: 60 | Result: Pass\n\nTotal Students: 3\nPassed Students: 3",
+        "isHidden": true
+      },
+      {
+        "id": "tc-4",
+        "description": "Missing file handling gracefully caught without crashing",
+        "setupCode": "import os\nif os.path.exists('students.txt'):\n    os.remove('students.txt')",
+        "input": "",
+        "expectedOutput": "Student file not found",
+        "isHidden": true
       }
     ]
   }

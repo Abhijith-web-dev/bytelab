@@ -1,0 +1,10 @@
+{
+  "id": "typescript",
+  "name": "TypeScript",
+  "version": "5.4+ (V8 Engine)",
+  "extension": "ts",
+  "monacoLanguage": "typescript",
+  "runtime": "v8-browser",
+  "defaultStarterCode": "// TypeScript 5.x Systems\ninterface SystemConfig {\n  readonly name: string;\n  readonly version: string;\n}\n\nconst config: SystemConfig = {\n  name: 'ByteLab Core',\n  version: '2.0.0'\n};\n\nconsole.log(`Initialized ${config.name} v${config.version}`);\n",
+  "keywords": ["type", "interface", "enum", "implements", "extends", "public", "private", "protected", "readonly", "as", "keyof", "typeof", "infer", "const", "let", "function", "return"]
+}

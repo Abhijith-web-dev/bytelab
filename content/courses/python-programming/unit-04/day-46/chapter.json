@@ -3,11 +3,11 @@
   "unitId": "unit-04",
   "dayNumber": 46,
   "order": 46,
-  "title": "Day 46: Unit IV Practical: Copy File",
-  "shortTitle": "Unit IV Practical: Copy File",
-  "description": "Script to safely open a source file, read contents, and write to a destination file.",
+  "title": "Unit–IV — Day 10: Classes and Objects — Introduction to Object-Oriented Programming",
+  "shortTitle": "Classes & Objects (OOP Intro)",
+  "description": "Blueprints, instances, __init__() constructor, self, instance attributes and methods, multiple objects, classes with lists, and integrated file/exception architecture.",
   "simulationType": "Type G: File / Data Pipeline Simulation",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 90,
   "difficulty": "intermediate",
   "outcomes": [
     "CO4"

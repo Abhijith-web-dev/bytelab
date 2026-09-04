@@ -1,22 +1,83 @@
 {
   "id": "sim-day-51",
-  "type": "Type H",
-  "title": "Simulation: Indexing and Slicing of NumPy Array",
+  "title": "NumPy Array Indexing & Slicing Visualizer",
+  "description": "Step-by-step visual trace of 1D and 2D indexing, row selection, column selection via the colon (:) operator, and sub-matrix slicing across rows and columns.",
+  "codeLines": [
+    "import numpy as np",
+    "marks = np.array([[80, 75, 90], [70, 85, 88], [92, 78, 95], [65, 72, 80]])",
+    "first_student = marks[0]",
+    "last_student = marks[-1]",
+    "maths_marks = marks[:, 0]",
+    "priya_english = marks[1, 1]",
+    "first_two = marks[0:2, :]",
+    "first_two_science = marks[0:2, 2]"
+  ],
   "steps": [
     {
-      "step": 1,
-      "description": "Initial state before execution.",
-      "state": {}
+      "activeLine": 1,
+      "explanation": "Imports the NumPy numerical computing library under the conventional alias 'np'.",
+      "variables": {
+        "np": "<module 'numpy'>"
+      },
+      "output": ""
     },
     {
-      "step": 2,
-      "description": "Processing logic...",
-      "state": {}
+      "activeLine": 2,
+      "explanation": "Allocates a contiguous 4x3 two-dimensional NumPy array storing marks for 4 students across 3 subjects (Maths, English, Science).",
+      "variables": {
+        "marks": "[[80, 75, 90], [70, 85, 88], [92, 78, 95], [65, 72, 80]]",
+        "marks.shape": "(4, 3)",
+        "marks.ndim": "2"
+      },
+      "output": ""
     },
     {
-      "step": 3,
-      "description": "Final output.",
-      "state": {}
+      "activeLine": 3,
+      "explanation": "Evaluates marks[0]. In a 2D array, a single integer index selects the entire row at index 0 (Student 1's scores).",
+      "variables": {
+        "first_student": "[80, 75, 90]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 4,
+      "explanation": "Evaluates marks[-1]. Negative indexing counts backwards from the end, cleanly accessing the final row (Student 4's scores) without needing to compute the length.",
+      "variables": {
+        "last_student": "[65, 72, 80]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 5,
+      "explanation": "Evaluates marks[:, 0]. The colon (:) in row position selects all rows, while 0 selects Column 0, returning all Maths marks as a 1D vector.",
+      "variables": {
+        "maths_marks": "[80, 70, 92, 65]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 6,
+      "explanation": "Evaluates marks[1, 1]. In 2D coordinate indexing [row, column], this navigates to row index 1 (Student 2) and column index 1 (English), isolating the scalar value 85.",
+      "variables": {
+        "priya_english": "85"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 7,
+      "explanation": "Evaluates marks[0:2, :]. Slices rows 0 through 1 (start 0 included, stop 2 excluded) and all columns (:), extracting a 2x3 sub-matrix for the first two students.",
+      "variables": {
+        "first_two": "[[80, 75, 90], [70, 85, 88]]"
+      },
+      "output": ""
+    },
+    {
+      "activeLine": 8,
+      "explanation": "Evaluates marks[0:2, 2]. Combines row slicing (rows 0 and 1) with column indexing (column 2: Science), yielding a 1D array of Science marks for the first two students.",
+      "variables": {
+        "first_two_science": "[90, 88]"
+      },
+      "output": ""
     }
   ]
 }

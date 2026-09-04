@@ -3,12 +3,12 @@
   "unitId": "unit-05",
   "dayNumber": 55,
   "order": 55,
-  "title": "Day 55: Selection and Indexing in Pandas",
-  "shortTitle": "Selection and Indexing in Pandas",
-  "description": "Filtering DataFrame rows and selecting specific columns.",
+  "title": "Unit–V — Day 7: Pandas DataFrame — Rows, Columns, Selection and Modification",
+  "shortTitle": "Pandas DataFrame: Rows, Columns & Selection",
+  "description": "Introduction to 2D labeled DataFrames: Series vs DataFrame, rows/columns/cells, accessing with .loc and .iloc, column arithmetic, in-place modification, and adding calculated columns.",
   "simulationType": "Type H: Matrix / Table Visualization",
-  "estimatedMinutes": 20,
-  "difficulty": "advanced",
+  "estimatedMinutes": 90,
+  "difficulty": "beginner",
   "outcomes": [
     "CO5"
   ],
@@ -17,5 +17,5 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 10
 }
