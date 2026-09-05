@@ -4,11 +4,14 @@ import { Toaster } from 'sonner';
 import { GlobalNav } from '../components/layout/GlobalNav.jsx';
 import { Footer } from '../components/layout/Footer.jsx';
 import { CommandPalette } from '../components/search/CommandPalette.jsx';
+import { AuthEngagementModal } from '../components/auth/AuthEngagementModal.jsx';
 import { useAuthStore } from '../stores/authStore.js';
 import { useUIStore } from '../stores/uiStore.js';
+import { trackPageView, setUserMonitoringProfile } from '../services/firebase/analytics.js';
+import { authCookieManager } from '../services/storage/cookies.js';
 
 export function App() {
-  const { initAuth } = useAuthStore();
+  const { user, initAuth } = useAuthStore();
   const { isFocusMode } = useUIStore();
   const location = useLocation();
 
@@ -19,6 +22,22 @@ export function App() {
     };
   }, [initAuth]);
 
+  // Track real-time page views and route transitions in Google Firebase Analytics + update active cookie
+  useEffect(() => {
+    trackPageView(location.pathname + location.search, document.title);
+    authCookieManager.updateLastActive();
+  }, [location.pathname, location.search]);
+
+  // Sync authenticated user monitoring profile with Firebase Analytics
+  useEffect(() => {
+    if (user?.uid) {
+      setUserMonitoringProfile(user.uid, {
+        is_anonymous: String(user.isAnonymous || false),
+        sign_in_provider: user.providerData?.[0]?.providerId || 'email'
+      });
+    }
+  }, [user]);
+
   // Hide footer on full IDE practice view, active assessment, or focus mode
   const isPracticeOrTest = location.pathname.startsWith('/practice') || location.pathname.startsWith('/tests');
 
@@ -27,16 +46,19 @@ export function App() {
       {/* 44px Persistent Apple Top Nav */}
       {!isFocusMode && <GlobalNav />}
 
-      {/* Main Routed Page Content */}
-      <div className="flex-1 flex flex-col">
+      {/* Main Routed Page Content with Landmark */}
+      <main id="main-content" className="flex-1 flex flex-col min-h-screen">
         <Outlet />
-      </div>
+      </main>
 
       {/* Footer (hidden on IDE, Test views, and Focus Mode) */}
       {!isPracticeOrTest && !isFocusMode && <Footer />}
 
       {/* Global Cmd+K Search Command Palette */}
       <CommandPalette />
+
+      {/* Persistent Auth Session & Engagement Modal */}
+      <AuthEngagementModal />
 
       {/* Sonner Toast Notifications */}
       <Toaster

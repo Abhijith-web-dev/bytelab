@@ -1,8 +1,8 @@
 {
   "id": "day-15",
   "unitId": "unit-02",
-  "dayNumber": 3,
-  "order": 3,
+  "dayNumber": 9,
+  "order": 9,
   "title": "Day 3: Iteration, Loop State & while Loop",
   "shortTitle": "while Loop, State & Control",
   "description": "Master the mechanics of repetition and iteration in Python using the while loop, tracking loop states, avoiding infinite loops, and wielding break and continue.",
@@ -26,5 +26,6 @@
     "List Index Traversals and In-Place Modifications using while",
     "Practice Problem: Number Sum Until Zero",
     "Unit-II Day 3 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 3
 }

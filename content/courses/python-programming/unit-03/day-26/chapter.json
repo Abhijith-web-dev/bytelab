@@ -1,8 +1,8 @@
 {
   "id": "day-26",
   "unitId": "unit-03",
-  "dayNumber": 3,
-  "order": 3,
+  "dayNumber": 19,
+  "order": 19,
   "title": "Day 3: List Mutability, Aliasing & Cloning",
   "shortTitle": "Mutability, Aliasing & Cloning",
   "description": "Understand list mutability, references, aliasing pitfalls, cloning with copy() and slicing [:], and identity (is) vs equality (==).",
@@ -25,5 +25,6 @@
   ],
   "prerequisites": [
     "day-25"
-  ]
+  ],
+  "unitDayNumber": 3
 }

@@ -1,9 +1,9 @@
 {
   "id": "day-39",
   "unitId": "unit-04",
-  "dayNumber": 39,
+  "dayNumber": 29,
   "unitDayNumber": 3,
-  "order": 39,
+  "order": 29,
   "title": "Unit–IV — Day 3: Format Operator, File Data Formatting & Command Line Arguments",
   "shortTitle": "Format Operator & sys.argv",
   "description": "Master the format operator % (%s, %d, %.2f), tabular file reports, sys.argv command line arguments, and structured file parsing workflows.",

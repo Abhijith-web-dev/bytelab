@@ -1,8 +1,8 @@
 {
   "id": "day-18",
   "unitId": "unit-02",
-  "dayNumber": 6,
-  "order": 6,
+  "dayNumber": 12,
+  "order": 12,
   "title": "Day 6: Scope, Function Composition & Passing Values",
   "shortTitle": "Scope, Composition & Value Flow",
   "description": "Understand variable visibility across local and global scopes, wield the global keyword with care, and design clean software pipelines using function composition and parameter passing.",
@@ -26,5 +26,6 @@
     "Multi-Stage Processing Pipelines (Student Grading, E-commerce, Salary)",
     "Practice Problem: Student Result Processing Pipeline",
     "Unit-II Day 6 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 6
 }

@@ -1,8 +1,8 @@
 {
   "id": "day-32",
   "unitId": "unit-03",
-  "dayNumber": 9,
-  "order": 9,
+  "dayNumber": 25,
+  "order": 25,
   "title": "Day 9: Sorting Algorithms — Selection Sort & Insertion Sort",
   "shortTitle": "Selection Sort & Insertion Sort",
   "description": "Understand fundamental sorting algorithms: step-by-step dry runs, Python implementations of Selection Sort and Insertion Sort, swapping vs shifting, and algorithm-based problem solving.",
@@ -26,5 +26,6 @@
   ],
   "prerequisites": [
     "day-31"
-  ]
+  ],
+  "unitDayNumber": 9
 }

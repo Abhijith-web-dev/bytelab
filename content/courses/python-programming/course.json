@@ -133,7 +133,7 @@
       "romanNumber": "Unit V",
       "title": "NumPy, Data Frame",
       "description": "NumPy arrays (creation, shape, slicing, math), Pandas Series, Dataframes, Missing data, Merging, Groupby, Apply, Sorting, File I/O, Matrix operations.",
-      "periods": 12,
+      "periods": 10,
       "outcomes": [
         "CO5"
       ],
@@ -147,9 +147,7 @@
         "day-55",
         "day-56",
         "day-57",
-        "day-58",
-        "day-59",
-        "day-60"
+        "day-58"
       ]
     },
     {

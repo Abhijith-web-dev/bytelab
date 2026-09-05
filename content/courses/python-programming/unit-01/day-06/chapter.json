@@ -4,7 +4,9 @@
   "description": "Understand how Python executes a program and combining everything learned in Days 1–5.",
   "difficulty": "beginner",
   "simulationType": "code",
-  "outcomes": ["CO1"],
+  "outcomes": [
+    "CO1"
+  ],
   "order": 6,
   "timeEstimate": 90,
   "topics": [
@@ -13,5 +15,7 @@
     "Integration",
     "Debugging",
     "Revision"
-  ]
+  ],
+  "unitDayNumber": 6,
+  "dayNumber": 6
 }

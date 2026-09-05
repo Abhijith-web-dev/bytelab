@@ -1,9 +1,9 @@
 {
   "id": "day-44",
   "unitId": "unit-04",
-  "dayNumber": 44,
+  "dayNumber": 34,
   "unitDayNumber": 8,
-  "order": 44,
+  "order": 34,
   "title": "Unit–IV — Day 8: Packages in Python",
   "shortTitle": "Packages in Python",
   "description": "Learn to organize related modules into directory-based packages. Understand package structure, __init__.py, package import styles (from package import module, from package.module import function), module vs package distinctions, and multi-package project design.",

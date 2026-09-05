@@ -1,8 +1,8 @@
 {
   "id": "day-31",
   "unitId": "unit-03",
-  "dayNumber": 8,
-  "order": 8,
+  "dayNumber": 24,
+  "order": 24,
   "title": "Day 8: Dictionary Methods, Traversal & List Comprehension",
   "shortTitle": "Dictionary Traversal & List Comprehension",
   "description": "Master dictionary traversal, essential methods (get, keys, values, items, update, pop), conditional filtering, and concise list comprehensions.",
@@ -25,5 +25,6 @@
   ],
   "prerequisites": [
     "day-30"
-  ]
+  ],
+  "unitDayNumber": 8
 }

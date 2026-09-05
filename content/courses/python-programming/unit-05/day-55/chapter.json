@@ -1,8 +1,8 @@
 {
   "id": "day-55",
   "unitId": "unit-05",
-  "dayNumber": 55,
-  "order": 55,
+  "dayNumber": 43,
+  "order": 43,
   "title": "Unit–V — Day 7: Pandas DataFrame — Rows, Columns, Selection and Modification",
   "shortTitle": "Pandas DataFrame: Rows, Columns & Selection",
   "description": "Introduction to 2D labeled DataFrames: Series vs DataFrame, rows/columns/cells, accessing with .loc and .iloc, column arithmetic, in-place modification, and adding calculated columns.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 7
 }

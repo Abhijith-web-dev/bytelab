@@ -12,7 +12,8 @@ import {
   getAllProblems,
   getQuestionPool,
   buildSearchIndex,
-  getLanguages
+  getLanguages,
+  getNavigationHierarchy
 } from '../content/loader/index.js';
 
 describe('Content Loader & 19AI301/CS3301 65-Day Plan Validation', () => {
@@ -943,6 +944,26 @@ describe('Content Loader & 19AI301/CS3301 65-Day Plan Validation', () => {
 
     const examples = getExamples('python-programming', 'unit-05', 'day-58');
     expect(examples).toHaveLength(4);
+  });
+
+  it('validates exact day order and numbering across Unit 4 and Unit 5 in navigation hierarchy', () => {
+    const hierarchy = getNavigationHierarchy('python-programming');
+
+    // Unit 4: 10 days, sequential course days 27 to 36, unit days 1 to 10
+    const unit4 = hierarchy.filter(h => h.unitId === 'unit-04');
+    expect(unit4).toHaveLength(10);
+    unit4.forEach((day, index) => {
+      expect(day.unitDayIndex).toBe(index + 1);
+      expect(day.courseDayNumber).toBe(27 + index);
+    });
+
+    // Unit 5: 10 days, sequential course days 37 to 46, unit days 1 to 10
+    const unit5 = hierarchy.filter(h => h.unitId === 'unit-05');
+    expect(unit5).toHaveLength(10);
+    unit5.forEach((day, index) => {
+      expect(day.unitDayIndex).toBe(index + 1);
+      expect(day.courseDayNumber).toBe(37 + index);
+    });
   });
 });
 

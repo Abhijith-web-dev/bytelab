@@ -1,9 +1,9 @@
 {
   "id": "day-41",
   "unitId": "unit-04",
-  "dayNumber": 41,
+  "dayNumber": 31,
   "unitDayNumber": 5,
-  "order": 41,
+  "order": 31,
   "title": "Unit–IV — Day 5: Errors and Exceptions in Python",
   "shortTitle": "Errors and Exceptions in Python",
   "description": "Understand why programs fail, the critical distinction between syntax and runtime errors, common exceptions (NameError, TypeError, ValueError, IndexError, KeyError, ZeroDivisionError, FileNotFoundError), traceback analysis, and defensive error prevention.",

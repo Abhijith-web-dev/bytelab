@@ -27,14 +27,14 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-editor': ['@monaco-editor/react'],
           'vendor-markdown': ['react-markdown', 'remark-gfm', 'rehype-sanitize'],
-          'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/analytics'],
           'vendor-ui': ['lucide-react', 'canvas-confetti', 'sonner'],
           'vendor-state': ['zustand'],
           'vendor-utils': ['fuse.js', 'zod', 'react-hook-form', 'date-fns']
         }
       }
     },
-    chunkSizeWarningLimit: 650
+    chunkSizeWarningLimit: 750
   },
   test: {
     globals: true,

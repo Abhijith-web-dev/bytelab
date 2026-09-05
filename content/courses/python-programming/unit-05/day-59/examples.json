@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-59-1",
-    "title": "Basic Usage of Sorting in DataFrames",
-    "code": "# Example for Sorting in DataFrames\nprint('Day 59 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

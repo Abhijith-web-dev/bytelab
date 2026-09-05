@@ -1,9 +1,9 @@
 {
   "id": "day-37",
   "unitId": "unit-04",
-  "dayNumber": 37,
+  "dayNumber": 27,
   "unitDayNumber": 1,
-  "order": 37,
+  "order": 27,
   "title": "Unit–IV — Day 1: Files and Exceptions — Introduction to File Handling",
   "shortTitle": "Introduction to File Handling",
   "description": "What is a file, variable vs file, text vs binary files, file paths, open(), close(), file modes (r, w, a, x), reading and writing basics, student file saver, and Moodle IDE practice.",

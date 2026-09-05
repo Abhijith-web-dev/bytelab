@@ -1,9 +1,9 @@
 {
   "id": "day-42",
   "unitId": "unit-04",
-  "dayNumber": 42,
+  "dayNumber": 32,
   "unitDayNumber": 6,
-  "order": 42,
+  "order": 32,
   "title": "Unit–IV — Day 6: Handling Exceptions in Python",
   "shortTitle": "Handling Exceptions in Python",
   "description": "Master robust error handling using try, except, else, finally, and raise. Learn to handle specific exceptions (ValueError, ZeroDivisionError, IndexError, FileNotFoundError), perform graceful cleanup, and validate user input safely.",

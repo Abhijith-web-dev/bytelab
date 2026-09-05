@@ -51,9 +51,11 @@ import {
   getProblems,
   getQuiz,
   getNextAndPreviousLesson,
-  normalizeChapterId
+  normalizeChapterId,
+  cleanChapterTitle
 } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
+import { useAuthStore } from '../../stores/authStore.js';
 import { useUIStore } from '../../stores/uiStore.js';
 import { usePracticeStore } from '../../stores/practiceStore.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
@@ -88,6 +90,7 @@ export function LessonPage() {
   const quizQuestions = getQuiz(courseId, unitId, chapterId);
 
   const { markLessonComplete, completedChapters } = useProgressStore();
+  const { isAuthenticated, isGuest } = useAuthStore();
   const {
     isStoryMode,
     toggleStoryMode,
@@ -99,7 +102,13 @@ export function LessonPage() {
   } = useUIStore();
 
   const isChapterDone = completedChapters.includes(chapterId);
-  const { prev, next, currentIndex, totalCount } = getNextAndPreviousLesson(courseId, unitId, chapterId);
+  const { prev, next, current, currentIndex, totalCount } = getNextAndPreviousLesson(courseId, unitId, chapterId);
+
+  const unitChapters = unit.chapters || [];
+  const unitDayIndex = current?.unitDayIndex || (unitChapters.indexOf(chapterId) !== -1 ? unitChapters.indexOf(chapterId) + 1 : 1);
+  const unitTotalDays = unitChapters.length || 10;
+  const courseDayNumber = current?.courseDayNumber || current?.dayNumber || chapter?.dayNumber || currentIndex;
+  const cleanTitle = chapter?.shortTitle || cleanChapterTitle(chapter?.title) || chapter?.title || chapterId;
 
   // Active Workspace Tab (Udemy/LMS style)
   const [activeTab, setActiveTab] = useState('notes'); // 'notes' | 'simulation' | 'sandbox' | 'quiz'
@@ -229,6 +238,29 @@ export function LessonPage() {
     }));
   };
 
+  const calculateQuizScore = () => {
+    if (!randomizedQuiz || randomizedQuiz.length === 0) return { correct: 0, total: 0, percentage: 0 };
+    let correct = 0;
+    randomizedQuiz.forEach(q => {
+      const selected = selectedAnswers[q.id];
+      if (selected === undefined || selected === null) return;
+      const isRight = q.options.some((optItem, optIdx) => {
+        const optId = typeof optItem === 'object' ? optItem.id : String(optIdx);
+        const isCorrect = typeof optItem === 'object' ? Boolean(optItem.isCorrect) : (q.correctAnswer === optIdx);
+        return optId === selected && isCorrect;
+      });
+      if (isRight) correct++;
+    });
+    const total = randomizedQuiz.length;
+    const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+    return { correct, total, percentage };
+  };
+
+  const handleResetQuiz = () => {
+    setSelectedAnswers({});
+    setQuizSubmitted(false);
+  };
+
   const handleQuizSubmit = () => {
     setQuizSubmitted(true);
     markLessonComplete(chapterId, chapterId, unitId);
@@ -241,30 +273,47 @@ export function LessonPage() {
     } catch (e) {}
   };
 
+  const tabs = [
+    { id: 'notes', label: isStoryMode ? 'Story Narrative' : 'Lesson Notes', icon: isStoryMode ? Sparkles : BookOpen },
+    ...(simulationData ? [{ id: 'simulation', label: 'Visual Simulation', icon: Cpu }] : []),
+    { id: 'sandbox', label: 'Python Sandbox', icon: Terminal },
+    ...(quizQuestions.length > 0 ? [{ id: 'quiz', label: `Knowledge Check (${quizQuestions.length})`, icon: HelpCircle }] : []),
+    ...(problems && problems.length > 0 ? [{ id: 'practice', label: `Practice (${problems.length})`, icon: Target }] : [])
+  ];
+
+  const handleTabKeyDown = (e, currentTabId) => {
+    const currentIndex = tabs.findIndex(t => t.id === currentTabId);
+    if (e.key === 'ArrowRight') {
+      const nextIndex = (currentIndex + 1) % tabs.length;
+      setActiveTab(tabs[nextIndex].id);
+      document.getElementById(`tab-${tabs[nextIndex].id}`)?.focus();
+    } else if (e.key === 'ArrowLeft') {
+      const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      setActiveTab(tabs[prevIndex].id);
+      document.getElementById(`tab-${tabs[prevIndex].id}`)?.focus();
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Top Context SubNav */}
       <SubNavFrosted
-        title={chapter?.title || chapterId}
-        subtitle={`${unit.romanNumber} • Day ${currentIndex} of ${totalCount}`}
+        title={cleanTitle}
+        subtitle={`${unit.romanNumber} • Day ${unitDayIndex} of ${unitTotalDays} (Day ${courseDayNumber})`}
         breadcrumbs={[
           { label: '46-Day Curriculum', path: `/courses/${courseId}` },
-          { label: unit.romanNumber, path: `/courses/${courseId}/unit/${unit.id}` }
+          { label: unit.romanNumber, path: `/courses/${courseId}/unit/${unit.id}` },
+          { label: `Day ${unitDayIndex}`, path: `/courses/${courseId}/chapter/${chapterId}` }
         ]}
-        ctaLabel={isChapterDone ? "Done ✓" : "Complete"}
+        ctaLabel={isChapterDone ? "Completed ✓" : "Mark Complete"}
         onCtaClick={handleCompleteAndNext}
         rightElement={
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            {/* Difficulty Badge */}
-            <div className="hidden sm:flex mr-1">
-              <Badge variant="stone" className="text-[11px] px-2.5 py-0.5">Beginner</Badge>
-            </div>
-
             {/* Mobile Syllabus Drawer Trigger */}
             <button
               onClick={toggleMobileCurriculum}
-              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-white border border-[#d9d9dd] text-[12px] font-medium text-[#17171c] hover:bg-[#fafafa] active:scale-95 transition-all"
-              aria-label="Open Syllabus"
+              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-white border border-[#d9d9dd] text-[12px] font-medium text-[#17171c] hover:bg-[#fafafa] active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c]"
+              aria-label="Open Syllabus Menu"
             >
               <Menu className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1" />
               <span className="hidden sm:inline">Syllabus</span>
@@ -273,12 +322,13 @@ export function LessonPage() {
             {/* Focus Mode Switcher */}
             <button
               onClick={toggleFocusMode}
-              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 active:scale-95 ${
+              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c] ${
                 isFocusMode
                   ? 'bg-[#17171c] text-white shadow-xs'
-                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
+                  : 'bg-white text-[#575768] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
               }`}
-              title="Toggle Focus Mode"
+              title={isFocusMode ? "Exit Focus Mode" : "Enter Focus Mode"}
+              aria-label={isFocusMode ? "Exit Focus Mode" : "Enter Focus Mode"}
             >
               {isFocusMode ? (
                 <Minimize className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5" />
@@ -291,15 +341,18 @@ export function LessonPage() {
             {/* Story Mode Quick Switcher */}
             <button
               onClick={toggleStoryMode}
-              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 active:scale-95 ${
+              role="switch"
+              aria-checked={isStoryMode}
+              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff7759] ${
                 isStoryMode
                   ? 'bg-[#ff7759] text-white shadow-xs'
-                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
+                  : 'bg-white text-[#575768] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
               }`}
-              title="Toggle Story Mode"
+              title="Toggle Storytelling Mode (real-world metaphors)"
+              aria-label="Toggle Story Mode"
             >
-              <Sparkles className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5 fill-current" />
-              <span className="hidden sm:inline">{isStoryMode ? 'Story Mode Active' : 'Story Mode'}</span>
+              <Sparkles className={`w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5 ${isStoryMode ? 'fill-current' : ''}`} />
+              <span className="hidden sm:inline">{isStoryMode ? 'Story Mode' : 'Story Mode'}</span>
             </button>
           </div>
         }
@@ -317,14 +370,18 @@ export function LessonPage() {
         {/* Mobile Slide-Over Curriculum Drawer */}
         {isMobileCurriculumOpen && (
           <div className="fixed inset-0 z-50 md:hidden flex animate-in fade-in duration-150">
-            <div className="fixed inset-0 bg-black/40 backdrop-blur-xs" onClick={closeMobileCurriculum} />
+            <div className="fixed inset-0 bg-black/40 backdrop-blur-xs" onClick={closeMobileCurriculum} aria-hidden="true" />
             <div className="relative w-[300px] sm:w-[360px] max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
               <div className="p-4 border-b border-[#d9d9dd] flex items-center justify-between bg-[#eeece7]/40">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-4 h-4 text-[#17171c]" />
                   <span className="font-semibold text-[14px] text-[#17171c]">46-Day Syllabus</span>
                 </div>
-                <button onClick={closeMobileCurriculum} className="p-1 text-[#75758a] hover:text-[#17171c] rounded-full">
+                <button
+                  onClick={closeMobileCurriculum}
+                  className="p-1.5 text-[#575768] hover:text-[#17171c] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c]"
+                  aria-label="Close Syllabus Menu"
+                >
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -336,154 +393,114 @@ export function LessonPage() {
         )}
 
         {/* Center: Main Lecture Player Workspace */}
-        <main className="flex-1 min-w-0 px-3 sm:px-6 md:px-8 lg:px-10 py-6 sm:py-8 max-w-4xl mx-auto w-full space-y-6 sm:space-y-8">
-          {/* Lecture Hero Banner */}
-          <div className="space-y-3 pb-6 border-b border-[#d9d9dd]">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap pb-1 sm:pb-0 w-full sm:w-auto">
+        <main className="flex-1 min-w-0 px-4 sm:px-8 md:px-10 lg:px-12 py-8 max-w-4xl mx-auto w-full space-y-8" role="main">
+          {/* Streamlined Day Hero Header */}
+          <header className="space-y-4 pb-6 border-b border-[#d9d9dd]">
+            {/* Meta Row */}
+            <div className="flex flex-wrap items-center justify-between gap-3 text-[12px]">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#17171c] text-white">
+                  Day {unitDayIndex} of {unitTotalDays}
+                </span>
+                <span className="font-mono text-[#575768] bg-[#eeece7]/60 border border-[#d9d9dd] px-2.5 py-0.5 rounded-full">
+                  Curriculum Day {courseDayNumber}
+                </span>
                 <Badge variant="coral">{chapter?.outcomes?.[0] || 'CO1'}</Badge>
-                <Badge variant="stone">
-                  {chapter?.difficulty || 'Beginner'}
-                </Badge>
-                <span className="text-[13px] text-[#75758a] flex items-center gap-1 font-mono shrink-0">
-                  <Clock className="w-3.5 h-3.5" />
+                <span className="text-[#575768] flex items-center gap-1 font-mono font-medium">
+                  <Clock className="w-3.5 h-3.5 text-[#17171c]" />
                   <span>~20 min</span>
                 </span>
-                {chapter?.simulationType && (
-                  <span className="text-[11px] font-mono bg-white border border-[#d9d9dd] text-[#17171c] px-2.5 py-0.5 rounded-full shrink-0">
-                    {chapter.simulationType}
-                  </span>
-                )}
               </div>
 
               {isChapterDone && (
-                <div className="flex items-center gap-1.5 text-emerald-600 text-[13px] font-semibold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 shrink-0 self-start sm:self-auto">
-                  <CheckCircle2 className="w-4 h-4" />
+                <div className="flex items-center gap-1.5 text-emerald-700 text-[12px] font-semibold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Completed</span>
                 </div>
               )}
             </div>
 
-            <h1 className="text-[26px] sm:text-[36px] font-medium text-[#17171c] tracking-tight leading-tight">
+            {/* Main Title */}
+            <h1 className="text-[26px] sm:text-[34px] font-semibold text-[#17171c] tracking-tight leading-tight">
               {chapter?.title || chapterId}
             </h1>
 
-            <p className="text-[15px] text-[#75758a] leading-relaxed">
-              {chapter?.description}
-            </p>
+            {/* Description */}
+            {chapter?.description && (
+              <p className="text-[15px] text-[#575768] leading-relaxed max-w-3xl">
+                {chapter.description}
+              </p>
+            )}
 
-            {/* Story Mode vs Academic Mode Toggle Banner */}
-            <div className="p-4 rounded-[16px] bg-[#eeece7]/40 border border-[#d9d9dd] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isStoryMode ? 'bg-[#ff7759] text-white' : 'bg-[#17171c] text-white'}`}>
-                  {isStoryMode ? <Sparkles className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
-                </div>
-                <div>
-                  <span className="text-[13px] font-semibold text-[#17171c] block">
-                    {isStoryMode ? 'Storytelling & Intuitive Analogy Mode' : 'Standard Academic Mode'}
-                  </span>
-                  <span className="text-[12px] text-[#75758a]">
-                    {isStoryMode ? 'Explained with everyday real-world metaphors for intuitive understanding.' : 'Direct, technical explanations with code examples.'}
-                  </span>
-                </div>
+            {/* Clean Tab Navigation Strip with Integrated Segment Controller */}
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-[#d9d9dd]/70">
+              {/* Tablist */}
+              <div
+                role="tablist"
+                aria-label="Lesson sections"
+                className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1"
+              >
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      id={`tab-${tab.id}`}
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={`tabpanel-${tab.id}`}
+                      tabIndex={isActive ? 0 : -1}
+                      onClick={() => setActiveTab(tab.id)}
+                      onKeyDown={(e) => handleTabKeyDown(e, tab.id)}
+                      className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c] ${
+                        isActive
+                          ? 'bg-[#17171c] text-white shadow-xs'
+                          : 'bg-white text-[#575768] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
+                      }`}
+                    >
+                      <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#575768]'}`} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
               </div>
 
-              <div className="flex items-center gap-1 bg-white p-1 rounded-full border border-[#d9d9dd] shrink-0 self-start sm:self-auto">
+              {/* Mode Switcher Segment (Standard vs Story) */}
+              <div className="flex items-center gap-1 bg-[#eeece7]/50 p-1 rounded-full border border-[#d9d9dd] shrink-0 self-start sm:self-auto">
                 <button
                   onClick={() => useUIStore.getState().setStoryMode(false)}
-                  className={`px-3 py-1 rounded-full text-[12px] font-medium transition-all cursor-pointer ${
-                    !isStoryMode ? 'bg-[#17171c] text-white shadow-xs' : 'text-[#75758a] hover:text-[#17171c]'
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c] ${
+                    !isStoryMode ? 'bg-[#17171c] text-white shadow-xs' : 'text-[#575768] hover:text-[#17171c]'
                   }`}
+                  aria-label="Switch to Standard Academic Mode"
                 >
                   Standard
                 </button>
                 <button
                   onClick={() => useUIStore.getState().setStoryMode(true)}
-                  className={`px-3 py-1 rounded-full text-[12px] font-medium transition-all cursor-pointer flex items-center gap-1 ${
-                    isStoryMode ? 'bg-[#ff7759] text-white shadow-xs' : 'text-[#75758a] hover:text-[#17171c]'
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all cursor-pointer flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff7759] ${
+                    isStoryMode ? 'bg-[#ff7759] text-white shadow-xs' : 'text-[#575768] hover:text-[#17171c]'
                   }`}
+                  aria-label="Switch to Storytelling & Metaphors Mode"
                 >
                   <Sparkles className="w-3 h-3 fill-current" />
                   <span>Story Mode</span>
                 </button>
               </div>
             </div>
+          </header>
 
-            {/* Learning Workspace Tab Navigation */}
-            <div className="lesson-tab-strip pt-4 border-t border-[#d9d9dd] -mx-1 px-1">
-              <button
-                onClick={() => setActiveTab('notes')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
-                  activeTab === 'notes'
-                    ? 'bg-[#17171c] text-white shadow-xs'
-                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5 shrink-0" />
-                <span>{isStoryMode ? 'Story Narrative' : '12-Section Lesson'}</span>
-              </button>
-
-              {simulationData && (
-                <button
-                  onClick={() => setActiveTab('simulation')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
-                    activeTab === 'simulation'
-                      ? 'bg-[#17171c] text-white shadow-xs'
-                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
-                  }`}
-                >
-                  <Cpu className="w-3.5 h-3.5 text-[#003c33] shrink-0" />
-                  <span>Interactive Simulation</span>
-                </button>
-              )}
-
-              <button
-                onClick={() => setActiveTab('sandbox')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
-                  activeTab === 'sandbox'
-                    ? 'bg-[#17171c] text-white shadow-xs'
-                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
-                }`}
-              >
-                <Terminal className="w-3.5 h-3.5 text-[#1863dc] shrink-0" />
-                <span>Live Sandbox & Diagnostics</span>
-              </button>
-
-              {quizQuestions.length > 0 && (
-                <button
-                  onClick={() => setActiveTab('quiz')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
-                    activeTab === 'quiz'
-                      ? 'bg-[#17171c] text-white shadow-xs'
-                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
-                  }`}
-                >
-                  <HelpCircle className="w-3.5 h-3.5 text-[#ff7759] shrink-0" />
-                  <span>Quick Check ({quizQuestions.length})</span>
-                </button>
-              )}
-
-              {problems && problems.length > 0 && (
-                <button
-                  onClick={() => setActiveTab('practice')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
-                    activeTab === 'practice'
-                      ? 'bg-[#17171c] text-white shadow-xs'
-                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
-                  }`}
-                >
-                  <Target className="w-3.5 h-3.5 text-[#ff7759] shrink-0" />
-                  <span>Practice ({problems.length})</span>
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* TAB 1: Lecture Notes / Story Mode */}
+          {/* TABPANEL 1: Lecture Notes / Story Mode */}
           {activeTab === 'notes' && (
-            <div className="space-y-8 animate-in fade-in duration-150">
-              <article>
-                <React.Suspense fallback={<div className="p-12 flex items-center justify-center text-[#737373]">Loading content...</div>}>
+            <section
+              id="tabpanel-notes"
+              role="tabpanel"
+              aria-labelledby="tab-notes"
+              className="space-y-8 animate-in fade-in duration-150"
+            >
+              <article className="prose-container max-w-none">
+                <React.Suspense fallback={<div className="p-12 flex items-center justify-center text-[#575768]">Loading lesson notes...</div>}>
                   <MarkdownRenderer
                     content={isStoryMode && storyMd ? storyMd : lessonMd}
                     onTryCode={handleTryCode}
@@ -491,70 +508,56 @@ export function LessonPage() {
                 </React.Suspense>
               </article>
 
-              {/* Interactive Examples Section (W3Schools-style) */}
-              {examples.length > 0 && (
-                <section className="space-y-6 pt-6 border-t border-[#d9d9dd]">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-[19px] sm:text-[22px] font-medium text-[#17171c] tracking-tight flex items-center gap-2">
-                      <Terminal className="w-5 h-5 text-[#17171c]" />
-                      <span>Try It Yourself (Interactive Demos)</span>
-                    </h2>
-                    <span className="text-[12px] text-[#75758a]">
-                      Executable Sandbox Blocks
-                    </span>
-                  </div>
-
-                  <div className="space-y-6">
-                    {examples.map((ex) => (
-                      <div key={ex.id} className="rounded-[16px] bg-white border border-[#d9d9dd] overflow-hidden">
-                        <div className="px-5 py-3 bg-[#eeece7]/40 border-b border-[#d9d9dd] flex items-center justify-between">
-                          <h3 className="text-[14px] font-semibold text-[#17171c]">{ex.title}</h3>
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            onClick={() => handleTryCode(ex.code)}
-                            className="py-1 px-3 text-[12px]"
-                          >
-                            <Play className="w-3 h-3 fill-current" />
-                            <span>Run in Sandbox</span>
-                          </Button>
-                        </div>
-
-                        <div className="p-5 space-y-4">
-                          {ex.description && (
-                            <p className="text-[14px] text-[#75758a]">{ex.description}</p>
-                          )}
-
-                          <div className="rounded-[10px] bg-[#17171c] text-white p-4 font-mono text-[13px] overflow-x-auto">
-                            <pre><code>{ex.code}</code></pre>
-                          </div>
-
-                          <div className="p-3.5 rounded-[10px] bg-[#eeece7]/40 border border-[#d9d9dd] text-[13px] font-mono">
-                            <span className="text-[#75758a] text-[11px] block font-sans mb-1 font-semibold uppercase">Expected Output:</span>
-                            <pre className="text-[#003c33] font-semibold whitespace-pre-wrap"><code>{ex.expectedOutput}</code></pre>
-                          </div>
-
-                          <p className="text-[13px] text-[#212121] leading-relaxed bg-[#eeece7]/30 p-3 rounded-[10px] border border-[#d9d9dd]">
-                            💡 <b>Deep Explanation:</b> {ex.explanation}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-            </div>
+              {/* Post-reading Action Bar */}
+              <div className="p-5 rounded-[16px] bg-[#eeece7]/40 border border-[#d9d9dd] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="space-y-1 text-center sm:text-left">
+                  <h3 className="text-[14px] font-semibold text-[#17171c]">
+                    Finished reading Day {unitDayIndex}?
+                  </h3>
+                  <p className="text-[12.5px] text-[#575768]">
+                    Practice code in the sandbox or verify your understanding with the knowledge check.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => setActiveTab('sandbox')}
+                    className="text-[12px]"
+                  >
+                    <Terminal className="w-3.5 h-3.5" />
+                    <span>Open Sandbox</span>
+                  </Button>
+                  {quizQuestions.length > 0 && (
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => setActiveTab('quiz')}
+                      className="text-[12px]"
+                    >
+                      <HelpCircle className="w-3.5 h-3.5" />
+                      <span>Take Quiz</span>
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </section>
           )}
 
-          {/* TAB 2: Visual Simulation */}
+          {/* TABPANEL 2: Visual Simulation */}
           {activeTab === 'simulation' && simulationData && (
-            <div className="space-y-6 animate-in fade-in duration-150">
+            <section
+              id="tabpanel-simulation"
+              role="tabpanel"
+              aria-labelledby="tab-simulation"
+              className="space-y-6 animate-in fade-in duration-150"
+            >
               <div className="space-y-1">
-                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
+                <h2 className="text-[20px] font-semibold text-[#17171c] tracking-tight">
                   Visual Execution Simulation ({chapter?.simulationType || 'Simulation'})
                 </h2>
-                <p className="text-[14px] text-[#75758a]">
-                  Step through execution line by line to watch variable bindings and states update in real time.
+                <p className="text-[13.5px] text-[#575768]">
+                  Step through execution line by line to watch variable bindings and memory states update in real time.
                 </p>
               </div>
 
@@ -564,21 +567,26 @@ export function LessonPage() {
                   codeLines: simulationData.codeLines || simulationData.codeSnippet?.split('\n') || examples?.[0]?.code?.split('\n') || ["# No code provided for simulation"]
                 }} 
               />
-            </div>
+            </section>
           )}
 
-          {/* TAB 3: Live Sandbox & Diagnostics */}
+          {/* TABPANEL 3: Live Sandbox & Diagnostics */}
           {activeTab === 'sandbox' && (
-            <div className="space-y-6 animate-in fade-in duration-150">
+            <section
+              id="tabpanel-sandbox"
+              role="tabpanel"
+              aria-labelledby="tab-sandbox"
+              className="space-y-6 animate-in fade-in duration-150"
+            >
               <div className="space-y-1">
-                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
+                <h2 className="text-[20px] font-semibold text-[#17171c] tracking-tight">
                   Interactive Python 3.11 Sandbox & Diagnostic Engine
                 </h2>
-                <p className="text-[14px] text-[#75758a]">
-                  Write, run, and debug Python code. In case of errors, the diagnostic engine highlights the exact line and provides fix recommendations.
+                <p className="text-[13.5px] text-[#575768]">
+                  Write, run, and debug Python code directly in your browser. Line-by-line syntax and runtime diagnostics are provided on execution errors.
                 </p>
               </div>
-              <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#75758a]">Loading interactive IDE...</div>}>
+              <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#575768]">Loading interactive IDE...</div>}>
                 <CodePlayground
                   code={sandboxCode}
                   onChange={(c) => setSandboxCode(c)}
@@ -590,38 +598,121 @@ export function LessonPage() {
                   stderr={sandboxStderr}
                   executionTimeMs={sandboxExecTime}
                   preventPaste={false}
-                  height="360px"
+                  height="380px"
                 />
               </React.Suspense>
-            </div>
+            </section>
           )}
 
-          {/* TAB 4: Concept Quiz */}
+          {/* TABPANEL 4: Concept Quiz */}
           {activeTab === 'quiz' && quizQuestions.length > 0 && (
-            <div className="space-y-6 animate-in fade-in duration-150">
+            <section
+              id="tabpanel-quiz"
+              role="tabpanel"
+              aria-labelledby="tab-quiz"
+              className="space-y-6 animate-in fade-in duration-150"
+            >
               <div className="space-y-1">
-                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
-                  Knowledge Check & Predictions
-                </h2>
-                <p className="text-[14px] text-[#75758a]">
-                  Verify your comprehension of the day's concepts before moving forward.
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className="text-[20px] font-semibold text-[#17171c] tracking-tight">
+                    Knowledge Check & Concept Predictions
+                  </h2>
+                  {quizSubmitted && (
+                    <button
+                      onClick={handleResetQuiz}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium text-[#75758a] hover:text-[#17171c] bg-[#eeece7]/60 hover:bg-[#eeece7] border border-[#d9d9dd] rounded-[8px] transition-colors cursor-pointer"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>Retake Workout</span>
+                    </button>
+                  )}
+                </div>
+                <p className="text-[13.5px] text-[#575768]">
+                  Verify your comprehension of today's core concepts before advancing to the next day.
                 </p>
               </div>
 
-              <div className="space-y-6">
+              {/* Quiz Result Summary Card */}
+              {quizSubmitted && (() => {
+                const score = calculateQuizScore();
+                const isPassed = score.percentage >= 60;
+                return (
+                  <div className={`p-5 sm:p-6 rounded-[18px] border transition-all duration-200 animate-in zoom-in-95 ${
+                    isPassed
+                      ? 'bg-emerald-50/70 border-emerald-300 text-emerald-950'
+                      : 'bg-[#eeece7]/80 border-[#d9d9dd] text-[#17171c]'
+                  }`}>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div className="flex items-center gap-3.5">
+                        <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0 ${
+                          isPassed ? 'bg-emerald-600 text-white' : 'bg-[#17171c] text-white'
+                        }`}>
+                          <Award className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-[18px] font-semibold tracking-tight">
+                              {score.percentage === 100
+                                ? 'Perfect Score! 🎯'
+                                : isPassed
+                                ? 'Workout Complete! ✨'
+                                : 'Workout Finished'}
+                            </h3>
+                            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/80 border border-current/20">
+                              +20 XP
+                            </span>
+                          </div>
+                          <p className="text-[13px] opacity-80 mt-0.5">
+                            You scored <strong className="font-semibold">{score.correct}</strong> out of <strong className="font-semibold">{score.total}</strong> ({score.percentage}%) correct.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 w-full sm:w-auto">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={handleResetQuiz}
+                          className="flex-1 sm:flex-none border-[#d9d9dd] bg-white text-[#17171c]"
+                        >
+                          <RotateCcw className="w-3.5 h-3.5 mr-1" />
+                          <span>Try Again</span>
+                        </Button>
+                        {next && (
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => navigate(`/courses/${courseId}/chapter/${next.chapterId}`)}
+                            className="flex-1 sm:flex-none"
+                          >
+                            <span>Next Day →</span>
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <div className="space-y-5">
                 {randomizedQuiz.map((q, qIdx) => (
-                  <div key={q.id || qIdx} className="p-6 rounded-[18px] bg-white border border-[#d9d9dd] space-y-5">
-                    <p className="text-[16px] font-medium text-[#17171c] leading-relaxed">
+                  <div
+                    key={q.id || qIdx}
+                    role="group"
+                    aria-labelledby={`quiz-q-${qIdx}`}
+                    className="p-5 sm:p-6 rounded-[16px] bg-white border border-[#d9d9dd] space-y-4 shadow-2xs"
+                  >
+                    <p id={`quiz-q-${qIdx}`} className="text-[15.5px] font-semibold text-[#17171c] leading-relaxed">
                       {qIdx + 1}. {q.question}
                     </p>
 
                     {q.codeSnippet && (
-                      <pre className="p-4 bg-[#17171c] text-white text-[13px] leading-loose rounded-[10px] border border-white/10 font-mono overflow-x-auto">
+                      <pre className="p-3.5 bg-[#17171c] text-white text-[13px] leading-relaxed rounded-[10px] border border-white/10 font-mono overflow-x-auto">
                         <code>{q.codeSnippet}</code>
                       </pre>
                     )}
 
-                    <div className="space-y-2.5">
+                    <div role="radiogroup" aria-labelledby={`quiz-q-${qIdx}`} className="space-y-2">
                       {q.options.map((optItem, optIdx) => {
                         const optId = typeof optItem === 'object' ? optItem.id : String(optIdx);
                         const optText = typeof optItem === 'object' ? optItem.text : String(optItem);
@@ -632,11 +723,11 @@ export function LessonPage() {
 
                         if (quizSubmitted) {
                           if (isCorrect) {
-                            optionStyle = 'bg-emerald-50 border-emerald-500 text-emerald-900 font-semibold ring-1 ring-emerald-500';
+                            optionStyle = 'bg-emerald-50 border-emerald-500 text-emerald-950 font-semibold ring-1 ring-emerald-500';
                           } else if (isSelected && !isCorrect) {
-                            optionStyle = 'bg-red-50 border-red-300 text-red-900 font-medium';
+                            optionStyle = 'bg-red-50 border-red-300 text-red-950 font-medium';
                           } else {
-                            optionStyle = 'bg-white border-[#d9d9dd] text-[#93939f] opacity-60 cursor-not-allowed';
+                            optionStyle = 'bg-white border-[#d9d9dd] text-[#75758a] opacity-60 cursor-not-allowed';
                           }
                         } else if (isSelected) {
                           optionStyle = 'bg-[#17171c] text-white border-[#17171c] font-medium';
@@ -645,15 +736,17 @@ export function LessonPage() {
                         return (
                           <button
                             key={optId}
+                            role="radio"
+                            aria-checked={isSelected}
                             onClick={() => !quizSubmitted && handleOptionSelect(q.id, optId)}
                             disabled={quizSubmitted}
-                            className={`w-full text-left px-4 py-3 rounded-[10px] border text-[14px] transition-all duration-150 flex items-center justify-between ${
+                            className={`w-full text-left px-4 py-3 rounded-[10px] border text-[13.5px] transition-all duration-150 flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c] ${
                               !quizSubmitted ? 'cursor-pointer' : ''
                             } ${optionStyle}`}
                           >
                             <span>{optText}</span>
                             {quizSubmitted && isCorrect && (
-                              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 ml-2" />
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 ml-2" />
                             )}
                           </button>
                         );
@@ -661,7 +754,7 @@ export function LessonPage() {
                     </div>
 
                     {quizSubmitted && q.explanation && (
-                      <div className="mt-4 p-4 bg-[#eeece7]/50 rounded-[10px] border border-[#d9d9dd] text-[13px] text-[#212121] leading-relaxed">
+                      <div className="mt-3.5 p-3.5 bg-[#eeece7]/60 rounded-[10px] border border-[#d9d9dd] text-[13px] text-[#212121] leading-relaxed">
                         <span className="font-semibold text-[#17171c] mr-2">💡 Explanation:</span>
                         <span>{q.explanation}</span>
                       </div>
@@ -669,60 +762,78 @@ export function LessonPage() {
                   </div>
                 ))}
 
-                <div className="flex justify-end pt-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3">
+                  {quizSubmitted && (!isAuthenticated || isGuest) ? (
+                    <div className="flex items-center gap-2 text-[13px] text-[#575768]">
+                      <Sparkles className="w-4 h-4 text-[#ff7759] fill-current shrink-0" />
+                      <span>Score saved locally.</span>
+                      <button
+                        onClick={() => window.dispatchEvent(new CustomEvent('open-auth-prompt', { detail: { reason: 'quiz' } }))}
+                        className="text-[#17171c] font-semibold underline hover:text-[#ff7759] cursor-pointer"
+                      >
+                        Sign in to sync leaderboard rank →
+                      </button>
+                    </div>
+                  ) : <div />}
+
                   <Button
                     variant="primary"
                     size="md"
                     onClick={handleQuizSubmit}
                     disabled={quizSubmitted || Object.keys(selectedAnswers).length === 0}
-                    className="px-8"
+                    className="px-8 self-end"
                   >
                     <span>{quizSubmitted ? 'Quiz Submitted ✓' : 'Submit Answers'}</span>
                   </Button>
                 </div>
               </div>
-            </div>
+            </section>
           )}
 
-          {/* TAB 5: Practice Arena */}
+          {/* TABPANEL 5: Practice Arena */}
           {activeTab === 'practice' && problems && problems.length > 0 && (
-            <div className="space-y-6 animate-in fade-in duration-150">
+            <section
+              id="tabpanel-practice"
+              role="tabpanel"
+              aria-labelledby="tab-practice"
+              className="space-y-6 animate-in fade-in duration-150"
+            >
               <div className="space-y-1">
-                <h2 className="text-[22px] font-medium text-[#17171c] tracking-tight">
+                <h2 className="text-[20px] font-semibold text-[#17171c] tracking-tight">
                   Moodle-Style Practice Assessment
                 </h2>
-                <p className="text-[14px] text-[#75758a]">
+                <p className="text-[13.5px] text-[#575768]">
                   Write code to solve the challenge. Your solution will be automatically graded against test cases.
                 </p>
               </div>
 
-              <div className="p-6 rounded-[18px] bg-[#eeece7]/40 border border-[#d9d9dd] space-y-4">
+              <div className="p-5 sm:p-6 rounded-[16px] bg-[#eeece7]/40 border border-[#d9d9dd] space-y-4">
                 <div className="flex items-center gap-2">
                   <Badge variant="stone">Beginner</Badge>
-                  <h3 className="text-[18px] font-medium text-[#17171c] tracking-tight">{problems[0].title}</h3>
+                  <h3 className="text-[17px] font-semibold text-[#17171c] tracking-tight">{problems[0].title}</h3>
                 </div>
                 
-                <div className="text-[14px] text-[#212121] leading-relaxed whitespace-pre-wrap">
+                <div className="text-[13.5px] text-[#212121] leading-relaxed whitespace-pre-wrap">
                   {problems[0].description}
                 </div>
 
                 {(problems[0].exampleInput || problems[0].exampleOutput) && (
                   <div className="pt-2">
-                    <h4 className="text-[13px] font-semibold text-[#17171c] mb-2 uppercase font-mono">Example:</h4>
-                    <div className="overflow-x-auto max-w-full touch-scroll">
-                      <table className="text-left text-[13px] border border-[#d9d9dd] bg-white rounded-[8px] overflow-hidden min-w-[320px] w-full">
+                    <h4 className="text-[12px] font-semibold text-[#17171c] mb-2 uppercase font-mono">Example Test Case:</h4>
+                    <div className="overflow-x-auto max-w-full">
+                      <table className="text-left text-[13px] border border-[#d9d9dd] bg-white rounded-[8px] overflow-hidden min-w-[300px] w-full">
                         <thead>
                           <tr className="bg-[#eeece7]/40 border-b border-[#d9d9dd]">
-                            <th className="py-2 px-4 font-medium w-[45%] border-r border-[#d9d9dd] text-[#17171c]">Input</th>
-                            <th className="py-2 px-4 font-medium w-[55%] text-[#17171c]">Result</th>
+                            <th className="py-2 px-3.5 font-medium w-[45%] border-r border-[#d9d9dd] text-[#17171c]">Input</th>
+                            <th className="py-2 px-3.5 font-medium w-[55%] text-[#17171c]">Result</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-[#d9d9dd] text-[#75758a]">
+                            <td className="py-2 px-3.5 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-[#d9d9dd] text-[#575768]">
                               {problems[0].exampleInput}
                             </td>
-                            <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap text-[#75758a]">
+                            <td className="py-2 px-3.5 font-mono text-[12px] align-top whitespace-pre-wrap text-[#575768]">
                               {problems[0].exampleOutput}
                             </td>
                           </tr>
@@ -734,31 +845,31 @@ export function LessonPage() {
               </div>
 
               <div className="space-y-2 pt-2">
-                <div className="text-[13px] font-medium text-[#17171c] flex items-center justify-between">
-                  <span>Your Solution:</span>
+                <div className="text-[13px] font-medium text-[#17171c]">
+                  <span>Your Python Solution:</span>
                 </div>
-                <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#75758a]">Loading practice IDE...</div>}>
-                <CodePlayground
-                  code={practiceCode || problems[0].starterCode}
-                  onChange={updatePracticeCode}
-                  onRun={runPracticeCode}
-                  onReset={resetPracticeCode}
-                  language="python"
-                  executionState={practiceExecState}
-                  stdout={practiceStdout}
-                  stderr={practiceStderr}
-                  executionTimeMs={practiceExecTime}
-                  testCaseResults={practiceTestResults}
-                  preventPaste={false}
-                  height="360px"
-                />
-              </React.Suspense>
+                <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#575768]">Loading practice IDE...</div>}>
+                  <CodePlayground
+                    code={practiceCode || problems[0].starterCode}
+                    onChange={updatePracticeCode}
+                    onRun={runPracticeCode}
+                    onReset={resetPracticeCode}
+                    language="python"
+                    executionState={practiceExecState}
+                    stdout={practiceStdout}
+                    stderr={practiceStderr}
+                    executionTimeMs={practiceExecTime}
+                    testCaseResults={practiceTestResults}
+                    preventPaste={false}
+                    height="380px"
+                  />
+                </React.Suspense>
               </div>
-            </div>
+            </section>
           )}
 
           {/* Bottom Day Pagination Controls */}
-          <div className="pt-8 border-t border-[#d9d9dd] flex items-center justify-between gap-4">
+          <nav aria-label="Day pagination" className="pt-8 border-t border-[#d9d9dd] flex items-center justify-between gap-4">
             {prev ? (
               <Link to={`/courses/${courseId}/chapter/${prev.chapterId}`}>
                 <Button variant="secondary" size="md" className="gap-2">
@@ -778,126 +889,90 @@ export function LessonPage() {
               <span>{next ? `Next: Day ${currentIndex + 1}` : 'Complete Course'}</span>
               <ChevronRight className="w-4 h-4" />
             </Button>
-          </div>
+          </nav>
         </main>
 
         {/* Right: Sleek Desktop Quick-Jump & Day Overview Sidebar */}
         {!isFocusMode && (
-          <aside className="hidden xl:flex flex-col w-[260px] 2xl:w-[280px] shrink-0 border-l border-[#d9d9dd] bg-[#eeece7]/20 p-5 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto space-y-6 select-none transition-all">
+          <aside aria-label="Lesson Outline" className="hidden xl:flex flex-col w-[260px] 2xl:w-[280px] shrink-0 border-l border-[#d9d9dd] bg-[#eeece7]/20 p-5 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto space-y-6 select-none transition-all">
             {/* Day Overview Badge */}
-          <div className="space-y-2 pb-4 border-b border-[#d9d9dd]">
-            <span className="text-[11px] uppercase font-bold text-[#75758a] tracking-wider block font-mono">
-              Day Navigation
-            </span>
-            <div className="flex items-center justify-between">
-              <span className="text-[14px] font-bold text-[#17171c] font-mono">
-                Day {currentIndex} of {totalCount}
+            <div className="space-y-2 pb-4 border-b border-[#d9d9dd]">
+              <span className="text-[11px] uppercase font-bold text-[#575768] tracking-wider block font-mono">
+                Curriculum Progress
               </span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#17171c] text-white font-mono">
-                {unit.outcomes[0]}
-              </span>
-            </div>
-            <div className="text-[12px] text-[#212121] leading-snug">
-              {chapter?.title}
-            </div>
-          </div>
-
-          {/* Quick Section Jump */}
-          <div className="space-y-2">
-            <span className="text-[11px] uppercase font-bold text-[#75758a] tracking-wider block font-mono">
-              On This Page
-            </span>
-            <nav className="space-y-1 text-[12px]">
-              <button
-                onClick={() => setActiveTab('notes')}
-                className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                  activeTab === 'notes'
-                    ? 'bg-[#17171c] text-white font-medium shadow-xs'
-                    : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
-                }`}
-              >
-                <div className="flex items-center gap-2 truncate">
-                  <BookOpen className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">Lecture Notes</span>
-                </div>
-              </button>
-
-              {simulationData && (
-                <button
-                  onClick={() => setActiveTab('simulation')}
-                  className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                    activeTab === 'simulation'
-                      ? 'bg-[#17171c] text-white font-medium shadow-xs'
-                      : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 truncate">
-                    <Cpu className="w-3.5 h-3.5 text-[#003c33] shrink-0" />
-                    <span className="truncate">Visual Simulation</span>
-                  </div>
-                </button>
-              )}
-
-              <button
-                onClick={() => setActiveTab('sandbox')}
-                className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                  activeTab === 'sandbox'
-                    ? 'bg-[#17171c] text-white font-medium shadow-xs'
-                    : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
-                }`}
-              >
-                <div className="flex items-center gap-2 truncate">
-                  <Terminal className="w-3.5 h-3.5 text-[#1863dc] shrink-0" />
-                  <span className="truncate">Live Sandbox & Errors</span>
-                </div>
-              </button>
-
-              {quizQuestions.length > 0 && (
-                <button
-                  onClick={() => setActiveTab('quiz')}
-                  className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                    activeTab === 'quiz'
-                      ? 'bg-[#17171c] text-white font-medium shadow-xs'
-                      : 'text-[#75758a] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 truncate">
-                    <HelpCircle className="w-3.5 h-3.5 text-[#ff7759] shrink-0" />
-                    <span className="truncate">Knowledge Check</span>
-                  </div>
-                </button>
-              )}
-            </nav>
-          </div>
-
-          {/* Quick Simulation Type Card */}
-          {chapter?.simulationType && (
-            <div className="p-3.5 bg-white rounded-[14px] border border-[#d9d9dd] space-y-1.5 shadow-2xs">
-              <span className="text-[10px] uppercase font-bold text-[#93939f] font-mono block">
-                Simulation Engine
-              </span>
-              <div className="text-[12px] font-semibold text-[#17171c]">
-                {chapter.simulationType}
+              <div className="flex items-center justify-between">
+                <span className="text-[14px] font-bold text-[#17171c] font-mono">
+                  Day {unitDayIndex} of {unitTotalDays}
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#17171c] text-white font-mono">
+                  {unit.outcomes[0]}
+                </span>
               </div>
-              <p className="text-[11px] text-[#75758a] leading-snug">
-                Step-by-step state visualization for {chapter.shortTitle || chapter.title}.
-              </p>
+              <div className="text-[11px] font-mono text-[#575768]">
+                Curriculum Day {courseDayNumber} • 46-Day Plan
+              </div>
+              <div className="text-[12px] text-[#212121] font-medium leading-snug">
+                {cleanTitle}
+              </div>
             </div>
-          )}
 
-          {/* Fast Day Jump Controls */}
-          <div className="pt-2 space-y-2 border-t border-[#d9d9dd]">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={handleCompleteAndNext}
-              className="w-full justify-between text-[12px]"
-            >
-              <span>{isChapterDone ? 'Review Next Day' : 'Mark & Advance'}</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Button>
-          </div>
-        </aside>
+            {/* Quick Section Jump */}
+            <div className="space-y-2">
+              <span className="text-[11px] uppercase font-bold text-[#575768] tracking-wider block font-mono">
+                On This Page
+              </span>
+              <nav className="space-y-1 text-[12px]">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`w-full text-left px-3 py-2 rounded-full transition-colors flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c] ${
+                        isActive
+                          ? 'bg-[#17171c] text-white font-medium shadow-xs'
+                          : 'text-[#575768] hover:bg-[#eeece7]/60 hover:text-[#17171c]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 truncate">
+                        <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-[#575768]'}`} />
+                        <span className="truncate">{tab.label}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Quick Simulation Type Card */}
+            {chapter?.simulationType && (
+              <div className="p-3.5 bg-white rounded-[14px] border border-[#d9d9dd] space-y-1.5 shadow-2xs">
+                <span className="text-[10px] uppercase font-bold text-[#575768] font-mono block">
+                  Simulation Engine
+                </span>
+                <div className="text-[12px] font-semibold text-[#17171c]">
+                  {chapter.simulationType}
+                </div>
+                <p className="text-[11px] text-[#575768] leading-snug">
+                  Step-by-step state visualization for {cleanTitle}.
+                </p>
+              </div>
+            )}
+
+            {/* Fast Day Jump Controls */}
+            <div className="pt-2 space-y-2 border-t border-[#d9d9dd]">
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handleCompleteAndNext}
+                className="w-full justify-between text-[12px]"
+              >
+                <span>{isChapterDone ? 'Advance Next Day' : 'Complete & Advance'}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Button>
+            </div>
+          </aside>
         )}
       </div>
 
@@ -908,6 +983,7 @@ export function LessonPage() {
             onClick={handleRunSandbox}
             disabled={sandboxExecState === 'RUNNING'}
             className="flex items-center justify-center w-14 h-14 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full shadow-lg shadow-emerald-500/30 transition-transform active:scale-95 disabled:opacity-70 disabled:active:scale-100"
+            aria-label="Run Sandbox Code"
           >
             {sandboxExecState === 'RUNNING' ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -922,11 +998,17 @@ export function LessonPage() {
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        title="Interactive Python Sandbox (Pyodide 3.11)"
-        size="lg"
+        title="Interactive Python Sandbox"
+        subtitle="In-browser client execution with isolated WebAssembly worker"
+        badge={
+          <Badge variant="stone" className="text-[11px] font-mono hidden xs:inline-flex">
+            Pyodide 3.11
+          </Badge>
+        }
+        size="xl"
       >
         <div className="space-y-4">
-          <React.Suspense fallback={<div className="w-full h-full flex items-center justify-center text-slate-500">Loading IDE...</div>}>
+          <React.Suspense fallback={<div className="w-full h-[280px] flex items-center justify-center text-[#575768] bg-[#fafafa] rounded-[12px] border border-[#d9d9dd]">Loading Python IDE...</div>}>
             <CodePlayground
               code={activeCode}
               onChange={(c) => setActiveCode(c)}
@@ -938,7 +1020,7 @@ export function LessonPage() {
               stderr={stderr}
               executionTimeMs={execTime}
               preventPaste={false}
-              height="320px"
+              height="clamp(200px, 35vh, 400px)"
             />
           </React.Suspense>
         </div>

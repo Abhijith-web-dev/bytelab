@@ -1,8 +1,8 @@
 {
   "id": "day-16",
   "unitId": "unit-02",
-  "dayNumber": 4,
-  "order": 4,
+  "dayNumber": 10,
+  "order": 10,
   "title": "Day 4: for Loop, Loop Control & Nested Loops",
   "shortTitle": "for Loops, Nested Loops & Control",
   "description": "Master sequence iteration with for loops, control flow redirection with break, continue, and pass, and multi-dimensional processing with nested loops.",
@@ -26,5 +26,6 @@
     "Common Traps: Indentation, pass Confusion, and range() Upper Bounds",
     "Practice Problem: Find Even and Odd Numbers",
     "Unit-II Day 4 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 4
 }

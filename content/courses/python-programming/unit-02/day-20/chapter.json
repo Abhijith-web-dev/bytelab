@@ -1,8 +1,8 @@
 {
   "id": "day-20",
   "unitId": "unit-02",
-  "dayNumber": 8,
-  "order": 8,
+  "dayNumber": 14,
+  "order": 14,
   "title": "Day 8: Strings, String Slices, Immutability & String Methods",
   "shortTitle": "Strings, Slicing & Methods",
   "description": "Master string sequences in Python: indexing (positive/negative), slicing, string immutability, operators, built-in functions, and essential methods.",
@@ -27,5 +27,6 @@
     "Character Classification: isdigit, isalpha, isalnum",
     "Practice Problem: Student String Analyzer",
     "Unit-II Day 8 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 8
 }

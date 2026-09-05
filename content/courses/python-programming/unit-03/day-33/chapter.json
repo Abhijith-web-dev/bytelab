@@ -1,8 +1,8 @@
 {
   "id": "day-33",
   "unitId": "unit-03",
-  "dayNumber": 10,
-  "order": 10,
+  "dayNumber": 26,
+  "order": 26,
   "title": "Day 10: Merge Sort, Histogram & Complete Data-Structure Integration",
   "shortTitle": "Merge Sort & Data Integration",
   "description": "Master the divide-and-conquer Merge Sort algorithm, build frequency histograms, and integrate lists, tuples, dictionaries, and list comprehensions to solve multi-faceted problems.",
@@ -26,5 +26,6 @@
   ],
   "prerequisites": [
     "day-32"
-  ]
+  ],
+  "unitDayNumber": 10
 }

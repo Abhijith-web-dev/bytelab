@@ -432,10 +432,15 @@ export function getQuestionPool(courseId, unitId = null, chapterId = null) {
 export function getNavigationHierarchy(courseId = 'python-programming') {
   const course = getCourse(courseId);
   const flatList = [];
+  let cumulativeDay = 1;
   
   course.units.forEach(unit => {
-    unit.chapters.forEach(chFolder => {
+    const unitChapters = unit.chapters || [];
+    unitChapters.forEach((chFolder, chIdx) => {
       const ch = getChapter(courseId, unit.id, chFolder);
+      const calculatedDay = ch?.dayNumber || cumulativeDay;
+      cumulativeDay++;
+
       flatList.push({
         courseId,
         unitId: unit.id,
@@ -444,12 +449,32 @@ export function getNavigationHierarchy(courseId = 'python-programming') {
         unitTitle: unit.title,
         chapterId: chFolder,
         chapterTitle: ch?.title || chFolder,
-        order: ch?.order || 0
+        shortTitle: ch?.shortTitle || cleanChapterTitle(ch?.title) || chFolder,
+        dayNumber: calculatedDay,
+        courseDayNumber: calculatedDay,
+        unitDayNumber: ch?.unitDayNumber || (chIdx + 1),
+        unitDayIndex: ch?.unitDayNumber || (chIdx + 1),
+        unitTotalDays: unitChapters.length,
+        order: ch?.order || calculatedDay,
+        estimatedMinutes: ch?.estimatedMinutes || ch?.timeEstimate || 90,
+        difficulty: ch?.difficulty || 'Beginner',
+        simulationType: ch?.simulationType || null,
+        outcomes: ch?.outcomes || unit.outcomes || []
       });
     });
   });
 
   return flatList;
+}
+
+export function cleanChapterTitle(title) {
+  if (!title) return '';
+  return title
+    .replace(/^Unit[–\-\s]+[IVX\d]+[\s–\-]+Day\s*\d+:\s*/i, '')
+    .replace(/^Unit[–\-\s]+[IVX\d]+:\s*/i, '')
+    .replace(/^Day\s*\d+:\s*/i, '')
+    .replace(/^Lecture\s*\d+:\s*/i, '')
+    .trim();
 }
 
 export function getNextAndPreviousLesson(courseId, unitId, chapterId) {
@@ -460,7 +485,13 @@ export function getNextAndPreviousLesson(courseId, unitId, chapterId) {
   const prev = currentIndex > 0 ? flat[currentIndex - 1] : null;
   const next = currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null;
 
-  return { prev, next, current: flat[currentIndex] || null, totalCount: flat.length, currentIndex: currentIndex + 1 };
+  return {
+    prev,
+    next,
+    current: flat[currentIndex] || null,
+    totalCount: flat.length,
+    currentIndex: currentIndex + 1
+  };
 }
 
 export function buildSearchIndex(courseId = 'python-programming') {

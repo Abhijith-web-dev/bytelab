@@ -1,8 +1,8 @@
 {
   "id": "day-49",
   "unitId": "unit-05",
-  "dayNumber": 49,
-  "order": 49,
+  "dayNumber": 37,
+  "order": 37,
   "title": "Unit–V — Day 1: Introduction to NumPy and NumPy Arrays",
   "shortTitle": "Intro to NumPy & Arrays",
   "description": "What is NumPy, NumPy vs Python Lists, np.array(), 1D & 2D arrays, indexing, element-wise arithmetic, shape, size, ndim, and dtype.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 1
+  "quizCount": 1,
+  "unitDayNumber": 1
 }

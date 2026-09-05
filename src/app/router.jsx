@@ -16,6 +16,8 @@ const LeaderboardPage = lazy(() => import('../pages/Leaderboard/LeaderboardPage.
 const ProfilePage = lazy(() => import('../pages/Profile/ProfilePage.jsx').then(m => ({ default: m.ProfilePage })));
 const LoginPage = lazy(() => import('../pages/Auth/LoginPage.jsx').then(m => ({ default: m.LoginPage })));
 const RegisterPage = lazy(() => import('../pages/Auth/RegisterPage.jsx').then(m => ({ default: m.RegisterPage })));
+const BlogIndexPage = lazy(() => import('../pages/Blog/BlogIndexPage.jsx').then(m => ({ default: m.BlogIndexPage })));
+const BlogPostPage = lazy(() => import('../pages/Blog/BlogPostPage.jsx').then(m => ({ default: m.BlogPostPage })));
 const NotFoundPage = lazy(() => import('../pages/Error/NotFoundPage.jsx').then(m => ({ default: m.NotFoundPage })));
 
 // Generic Loading Fallback for Suspense
@@ -44,6 +46,8 @@ export const router = createBrowserRouter(
         { path: 'progress', element: <Suspense fallback={<PageLoader />}><ProgressDashboardPage /></Suspense> },
         { path: 'leaderboard', element: <Suspense fallback={<PageLoader />}><LeaderboardPage /></Suspense> },
         { path: 'profile', element: <Suspense fallback={<PageLoader />}><ProfilePage /></Suspense> },
+        { path: 'blog', element: <Suspense fallback={<PageLoader />}><BlogIndexPage /></Suspense> },
+        { path: 'blog/:slug', element: <Suspense fallback={<PageLoader />}><BlogPostPage /></Suspense> },
         { path: 'login', element: <Suspense fallback={<PageLoader />}><LoginPage /></Suspense> },
         { path: 'register', element: <Suspense fallback={<PageLoader />}><RegisterPage /></Suspense> },
         { path: '*', element: <Suspense fallback={<PageLoader />}><NotFoundPage /></Suspense> }

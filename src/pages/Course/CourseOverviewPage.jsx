@@ -6,7 +6,7 @@ import { Badge } from '../../components/ui/Badge.jsx';
 import { Card } from '../../components/ui/Card.jsx';
 import { ProgressBar } from '../../components/ui/ProgressBar.jsx';
 import { SubNavFrosted } from '../../components/layout/SubNavFrosted.jsx';
-import { getCourse, getSyllabus, getNavigationHierarchy } from '../../content/loader/index.js';
+import { getCourse, getSyllabus, getNavigationHierarchy, getChapter, cleanChapterTitle } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
 import { useSEO } from '../../hooks/useSEO.js';
 
@@ -177,7 +177,7 @@ export function CourseOverviewPage() {
                       <span className="text-[12px] text-[#75758a] font-mono">
                         {completedCount}/{unitChapters.length} Done
                       </span>
-                      <Link to={`/courses/${courseId}/unit/${unit.id}`}>
+                      <Link to={`/courses/${courseId}/unit/${unit.id}`} aria-label={`Explore Unit ${unit.romanNumber}: ${unit.title}`}>
                         <Button variant="secondary" size="sm">
                           <span>Explore Unit</span>
                           <ChevronRight className="w-3.5 h-3.5" />
@@ -186,30 +186,80 @@ export function CourseOverviewPage() {
                     </div>
                   </div>
 
-                  <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 bg-white">
+                  <div className="p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 bg-white">
                     {unitChapters.map((chFolder, idx) => {
+                      const ch = getChapter(courseId, unit.id, chFolder);
                       const isComplete = completedChapters.includes(chFolder);
+                      const navItem = hierarchy.find(h => h.unitId === unit.id && h.chapterId === chFolder);
+                      const unitDayNumber = navItem?.unitDayIndex || (idx + 1);
+                      const courseDayNumber = navItem?.courseDayNumber || navItem?.dayNumber || (idx + 1);
+                      const displayTitle = ch?.shortTitle || cleanChapterTitle(ch?.title) || chFolder.replace(/^\d+-/, '').replace(/-/g, ' ');
+                      const estMin = ch?.estimatedMinutes || ch?.timeEstimate || 90;
+                      const simType = ch?.simulationType ? ch.simulationType.split(':')[0] : null;
+
                       return (
                         <Link
                           key={chFolder}
                           to={`/courses/${courseId}/chapter/${chFolder}`}
-                          className={`p-3 rounded-[12px] border transition-all flex items-center justify-between group ${
+                          aria-label={`${isComplete ? 'Review' : 'Start'} Day ${unitDayNumber}: ${displayTitle}`}
+                          className={`p-4 rounded-[14px] border transition-all flex flex-col justify-between group relative select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17171c] ${
                             isComplete
-                              ? 'bg-emerald-50/40 border-emerald-200 hover:border-emerald-400'
-                              : 'bg-white border-[#d9d9dd] hover:border-[#17171c]'
+                              ? 'bg-emerald-50/20 border-emerald-200 hover:border-emerald-400 hover:shadow-xs'
+                              : 'bg-white border-[#d9d9dd] hover:border-[#17171c] hover:shadow-xs'
                           }`}
                         >
-                          <div className="flex items-center gap-2.5 overflow-hidden">
-                            <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] shrink-0 ${
-                              isComplete ? 'bg-emerald-600 text-white' : 'bg-[#eeece7] text-[#17171c]'
-                            }`}>
-                              {isComplete ? <CheckCircle2 className="w-3.5 h-3.5" /> : idx + 1}
+                          <div className="space-y-2">
+                            {/* Header row: Day numbering badge & metadata */}
+                            <div className="flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-1.5">
+                                <span className={`inline-flex items-center justify-center font-mono font-bold text-[11px] px-2.5 py-0.5 rounded-full ${
+                                  isComplete ? 'bg-emerald-600 text-white' : 'bg-[#17171c] text-white'
+                                }`}>
+                                  {isComplete && <CheckCircle2 className="w-3 h-3 mr-1" />}
+                                  Day {unitDayNumber}
+                                </span>
+                                <span className="text-[11px] font-mono text-[#575768]">
+                                  (Day {courseDayNumber})
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-1 text-[11px] text-[#575768] font-mono">
+                                <Clock className="w-3 h-3 text-[#17171c]" />
+                                <span>{estMin}m</span>
+                              </div>
                             </div>
-                            <span className="text-[13px] font-medium text-[#212121] group-hover:underline truncate">
-                              {chFolder.replace(/^\d+-/, '').replace(/-/g, ' ')}
-                            </span>
+
+                            {/* Topic Title */}
+                            <h4 className="text-[13.5px] font-semibold text-[#17171c] group-hover:underline leading-snug line-clamp-2">
+                              {displayTitle}
+                            </h4>
+
+                            {/* Description preview */}
+                            {ch?.description && (
+                              <p className="text-[12px] text-[#575768] line-clamp-2 leading-relaxed">
+                                {ch.description}
+                              </p>
+                            )}
                           </div>
-                          <ChevronRight className="w-3.5 h-3.5 text-[#93939f] group-hover:text-[#17171c] shrink-0 ml-1" />
+
+                          {/* Bottom Row: Feature Badges & Action */}
+                          <div className="pt-2.5 mt-2.5 border-t border-[#d9d9dd]/60 flex items-center justify-between text-[11px]">
+                            <div className="flex items-center gap-1.5 overflow-hidden">
+                              {simType && (
+                                <span className="truncate px-2 py-0.5 bg-[#eeece7]/70 text-[#17171c] font-mono text-[10px] rounded-md border border-[#d9d9dd]/60">
+                                  {simType}
+                                </span>
+                              )}
+                              <span className="text-[#575768] font-mono text-[10px] uppercase bg-[#eeece7]/40 px-1.5 py-0.5 rounded border border-[#d9d9dd]">
+                                {ch?.outcomes?.[0] || unit.outcomes?.[0] || 'CO1'}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center text-[#17171c] font-medium text-[11px] group-hover:translate-x-0.5 transition-transform shrink-0">
+                              <span>{isComplete ? 'Review Day' : 'Start Day'}</span>
+                              <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                            </div>
+                          </div>
                         </Link>
                       );
                     })}

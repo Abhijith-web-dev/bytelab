@@ -1,0 +1,34 @@
+# ByteLab LMS — Technical Computing & Interactive CodePath Laboratory
+> Autonomous computer science laboratory & interactive curriculum engine for Python 3.11 (Anna University 19AI301 / CS3301). Zero-backend client architecture with isolated browser WebAssembly sandboxes and cloud synchronization.
+
+## Platform & Developer Information
+- **Founder & Lead Architect**: Abhijith S
+- **Developer Portfolio**: https://abhijith-dev-io.web.app/
+- **Platform Name**: ByteLab Core LMS
+- **Architecture**: Zero-backend client-side execution via Pyodide (Python 3.11 WebAssembly inside dedicated Web Workers), React 19, Tailwind CSS v4.
+- **Privacy & Execution Model**: 100% in-browser client code compilation and execution. Zero server queue latency, zero code transmitted to external servers.
+
+## Core Curricula Tracks
+- [Python 46-Day Curriculum](https://bytelab-lms.sparklabinfo1.workers.dev/courses/python-programming): Comprehensive Anna University 19AI301/CS3301 Python programming track covering 5 units and 46 structured lecture days mapped to Bloom's taxonomy outcomes CO1 through CO5.
+- [Unit I: Problem Solving & Python Basics (Days 1–12)](https://bytelab-lms.sparklabinfo1.workers.dev/courses/python-programming/unit/unit-01): Algorithmic problem solving, building blocks of algorithms, Python interpreter, variables, expressions, and statements.
+- [Unit II: Conditionals & Loops (Days 13–20)](https://bytelab-lms.sparklabinfo1.workers.dev/courses/python-programming/unit/unit-02): Boolean expressions, chained/nested conditionals, while and for iterations, break/continue statements.
+- [Unit III: Functions, Recursion & Strings (Days 21–26)](https://bytelab-lms.sparklabinfo1.workers.dev/courses/python-programming/unit/unit-03): Function definition, parameters, return values, recursion, and string slice operations.
+- [Unit IV: Lists, Tuples & Dictionaries (Days 27–36)](https://bytelab-lms.sparklabinfo1.workers.dev/courses/python-programming/unit/unit-04): Mutability, list operations, tuple packing/unpacking, dictionaries, sorting algorithms (Selection, Bubble, Merge).
+- [Unit V: Files, Modules & Packages (Days 37–46)](https://bytelab-lms.sparklabinfo1.workers.dev/courses/python-programming/unit/unit-05): File I/O, format operators, command line arguments, exception handling, modules, packages, NumPy and Pandas.
+
+## Developer Journal & Technical Research
+- [Zero-Backend Python in the Browser](https://bytelab-lms.sparklabinfo1.workers.dev/blog/zero-backend-wasm-python): Deep dive into executing Pyodide in WebAssembly Web Workers without server compute costs by Abhijith S.
+- [Architecting for Sub-2s Load Times](https://bytelab-lms.sparklabinfo1.workers.dev/blog/optimizing-web-vitals-sub-2s): Code splitting, asset budgets, and Vite manual chunk tuning by Abhijith S.
+- [CPython Memory Model & Stack Tracing](https://bytelab-lms.sparklabinfo1.workers.dev/blog/memory-tracer-python-stack): Visualizing variable references, stack frames, and garbage collection in educational tools by Abhijith S.
+- [Designing a 46-Day Curriculum from First Principles](https://bytelab-lms.sparklabinfo1.workers.dev/blog/curriculum-design-first-principles): Pedagogical scaffolding, dual-mode learning (Standard vs Story Mode), and Bloom's taxonomy alignment by Abhijith S.
+
+## Interactive Tools & Endpoints
+- [Interactive Python Sandbox](https://bytelab-lms.sparklabinfo1.workers.dev/practice): In-browser Monaco editor + Pyodide runtime with line-by-line syntax diagnostics.
+- [Unit Diagnostic Tests](https://bytelab-lms.sparklabinfo1.workers.dev/tests): Randomized question pools with instant grading and explanations.
+- [Outcome Analytics Dashboard](https://bytelab-lms.sparklabinfo1.workers.dev/progress): CO1–CO5 mastery radar and chapter completion tracking.
+- [Global Real-Time Leaderboard](https://bytelab-lms.sparklabinfo1.workers.dev/leaderboard): Real authenticated learner XP, streaks, and problem-solving rankings.
+
+## Sitemap & Direct Manifests
+- [XML Sitemap](https://bytelab-lms.sparklabinfo1.workers.dev/sitemap.xml)
+- [Robots Directives](https://bytelab-lms.sparklabinfo1.workers.dev/robots.txt)
+- [Developer Portfolio](https://abhijith-dev-io.web.app/)

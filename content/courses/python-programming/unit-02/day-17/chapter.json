@@ -1,8 +1,8 @@
 {
   "id": "day-17",
   "unitId": "unit-02",
-  "dayNumber": 5,
-  "order": 5,
+  "dayNumber": 11,
+  "order": 11,
   "title": "Day 5: Fruitful Functions, Return Values & Parameters",
   "shortTitle": "Fruitful Functions & return",
   "description": "Master fruitful functions that compute and return values, distinguish print() vs return, handle parameters vs arguments, and compose pipelines of reusable functions.",
@@ -26,5 +26,6 @@
     "Common Traps: Unreachable Code, Returning None, and Parameter Mismatches",
     "Practice Problem: Student Result Function",
     "Unit-II Day 5 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 5
 }

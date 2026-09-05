@@ -1,8 +1,8 @@
 {
   "id": "day-25",
   "unitId": "unit-03",
-  "dayNumber": 2,
-  "order": 2,
+  "dayNumber": 18,
+  "order": 18,
   "title": "Day 2: Lists — Slicing, Methods, Functions & Traversing",
   "shortTitle": "Lists Slicing, Methods & Loops",
   "description": "Master list slicing, positive & negative indexes, common list methods (append, insert, pop, remove, sort), built-in functions, and traversing with for & while loops.",
@@ -25,5 +25,6 @@
   ],
   "prerequisites": [
     "day-13"
-  ]
+  ],
+  "unitDayNumber": 2
 }

@@ -1,8 +1,8 @@
 {
   "id": "day-24",
   "unitId": "unit-03",
-  "dayNumber": 1,
-  "order": 1,
+  "dayNumber": 17,
+  "order": 17,
   "title": "Day 1: Introduction to Lists and List Operations",
   "shortTitle": "Introduction to Lists",
   "description": "Master the fundamentals of Python lists: sequence container characteristics, zero-based and negative indexing, slicing, mutability, dynamic modifications (append, insert, extend, pop, remove, del), and traversal.",
@@ -27,5 +27,6 @@
     "List Traversal: Direct, Index-Based, and enumerate()",
     "Practice Problem: Student List Manager",
     "Unit-III Day 1 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 1
 }

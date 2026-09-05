@@ -1,8 +1,0 @@
-[
-  {
-    "id": "ex-day-60-1",
-    "title": "Basic Usage of File Read and Write Support (CSV Processing)",
-    "code": "# Example for File Read and Write Support (CSV Processing)\nprint('Day 60 executed successfully.')",
-    "explanation": "This demonstrates the minimum syntax needed."
-  }
-]

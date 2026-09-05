@@ -1,8 +1,8 @@
 {
   "id": "day-57",
   "unitId": "unit-05",
-  "dayNumber": 57,
-  "order": 57,
+  "dayNumber": 45,
+  "order": 45,
   "title": "Unit–V — Day 9: GroupBy Operations, Apply Functions, Data Transformation, and Sorting",
   "shortTitle": "GroupBy, Apply, Transform & Sorting",
   "description": "Mastering split-apply-combine with groupby(), applying custom functions with apply() and lambda, feature transformation, and sorting Series and DataFrames by values and index.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 9
 }

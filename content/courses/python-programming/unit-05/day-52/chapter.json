@@ -1,8 +1,8 @@
 {
   "id": "day-52",
   "unitId": "unit-05",
-  "dayNumber": 52,
-  "order": 52,
+  "dayNumber": 40,
+  "order": 40,
   "title": "Unit–V — Day 4: Mathematical Operations with NumPy Arrays",
   "shortTitle": "Mathematical Operations with NumPy",
   "description": "Vectorized element-wise addition, subtraction, multiplication, division, array-scalar broadcasting, array-to-array arithmetic, and real-world calculation pipelines.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 4
 }

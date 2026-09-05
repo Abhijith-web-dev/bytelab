@@ -1,4 +1,4 @@
-import {
+﻿import {
   doc,
   getDoc,
   setDoc,
@@ -11,6 +11,8 @@ import {
 } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from './config.js';
 import { storage } from '../storage/localStorage.js';
+
+const REAL_LEADERBOARD_KEY = 'real_leaderboard_entries';
 
 export const firestoreService = {
   // Sync full user progress to Firestore
@@ -55,86 +57,111 @@ export const firestoreService = {
     }
   },
 
-  // Update Leaderboard Entry
+  // Update Leaderboard Entry with strictly verified real student data
   async updateLeaderboardEntry(userId, entry) {
-    if (!userId || userId.startsWith('guest_')) return;
+    if (!userId || userId === 'guest' || userId.startsWith('guest_')) return;
 
-    if (!isFirebaseConfigured || !db) {
-      const lb = storage.get('mock_leaderboard', []);
-      const existingIdx = lb.findIndex(item => item.userId === userId);
-      const updatedEntry = {
-        userId,
-        displayName: entry.displayName || 'Student',
-        score: entry.score || 0,
-        completedUnits: entry.completedUnits || 0,
-        completedChapters: entry.completedChapters || 0,
-        updatedAt: Date.now()
-      };
+    const points = Number(entry.points !== undefined ? entry.points : (entry.score || 0));
+    const completedChapters = Number(entry.completedChapters || 0);
+    const completedUnits = Number(entry.completedUnits || 0);
+    const streak = Number(entry.streak || entry.streakDays || 1);
+    const solved = Number(entry.solved || 0);
 
-      if (existingIdx >= 0) {
-        lb[existingIdx] = updatedEntry;
-      } else {
-        lb.push(updatedEntry);
-      }
-      lb.sort((a, b) => b.score - a.score);
-      storage.set('mock_leaderboard', lb);
-      return;
+    let badge = 'Rising Coder';
+    if (points >= 1500 || completedChapters >= 40) badge = 'Python Prodigy';
+    else if (points >= 1000 || completedChapters >= 30) badge = 'Algorithm Master';
+    else if (points >= 600 || completedChapters >= 20) badge = 'NumPy Ninja';
+    else if (points >= 300 || completedChapters >= 10) badge = 'Syntax Specialist';
+    else if (points > 0) badge = 'Active Learner';
+
+    const cleanEntry = {
+      userId,
+      displayName: entry.displayName || 'Student Learner',
+      photoURL: entry.photoURL || null,
+      points,
+      score: points,
+      streak,
+      solved,
+      completedUnits,
+      completedChapters,
+      badge,
+      updatedAt: Date.now()
+    };
+
+    // Store in local real leaderboard cache
+    const localLb = storage.get(REAL_LEADERBOARD_KEY, []);
+    const existingIdx = localLb.findIndex(item => item.userId === userId);
+    if (existingIdx >= 0) {
+      localLb[existingIdx] = cleanEntry;
+    } else {
+      localLb.push(cleanEntry);
     }
+    localLb.sort((a, b) => (b.points || b.score) - (a.points || a.score));
+    storage.set(REAL_LEADERBOARD_KEY, localLb);
 
-    try {
-      const entryRef = doc(db, 'leaderboards', entry.courseId || 'python-programming', 'entries', userId);
-      await setDoc(entryRef, {
-        userId,
-        displayName: entry.displayName || 'Student',
-        score: entry.score,
-        completedUnits: entry.completedUnits,
-        completedChapters: entry.completedChapters,
-        updatedAt: serverTimestamp()
-      }, { merge: true });
-    } catch (err) {
-      console.warn('Firestore update leaderboard error:', err);
+    if (isFirebaseConfigured && db) {
+      try {
+        const entryRef = doc(db, 'leaderboards', entry.courseId || 'python-programming', 'entries', userId);
+        await setDoc(entryRef, {
+          ...cleanEntry,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+      } catch (err) {
+        console.warn('Firestore update leaderboard error:', err);
+      }
     }
   },
 
-  // Get Top Leaderboard
-  async getLeaderboard(courseId = 'python-programming', limitCount = 20) {
-    if (!isFirebaseConfigured || !db) {
-      const defaultMock = [
-        { userId: 'u-1', displayName: 'Aravind S.', score: 1480, completedUnits: 5, completedChapters: 27, rank: 1 },
-        { userId: 'u-2', displayName: 'Deepika R.', score: 1390, completedUnits: 5, completedChapters: 25, rank: 2 },
-        { userId: 'u-3', displayName: 'Karthik N.', score: 1250, completedUnits: 4, completedChapters: 22, rank: 3 },
-        { userId: 'u-4', displayName: 'Meera V.', score: 1120, completedUnits: 4, completedChapters: 19, rank: 4 },
-        { userId: 'u-5', displayName: 'Rahul K.', score: 980, completedUnits: 3, completedChapters: 16, rank: 5 },
-        { userId: 'u-6', displayName: 'Sneha M.', score: 840, completedUnits: 3, completedChapters: 13, rank: 6 },
-        { userId: 'u-7', displayName: 'Vikram B.', score: 710, completedUnits: 2, completedChapters: 10, rank: 7 },
-        { userId: 'u-8', displayName: 'Ananya G.', score: 560, completedUnits: 2, completedChapters: 8, rank: 8 }
-      ];
-      const customLb = storage.get('mock_leaderboard', []);
-      const merged = [...customLb];
-      defaultMock.forEach(item => {
-        if (!merged.find(m => m.userId === item.userId)) {
-          merged.push(item);
-        }
-      });
-      merged.sort((a, b) => b.score - a.score);
-      return merged.slice(0, limitCount).map((entry, idx) => ({ ...entry, rank: idx + 1 }));
+  // Fetch strictly REAL leaderboard data from Firestore and verified student sessions
+  async getLeaderboard(courseId = 'python-programming', limitCount = 50) {
+    let liveEntries = [];
+
+    if (isFirebaseConfigured && db) {
+      try {
+        const q = query(
+          collection(db, 'leaderboards', courseId, 'entries'),
+          orderBy('score', 'desc'),
+          limit(limitCount)
+        );
+        const snapshot = await getDocs(q);
+        liveEntries = snapshot.docs.map(docSnap => ({
+          id: docSnap.id,
+          userId: docSnap.id,
+          ...docSnap.data()
+        }));
+      } catch (err) {
+        console.warn('Firestore fetch leaderboard error (reading real local cache):', err);
+      }
     }
 
-    try {
-      const q = query(
-        collection(db, 'leaderboards', courseId, 'entries'),
-        orderBy('score', 'desc'),
-        limit(limitCount)
-      );
-      const snapshot = await getDocs(q);
-      return snapshot.docs.map((docSnap, index) => ({
-        id: docSnap.id,
-        rank: index + 1,
-        ...docSnap.data()
-      }));
-    } catch (err) {
-      console.warn('Firestore fetch leaderboard error:', err);
-      return [];
-    }
+    // Blend with real local entries
+    const localEntries = storage.get(REAL_LEADERBOARD_KEY, []);
+    const combinedMap = new Map();
+
+    localEntries.forEach(item => {
+      if (item.userId) {
+        combinedMap.set(item.userId, {
+          ...item,
+          points: item.points || item.score || 0
+        });
+      }
+    });
+
+    liveEntries.forEach(item => {
+      if (item.userId) {
+        combinedMap.set(item.userId, {
+          ...item,
+          points: item.points || item.score || 0
+        });
+      }
+    });
+
+    const realSorted = Array.from(combinedMap.values())
+      .sort((a, b) => (b.points || b.score || 0) - (a.points || a.score || 0));
+
+    return realSorted.slice(0, limitCount).map((entry, idx) => ({
+      ...entry,
+      rank: idx + 1
+    }));
   }
 };

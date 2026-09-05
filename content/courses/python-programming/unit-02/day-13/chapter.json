@@ -1,8 +1,8 @@
 {
   "id": "day-13",
   "unitId": "unit-02",
-  "dayNumber": 1,
-  "order": 1,
+  "dayNumber": 7,
+  "order": 7,
   "title": "Day 1: Boolean Values, Operators & Conditional Statements",
   "shortTitle": "Boolean Values & Conditionals",
   "description": "Master Boolean values and expressions, comparison and logical operators, control flow fundamentals, and decision making with if statements.",
@@ -21,5 +21,6 @@
     "if Statement & Indentation",
     "Program Tracing & Debugging",
     "Student Eligibility Checker"
-  ]
+  ],
+  "unitDayNumber": 1
 }

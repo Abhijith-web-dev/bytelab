@@ -1,8 +1,8 @@
 {
   "id": "day-53",
   "unitId": "unit-05",
-  "dayNumber": 53,
-  "order": 53,
+  "dayNumber": 41,
+  "order": 41,
   "title": "Unit–V — Day 5: Advanced NumPy Arithmetic and Mathematical Functions",
   "shortTitle": "Advanced NumPy Arithmetic & Mathematical Functions",
   "description": "Master NumPy mathematical functions (sqrt, square, power, abs, round, floor, ceil) and aggregations (sum, mean) for multi-step data analysis and numerical modeling.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 5
 }

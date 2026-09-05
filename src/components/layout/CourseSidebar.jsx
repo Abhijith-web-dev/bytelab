@@ -15,7 +15,7 @@ import {
   Search,
   X
 } from 'lucide-react';
-import { getCourse, getChapter } from '../../content/loader/index.js';
+import { getCourse, getChapter, getNavigationHierarchy, cleanChapterTitle } from '../../content/loader/index.js';
 import { useProgressStore } from '../../stores/progressStore.js';
 import { ProgressBar } from '../ui/ProgressBar.jsx';
 import { Badge } from '../ui/Badge.jsx';
@@ -24,6 +24,7 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
   const params = useParams();
   const activeChapterId = params.chapterId;
   const course = getCourse(courseId);
+  const hierarchy = getNavigationHierarchy(courseId);
   const { completedChapters, getCourseCompletionPercentage } = useProgressStore();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -207,7 +208,11 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
                     const chapter = getChapter(courseId, unit.id, chFolder);
                     const isChapterActive = activeChapterId === chFolder;
                     const isChapterCompleted = completedChapters.includes(chFolder);
-                    const dayNum = chapter?.dayNumber || (uIdx * 12 + chIdx + 1);
+                    const navItem = hierarchy.find(h => h.unitId === unit.id && h.chapterId === chFolder);
+                    const unitDayNum = navItem?.unitDayIndex || (chIdx + 1);
+                    const courseDayNum = navItem?.courseDayNumber || navItem?.dayNumber || (chIdx + 1);
+                    const displayTitle = chapter?.shortTitle || cleanChapterTitle(chapter?.title) || chFolder.replace(/^\d+-/, '').replace(/-/g, ' ');
+                    const estMin = chapter?.estimatedMinutes || chapter?.timeEstimate || 90;
 
                     return (
                       <Link
@@ -233,12 +238,15 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
 
                           <div className="overflow-hidden space-y-0.5">
                             <span className="truncate block leading-snug">
-                              {chapter?.title || `Day ${dayNum}: ${chFolder}`}
+                              <span className={`font-mono mr-1 ${isChapterActive ? 'text-white/80' : 'text-[#75758a]'}`}>Day {unitDayNum}:</span>
+                              {displayTitle}
                             </span>
                             <div className={`flex items-center gap-2 text-[10px] ${isChapterActive ? 'text-white/70' : 'text-[#75758a]'}`}>
-                              <span className="flex items-center gap-1">
+                              <span>Day {courseDayNum}</span>
+                              <span>•</span>
+                              <span className="flex items-center gap-0.5">
                                 <Clock className="w-2.5 h-2.5" />
-                                <span>~20 min</span>
+                                <span>~{estMin}m</span>
                               </span>
                               {chapter?.simulationType && (
                                 <span className={`truncate text-[9px] px-1.5 py-0.2 rounded font-mono ${

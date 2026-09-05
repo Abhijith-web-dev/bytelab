@@ -170,27 +170,27 @@ export function CodePlayground({
   };
 
   return (
-    <div className="rounded-[12px] bg-white border border-[#e5e5e5] overflow-hidden flex flex-col shadow-xs">
-      {/* Editor Top Bar with macOS Traffic Lights */}
-      <div className="px-4 py-2.5 bg-[#fafafa] border-b border-[#e5e5e5] flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <div className="rounded-[14px] sm:rounded-[18px] bg-white border border-[#d9d9dd] overflow-hidden flex flex-col shadow-xs">
+      {/* Editor Top Bar with macOS Traffic Lights & Actions */}
+      <div className="px-3.5 sm:px-4 py-2.5 bg-[#eeece7]/40 border-b border-[#d9d9dd] flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5 min-w-0">
           {/* macOS Traffic Lights */}
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+          <div className="hidden xs:flex items-center gap-1.5 shrink-0">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
           </div>
 
-          <span className="text-[13px] font-mono text-[#525252]">main.py</span>
+          <span className="text-[12px] sm:text-[13px] font-mono font-medium text-[#17171c] truncate">main.py</span>
 
           {preventPaste && (
-            <Badge variant="default" className="text-[10px] bg-white hidden sm:inline-flex">
-              Active Typing Mode
+            <Badge variant="stone" className="text-[10px] hidden sm:inline-flex px-2 py-0.2 shrink-0">
+              Typing Active
             </Badge>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {onReset && (
             <Button
               variant="secondary"
@@ -198,7 +198,7 @@ export function CodePlayground({
               onClick={onReset}
               disabled={executionState === 'RUNNING'}
               title="Reset Code Template"
-              className="py-1 px-3"
+              className="py-1 px-2.5 sm:px-3 text-[12px] min-h-[30px]"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Reset</span>
@@ -211,9 +211,13 @@ export function CodePlayground({
               size="sm"
               onClick={onRun}
               disabled={executionState === 'RUNNING'}
-              className="py-1 px-4"
+              className="py-1 px-3.5 sm:px-4 text-[12px] min-h-[30px] active:scale-95"
             >
-              <Play className="w-3.5 h-3.5 fill-current" />
+              {executionState === 'RUNNING' ? (
+                <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-1" />
+              ) : (
+                <Play className="w-3.5 h-3.5 fill-current" />
+              )}
               <span>{executionState === 'RUNNING' ? 'Running...' : 'Run Code'}</span>
             </Button>
           )}
@@ -221,7 +225,7 @@ export function CodePlayground({
       </div>
 
       {/* Monaco Code Editor Container */}
-      <div className="relative border-b border-[#e5e5e5]">
+      <div className="relative border-b border-[#d9d9dd] bg-white">
         <Editor
           height={height}
           language={language}
@@ -231,74 +235,80 @@ export function CodePlayground({
           theme="vs-light"
           options={{
             minimap: { enabled: false },
-            fontSize: 14,
+            fontSize: 13.5,
             fontFamily: "'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace",
-            lineHeight: 22,
+            lineHeight: 21,
             readOnly,
             scrollBeyondLastLine: false,
             automaticLayout: true,
             tabSize: 4,
             insertSpaces: true,
-            padding: { top: 12, bottom: 12 },
-            glyphMargin: true
+            wordWrap: 'on',
+            padding: { top: 10, bottom: 10 },
+            scrollbar: {
+              verticalScrollbarSize: 8,
+              horizontalScrollbarSize: 8
+            },
+            glyphMargin: false,
+            lineNumbersMinChars: 3
           }}
         />
       </div>
 
       {/* Output Console Navigation & Metrics Header */}
-      <div className="px-4 py-2 bg-[#fafafa] border-b border-[#e5e5e5] flex flex-wrap items-center justify-between gap-2 text-[12px]">
-        <div className="flex items-center gap-2">
+      <div className="px-3 sm:px-4 py-2 bg-[#eeece7]/30 border-b border-[#d9d9dd] flex flex-wrap items-center justify-between gap-2 text-[12px]">
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 touch-scroll max-w-full">
           <button
             onClick={() => setActiveTab('output')}
-            className={`font-medium px-3 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`font-medium px-3 py-1 rounded-full transition-all cursor-pointer flex items-center gap-1.5 text-[12px] shrink-0 active:scale-95 ${
               activeTab === 'output'
-                ? 'bg-black text-white'
-                : 'text-[#737373] hover:text-black'
+                ? 'bg-[#17171c] text-white shadow-xs'
+                : 'text-[#75758a] hover:text-[#17171c] hover:bg-black/5'
             }`}
           >
             <Terminal className="w-3.5 h-3.5" />
-            <span>Terminal Output</span>
+            <span>Terminal</span>
             {parsedError && (
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
             )}
           </button>
 
           {parsedError && (
             <button
               onClick={() => setActiveTab('diagnostics')}
-              className={`font-medium px-3 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`font-medium px-3 py-1 rounded-full transition-all cursor-pointer flex items-center gap-1.5 text-[12px] shrink-0 active:scale-95 ${
                 activeTab === 'diagnostics'
-                  ? 'bg-red-600 text-white'
-                  : 'text-red-600 bg-red-50 hover:bg-red-100 border border-red-200'
+                  ? 'bg-red-600 text-white shadow-xs'
+                  : 'text-red-700 bg-red-50 hover:bg-red-100 border border-red-200'
               }`}
             >
               <Bug className="w-3.5 h-3.5" />
-              <span>Diagnostic Helper</span>
+              <span>Diagnostics</span>
             </button>
           )}
 
           {testCaseResults.length > 0 && (
             <button
               onClick={() => setActiveTab('tests')}
-              className={`font-medium px-3 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`font-medium px-3 py-1 rounded-full transition-all cursor-pointer flex items-center gap-1.5 text-[12px] shrink-0 active:scale-95 ${
                 activeTab === 'tests'
-                  ? 'bg-black text-white'
-                  : 'text-[#737373] hover:text-black'
+                  ? 'bg-[#17171c] text-white shadow-xs'
+                  : 'text-[#75758a] hover:text-[#17171c] hover:bg-black/5'
               }`}
             >
-              <span>Test Cases</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#e5e5e5] text-black font-semibold">
+              <span>Tests</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#d9d9dd] text-[#17171c] font-semibold">
                 {testCaseResults.filter(t => t.passed).length}/{testCaseResults.length}
               </span>
             </button>
           )}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 shrink-0 ml-auto sm:ml-0">
           {(stdout || stderr) && (
             <button
               onClick={handleCopyOutput}
-              className="flex items-center gap-1 text-[11px] text-[#737373] hover:text-black transition-colors cursor-pointer"
+              className="flex items-center gap-1 text-[11px] text-[#75758a] hover:text-[#17171c] transition-colors cursor-pointer bg-white px-2 py-0.5 rounded border border-[#d9d9dd]"
               title="Copy Terminal Output"
             >
               {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}

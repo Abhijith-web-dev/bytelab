@@ -12,8 +12,11 @@
   "outcomes": [
     "CO1"
   ],
-  "prerequisites": ["day-02"],
+  "prerequisites": [
+    "day-02"
+  ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 6
+  "quizCount": 6,
+  "unitDayNumber": 3
 }

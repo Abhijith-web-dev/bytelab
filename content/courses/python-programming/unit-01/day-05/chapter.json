@@ -4,7 +4,9 @@
   "description": "Understand what functions are, why we use them, how to define and call them, and how parameters/arguments work.",
   "difficulty": "beginner",
   "simulationType": "code",
-  "outcomes": ["CO1"],
+  "outcomes": [
+    "CO1"
+  ],
   "order": 5,
   "timeEstimate": 90,
   "topics": [
@@ -13,5 +15,7 @@
     "Parameters & arguments",
     "Return values",
     "Types of functions"
-  ]
+  ],
+  "unitDayNumber": 5,
+  "dayNumber": 5
 }

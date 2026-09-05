@@ -1,8 +1,8 @@
 {
   "id": "day-54",
   "unitId": "unit-05",
-  "dayNumber": 54,
-  "order": 54,
+  "dayNumber": 42,
+  "order": 42,
   "title": "Unit–V — Day 6: Introduction to Pandas Series",
   "shortTitle": "Introduction to Pandas Series",
   "description": "Introduction to Pandas Series: 1D labeled data structures, default vs custom indexing, .loc vs .iloc access, element modification, vectorized arithmetic, and aggregations (sum, mean, min, max).",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 6
 }

@@ -1,8 +1,8 @@
 {
   "id": "day-28",
   "unitId": "unit-03",
-  "dayNumber": 5,
-  "order": 5,
+  "dayNumber": 21,
+  "order": 21,
   "title": "Day 5: Tuples — Introduction, Operations & Assignment",
   "shortTitle": "Tuples, Operations & Assignment",
   "description": "Learn tuple characteristics, immutability, indexing and slicing, concatenation, repetition, membership, methods (count, index), packing, unpacking, and variable swapping.",
@@ -27,5 +27,6 @@
   ],
   "prerequisites": [
     "day-27"
-  ]
+  ],
+  "unitDayNumber": 5
 }

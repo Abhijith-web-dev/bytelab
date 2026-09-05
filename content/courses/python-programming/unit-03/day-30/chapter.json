@@ -1,8 +1,8 @@
 {
   "id": "day-30",
   "unitId": "unit-03",
-  "dayNumber": 7,
-  "order": 7,
+  "dayNumber": 23,
+  "order": 23,
   "title": "Day 7: Dictionaries — Structure, Operations & Key-Value Management",
   "shortTitle": "Dictionaries & Key-Value Operations",
   "description": "Learn dictionary structure, key-value mappings, accessing elements safely with get(), adding and updating pairs, deletion techniques, and membership testing.",
@@ -26,5 +26,6 @@
   ],
   "prerequisites": [
     "day-29"
-  ]
+  ],
+  "unitDayNumber": 7
 }

@@ -1,9 +1,9 @@
 {
   "id": "day-40",
   "unitId": "unit-04",
-  "dayNumber": 40,
+  "dayNumber": 30,
   "unitDayNumber": 4,
-  "order": 40,
+  "order": 30,
   "title": "Unit–IV — Day 4: Command-Line Arguments and sys.argv",
   "shortTitle": "Command-Line Arguments & sys.argv",
   "description": "Master command-line arguments in Python using sys.argv, positional indexing, argument validation, type conversions, and CLI tool design.",

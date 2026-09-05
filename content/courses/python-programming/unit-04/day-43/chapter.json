@@ -1,9 +1,9 @@
 {
   "id": "day-43",
   "unitId": "unit-04",
-  "dayNumber": 43,
+  "dayNumber": 33,
   "unitDayNumber": 7,
-  "order": 43,
+  "order": 33,
   "title": "Unit–IV — Day 7: Modules in Python",
   "shortTitle": "Modules in Python",
   "description": "Learn to organize code into reusable modules. Master creating user-defined modules, import styles (import, from-import, as), standard library modules (math, random, string, os, sys), and multi-file project architecture.",

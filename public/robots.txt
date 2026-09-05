@@ -1,12 +1,31 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /sitemap.xml
+Allow: /courses/
+Allow: /blog/
+Allow: /practice
+Allow: /tests
+Allow: /leaderboard
 
-# Exclude auth and user-specific routes
+# Exclude private and user-authenticated routes
 Disallow: /login
 Disallow: /register
-Disallow: /progress
 Disallow: /profile
-Disallow: /*/test
-Disallow: /*/practice
+Disallow: /progress
+
+# AI Crawlers Specific Directives
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
 
 Sitemap: https://bytelab-lms.sparklabinfo1.workers.dev/sitemap.xml

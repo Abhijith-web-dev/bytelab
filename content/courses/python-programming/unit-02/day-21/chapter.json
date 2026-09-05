@@ -1,8 +1,8 @@
 {
   "id": "day-21",
   "unitId": "unit-02",
-  "dayNumber": 9,
-  "order": 9,
+  "dayNumber": 15,
+  "order": 15,
   "title": "Day 9: String Module, Lists as Arrays & Working with Numeric Arrays",
   "shortTitle": "String Module & Numeric Arrays",
   "description": "Master the Python string module constants, utilize lists as contiguous numeric arrays, perform mutations (append, insert, pop, remove), and implement statistical traversals.",
@@ -26,5 +26,6 @@
     "Iterative Search, Extremum Tracking & Parity/Sign Filtering",
     "Practice Problem: Numeric Array Analyzer",
     "Unit-II Day 9 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 9
 }

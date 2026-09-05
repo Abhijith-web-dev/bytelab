@@ -1,8 +1,8 @@
 {
   "id": "day-22",
   "unitId": "unit-02",
-  "dayNumber": 10,
-  "order": 10,
+  "dayNumber": 16,
+  "order": 16,
   "title": "Day 10: Illustrative Programs, Integration & Unit-II Revision",
   "shortTitle": "Integration & Unit-II Capstone",
   "description": "Integrate the complete Unit-II toolkit: conditions, iteration, functions, recursion, strings, and numeric lists to build modular, production-grade problem solvers.",
@@ -26,5 +26,6 @@
     "Menu-Driven Application Architecture & State Encapsulation",
     "Practice Problem: Student Performance Analyzer",
     "Unit-II Capstone Mastery Assessment"
-  ]
+  ],
+  "unitDayNumber": 10
 }

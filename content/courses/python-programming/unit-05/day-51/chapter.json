@@ -1,8 +1,8 @@
 {
   "id": "day-51",
   "unitId": "unit-05",
-  "dayNumber": 51,
-  "order": 51,
+  "dayNumber": 39,
+  "order": 39,
   "title": "Unit–V — Day 3: NumPy Array Indexing and Slicing",
   "shortTitle": "Array Indexing and Slicing",
   "description": "Master 1D and 2D indexing, positive and negative indices, row & column selection with the colon (:) operator, sub-matrix slicing, and updating numerical data.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 3
 }

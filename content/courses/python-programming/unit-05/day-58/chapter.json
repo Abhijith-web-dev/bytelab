@@ -1,8 +1,8 @@
 {
   "id": "day-58",
   "unitId": "unit-05",
-  "dayNumber": 58,
-  "order": 58,
+  "dayNumber": 46,
+  "order": 46,
   "title": "Unit–V — Day 10: File I/O, NumPy-Pandas Integration & Capstone Revision",
   "shortTitle": "File I/O, NumPy Integration & Revision",
   "description": "Reading and writing CSV files with read_csv and to_csv, bidirectional conversion between NumPy arrays, Series, and DataFrames, end-to-end data processing pipelines, and full Unit-V capstone revision.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 10
 }

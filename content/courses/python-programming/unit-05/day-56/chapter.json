@@ -1,8 +1,8 @@
 {
   "id": "day-56",
   "unitId": "unit-05",
-  "dayNumber": 56,
-  "order": 56,
+  "dayNumber": 44,
+  "order": 44,
   "title": "Unit–V — Day 8: Missing Data and Combining DataFrames",
   "shortTitle": "Missing Data & Combining DataFrames",
   "description": "Detecting and handling missing values with isna(), fillna(), and dropna(); combining datasets using concat() (stack), merge() (match by key), and join() (match by index).",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 8
 }

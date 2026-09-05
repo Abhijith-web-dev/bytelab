@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { progressStorage } from '../services/storage/localStorage.js';
 import { syncManager } from '../services/sync/syncManager.js';
 import { getCourse, getNavigationHierarchy } from '../content/loader/index.js';
+import { trackLessonComplete, trackProblemSolved, trackAssessmentComplete } from '../services/firebase/analytics.js';
 
 export const useProgressStore = create((set, get) => ({
   userId: 'guest',
@@ -16,9 +17,43 @@ export const useProgressStore = create((set, get) => ({
   totalPoints: 0,
 
   loadUserProgress: (userId) => {
-    const data = progressStorage.getLocalProgress(userId);
+    let data = progressStorage.getLocalProgress(userId);
     const today = new Date().toISOString().split('T')[0];
     let streak = data.streakDays || 1;
+
+    // Merge guest progress if logging into a real account
+    if (userId && userId !== 'guest') {
+      const guestData = progressStorage.getLocalProgress('guest');
+      const hasGuestProgress =
+        (guestData.completedChapters && guestData.completedChapters.length > 0) ||
+        (guestData.completedLessons && guestData.completedLessons.length > 0) ||
+        (guestData.solvedProblems && Object.keys(guestData.solvedProblems).length > 0) ||
+        (guestData.testScores && Object.keys(guestData.testScores).length > 0);
+
+      if (hasGuestProgress) {
+        data = {
+          ...data,
+          completedLessons: Array.from(new Set([...(data.completedLessons || []), ...(guestData.completedLessons || [])])),
+          completedChapters: Array.from(new Set([...(data.completedChapters || []), ...(guestData.completedChapters || [])])),
+          completedUnits: Array.from(new Set([...(data.completedUnits || []), ...(guestData.completedUnits || [])])),
+          solvedProblems: { ...(guestData.solvedProblems || {}), ...(data.solvedProblems || {}) },
+          testScores: { ...(guestData.testScores || {}), ...(data.testScores || {}) },
+          totalPoints: (data.totalPoints || 0) + (guestData.totalPoints || 0)
+        };
+        // Clear guest storage after promotion
+        progressStorage.saveLocalProgress('guest', {
+          completedLessons: [],
+          completedChapters: [],
+          completedUnits: [],
+          solvedProblems: {},
+          testScores: {},
+          streakDays: 1,
+          lastActiveDate: today,
+          totalPoints: 0
+        });
+        progressStorage.saveLocalProgress(userId, data);
+      }
+    }
 
     // Check streak date
     if (data.lastActiveDate && data.lastActiveDate !== today) {
@@ -42,6 +77,10 @@ export const useProgressStore = create((set, get) => ({
       lastActiveDate: today,
       totalPoints: data.totalPoints || 0
     });
+
+    if (userId && userId !== 'guest') {
+      get()._persistAndSync();
+    }
   },
 
   markLessonComplete: (lessonId, chapterId, unitId) => {
@@ -74,6 +113,13 @@ export const useProgressStore = create((set, get) => ({
 
     set(updatedState);
     get()._persistAndSync();
+
+    trackLessonComplete({
+      courseId: state.courseId,
+      unitId,
+      chapterId,
+      pointsEarned: 20
+    });
   },
 
   recordProblemSolved: (problemId, code, attempts = 1) => {
@@ -99,6 +145,12 @@ export const useProgressStore = create((set, get) => ({
     });
 
     get()._persistAndSync();
+
+    trackProblemSolved({
+      problemId,
+      courseId: state.courseId,
+      points: isFirstTimePass ? 50 : 5
+    });
   },
 
   recordTestResult: (testId, score, maxScore, unitId = null, chapterId = null) => {
@@ -138,6 +190,14 @@ export const useProgressStore = create((set, get) => ({
     });
 
     get()._persistAndSync();
+
+    trackAssessmentComplete({
+      unitId,
+      score,
+      maxScore,
+      percentage,
+      passed
+    });
 
     // Enqueue test attempt record
     syncManager.enqueue({

@@ -1,8 +1,8 @@
 {
   "id": "day-19",
   "unitId": "unit-02",
-  "dayNumber": 7,
-  "order": 7,
+  "dayNumber": 13,
+  "order": 13,
   "title": "Day 7: Recursion and Recursive Problem Solving",
   "shortTitle": "Recursion & Problem Solving",
   "description": "Master the divide-and-conquer beauty of recursion in Python: base cases, recursive steps, call stack mechanics, GCD, and exponentiation.",
@@ -26,5 +26,6 @@
     "Debugging Common Recursion Traps: RecursionError and Missing Returns",
     "Practice Problem: Recursive Number Calculator",
     "Unit-II Day 7 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 7
 }

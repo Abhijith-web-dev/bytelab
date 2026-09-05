@@ -1,8 +1,8 @@
 {
   "id": "day-14",
   "unitId": "unit-02",
-  "dayNumber": 2,
-  "order": 2,
+  "dayNumber": 8,
+  "order": 8,
   "title": "Day 2: Alternative, Chained & Nested Conditional Statements",
   "shortTitle": "if-else, elif & Nested Conditionals",
   "description": "Master two-way branching with if-else, multi-way decision chains with if-elif-else, and hierarchical decision trees using nested conditionals.",
@@ -26,5 +26,6 @@
     "Common Pitfalls: Independent ifs, Ordering Bugs & Indentation",
     "Student Grade Calculator Practice",
     "Unit-II Day 2 Knowledge Assessment"
-  ]
+  ],
+  "unitDayNumber": 2
 }

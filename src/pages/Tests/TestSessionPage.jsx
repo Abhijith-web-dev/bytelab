@@ -15,7 +15,7 @@ export function TestSessionPage() {
   const unitParam = searchParams.get('unit');
   const chapterParam = searchParams.get('chapter');
 
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, isGuest } = useAuthStore();
   const {
     activeSession,
     currentQuestionIndex,
@@ -274,6 +274,27 @@ export function TestSessionPage() {
                 </Link>
               </div>
             </div>
+
+            {/* Guest Sync Banner */}
+            {(!isAuthenticated || isGuest) && (
+              <div className="p-4 rounded-[14px] bg-[#eeece7]/40 border border-[#d9d9dd] flex flex-col sm:flex-row items-center justify-between gap-3 animate-in fade-in">
+                <div className="flex items-center gap-2.5">
+                  <Sparkles className="w-4 h-4 text-[#ff7759] fill-current shrink-0" />
+                  <div className="text-[13px] text-[#17171c]">
+                    <b>Assessment completed.</b> Sign in to permanently bind this score to your student certificate and leaderboard rank.
+                  </div>
+                </div>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-auth-prompt', { detail: { reason: 'test' } }))}
+                  className="shrink-0 text-[12px] py-1.5 px-3.5"
+                >
+                  <span>Sync Certification</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            )}
 
             {/* Course Outcomes Breakdown */}
             <div className="p-6 rounded-[12px] bg-[#fafafa] border border-[#e5e5e5] space-y-3">

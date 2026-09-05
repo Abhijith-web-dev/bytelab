@@ -1,8 +1,8 @@
 {
   "id": "day-50",
   "unitId": "unit-05",
-  "dayNumber": 50,
-  "order": 50,
+  "dayNumber": 38,
+  "order": 38,
   "title": "Unit–V — Day 2: NumPy Array Shape, Dimensions and Reshaping",
   "shortTitle": "Array Shape, Dimensions & Reshaping",
   "description": "What is array shape, dimensions (1D, 2D, 3D), rows and columns, .shape attribute vs .reshape() method, the golden element-count conservation rule, and practical reshaping.",
@@ -17,5 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 10
+  "quizCount": 10,
+  "unitDayNumber": 2
 }

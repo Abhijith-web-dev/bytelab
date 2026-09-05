@@ -1,8 +1,8 @@
 {
   "id": "day-27",
   "unitId": "unit-03",
-  "dayNumber": 4,
-  "order": 4,
+  "dayNumber": 20,
+  "order": 20,
   "title": "Day 4: Lists as Function Parameters & List-Based Problem Solving",
   "shortTitle": "Lists in Functions & Problem Solving",
   "description": "Learn how to pass lists to functions, traverse and calculate data in functions, modify lists in-place vs using clones, and solve real-world problems.",
@@ -24,5 +24,6 @@
   ],
   "prerequisites": [
     "day-26"
-  ]
+  ],
+  "unitDayNumber": 4
 }

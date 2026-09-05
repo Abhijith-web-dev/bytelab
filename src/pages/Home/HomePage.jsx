@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Play, ArrowRight, CheckCircle2, ShieldCheck, Award, Flame, BookOpen, 
-  Terminal, Sparkles, Layers, Cpu, Code2, Globe, Database, Compass, Check
+  Terminal, Sparkles, Layers, Cpu, Code2, Globe, Database, Compass, Check,
+  RotateCcw, Loader2, ExternalLink
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button.jsx';
 import { Badge } from '../../components/ui/Badge.jsx';
@@ -11,8 +12,6 @@ import { useProgressStore } from '../../stores/progressStore.js';
 import { getCourse, getLanguages } from '../../content/loader/index.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
 import { useSEO } from '../../hooks/useSEO.js';
-
-const CodePlayground = React.lazy(() => import('../../components/editor/CodePlayground.jsx').then(m => ({ default: m.CodePlayground })));
 
 export function HomePage() {
   useSEO({
@@ -238,10 +237,10 @@ Borrow checker verified: 0 data races`
 
         {/* DESIGN.md Trust-Logo Strip / Supported Technologies */}
         <div className="max-w-[1100px] mx-auto pt-16 sm:pt-20 border-t border-[#f0f0f0] mt-16 sm:mt-20">
-          <div className="text-center text-[11px] font-mono tracking-[0.2em] text-[#93939f] uppercase mb-6">
+          <div className="text-center text-[11px] font-mono tracking-[0.2em] text-[#4b4b5a] font-semibold uppercase mb-6">
             Supported & Architecture-Ready Languages
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-[14px] font-mono font-medium text-[#737373]">
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-[14px] font-mono font-medium text-[#4b4b5a]">
             <span className="flex items-center gap-1.5 text-black font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
               PYTHON 3.11
@@ -268,7 +267,7 @@ Borrow checker verified: 0 data races`
                 Type, compile, and experiment in isolated sandboxes.
               </h2>
             </div>
-            <div className="text-[13px] text-[#93939f] max-w-xs">
+            <div className="text-[13px] text-[#a1a1aa] max-w-xs">
               Zero backend queues. Pyodide WebAssembly executes directly on your hardware with 100% privacy.
             </div>
           </div>
@@ -324,45 +323,133 @@ Borrow checker verified: 0 data races`
           {/* Console Mockup Container */}
           <div className="rounded-[16px] overflow-hidden border border-[#383842] shadow-2xl bg-[#09090b]">
             {activeLangTab === 'python' ? (
-              <div className="h-[460px] bg-white text-black">
-                <React.Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-[#fafafa] text-[#737373]">Loading Pyodide Sandbox...</div>}>
-                  <CodePlayground
-                    code={sandboxCode}
-                    onChange={setSandboxCode}
-                    onRun={handleRunSandbox}
-                    onReset={() => setSandboxCode(`print("Hello from ByteLab Multi-Language Lab!")`)}
-                    language="python"
-                    executionState={sandboxState}
-                    stdout={sandboxStdout}
-                    stderr={sandboxStderr}
-                    executionTimeMs={sandboxTime}
-                    preventPaste={false}
-                  />
-                </React.Suspense>
+              <div className="flex flex-col md:flex-row h-[480px] font-mono text-[13px] bg-[#0c0c0e]">
+                {/* Python Interactive Editor Area */}
+                <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-[#26262e] overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-2.5 bg-[#141418] border-b border-[#26262e] text-[12px]">
+                    <div className="flex items-center gap-2 text-[#a1a1aa]">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                      <span className="font-semibold text-white">main.py</span>
+                      <span className="text-[11px] text-[#a1a1aa]">(Python 3.11 WASM)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setSandboxCode(`# Welcome to ByteLab — Multi-Language Systems Lab\n# 19AI301 / CS3301 Python Programming Engine\n\ndef quick_analyze(numbers):\n    total = sum(numbers)\n    avg = total / len(numbers) if numbers else 0\n    squares = [x ** 2 for x in numbers]\n    return {\n        "count": len(numbers),\n        "sum": total,\n        "average": round(avg, 2),\n        "squares": squares[:5]\n    }\n\ndata = [12, 45, 67, 89, 23, 56, 78, 90]\nresults = quick_analyze(data)\n\nprint("✦ ByteLab Python 3.11 Runtime Verified")\nfor key, val in results.items():\n    print(f"  • {key.capitalize()}: {val}")\n`)}
+                        className="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 text-[#a1a1aa] hover:text-white text-[11px] flex items-center gap-1 transition-colors cursor-pointer"
+                        title="Reset code"
+                      >
+                        <RotateCcw className="w-3 h-3" />
+                        <span>Reset</span>
+                      </button>
+                      <button
+                        onClick={handleRunSandbox}
+                        disabled={sandboxState === 'RUNNING'}
+                        className="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 text-white font-medium text-[11px] flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+                      >
+                        {sandboxState === 'RUNNING' ? (
+                          <>
+                            <Loader2 className="w-3 h-3 animate-spin" />
+                            <span>Executing...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Play className="w-3 h-3 fill-current" />
+                            <span>Run Python</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Code editing area with line numbers */}
+                  <div className="flex-1 flex overflow-hidden bg-[#0c0c0e]">
+                    <div className="w-10 py-3 text-right pr-3 select-none text-[#71717a] text-[12px] font-mono border-r border-[#1f1f23]">
+                      {sandboxCode.split('\n').map((_, i) => (
+                        <div key={i} className="leading-6">{i + 1}</div>
+                      ))}
+                    </div>
+                    <textarea
+                      value={sandboxCode}
+                      onChange={(e) => setSandboxCode(e.target.value)}
+                      spellCheck={false}
+                      aria-label="Python Interactive Code Sandbox"
+                      className="flex-1 p-3 bg-transparent text-[#e4e4e7] font-mono text-[12.5px] leading-6 resize-none focus:outline-none overflow-y-auto selection:bg-[#ff7759]/30"
+                    />
+                  </div>
+                </div>
+
+                {/* Real-time WASM Execution Console Output */}
+                <div className="w-full md:w-[340px] bg-[#141418] flex flex-col justify-between shrink-0 overflow-hidden">
+                  <div className="p-3 bg-[#18181c] border-b border-[#26262e] flex items-center justify-between text-[11.5px]">
+                    <div className="flex items-center gap-1.5 font-semibold text-[#a1a1aa] uppercase tracking-wider text-[10.5px]">
+                      <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Execution Console</span>
+                    </div>
+                    {sandboxTime > 0 && (
+                      <span className="text-[10.5px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+                        {sandboxTime}ms
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex-1 p-4 overflow-y-auto font-mono text-[12px] space-y-2 bg-[#09090b]">
+                    {sandboxState === 'RUNNING' && (
+                      <div className="text-[#a1a1aa] flex items-center gap-2">
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
+                        <span>Compiling in Pyodide WebAssembly worker...</span>
+                      </div>
+                    )}
+                    {sandboxStdout && (
+                      <pre className="text-emerald-400 whitespace-pre-wrap leading-relaxed font-mono">
+                        {sandboxStdout}
+                      </pre>
+                    )}
+                    {sandboxStderr && (
+                      <pre className="text-red-400 whitespace-pre-wrap leading-relaxed font-mono">
+                        {sandboxStderr}
+                      </pre>
+                    )}
+                    {!sandboxStdout && !sandboxStderr && sandboxState === 'IDLE' && (
+                      <div className="text-[#a1a1aa] text-[12px] leading-relaxed space-y-2">
+                        <p className="text-white font-medium">✦ Ready for WebAssembly execution.</p>
+                        <p>Click <b className="text-emerald-400">"Run Python"</b> to evaluate algorithms with zero server latency.</p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-3 border-t border-[#26262e] bg-[#141418]">
+                    <Link to="/practice">
+                      <Button variant="pill-on-dark" size="sm" className="w-full flex items-center justify-center gap-1.5 text-[12px]">
+                        <span>Open Full IDE Sandbox</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             ) : (
-              <div className="p-6 font-mono text-[13px] flex flex-col md:flex-row gap-6 h-[460px] overflow-hidden">
+              <div className="p-6 font-mono text-[13px] flex flex-col md:flex-row gap-6 h-[480px] overflow-hidden">
                 {/* Static Preview Code Column */}
                 <div className="flex-1 flex flex-col justify-between overflow-hidden">
-                  <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[12px] text-[#93939f]">
+                  <div className="flex items-center justify-between pb-3 border-b border-white/10 text-[12px] text-[#a1a1aa]">
                     <span>{languageSnippets[activeLangTab].title}</span>
                     <span className="px-2 py-0.5 rounded bg-white/10 text-white text-[10px]">Track Preview</span>
                   </div>
-                  <pre className="flex-1 overflow-y-auto py-3 text-[#d4d4d4] leading-relaxed select-text">
+                  <pre className="flex-1 overflow-y-auto py-3 text-[#d4d4d4] leading-relaxed select-text font-mono">
                     <code>{languageSnippets[activeLangTab].code}</code>
                   </pre>
-                  <div className="pt-2 text-[11px] text-[#75758a]">
+                  <div className="pt-2 text-[11px] text-[#a1a1aa]">
                     {languageSnippets[activeLangTab].tagline}
                   </div>
                 </div>
 
                 {/* Compilation Output Column */}
-                <div className="w-full md:w-[320px] bg-[#17171c] p-4 rounded-[8px] border border-white/10 flex flex-col justify-between shrink-0">
+                <div className="w-full md:w-[340px] bg-[#17171c] p-4 rounded-[8px] border border-white/10 flex flex-col justify-between shrink-0">
                   <div className="space-y-3">
-                    <div className="text-[11px] uppercase tracking-wider text-[#a3a3a3] border-b border-white/10 pb-2">
+                    <div className="text-[11px] uppercase tracking-wider text-[#a1a1aa] border-b border-white/10 pb-2">
                       Simulated Environment Output
                     </div>
-                    <pre className="text-emerald-400 text-[12px] whitespace-pre-wrap leading-relaxed">
+                    <pre className="text-emerald-400 text-[12px] whitespace-pre-wrap leading-relaxed font-mono">
                       {languageSnippets[activeLangTab].output}
                     </pre>
                   </div>
@@ -604,8 +691,8 @@ Borrow checker verified: 0 data races`
                   <li><b>CO5:</b> NumPy & Data Frame (Apply)</li>
                 </ul>
               </div>
-              <Link to="/progress" className="pt-4">
-                <Button variant="secondary" size="sm" className="w-full">
+              <Link to="/progress" className="pt-4 block">
+                <Button variant="secondary" size="sm" className="w-full min-h-[44px]">
                   Track Outcome Mastery
                 </Button>
               </Link>
@@ -615,11 +702,11 @@ Borrow checker verified: 0 data races`
           {/* Multi-Language Tracks Roadmap */}
           <div className="pt-10 border-t border-[#f0f0f0] space-y-6">
             <div className="space-y-1">
-              <span className="mono-label text-[#ff7759]">EXPANDING HORIZONS</span>
+              <span className="mono-label text-[#c2410c] font-semibold">EXPANDING HORIZONS</span>
               <h3 className="text-[22px] font-semibold text-[#000000]">
                 Upcoming Multi-Language Curricula Tracks
               </h3>
-              <p className="text-[14px] text-[#737373]">
+              <p className="text-[14px] text-[#525252]">
                 ByteLab's modular course engine allows students to apply algorithmic thinking across different language paradigms.
               </p>
             </div>

@@ -1,8 +1,8 @@
 {
   "id": "day-29",
   "unitId": "unit-03",
-  "dayNumber": 6,
-  "order": 6,
+  "dayNumber": 22,
+  "order": 22,
   "title": "Day 6: Tuples as Return Values & Multiple-Value Functions",
   "shortTitle": "Tuples as Return Values",
   "description": "Learn how functions return tuples for multiple values, unpacking returned values, passing tuples, and building multi-value analytical programs.",
@@ -24,5 +24,6 @@
   ],
   "prerequisites": [
     "day-28"
-  ]
+  ],
+  "unitDayNumber": 6
 }
