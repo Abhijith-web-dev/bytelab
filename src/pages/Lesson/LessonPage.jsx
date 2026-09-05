@@ -248,7 +248,7 @@ export function LessonPage() {
         title={chapter?.title || chapterId}
         subtitle={`${unit.romanNumber} • Day ${currentIndex} of ${totalCount}`}
         breadcrumbs={[
-          { label: '65-Day Curriculum', path: `/courses/${courseId}` },
+          { label: '46-Day Curriculum', path: `/courses/${courseId}` },
           { label: unit.romanNumber, path: `/courses/${courseId}/unit/${unit.id}` }
         ]}
         ctaLabel={isChapterDone ? "Done ✓" : "Complete"}
@@ -263,7 +263,7 @@ export function LessonPage() {
             {/* Mobile Syllabus Drawer Trigger */}
             <button
               onClick={toggleMobileCurriculum}
-              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-white border border-[#d9d9dd] text-[12px] font-medium text-[#17171c]"
+              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-white border border-[#d9d9dd] text-[12px] font-medium text-[#17171c] hover:bg-[#fafafa] active:scale-95 transition-all"
               aria-label="Open Syllabus"
             >
               <Menu className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1" />
@@ -273,10 +273,10 @@ export function LessonPage() {
             {/* Focus Mode Switcher */}
             <button
               onClick={toggleFocusMode}
-              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 ${
+              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 active:scale-95 ${
                 isFocusMode
                   ? 'bg-[#17171c] text-white shadow-xs'
-                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
               }`}
               title="Toggle Focus Mode"
             >
@@ -291,10 +291,10 @@ export function LessonPage() {
             {/* Story Mode Quick Switcher */}
             <button
               onClick={toggleStoryMode}
-              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 ${
+              className={`flex items-center justify-center w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer shrink-0 active:scale-95 ${
                 isStoryMode
                   ? 'bg-[#ff7759] text-white shadow-xs'
-                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                  : 'bg-white text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
               }`}
               title="Toggle Story Mode"
             >
@@ -306,7 +306,7 @@ export function LessonPage() {
       />
 
       <div className="flex-1 flex flex-col md:flex-row w-full mx-auto">
-        {/* Left: Desktop 65-Day Syllabus Sidebar */}
+        {/* Left: Desktop 46-Day Syllabus Sidebar */}
         {!isFocusMode && (
           <CourseSidebar
             courseId={courseId}
@@ -322,7 +322,7 @@ export function LessonPage() {
               <div className="p-4 border-b border-[#d9d9dd] flex items-center justify-between bg-[#eeece7]/40">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-4 h-4 text-[#17171c]" />
-                  <span className="font-semibold text-[14px] text-[#17171c]">65-Day Syllabus</span>
+                  <span className="font-semibold text-[14px] text-[#17171c]">46-Day Syllabus</span>
                 </div>
                 <button onClick={closeMobileCurriculum} className="p-1 text-[#75758a] hover:text-[#17171c] rounded-full">
                   <X className="w-5 h-5" />
@@ -336,7 +336,7 @@ export function LessonPage() {
         )}
 
         {/* Center: Main Lecture Player Workspace */}
-        <main className="flex-1 min-w-0 p-4 md:p-8 lg:p-10 max-w-4xl mx-auto space-y-8">
+        <main className="flex-1 min-w-0 px-3 sm:px-6 md:px-8 lg:px-10 py-6 sm:py-8 max-w-4xl mx-auto w-full space-y-6 sm:space-y-8">
           {/* Lecture Hero Banner */}
           <div className="space-y-3 pb-6 border-b border-[#d9d9dd]">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -410,55 +410,55 @@ export function LessonPage() {
             </div>
 
             {/* Learning Workspace Tab Navigation */}
-            <div className="flex items-center gap-2 pt-4 overflow-x-auto no-scrollbar border-t border-[#d9d9dd]">
+            <div className="lesson-tab-strip pt-4 border-t border-[#d9d9dd] -mx-1 px-1">
               <button
                 onClick={() => setActiveTab('notes')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
                   activeTab === 'notes'
                     ? 'bg-[#17171c] text-white shadow-xs'
-                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
                 }`}
               >
-                <BookOpen className="w-3.5 h-3.5" />
+                <BookOpen className="w-3.5 h-3.5 shrink-0" />
                 <span>{isStoryMode ? 'Story Narrative' : '12-Section Lesson'}</span>
               </button>
 
               {simulationData && (
                 <button
                   onClick={() => setActiveTab('simulation')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
                     activeTab === 'simulation'
                       ? 'bg-[#17171c] text-white shadow-xs'
-                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
                   }`}
                 >
-                  <Cpu className="w-3.5 h-3.5 text-[#003c33]" />
+                  <Cpu className="w-3.5 h-3.5 text-[#003c33] shrink-0" />
                   <span>Interactive Simulation</span>
                 </button>
               )}
 
               <button
                 onClick={() => setActiveTab('sandbox')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
                   activeTab === 'sandbox'
                     ? 'bg-[#17171c] text-white shadow-xs'
-                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                    : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
                 }`}
               >
-                <Terminal className="w-3.5 h-3.5 text-[#1863dc]" />
+                <Terminal className="w-3.5 h-3.5 text-[#1863dc] shrink-0" />
                 <span>Live Sandbox & Diagnostics</span>
               </button>
 
               {quizQuestions.length > 0 && (
                 <button
                   onClick={() => setActiveTab('quiz')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
                     activeTab === 'quiz'
                       ? 'bg-[#17171c] text-white shadow-xs'
-                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
                   }`}
                 >
-                  <HelpCircle className="w-3.5 h-3.5 text-[#ff7759]" />
+                  <HelpCircle className="w-3.5 h-3.5 text-[#ff7759] shrink-0" />
                   <span>Quick Check ({quizQuestions.length})</span>
                 </button>
               )}
@@ -466,13 +466,13 @@ export function LessonPage() {
               {problems && problems.length > 0 && (
                 <button
                   onClick={() => setActiveTab('practice')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 active:scale-95 ${
                     activeTab === 'practice'
                       ? 'bg-[#17171c] text-white shadow-xs'
-                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd]'
+                      : 'bg-transparent text-[#75758a] hover:text-[#17171c] border border-[#d9d9dd] hover:bg-[#fafafa]'
                   }`}
                 >
-                  <Target className="w-3.5 h-3.5 text-[#ff7759]" />
+                  <Target className="w-3.5 h-3.5 text-[#ff7759] shrink-0" />
                   <span>Practice ({problems.length})</span>
                 </button>
               )}
@@ -709,24 +709,26 @@ export function LessonPage() {
                 {(problems[0].exampleInput || problems[0].exampleOutput) && (
                   <div className="pt-2">
                     <h4 className="text-[13px] font-semibold text-[#17171c] mb-2 uppercase font-mono">Example:</h4>
-                    <table className="text-left text-[13px] border border-[#d9d9dd] bg-white rounded-[8px] overflow-hidden">
-                      <thead>
-                        <tr className="bg-[#eeece7]/40 border-b border-[#d9d9dd]">
-                          <th className="py-2 px-4 font-medium w-[200px] border-r border-[#d9d9dd] text-[#17171c]">Input</th>
-                          <th className="py-2 px-4 font-medium min-w-[200px] text-[#17171c]">Result</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-[#d9d9dd] text-[#75758a]">
-                            {problems[0].exampleInput}
-                          </td>
-                          <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap text-[#75758a]">
-                            {problems[0].exampleOutput}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div className="overflow-x-auto max-w-full touch-scroll">
+                      <table className="text-left text-[13px] border border-[#d9d9dd] bg-white rounded-[8px] overflow-hidden min-w-[320px] w-full">
+                        <thead>
+                          <tr className="bg-[#eeece7]/40 border-b border-[#d9d9dd]">
+                            <th className="py-2 px-4 font-medium w-[45%] border-r border-[#d9d9dd] text-[#17171c]">Input</th>
+                            <th className="py-2 px-4 font-medium w-[55%] text-[#17171c]">Result</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap border-r border-[#d9d9dd] text-[#75758a]">
+                              {problems[0].exampleInput}
+                            </td>
+                            <td className="py-2 px-4 font-mono text-[12px] align-top whitespace-pre-wrap text-[#75758a]">
+                              {problems[0].exampleOutput}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
               </div>

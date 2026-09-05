@@ -17,6 +17,10 @@ export default defineConfig({
     format: 'es'
   },
   build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    cssMinify: true,
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
         manualChunks: {

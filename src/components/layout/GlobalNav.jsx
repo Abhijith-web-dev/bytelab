@@ -173,7 +173,7 @@ export function GlobalNav() {
 
       {/* Mobile Drawer with DESIGN.md layout */}
       {isMobileNavOpen && (
-        <div className="fixed inset-0 top-[94px] z-50 bg-white/98 backdrop-blur-lg border-b border-[#e5e5e5] p-6 lg:hidden overflow-y-auto animate-in slide-in-from-top-2 duration-150">
+        <div className={`fixed inset-0 ${showAnnouncement ? 'top-[94px]' : 'top-[58px]'} z-50 bg-white/98 backdrop-blur-lg border-b border-[#e5e5e5] p-6 lg:hidden overflow-y-auto animate-in slide-in-from-top-2 duration-150`}>
           <div className="flex flex-col gap-4 text-[15px]">
             {/* Mobile Search Button */}
             <button

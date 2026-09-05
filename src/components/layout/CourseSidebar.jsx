@@ -30,7 +30,7 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
   const activeItemRef = useRef(null);
 
   const totalChaptersCount = course.units.reduce((acc, u) => acc + (u.chapters?.length || 0), 0);
-  const completionPercent = Math.round((completedChapters.length / (totalChaptersCount || 65)) * 100);
+  const completionPercent = Math.round((completedChapters.length / (totalChaptersCount || 46)) * 100);
 
   // Auto-expand all units initially or the active unit
   const [expandedUnits, setExpandedUnits] = useState({
@@ -101,7 +101,7 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
             {course.title}
           </h2>
           <span className="text-[11px] font-mono font-medium bg-[#17171c] text-white px-2.5 py-0.5 rounded-full shrink-0">
-            65-Day
+            46-Day
           </span>
         </div>
 
@@ -117,7 +117,8 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
           <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-[#93939f]" />
           <input
             type="text"
-            placeholder="Search 65 days (e.g. Day 14, loops)..."
+            inputMode="search"
+            placeholder="Search 46 days (e.g. Day 14, loops)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-8 pr-7 py-1.5 bg-white border border-[#d9d9dd] rounded-full text-[12px] focus:outline-none focus:border-[#17171c] transition-colors"

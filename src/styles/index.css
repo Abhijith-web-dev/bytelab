@@ -276,6 +276,27 @@
   font-style: italic;
 }
 
+.prose-bytelab pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: #17171c;
+  color: #f3f4f6;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1.25rem 0;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.prose-bytelab pre code {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
 /* Utilities */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
@@ -285,4 +306,23 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
 }
+
+/* Tab Strip Responsive Container */
+.lesson-tab-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.lesson-tab-strip > * {
+  scroll-snap-align: start;
+}
+

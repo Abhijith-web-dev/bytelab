@@ -237,7 +237,7 @@ export const useProgressStore = create((set, get) => ({
   getCourseCompletionPercentage: () => {
     const state = get();
     const hierarchy = getNavigationHierarchy(state.courseId);
-    const totalChapters = hierarchy.length || 65;
+    const totalChapters = hierarchy.length || 46;
     return Math.min(100, Math.round((state.completedChapters.length / totalChapters) * 100));
   }
 }));

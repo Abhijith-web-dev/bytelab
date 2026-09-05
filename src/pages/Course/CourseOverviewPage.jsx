@@ -38,7 +38,7 @@ export function CourseOverviewPage() {
           { label: 'Courses', path: '/courses' },
           { label: course.code, path: `/courses/${courseId}` }
         ]}
-        ctaLabel={completedChapters.length > 0 ? "Continue Course" : "Start 65-Day Plan"}
+        ctaLabel={completedChapters.length > 0 ? "Continue Course" : "Start 46-Day Plan"}
         ctaLink={`/courses/${courseId}/chapter/${nextItem?.chapterId || 'day-01'}`}
       />
 

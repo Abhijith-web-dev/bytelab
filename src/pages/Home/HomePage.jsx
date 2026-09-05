@@ -405,7 +405,7 @@ Borrow checker verified: 0 data races`
                   Academic Rigor
                 </h3>
                 <p className="text-[13px] text-[#737373] leading-relaxed">
-                  Strict university-level syllabi structured into 60 discrete lecture periods. Every topic includes concrete memory complexity tables.
+                  Strict university-level syllabi structured into 46 structured learning days. Every topic includes concrete memory complexity tables.
                 </p>
               </div>
               <Link to="/courses/python-programming" className="text-[13px] font-medium text-black hover:underline flex items-center gap-1">
@@ -548,7 +548,7 @@ Borrow checker verified: 0 data races`
                 19AI301 / CS3301 CURRICULUM
               </span>
               <h2 className="text-[26px] sm:text-[34px] font-semibold text-[#000000] tracking-tight mt-1">
-                Five Units. 60 Periods. Total Mastery.
+                Five Units. 46 Days. Total Mastery.
               </h2>
             </div>
             <Link to="/courses/python-programming">
