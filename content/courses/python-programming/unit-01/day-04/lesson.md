@@ -201,77 +201,11 @@ print("@gmail.com" in email) # Output: True
 
 ---
 
-# 7. ⚡ Bitwise Operators: Complete Deep Dive
+## 7. Bitwise Operators
 
-Bitwise operators manipulate data directly at the level of individual binary digits (**bits**). While arithmetic and logical operators treat numbers as whole quantities or booleans, bitwise operators inspect and transform the raw binary `1`s and `0`s in memory.
+Here are practical examples using the numbers **5** (binary `0101`) and **3** (binary `0011`).
 
-```text
-+-------------------------------------------------------------------------+
-|                  THE 6 PYTHON BITWISE OPERATORS                         |
-+----------+--------------------+---------------------+-------------------+
-| Operator | Name               | Syntax              | Bit-Level Action  |
-+----------+--------------------+---------------------+-------------------+
-|    &     | Bitwise AND        | a & b               | 1 if BOTH are 1   |
-|    |     | Bitwise OR         | a | b               | 1 if EITHER is 1  |
-|    ^     | Bitwise XOR        | a ^ b               | 1 if DIFFERENT    |
-|    ~     | Bitwise NOT (Inv)  | ~a                  | Inverts all bits  |
-|    <<    | Bitwise Left Shift | a << n              | Shift left by n   |
-|    >>    | Bitwise Right Shift| a >> n              | Shift right by n  |
-+----------+--------------------+---------------------+-------------------+
-```
-
----
-
-### A. How Integers Are Represented in Binary
-
-Computers store integers in base-2 (binary). Each bit position represents a power of $2$:
-
-$$\dots, 2^7=128,\; 2^6=64,\; 2^5=32,\; 2^4=16,\; 2^3=8,\; 2^2=4,\; 2^1=2,\; 2^0=1$$
-
-#### Example: Representing Decimal `13` in 8-bit Binary
-$$13 = 8 + 4 + 1 = (0 \times 128) + (0 \times 64) + (0 \times 32) + (0 \times 16) + (1 \times 8) + (1 \times 4) + (0 \times 2) + (1 \times 1)$$
-
-$$\text{Binary: } \mathbf{00001101}_2$$
-
-#### Python Built-in Binary Conversion Tools
-Python provides native functions to inspect and convert binary representations:
-
-```python
-# 1. Decimal to Binary String (prefixed with '0b')
-print(bin(13))       # '0b1101'
-print(bin(5))        # '0b101'
-
-# 2. Formatted 8-bit binary representation
-print(f"{13:08b}")   # '00001101'
-print(f"{5:08b}")    # '00000101'
-
-# 3. Binary String back to Decimal
-print(int("1101", 2))   # 13
-print(int("0b1101", 2)) # 13
-```
-
----
-
-### B. Master Bitwise Truth Table
-
-The fundamental truth table dictates how two bits $A$ and $B$ produce an output under each operation:
-
-| Bit $A$ | Bit $B$ | AND ($A \ \& \ B$) | OR ($A \ \| \ B$) | XOR ($A \ \text{\textasciicircum} \ B$) | NOT ($\sim A$) |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-| `0` | `0` | `0` | `0` | `0` | `1` |
-| `0` | `1` | `0` | `1` | `1` | `1` |
-| `1` | `0` | `0` | `1` | `1` | `0` |
-| `1` | `1` | `1` | `1` | `0` | `0` |
-
----
-
-### C. Detailed Walkthrough of All 6 Bitwise Operators
-
-Here are practical step-by-step examples using the numbers **5** (binary `0101`) and **3** (binary `0011`).
-
----
-
-#### 1. Bitwise AND (`&`)
+**Bitwise AND (`&`)**
 Compares each bit. If both are `1`, the result is `1`.
 
 ```text
@@ -281,16 +215,7 @@ Compares each bit. If both are `1`, the result is `1`.
   0001  (Result: 1)
 ```
 
-```python
-a = 5   # binary 0101
-b = 3   # binary 0011
-result = a & b
-print(f"{a} & {b} = {result}")  # Output: 5 & 3 = 1
-```
-
----
-
-#### 2. Bitwise OR (`|`)
+**Bitwise OR (`|`)**
 Compares each bit. If at least one is `1`, the result is `1`.
 
 ```text
@@ -300,16 +225,7 @@ Compares each bit. If at least one is `1`, the result is `1`.
   0111  (Result: 7)
 ```
 
-```python
-a = 5   # binary 0101
-b = 3   # binary 0011
-result = a | b
-print(f"{a} | {b} = {result}")  # Output: 5 | 3 = 7
-```
-
----
-
-#### 3. Bitwise XOR (`^`)
+**Bitwise XOR (`^`)**
 Compares each bit. If they are different, the result is `1`.
 
 ```text
@@ -319,22 +235,7 @@ Compares each bit. If they are different, the result is `1`.
   0110  (Result: 6)
 ```
 
-```python
-a = 5   # binary 0101
-b = 3   # binary 0011
-result = a ^ b
-print(f"{a} ^ {b} = {result}")  # Output: 5 ^ 3 = 6
-```
-
-> [!NOTE]
-> **Key Mathematical Properties of XOR:**
-> 1. Identity: $x \oplus 0 = x$
-> 2. Self-Inverse: $x \oplus x = 0$
-> 3. Commutative & Associative: $A \oplus B \oplus A = (A \oplus A) \oplus B = 0 \oplus B = B$
-
----
-
-#### 4. Bitwise NOT (`~`)
+**Bitwise NOT (`~`)**
 Flips every bit of a single number.
 
 ```text
@@ -345,28 +246,7 @@ Flips every bit of a single number.
 
 *(Note: In most programming languages using 32-bit signed integers, `~5` actually outputs `-6` due to how negative numbers are stored using "Two's Complement".)*
 
-In Python, integers are represented using **Two's Complement** arithmetic with arbitrary precision (no fixed 32-bit overflow limit). In Two's Complement:
-
-$$\sim x = -(x + 1)$$
-
-```python
-print(~5)    # Output: -6
-print(~0)    # Output: -1
-print(~(-1)) # Output: 0
-print(~10)   # Output: -11
-print(~(-7)) # Output: 6
-```
-
-> [!IMPORTANT]
-> **The Two's Complement Golden Rule:**
-> To calculate `~x` mentally, simply add $1$ to $x$ and negate the sign:
-> - $\sim 5 \rightarrow -(5 + 1) = \mathbf{-6}$
-> - $\sim 12 \rightarrow -(12 + 1) = \mathbf{-13}$
-> - $\sim(-25) \rightarrow -(-25 + 1) = \mathbf{24}$
-
----
-
-#### 5. Left Shift (`<<`)
+**Left Shift (`<<`)**
 Shifts all bits to the left by a specified number of spaces. Let's shift `5` left by `1` space (`5 << 1`).
 
 ```text
@@ -375,170 +255,13 @@ Shifts all bits to the left by a specified number of spaces. Let's shift `5` lef
   1010  (Result: 10)
 ```
 
-Each single left shift doubles the number (multiplies by $2$). Therefore, shifting by $n$ bits multiplies by $2^n$:
-
-$$x \ll n = x \times 2^n$$
-
-```python
-num = 5
-print(num << 1)  # Output: 10 (5 * 2^1)
-print(num << 2)  # Output: 20 (5 * 2^2)
-print(num << 3)  # Output: 40 (5 * 2^3)
-print(7 << 4)    # Output: 112 (7 * 16)
-```
-
----
-
-#### 6. Right Shift (`>>`)
+**Right Shift (`>>`)**
 Shifts all bits to the right. Let's shift `5` right by `1` space (`5 >> 1`).
 
 ```text
   0101  (5)
   ---- shift right 1 space, the rightmost 1 drops off
   0010  (Result: 2)
-```
-
-Each single right shift performs integer division by $2$ (flooring towards $-\infty$). Therefore, shifting by $n$ bits divides by $2^n$:
-
-$$x \gg n = \lfloor x / 2^n \rfloor$$
-
-```python
-num = 5
-print(num >> 1)  # Output: 2  (5 // 2^1)
-print(num >> 2)  # Output: 1  (5 // 2^2)
-
-val = 40
-print(val >> 1)  # Output: 20 (40 // 2)
-print(val >> 2)  # Output: 10 (40 // 4)
-print(val >> 3)  # Output: 5  (40 // 8)
-```
-
----
-
-### D. Step-by-Step Bitwise Tracing Matrix
-
-Let's trace a full execution matrix with $A = 29$ (`0001 1101`) and $B = 15$ (`0000 1111`):
-
-| Operation | Expression | Binary Calculation | Binary Result | Decimal Result | Mathematical Meaning |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **AND** | `29 & 15` | `00011101 & 00001111` | `00001101` | `13` | Common active bits ($8+4+1$) |
-| **OR** | `29 | 15` | `00011101 \| 00001111` | `00011111` | `31` | Union of active bits ($16+8+4+2+1$) |
-| **XOR** | `29 ^ 15` | `00011101 ^ 00001111` | `00010010` | `18` | Bits differing between both ($16+2$) |
-| **NOT** | `~29` | `~(...00011101)` | `...11100010` | `-30` | Inverted Two's complement ($-(29+1)$) |
-| **Left Shift** | `29 << 2` | `00011101 << 2` | `01110100` | `116` | Multiplied by $2^2 = 4$ ($29 \times 4$) |
-| **Right Shift** | `29 >> 2` | `00011101 >> 2` | `00000111` | `7` | Floor division by $2^2 = 4$ ($29 // 4$) |
-
----
-
-### E. Bitwise vs Logical Operators: Crucial Differences
-
-One of the most frequent errors in technical interviews is conflating bitwise operators (`&`, `|`, `~`) with logical operators (`and`, `or`, `not`):
-
-| Aspect | Bitwise Operators (`&`, `\|`, `^`, `~`) | Logical Operators (`and`, `or`, `not`) |
-| :--- | :--- | :--- |
-| **Target Data** | Individual bits of integers | Boolean truthiness of expressions |
-| **Evaluation Strategy** | **Eager**: Always evaluates all operands | **Short-circuiting**: Halts as early as possible |
-| **Return Type** | Integer (computed bit pattern) | Original operand value or boolean |
-| **Example with Integers** | `5 & 3` produces `1` (`0101 & 0011 = 0001`) | `5 and 3` produces `3` (truthy operand returned) |
-| **Example with Booleans** | `True & False` produces `False` (eager) | `True and False` produces `False` (short-circuit) |
-
-```python
-# Illustrating the critical behavioral difference:
-print(5 & 3)     # Output: 1  (Bitwise AND: 101 & 011 = 001)
-print(5 and 3)   # Output: 3  (Logical AND: 5 is truthy, returns second operand 3)
-
-print(5 | 3)     # Output: 7  (Bitwise OR: 101 | 011 = 111)
-print(5 or 3)    # Output: 5  (Logical OR: 5 is truthy, short-circuits and returns 5)
-```
-
----
-
-### F. High-Performance Practical Applications of Bitwise Operators
-
-Bitwise operations execute in a **single clock cycle** on CPU hardware, making them essential for high-performance systems programming, game development, cryptography, and network protocols.
-
-#### 1. Fast Parity Check: Odd or Even in $O(1)$
-In binary, any even number ends in `0` ($2^0$ bit is off), and any odd number ends in `1` ($2^0$ bit is on). Testing `n & 1` is significantly faster than calculating `n % 2 == 0`:
-
-```python
-def check_parity(n):
-    if n & 1 == 0:
-        return "Even"
-    else:
-        return "Odd"
-
-print(check_parity(42))  # Even (42 & 1 == 0)
-print(check_parity(79))  # Odd  (79 & 1 == 1)
-```
-
-#### 2. Fast Scaling by Powers of 2
-```python
-x = 25
-
-# Multiply by 8 (2^3)
-fast_mult = x << 3      # 200
-
-# Integer divide by 4 (2^2)
-fast_div = x >> 2       # 6
-
-print(f"25 * 8 = {fast_mult}, 25 // 4 = {fast_div}")
-```
-
-#### 3. In-Place Swap Without Temporary Memory
-Using the XOR self-inverse property ($x \oplus x = 0$):
-```python
-x = 15
-y = 27
-
-# Step 1: x holds x ^ y
-x = x ^ y
-
-# Step 2: y = (x ^ y) ^ y = x
-y = x ^ y
-
-# Step 3: x = (x ^ y) ^ x = y
-x = x ^ y
-
-print(f"Swapped: x = {x}, y = {y}")  # Output: x = 27, y = 15
-```
-
-#### 4. Permission Flags and Bitmasking
-In operating systems (like POSIX/Linux file systems), permissions are managed as individual bit flags:
-
-```python
-# Permission Bitmasks (Powers of 2)
-PERMISSION_EXECUTE = 1   # Binary: 0001 (1)
-PERMISSION_WRITE   = 2   # Binary: 0010 (2)
-PERMISSION_READ    = 4   # Binary: 0100 (4)
-
-# 1. Grant Read and Write permissions using Bitwise OR (|)
-user_permissions = PERMISSION_READ | PERMISSION_WRITE  # 0100 | 0010 = 0110 (6)
-
-# 2. Check if user has WRITE permission using Bitwise AND (&)
-can_write = (user_permissions & PERMISSION_WRITE) != 0
-print(f"Can Write? {can_write}")  # True
-
-# 3. Check if user has EXECUTE permission
-can_execute = (user_permissions & PERMISSION_EXECUTE) != 0
-print(f"Can Execute? {can_execute}")  # False
-
-# 4. Revoke WRITE permission using Bitwise AND with NOT (~):
-user_permissions &= ~PERMISSION_WRITE  # 0110 & ~0010 = 0110 & 1101 = 0100 (4)
-print(f"Can Write after revoke? {(user_permissions & PERMISSION_WRITE) != 0}")  # False
-```
-
-#### 5. Finding the Unique Element (LeetCode 136)
-Given an array where every element appears twice except for one unique element, XORing all elements together cancels out all duplicate pairs in $O(n)$ time and $O(1)$ space:
-
-```python
-numbers = [4, 1, 2, 1, 2]
-
-unique_element = 0
-for num in numbers:
-    unique_element ^= num
-
-# Calculation: 0 ^ 4 ^ 1 ^ 2 ^ 1 ^ 2 = (1 ^ 1) ^ (2 ^ 2) ^ (4) = 0 ^ 0 ^ 4 = 4
-print(f"Unique unrepeated element: {unique_element}")  # Output: 4
 ```
 
 ---
