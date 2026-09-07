@@ -70,5 +70,53 @@
     ],
     "correctAnswer": 0,
     "explanation": "10 < 15 is True. 20 > 15 is True. True and True results in True."
+  },
+  {
+    "id": "quiz-day-4-7",
+    "question": "What is the output of the bitwise AND operation `5 & 3` in Python?",
+    "options": [
+      "1",
+      "7",
+      "8",
+      "15"
+    ],
+    "correctAnswer": 0,
+    "explanation": "5 is binary `101` and 3 is binary `011`. Performing bitwise AND yields `001`, which equals decimal 1."
+  },
+  {
+    "id": "quiz-day-4-8",
+    "question": "What is the result of the bitwise NOT operation `~5` in Python Two's Complement representation?",
+    "options": [
+      "-5",
+      "-6",
+      "4",
+      "6"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In Python's Two's Complement representation, `~x` is calculated as `-(x + 1)`. Therefore, `~5 = -(5 + 1) = -6`."
+  },
+  {
+    "id": "quiz-day-4-9",
+    "question": "What is the result of shifting bits left with `4 << 2` in Python?",
+    "options": [
+      "8",
+      "16",
+      "1",
+      "6"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Left shifting `4` by `2` positions multiplies `4` by 2^2 (4 * 4), yielding 16 (binary `00000100` shifted left by 2 is `00010000`)."
+  },
+  {
+    "id": "quiz-day-4-10",
+    "question": "Which bitwise expression efficiently checks if an integer `n` is an odd number?",
+    "options": [
+      "n & 1 == 1",
+      "n | 1 == 0",
+      "n ^ 1 == 0",
+      "~n == 1"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Odd numbers in binary always end with a `1` at the least significant bit (2^0). Thus, `n & 1 == 1` tests odd parity in O(1) time."
   }
 ]

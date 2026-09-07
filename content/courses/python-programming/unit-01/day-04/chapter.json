@@ -3,9 +3,9 @@
   "unitId": "unit-01",
   "dayNumber": 4,
   "order": 4,
-  "title": "Day 4: Python Operators Deep Dive",
-  "shortTitle": "Python Operators II",
-  "description": "Learn how operators help Python store, compare, combine, check, and manipulate values. Covers assignment, comparison, logical, identity, membership, and bitwise operators.",
+  "title": "Day 4: Python Operators & Bitwise Masterclass",
+  "shortTitle": "Operators & Bitwise",
+  "description": "Comprehensive guide to Python operators with an exhaustive deep dive into binary representations, two's complement, bitwise AND/OR/XOR/NOT/shifts, and high-performance systems applications.",
   "simulationType": "Type A: Process / Pipeline Simulation",
   "estimatedMinutes": 90,
   "difficulty": "beginner",
@@ -17,6 +17,6 @@
   ],
   "lessonsCount": 1,
   "problemsCount": 1,
-  "quizCount": 6,
+  "quizCount": 10,
   "unitDayNumber": 4
 }
