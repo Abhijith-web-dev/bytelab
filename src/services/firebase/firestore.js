@@ -1,4 +1,4 @@
-﻿import {
+import {
   doc,
   getDoc,
   setDoc,
@@ -66,6 +66,9 @@ export const firestoreService = {
     const completedUnits = Number(entry.completedUnits || 0);
     const streak = Number(entry.streak || entry.streakDays || 1);
     const solved = Number(entry.solved || 0);
+    const focusMinutes = Number(entry.focusMinutes || 0);
+    const concentrationScore = Number(entry.concentrationScore || 0);
+    const cleanRunCount = Number(entry.cleanRunCount || 0);
 
     let badge = 'Rising Coder';
     if (points >= 1500 || completedChapters >= 40) badge = 'Python Prodigy';
@@ -84,6 +87,9 @@ export const firestoreService = {
       solved,
       completedUnits,
       completedChapters,
+      focusMinutes,
+      concentrationScore,
+      cleanRunCount,
       badge,
       updatedAt: Date.now()
     };

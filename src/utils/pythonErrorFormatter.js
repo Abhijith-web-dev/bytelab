@@ -41,7 +41,8 @@ export function parsePythonError(stderrText, sourceCode = '') {
     'AssertionError',
     'FileNotFoundError',
     'PermissionError',
-    'NotImplementedError'
+    'NotImplementedError',
+    'EOFError'
   ];
 
   // 1. Search for actual Python exception name and message
@@ -399,6 +400,11 @@ function getDiagnosticAdvice(errorType, message, snippet, sourceCode = '', lineN
       return {
         explanation: 'Python could not find or load the requested module.',
         fix: 'Check for typos in the module name or ensure the module is installed in the environment.'
+      };
+    case 'EOFError':
+      return {
+        explanation: 'Python\'s `input()` requested a line of text from standard input (stdin), but the input buffer was empty or reached End-Of-File (EOF).',
+        fix: 'In browser sandboxes without a synchronous TTY terminal, open the "Terminal Input" drawer to provide inputs before running, or assign values directly to variables (e.g. `val = 10` instead of `val = input()`).'
       };
     default:
       return {

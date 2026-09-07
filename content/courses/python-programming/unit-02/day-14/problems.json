@@ -13,6 +13,7 @@
       "Print the result strictly in the format `Grade: <grade>`."
     ],
     "starterCode": "# Read one integer mark from standard input\n\n# Check the mark using an if-elif-else chain:\n# 90 to 100 -> A\n# 75 to 89  -> B\n# 60 to 74  -> C\n# 40 to 59  -> D\n# Below 40  -> F\n\n# Display the grade in the exact format: Grade: <grade>\n",
+    "solution": "mark = int(input())\n\nif mark >= 90:\n    grade = \"A\"\nelif mark >= 75:\n    grade = \"B\"\nelif mark >= 60:\n    grade = \"C\"\nelif mark >= 40:\n    grade = \"D\"\nelse:\n    grade = \"F\"\n\nprint(f\"Grade: {grade}\")\n",
     "testCases": [
       {
         "input": "95",
@@ -20,9 +21,19 @@
         "description": "Mark: 95 -> Grade: A"
       },
       {
+        "input": "100",
+        "expectedOutput": "Grade: A\n",
+        "description": "Mark: 100 -> Boundary check upper bound Grade: A"
+      },
+      {
         "input": "82",
         "expectedOutput": "Grade: B\n",
         "description": "Mark: 82 -> Grade: B"
+      },
+      {
+        "input": "75",
+        "expectedOutput": "Grade: B\n",
+        "description": "Mark: 75 -> Boundary check Grade: B"
       },
       {
         "input": "68",
@@ -35,9 +46,19 @@
         "description": "Mark: 45 -> Grade: D"
       },
       {
+        "input": "40",
+        "expectedOutput": "Grade: D\n",
+        "description": "Mark: 40 -> Boundary check pass mark Grade: D"
+      },
+      {
         "input": "25",
         "expectedOutput": "Grade: F\n",
         "description": "Mark: 25 -> Grade: F"
+      },
+      {
+        "input": "0",
+        "expectedOutput": "Grade: F\n",
+        "description": "Mark: 0 -> Boundary check zero Grade: F"
       }
     ],
     "hints": [
@@ -46,6 +67,122 @@
       "Continue with successive `elif` branches: `elif mark >= 75: grade = 'B'`.",
       "Use `else:` for marks below 40 to assign `'F'`.",
       "Print using `print('Grade:', grade)` or `print(f'Grade: {grade}')`."
+    ]
+  },
+  {
+    "id": "atm-transaction-validator",
+    "title": "ATM Transaction Validator",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Build an Automated Teller Machine (ATM) withdrawal validator using **nested conditional statements**.\n\n### Business Rules\n1. First check if the user entered a valid PIN (`pin_valid == 1`). If the PIN is invalid, output `Error: Invalid PIN`.\n2. When the PIN is valid, perform sequential validation:\n   - If `withdrawal_amount <= 0`: print `Error: Invalid Amount`\n   - If `withdrawal_amount > account_balance`: print `Error: Insufficient Balance`\n   - If `withdrawal_amount > 10000`: print `Error: Exceeds Daily Limit`\n   - If all checks pass, subtract the withdrawal amount from the account balance and print:\n     `Success: Dispensed ₹<withdrawal_amount>, Balance: ₹<new_balance>`\n\n### Input Format\nThree lines of input:\n1. `pin_valid` (integer: `1` for valid, `0` for invalid)\n2. `account_balance` (integer)\n3. `withdrawal_amount` (integer)\n\n### Output Format\nSingle line with either an error message or the success summary.",
+    "requirements": [
+      "Read three integers sequentially: `pin_valid`, `account_balance`, and `withdrawal_amount`.",
+      "Use nested conditionals (`if` inside `if`) to enforce hierarchical verification.",
+      "Print exact error or success messages as specified."
+    ],
+    "starterCode": "# Read pin_valid, account_balance, and withdrawal_amount from standard input\n\n# Enforce ATM withdrawal rules using nested conditionals:\n# 1. PIN Check: if pin_valid != 1 -> Error: Invalid PIN\n# 2. If PIN valid:\n#    - if withdrawal_amount <= 0 -> Error: Invalid Amount\n#    - if withdrawal_amount > account_balance -> Error: Insufficient Balance\n#    - if withdrawal_amount > 10000 -> Error: Exceeds Daily Limit\n#    - otherwise deduct amount and output Success: Dispensed ₹<amount>, Balance: ₹<new_balance>\n",
+    "solution": "pin_valid = int(input())\naccount_balance = int(input())\nwithdrawal_amount = int(input())\n\nif pin_valid == 1:\n    if withdrawal_amount <= 0:\n        print(\"Error: Invalid Amount\")\n    elif withdrawal_amount > account_balance:\n        print(\"Error: Insufficient Balance\")\n    elif withdrawal_amount > 10000:\n        print(\"Error: Exceeds Daily Limit\")\n    else:\n        account_balance -= withdrawal_amount\n        print(f\"Success: Dispensed ₹{withdrawal_amount}, Balance: ₹{account_balance}\")\nelse:\n    print(\"Error: Invalid PIN\")\n",
+    "testCases": [
+      {
+        "input": "1\n5000\n3000",
+        "expectedOutput": "Success: Dispensed ₹3000, Balance: ₹2000\n",
+        "description": "Valid PIN, balance 5000, withdrawal 3000 -> Success"
+      },
+      {
+        "input": "0\n5000\n1000",
+        "expectedOutput": "Error: Invalid PIN\n",
+        "description": "Invalid PIN -> Blocked immediately"
+      },
+      {
+        "input": "1\n2000\n4000",
+        "expectedOutput": "Error: Insufficient Balance\n",
+        "description": "Valid PIN but withdrawal exceeds balance"
+      },
+      {
+        "input": "1\n25000\n12000",
+        "expectedOutput": "Error: Exceeds Daily Limit\n",
+        "description": "Valid PIN and balance, but withdrawal > 10,000 daily limit"
+      },
+      {
+        "input": "1\n10000\n10000",
+        "expectedOutput": "Success: Dispensed ₹10000, Balance: ₹0\n",
+        "description": "Boundary check: withdraw entire balance up to daily limit"
+      },
+      {
+        "input": "1\n5000\n0",
+        "expectedOutput": "Error: Invalid Amount\n",
+        "description": "Zero withdrawal amount -> Error: Invalid Amount"
+      }
+    ],
+    "hints": [
+      "First test `if pin_valid == 1:` at the outer level.",
+      "Inside the valid PIN branch, test the amount constraints before dispensing.",
+      "Calculate new balance as `account_balance - withdrawal_amount`.",
+      "Use string formatting `f'Success: Dispensed ₹{withdrawal_amount}, Balance: ₹{account_balance}'`."
+    ]
+  },
+  {
+    "id": "electricity-slab-billing",
+    "title": "Progressive Electricity Slab Billing",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 20,
+    "description": "Implement a cumulative progressive slab billing algorithm for electricity consumers.\n\n### Tariff Slabs\n- **0 to 100 units:** Free (₹0 per unit)\n- **101 to 200 units:** ₹2 per unit for units in this slab\n- **201 to 400 units:** ₹4 per unit for units in this slab\n- **Above 400 units:** ₹6 per unit for units exceeding 400\n\n### Example Calculation\nFor `250` units:\n- First 100 units = ₹0\n- Next 100 units (101–200) @ ₹2 = ₹200\n- Remaining 50 units (201–250) @ ₹4 = ₹200\n- **Total Bill:** ₹0 + ₹200 + ₹200 = ₹400\n\n### Input Format\nA single line containing an integer `units` (>= 0).\n\n### Output Format\n```text\nTotal Bill: ₹<amount>\n```",
+    "requirements": [
+      "Read one integer `units` from standard input.",
+      "Use `if-elif-else` to calculate cumulative charges across progressive brackets.",
+      "Ensure integer amounts are outputted accurately in the format `Total Bill: ₹<amount>`."
+    ],
+    "starterCode": "# Read units consumed from standard input\n\n# Calculate bill using progressive slabs:\n# 0 - 100 units: Free (₹0)\n# 101 - 200 units: ₹2 per unit (above 100)\n# 201 - 400 units: ₹200 + ₹4 per unit (above 200)\n# Above 400 units: ₹200 + ₹800 + ₹6 per unit (above 400)\n\n# Display: Total Bill: ₹<amount>\n",
+    "solution": "units = int(input())\n\nif units <= 100:\n    bill = 0\nelif units <= 200:\n    bill = (units - 100) * 2\nelif units <= 400:\n    bill = (100 * 2) + (units - 200) * 4\nelse:\n    bill = (100 * 2) + (200 * 4) + (units - 400) * 6\n\nprint(f\"Total Bill: ₹{bill}\")\n",
+    "testCases": [
+      {
+        "input": "50",
+        "expectedOutput": "Total Bill: ₹0\n",
+        "description": "50 units -> Within free tier (₹0)"
+      },
+      {
+        "input": "100",
+        "expectedOutput": "Total Bill: ₹0\n",
+        "description": "100 units -> Boundary of free tier (₹0)"
+      },
+      {
+        "input": "150",
+        "expectedOutput": "Total Bill: ₹100\n",
+        "description": "150 units -> 50 units @ ₹2 = ₹100"
+      },
+      {
+        "input": "200",
+        "expectedOutput": "Total Bill: ₹200\n",
+        "description": "200 units -> 100 units @ ₹2 = ₹200"
+      },
+      {
+        "input": "250",
+        "expectedOutput": "Total Bill: ₹400\n",
+        "description": "250 units -> 100 @ ₹2 + 50 @ ₹4 = ₹400"
+      },
+      {
+        "input": "400",
+        "expectedOutput": "Total Bill: ₹1000\n",
+        "description": "400 units -> 100 @ ₹2 + 200 @ ₹4 = ₹1000"
+      },
+      {
+        "input": "500",
+        "expectedOutput": "Total Bill: ₹1600\n",
+        "description": "500 units -> 100 @ 2 + 200 @ 4 + 100 @ 6 = ₹1600"
+      },
+      {
+        "input": "0",
+        "expectedOutput": "Total Bill: ₹0\n",
+        "description": "0 units -> ₹0"
+      }
+    ],
+    "hints": [
+      "Handle units <= 100: `bill = 0`.",
+      "For units between 101 and 200: only the excess units above 100 are charged at ₹2: `(units - 100) * 2`.",
+      "For units between 201 and 400: add the full previous bracket (100 * 2) to `(units - 200) * 4`.",
+      "For units > 400: add 200 (slab 1) + 800 (slab 2) + `(units - 400) * 6`."
     ]
   }
 ]

@@ -201,14 +201,19 @@ export function LessonPage() {
     setModalOpen(true);
   }, []);
 
-  const handleRunModalCode = async () => {
+  const handleRunModalCode = async (overrideCode, overrideStdin = '') => {
+    const codeToRun = (typeof overrideCode === 'string') ? overrideCode : activeCode;
+    if (typeof overrideCode === 'string') {
+      setActiveCode(overrideCode);
+    }
     setExecState('RUNNING');
     setStdout('');
     setStderr('');
     setModalRuntimeError(null);
 
     const res = await pythonRuntime.execute({
-      sourceCode: activeCode,
+      sourceCode: codeToRun,
+      stdin: overrideStdin || '',
       timeoutMs: 5000
     });
 
@@ -216,7 +221,7 @@ export function LessonPage() {
     setStdout(res.stdout);
     setStderr(res.stderr);
     setExecTime(res.executionTimeMs);
-    setModalRuntimeError(res.error || (res.stderr ? { message: res.stderr } : null));
+    setModalRuntimeError(res.status === 'passed' ? null : (res.error || (res.stderr ? { message: res.stderr } : null)));
   };
 
   const handleResetModalCode = () => {
@@ -243,14 +248,20 @@ export function LessonPage() {
     setSandboxRuntimeError(null);
   };
 
-  const handleRunSandbox = async () => {
+  const handleRunSandbox = async (overrideCode, overrideStdin = '') => {
+    const codeToRun = (typeof overrideCode === 'string') ? overrideCode : sandboxCode;
+    if (typeof overrideCode === 'string') {
+      setSandboxCode(overrideCode);
+      draftStorage.saveDraft(`sandbox:${chapterId}`, overrideCode);
+    }
     setSandboxExecState('RUNNING');
     setSandboxStdout('');
     setSandboxStderr('');
     setSandboxRuntimeError(null);
 
     const res = await pythonRuntime.execute({
-      sourceCode: sandboxCode,
+      sourceCode: codeToRun,
+      stdin: overrideStdin || '',
       timeoutMs: 5000
     });
 
@@ -258,7 +269,7 @@ export function LessonPage() {
     setSandboxStdout(res.stdout);
     setSandboxStderr(res.stderr);
     setSandboxExecTime(res.executionTimeMs);
-    setSandboxRuntimeError(res.error || (res.stderr ? { message: res.stderr } : null));
+    setSandboxRuntimeError(res.status === 'passed' ? null : (res.error || (res.stderr ? { message: res.stderr } : null)));
   };
 
   const handleCompleteAndNext = () => {

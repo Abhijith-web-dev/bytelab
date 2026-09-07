@@ -37,6 +37,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://bytelab-lms.sparklabinfo1.workers.dev/updates</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bytelab-lms.sparklabinfo1.workers.dev/docs</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bytelab-lms.sparklabinfo1.workers.dev/terms</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://bytelab-lms.sparklabinfo1.workers.dev/blog</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>

@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { GlobalNav } from '../components/layout/GlobalNav.jsx';
 import { Footer } from '../components/layout/Footer.jsx';
-import { CommandPalette } from '../components/search/CommandPalette.jsx';
-import { AuthEngagementModal } from '../components/auth/AuthEngagementModal.jsx';
 import { useAuthStore } from '../stores/authStore.js';
 import { useUIStore } from '../stores/uiStore.js';
 import { trackPageView, setUserMonitoringProfile } from '../services/firebase/analytics.js';
 import { authCookieManager } from '../services/storage/cookies.js';
+
+// Lazy loaded auxiliary overlays to keep initial bundle lightweight and render ultra-fast
+const CommandPalette = lazy(() => import('../components/search/CommandPalette.jsx').then(m => ({ default: m.CommandPalette })));
+const AuthEngagementModal = lazy(() => import('../components/auth/AuthEngagementModal.jsx').then(m => ({ default: m.AuthEngagementModal })));
 
 export function App() {
   const { user, initAuth } = useAuthStore();
@@ -55,10 +57,14 @@ export function App() {
       {!isPracticeOrTest && !isFocusMode && <Footer />}
 
       {/* Global Cmd+K Search Command Palette */}
-      <CommandPalette />
+      <Suspense fallback={null}>
+        <CommandPalette />
+      </Suspense>
 
       {/* Persistent Auth Session & Engagement Modal */}
-      <AuthEngagementModal />
+      <Suspense fallback={null}>
+        <AuthEngagementModal />
+      </Suspense>
 
       {/* Sonner Toast Notifications */}
       <Toaster

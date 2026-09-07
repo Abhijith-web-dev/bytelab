@@ -63,6 +63,7 @@ export const draftStorage = {
 // Specialized Progress Storage Mirror
 export const progressStorage = {
   getLocalProgress(userId = 'guest') {
+    const today = new Date().toISOString().split('T')[0];
     return storage.get(`progress:${userId}`, {
       completedLessons: [],
       completedChapters: [],
@@ -70,8 +71,16 @@ export const progressStorage = {
       solvedProblems: {},
       testScores: {},
       streakDays: 1,
-      lastActiveDate: new Date().toISOString().split('T')[0],
-      totalPoints: 0
+      lastActiveDate: today,
+      totalPoints: 0,
+      focusMinutes: 0,
+      todayFocusMinutes: 0,
+      dailyFocusTargetMinutes: 25,
+      focusSessionsCompleted: 0,
+      cleanRunCount: 0,
+      totalCodeRuns: 0,
+      unlockedBadges: ['first_login'],
+      lastFocusDate: today
     });
   },
 
@@ -82,3 +91,4 @@ export const progressStorage = {
     });
   }
 };
+

@@ -290,6 +290,33 @@ export function GlobalNav() {
                 <Newspaper className="w-3.5 h-3.5" />
                 <span>Blog</span>
               </Link>
+
+              {/* Direct Link 4: Documentation Guide */}
+              <Link
+                to="/docs"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-medium transition-all ${
+                  location.pathname.startsWith('/docs')
+                    ? 'bg-[#eeece7]/70 text-[#17171c] font-semibold'
+                    : 'hover:bg-[#eeece7]/40 text-[#525252] hover:text-[#17171c]'
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Docs</span>
+              </Link>
+
+              {/* Direct Link 5: Platform Updates */}
+              <Link
+                to="/updates"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-medium transition-all ${
+                  location.pathname.startsWith('/updates')
+                    ? 'bg-[#eeece7]/70 text-[#17171c] font-semibold'
+                    : 'hover:bg-[#eeece7]/40 text-[#525252] hover:text-[#17171c]'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#ff7759]" />
+                <span>Updates</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff7759] animate-pulse" />
+              </Link>
             </nav>
           </div>
 
@@ -537,6 +564,45 @@ export function GlobalNav() {
                   <div className="flex items-center gap-3">
                     <Newspaper className="w-4 h-4 text-[#75758a]" />
                     <span className="font-medium text-[#212121]">Developer Blog (Abhijith S)</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#93939f]" />
+                </Link>
+
+                <Link
+                  to="/docs"
+                  onClick={closeMobileNav}
+                  className="p-3 rounded-[12px] hover:bg-[#fafafa] border border-[#d9d9dd]/60 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <BookOpen className="w-4 h-4 text-[#1863dc]" />
+                    <span className="font-medium text-[#212121]">Documentation & User Guide</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#93939f]" />
+                </Link>
+
+                <Link
+                  to="/updates"
+                  onClick={closeMobileNav}
+                  className="p-3 rounded-[12px] hover:bg-[#fafafa] border border-[#d9d9dd]/60 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-4 h-4 text-[#ff7759]" />
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-medium text-[#212121]">Platform Updates & Changelog</span>
+                      <span className="text-[10px] font-mono bg-[#ff7759] text-white px-1.5 py-0.2 rounded-full font-semibold">v1.4</span>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#93939f]" />
+                </Link>
+
+                <Link
+                  to="/terms"
+                  onClick={closeMobileNav}
+                  className="p-3 rounded-[12px] hover:bg-[#fafafa] border border-[#d9d9dd]/60 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="w-4 h-4 text-[#75758a]" />
+                    <span className="font-medium text-[#212121]">Terms & Conditions</span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-[#93939f]" />
                 </Link>

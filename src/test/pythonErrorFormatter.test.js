@@ -153,6 +153,24 @@ KeyError: 'grade'`;
     expect(result.suggestedFix).toContain("student.get('grade', default_value)");
   });
 
+  it('provides detailed EOFError intelligence explaining input() and stdin in browser sandbox', () => {
+    const stderr = `Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    name = input("Enter name: ")
+EOFError: EOF when reading a line`;
+
+    const code = `name = input("Enter name: ")\nprint(f"Hello {name}")`;
+    const result = parsePythonError(stderr, code);
+
+    expect(result).not.toBeNull();
+    expect(result.errorType).toBe('EOFError');
+    expect(result.lineNumber).toBe(1);
+    expect(result.codeSnippet).toBe('name = input("Enter name: ")');
+    expect(result.humanExplanation).toContain("Python's `input()`");
+    expect(result.humanExplanation).toContain('End-Of-File');
+    expect(result.suggestedFix).toContain('Terminal Input');
+  });
+
   it('returns null for empty or invalid stderr', () => {
     expect(parsePythonError('')).toBeNull();
     expect(parsePythonError(null)).toBeNull();

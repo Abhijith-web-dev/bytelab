@@ -1,4 +1,4 @@
-﻿import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { computeOutputDiff } from '../utils/outputDiff.js';
 import { extractSymbols, findClosestSymbol } from '../utils/pythonSymbolAnalyzer.js';
 
@@ -20,6 +20,22 @@ describe('Output Diff & String Mismatch Utility', () => {
     const res = computeOutputDiff('Result: 50', 'Result: 50  ');
     expect(res.isMatch).toBe(false);
     expect(res.hasTrailingSpaceMismatch).toBe(true);
+  });
+
+  it('detects extra prefix / input prompt pollution before expected output', () => {
+    const res = computeOutputDiff('Grade: B', '82\nGrade: B');
+    expect(res.isMatch).toBe(false);
+    expect(res.hasExtraPrefix).toBe(true);
+    expect(res.hasPromptPollution).toBe(true);
+    expect(res.prefixText).toBe('82');
+  });
+
+  it('detects interactive prompt text prepended before expected output', () => {
+    const res = computeOutputDiff('Grade: B', 'Enter mark: Grade: B');
+    expect(res.isMatch).toBe(false);
+    expect(res.hasExtraPrefix).toBe(true);
+    expect(res.hasPromptPollution).toBe(true);
+    expect(res.prefixText).toBe('Enter mark:');
   });
 });
 

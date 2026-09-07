@@ -34,6 +34,48 @@ import sys
 import io
 import traceback
 import json
+import builtins
+
+class SafeInputHandler:
+    def __init__(self, stdin_buf, stdout_buf, max_fallback_mocks=10, is_trace=False):
+        self.stdin_buf = stdin_buf
+        self.stdout_buf = stdout_buf
+        self.max_fallback_mocks = max_fallback_mocks
+        self.is_trace = is_trace
+        self.fallback_count = 0
+        raw_val = stdin_buf.getvalue() if hasattr(stdin_buf, 'getvalue') else ""
+        self.has_real_stdin = bool(raw_val and raw_val.strip())
+
+    def __call__(self, prompt=""):
+        if prompt:
+            self.stdout_buf.write(str(prompt))
+            self.stdout_buf.flush()
+
+        line = self.stdin_buf.readline()
+        if line:
+            return line.rstrip()
+
+        # In standard execution (non-trace), if caller provided real stdin lines
+        # and has now exhausted them, raise standard EOFError for competitive programming
+        if self.has_real_stdin and not self.is_trace:
+            raise EOFError("EOF when reading a line")
+
+        # In trace mode or interactive run with empty stdin, provide smart mock value
+        if self.fallback_count >= self.max_fallback_mocks:
+            raise EOFError("EOF when reading a line: input limit reached")
+
+        self.fallback_count += 1
+        p_lower = str(prompt).lower()
+        if any(w in p_lower for w in ["email", "mail"]):
+            return "alice@example.com"
+        elif any(w in p_lower for w in ["num", "age", "year", "int", "count", "score", "val", "sum", "index", "size", "limit", "id", "mark"]):
+            return "85" if "mark" in p_lower else "5"
+        elif any(w in p_lower for w in ["name", "user", "who", "first", "last", "person"]):
+            return "Alice"
+        elif any(w in p_lower for w in ["bool", "true", "false", "yes", "no"]):
+            return "yes"
+        else:
+            return "10"
 
 class ByteLabRunner:
     def __init__(self):
@@ -57,6 +99,7 @@ class ByteLabRunner:
         old_stdout = sys.stdout
         old_stderr = sys.stderr
         old_stdin = sys.stdin
+        old_input = builtins.input
 
         stdout_buf = io.StringIO()
         stderr_buf = io.StringIO()
@@ -65,6 +108,9 @@ class ByteLabRunner:
         sys.stdout = stdout_buf
         sys.stderr = stderr_buf
         sys.stdin = stdin_buf
+
+        input_handler = SafeInputHandler(stdin_buf, stdout_buf, max_fallback_mocks=10, is_trace=False)
+        builtins.input = input_handler
 
         result = {
             "status": "passed",
@@ -173,6 +219,7 @@ class ByteLabRunner:
             }
 
         finally:
+            builtins.input = old_input
             sys.stdout = old_stdout
             sys.stderr = old_stderr
             sys.stdin = old_stdin
@@ -191,6 +238,7 @@ class ByteLabRunner:
         old_stdout = sys.stdout
         old_stderr = sys.stderr
         old_stdin = sys.stdin
+        old_input = builtins.input
 
         stdout_buf = io.StringIO()
         stderr_buf = io.StringIO()
@@ -199,6 +247,9 @@ class ByteLabRunner:
         sys.stdout = stdout_buf
         sys.stderr = stderr_buf
         sys.stdin = stdin_buf
+
+        input_handler = SafeInputHandler(stdin_buf, stdout_buf, max_fallback_mocks=10, is_trace=True)
+        builtins.input = input_handler
 
         steps = []
         result = {
@@ -362,6 +413,7 @@ class ByteLabRunner:
             }
         finally:
             sys.settrace(None)
+            builtins.input = old_input
             sys.stdout = old_stdout
             sys.stderr = old_stderr
             sys.stdin = old_stdin

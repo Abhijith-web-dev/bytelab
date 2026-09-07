@@ -5,7 +5,7 @@
   "order": 8,
   "title": "Day 2: Alternative, Chained & Nested Conditional Statements",
   "shortTitle": "if-else, elif & Nested Conditionals",
-  "description": "Master two-way branching with if-else, multi-way decision chains with if-elif-else, and hierarchical decision trees using nested conditionals.",
+  "description": "Master two-way branching with if-else, ternary expressions, multi-way decision chains with if-elif-else, the first-true-condition rule, hierarchical nested decisions, guard clauses, and progressive slab billing algorithms.",
   "difficulty": "beginner",
   "simulationType": "code",
   "outcomes": [
@@ -16,16 +16,22 @@
     "day-13"
   ],
   "topics": [
-    "Why if alone is not enough: Two-Way Branching",
-    "The if-else Statement: Syntax, Mechanics & Execution Flow",
-    "Chained Conditionals: if-elif-else for Multi-Way Decisions",
+    "Why if Alone is Insufficient: Two-Way Branching",
+    "The if-else Statement: Syntax, Mechanics & Mutual Exclusion",
+    "Pythonic Conditional Expressions (Ternary Operator)",
+    "Chained Conditionals: if-elif-else Multi-Way Classification",
     "Condition Ordering & The First-True-Condition Principle",
+    "Chained Comparison Operators (e.g., 18 <= age < 65)",
     "Nested Conditionals: Hierarchical Decisions Inside Decisions",
     "Nested Conditionals vs Logical Operators (and/or)",
-    "Illustrative Real-World Programs: ATM, Grade, Billing & Menus",
-    "Common Pitfalls: Independent ifs, Ordering Bugs & Indentation",
-    "Student Grade Calculator Practice",
-    "Unit-II Day 2 Knowledge Assessment"
+    "Clean Architecture: Guard Clauses & The Early Return Pattern",
+    "Modern Control Flow: if-elif-else vs Python 3.10+ match-case",
+    "Performance Optimization & Boolean Short-Circuiting",
+    "Industrial Case Studies: ATM Pipelines & Progressive Slab Billing",
+    "Common Traps: Independent ifs, Floating else & Float Equality",
+    "Comprehensive Program Tracing Lab & Trace Tables",
+    "Student Grade Calculator Practice Arena",
+    "Unit-II Day 2 Mastery Assessment"
   ],
   "unitDayNumber": 2
 }

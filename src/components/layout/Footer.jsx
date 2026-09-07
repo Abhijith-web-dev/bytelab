@@ -210,6 +210,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/updates" className="hover:text-white transition-colors flex items-center gap-1.5 text-white font-medium">
+                  <Sparkles className="w-3.5 h-3.5 text-[#ff7759]" />
+                  <span>Platform Updates (v1.4)</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/docs" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+                  <span>User Docs & How-To Guide</span>
+                </Link>
+              </li>
+              <li>
                 <a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors text-[12px] font-mono text-[#a1a1aa] flex items-center gap-1">
                   <span>/llms.txt</span>
                   <ExternalLink className="w-3 h-3 text-[#a1a1aa]" />
@@ -254,8 +266,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/profile" className="hover:text-white transition-colors">
-                  Cloud Sync Profile
+                <Link to="/terms" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#a1a1aa]" />
+                  <span>Terms & Conditions</span>
                 </Link>
               </li>
             </ul>
@@ -277,6 +290,9 @@ export function Footer() {
             . Aligned with University Curriculum (19AI301 / CS3301).
           </div>
           <div className="flex flex-wrap items-center gap-3 sm:gap-5">
+            <Link to="/docs" className="hover:text-white transition-colors">Documentation</Link>
+            <Link to="/updates" className="hover:text-white transition-colors">Updates</Link>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
             <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link to="/courses/python-programming" className="hover:text-white transition-colors">Syllabus</Link>
             <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-mono">

@@ -34,7 +34,22 @@ import { extractSymbols } from '../../utils/pythonSymbolAnalyzer.js';
 import { computeOutputDiff } from '../../utils/outputDiff.js';
 import { analyzePythonCode } from '../../utils/pythonStaticAnalyzer.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
-import { diffStepVariables, getStepSummary, clampStepIndex } from '../../utils/traceExecutionHelper.js';
+import {
+  diffStepVariables,
+  getStepSummary,
+  clampStepIndex,
+  formatInlineVariableAnnotation,
+  findNextBreakpoint,
+  findPrevBreakpoint,
+  getLoopIterationInfo,
+  compressTraceForAI
+} from '../../utils/traceExecutionHelper.js';
+import {
+  generateSocraticHint,
+  checkGeminiNanoCapability,
+  generateTraceStepInsight,
+  generatePracticeLogicHint
+} from '../../services/ai/geminiNanoService.js';
 
 export function CodePlayground({
   code,
@@ -50,7 +65,9 @@ export function CodePlayground({
   testCaseResults = [],
   preventPaste = true,
   height = '400px',
-  readOnly = false
+  readOnly = false,
+  problemTitle = '',
+  problemDescription = ''
 }) {
   const [activeTab, setActiveTab] = useState('output'); // 'output' | 'tests' | 'diagnostics' | 'variables'
   const [showRawTraceback, setShowRawTraceback] = useState(false);
@@ -67,6 +84,32 @@ export function CodePlayground({
   const [playbackSpeed, setPlaybackSpeed] = useState(1); // 0.5x, 1x, 2x
   const [traceError, setTraceError] = useState(null);
   const [resetSuccess, setResetSuccess] = useState(false);
+
+  // Program Input (stdin) State
+  const [showStdinDrawer, setShowStdinDrawer] = useState(false);
+  const [customStdin, setCustomStdin] = useState('');
+
+  // Gutter Breakpoints State
+  const [breakpoints, setBreakpoints] = useState(() => new Set());
+
+  // Step AI Insight State
+  const [stepInsight, setStepInsight] = useState(null);
+  const [stepInsightLoading, setStepInsightLoading] = useState(false);
+  const [showStepInsight, setShowStepInsight] = useState(false);
+  const [stepInsightLevel, setStepInsightLevel] = useState(1);
+
+  // Test Case AI Logic Hints State
+  const [testLogicHints, setTestLogicHints] = useState({});
+
+  // Chrome Built-in AI (Gemini Nano) Socratic Hint State
+  const [nanoCapability, setNanoCapability] = useState({ available: 'no', status: 'unavailable', model: 'none' });
+  const [activeAiHint, setActiveAiHint] = useState(null);
+  const [aiHintLoading, setAiHintLoading] = useState(false);
+  const [aiHintLevel, setAiHintLevel] = useState(1);
+
+  useEffect(() => {
+    checkGeminiNanoCapability().then(setNanoCapability);
+  }, []);
 
   const editorRef = useRef(null);
   const monacoRef = useRef(null);
@@ -98,10 +141,71 @@ export function CodePlayground({
     }
   }
 
+  const activeStep = isDebugging && traceSteps.length > 0 ? traceSteps[currentStepIndex] : null;
+  const previousStep = isDebugging && currentStepIndex > 0 ? traceSteps[currentStepIndex - 1] : null;
+  const stepDiffs = activeStep ? diffStepVariables(activeStep.locals, previousStep?.locals) : [];
+  const loopInfo = getLoopIterationInfo(traceSteps, currentStepIndex);
+  const crashStepIndex = traceSteps.findIndex(s => s.event === 'exception' || Boolean(s.exception));
+
+  const handleExecuteCode = () => {
+    if (executionState === 'RUNNING' || !onRun) return;
+
+    // 1. Capture the immediate, modified code directly from Monaco model buffer
+    const latestCode = editorRef.current ? editorRef.current.getValue() : code;
+
+    // 2. Synchronize to parent component immediately
+    if (onChange && latestCode !== code) {
+      onChange(latestCode);
+    }
+
+    // 3. Clear Monaco error markers and visual line decorations immediately
+    if (editorRef.current && monacoRef.current) {
+      const model = editorRef.current.getModel();
+      if (model) {
+        monacoRef.current.editor.setModelMarkers(model, 'python-error', []);
+      }
+      decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, []);
+    }
+
+    // 4. Clean up inline error widget and AI state
+    removeContentWidget();
+    setDismissedWidget(true);
+    setActiveAiHint(null);
+    setAiHintLoading(false);
+    setIsDebugging(false);
+    setIsPlaying(false);
+
+    // 5. Run the modified code with customStdin
+    onRun(latestCode, customStdin);
+  };
+
   const handleEditorMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
     pasteMountHandler(editor, monaco);
+
+    // Register Ctrl+Enter / Cmd+Enter shortcut to execute modified code instantly
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+      handleExecuteCode();
+    });
+
+    // Interactive Gutter Breakpoint Toggle
+    editor.onMouseDown((e) => {
+      if (e.target.type === monaco.editor.MouseTargetType.GUTTER_GLYPH_MARGIN) {
+        const line = e.target.position?.lineNumber;
+        if (line) {
+          setBreakpoints((prev) => {
+            const next = new Set(prev);
+            if (next.has(line)) {
+              next.delete(line);
+            } else {
+              next.add(line);
+            }
+            return next;
+          });
+        }
+      }
+    });
   };
 
   const removeContentWidget = () => {
@@ -121,9 +225,36 @@ export function CodePlayground({
       setIsDebugging(false);
       setIsPlaying(false);
       setDismissedWidget(false);
+      setActiveAiHint(null);
+      setAiHintLoading(false);
+      setAiHintLevel(1);
       removeContentWidget();
     }
   }, [executionState]);
+
+  const handleRequestAiHint = async (level = 1) => {
+    if (!parsedError) return;
+    setAiHintLoading(true);
+    setAiHintLevel(level);
+    try {
+      const latestCode = editorRef.current ? editorRef.current.getValue() : code;
+      const res = await generateSocraticHint({
+        errorType: parsedError.errorType,
+        errorMessage: parsedError.errorMessage,
+        lineNumber: parsedError.lineNumber || 1,
+        codeSnippet: parsedError.codeSnippet || '',
+        fullCode: latestCode,
+        hintLevel: level
+      });
+      setActiveAiHint(res);
+      return res;
+    } catch (err) {
+      console.warn('[AI Hint] Failed to fetch AI hint:', err);
+      return null;
+    } finally {
+      setAiHintLoading(false);
+    }
+  };
 
   // Auto-play timer for stepping forward automatically
   useEffect(() => {
@@ -143,47 +274,123 @@ export function CodePlayground({
     return () => clearInterval(timer);
   }, [isDebugging, isPlaying, playbackSpeed, traceSteps.length]);
 
-  // Set Monaco step highlight and cyan arrow glyph for active trace step
+  // Unified Monaco Decorations Effect (Breakpoints + Debug Step + Ghost Variables + Error Lines)
   useEffect(() => {
     if (!editorRef.current || !monacoRef.current) return;
     const model = editorRef.current.getModel();
     if (!model) return;
 
-    if (!isDebugging || traceSteps.length === 0) return;
+    const decorations = [];
 
-    const activeStep = traceSteps[currentStepIndex];
-    if (!activeStep || !activeStep.line) return;
+    if (isDebugging && traceSteps.length > 0) {
+      if (activeStep && activeStep.line) {
+        const stepLine = Math.max(1, Math.min(activeStep.line, model.getLineCount()));
+        const lineContent = model.getLineContent(stepLine) || '';
+        const endCol = Math.max(lineContent.length + 1, 2);
 
-    const stepLine = Math.max(1, Math.min(activeStep.line, model.getLineCount()));
-    const lineContent = model.getLineContent(stepLine) || '';
-    const endCol = Math.max(lineContent.length + 1, 2);
+        editorRef.current.revealLineInCenter(stepLine);
 
-    editorRef.current.revealLineInCenter(stepLine);
+        const isExceptionStep = activeStep.event === 'exception' || Boolean(activeStep.exception);
+        const hasBreakpointOnThisLine = breakpoints.has(stepLine);
 
-    const isExceptionStep = activeStep.event === 'exception' || Boolean(activeStep.exception);
+        decorations.push({
+          range: new monacoRef.current.Range(stepLine, 1, stepLine, endCol),
+          options: {
+            isWholeLine: true,
+            className: isExceptionStep ? 'monaco-error-line' : 'monaco-debug-step-line',
+            marginClassName: isExceptionStep ? 'monaco-error-line' : 'monaco-debug-step-line',
+            inlineClassName: isExceptionStep ? 'monaco-error-inline' : 'monaco-debug-step-inline',
+            glyphMarginClassName: isExceptionStep
+              ? 'monaco-error-glyph'
+              : hasBreakpointOnThisLine
+              ? 'monaco-breakpoint-step-glyph'
+              : 'monaco-debug-step-glyph',
+            overviewRuler: {
+              color: isExceptionStep ? '#ef4444' : '#06b6d4',
+              position: monacoRef.current?.editor?.OverviewRulerLane?.Right ?? 4
+            },
+            hoverMessage: {
+              value: isExceptionStep
+                ? `**Line ${stepLine} (Exception)**: ${activeStep.exception?.type || 'Error'}: ${activeStep.exception?.msg || ''}`
+                : `**Step ${activeStep.step} of ${traceSteps.length} (Line ${stepLine})**\n\n\`${activeStep.snippet || lineContent}\``
+            }
+          }
+        });
 
-    const stepDecorations = [{
-      range: new monacoRef.current.Range(stepLine, 1, stepLine, endCol),
-      options: {
-        isWholeLine: true,
-        className: isExceptionStep ? 'monaco-error-line' : 'monaco-debug-step-line',
-        marginClassName: isExceptionStep ? 'monaco-error-line' : 'monaco-debug-step-line',
-        inlineClassName: isExceptionStep ? 'monaco-error-inline' : 'monaco-debug-step-inline',
-        glyphMarginClassName: isExceptionStep ? 'monaco-error-glyph' : 'monaco-debug-step-glyph',
-        overviewRuler: {
-          color: isExceptionStep ? '#ef4444' : '#06b6d4',
-          position: monacoRef.current?.editor?.OverviewRulerLane?.Right ?? 4
-        },
-        hoverMessage: {
-          value: isExceptionStep
-            ? `**Line ${stepLine} (Exception)**: ${activeStep.exception?.type || 'Error'}: ${activeStep.exception?.msg || ''}`
-            : `**Step ${activeStep.step} of ${traceSteps.length} (Line ${stepLine})**\n\n\`${activeStep.snippet || lineContent}\``
+        // Inline Ghost Variable Annotation (sleek cyan pill)
+        const ghostText = formatInlineVariableAnnotation(stepDiffs, 48);
+        if (ghostText) {
+          decorations.push({
+            range: new monacoRef.current.Range(stepLine, endCol, stepLine, endCol),
+            options: {
+              after: {
+                content: ` // ${ghostText}`,
+                inlineClassName: 'monaco-inline-var-annotation'
+              }
+            }
+          });
         }
       }
-    }];
+    } else if (parsedError && parsedError.lineNumber) {
+      const crashLine = Math.max(1, Math.min(parsedError.lineNumber, model.getLineCount()));
+      const crashLineContent = model.getLineContent(crashLine) || '';
+      const endCol = Math.max(crashLineContent.length + 1, 2);
 
-    decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, stepDecorations);
-  }, [isDebugging, currentStepIndex, traceSteps]);
+      editorRef.current.revealLineInCenter(crashLine);
+
+      decorations.push({
+        range: new monacoRef.current.Range(crashLine, 1, crashLine, endCol),
+        options: {
+          isWholeLine: true,
+          className: 'monaco-error-line',
+          marginClassName: 'monaco-error-line',
+          inlineClassName: 'monaco-error-inline',
+          glyphMarginClassName: 'monaco-error-glyph',
+          overviewRuler: {
+            color: '#ef4444',
+            position: monacoRef.current?.editor?.OverviewRulerLane?.Right ?? 4
+          },
+          hoverMessage: { value: `**${parsedError.errorType}**: ${parsedError.errorMessage}\n\n*${parsedError.humanExplanation}*` }
+        }
+      });
+
+      if (parsedError.originFrame && parsedError.originFrame.line !== crashLine) {
+        const originLine = Math.max(1, Math.min(parsedError.originFrame.line, model.getLineCount()));
+        const originLineContent = model.getLineContent(originLine) || '';
+        decorations.push({
+          range: new monacoRef.current.Range(originLine, 1, originLine, Math.max(originLineContent.length + 1, 2)),
+          options: {
+            isWholeLine: true,
+            className: 'monaco-origin-line',
+            marginClassName: 'monaco-origin-line',
+            inlineClassName: 'monaco-origin-inline',
+            glyphMarginClassName: 'monaco-origin-glyph',
+            overviewRuler: {
+              color: '#f59e0b',
+              position: monacoRef.current?.editor?.OverviewRulerLane?.Right ?? 4
+            },
+            hoverMessage: { value: `**Call Origin**: Triggered here from \`${parsedError.originFrame.funcName}\`` }
+          }
+        });
+      }
+    }
+
+    // Render breakpoints on all other lines
+    const activeStepLine = isDebugging && activeStep?.line;
+    for (const bpLine of breakpoints) {
+      if (bpLine <= model.getLineCount() && bpLine !== activeStepLine) {
+        decorations.push({
+          range: new monacoRef.current.Range(bpLine, 1, bpLine, 1),
+          options: {
+            glyphMarginClassName: 'monaco-breakpoint-glyph',
+            glyphMarginHoverMessage: { value: `**Breakpoint** at line ${bpLine} (click gutter to toggle)` }
+          }
+        });
+      }
+    }
+
+    decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, decorations);
+  }, [isDebugging, currentStepIndex, traceSteps, breakpoints, parsedError, stepDiffs, activeStep]);
 
   // Set Monaco error markers & visual line highlight decorations whenever an error occurs
   useEffect(() => {
@@ -258,9 +465,15 @@ export function CodePlayground({
           const domNode = document.createElement('div');
           domNode.className = 'monaco-inline-error-widget';
           domNode.style.display = 'flex';
-          domNode.style.alignItems = 'center';
-          domNode.style.justifyContent = 'space-between';
-          domNode.style.gap = '10px';
+          domNode.style.flexDirection = 'column';
+          domNode.style.gap = '6px';
+
+          const headerRow = document.createElement('div');
+          headerRow.style.display = 'flex';
+          headerRow.style.alignItems = 'center';
+          headerRow.style.justifyContent = 'space-between';
+          headerRow.style.gap = '10px';
+          headerRow.style.width = '100%';
 
           const contentDiv = document.createElement('div');
           contentDiv.style.display = 'flex';
@@ -303,6 +516,145 @@ export function CodePlayground({
           actionDiv.style.alignItems = 'center';
           actionDiv.style.gap = '6px';
 
+          // On-device Gemini Nano / Socratic Fix Hint Button
+          const hintBtn = document.createElement('button');
+          hintBtn.className = 'monaco-ai-hint-btn';
+          hintBtn.title = 'Get on-device Socratic AI guidance (no code spoilers)';
+          hintBtn.innerHTML = '<span>✨</span><span>Fix Hint</span>';
+
+          let hintDrawer = null;
+          let currentHintLvl = 1;
+
+          hintBtn.onclick = async (e) => {
+            e.stopPropagation();
+            if (hintDrawer && hintDrawer.style.display !== 'none') {
+              hintDrawer.style.display = 'none';
+              hintBtn.innerHTML = '<span>✨</span><span>Fix Hint</span>';
+              try { editorRef.current?.layoutContentWidget(widget); } catch (_) {}
+              return;
+            }
+
+            if (!hintDrawer) {
+              hintDrawer = document.createElement('div');
+              hintDrawer.className = 'monaco-inline-ai-hint-drawer';
+              domNode.appendChild(hintDrawer);
+            }
+
+            hintDrawer.style.display = 'block';
+            hintBtn.innerHTML = '<span>✨</span><span>Hide Hint</span>';
+            hintDrawer.innerHTML = `
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+                <span style="font-size:11px;font-weight:700;color:#c2410c;display:flex;align-items:center;gap:4px;">
+                  ✨ AI Socratic Hint (${nanoCapability.status === 'available' ? 'Gemini Nano On-Device' : 'ByteLab Mentor'}) • Clue ${currentHintLvl}/3
+                </span>
+                <span style="font-size:10px;color:#9a3412;font-style:italic;">Thinking...</span>
+              </div>
+              <div style="font-size:12px;color:#78716c;font-style:italic;">
+                Analyzing error pattern...
+              </div>
+            `;
+            try { editorRef.current?.layoutContentWidget(widget); } catch (_) {}
+
+            const latestCode = editorRef.current ? editorRef.current.getValue() : code;
+            const res = await generateSocraticHint({
+              errorType: parsedError.errorType,
+              errorMessage: parsedError.errorMessage,
+              lineNumber: crashLine,
+              codeSnippet: crashLineContent,
+              fullCode: latestCode,
+              hintLevel: currentHintLvl
+            });
+
+            setActiveAiHint(res);
+            setAiHintLevel(currentHintLvl);
+
+            if (hintDrawer && hintDrawer.style.display !== 'none') {
+              hintDrawer.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <span style="font-size:11px;font-weight:700;color:#c2410c;display:flex;align-items:center;gap:4px;">
+                    ✨ AI Socratic Diagnosis (${res.source === 'gemini-nano' ? 'Gemini Nano On-Device' : 'ByteLab Mentor'}) • Clue ${res.level}/3
+                  </span>
+                  <span style="font-size:10px;color:#15803d;font-weight:600;background:#dcfce7;padding:1px 6px;border-radius:4px;">
+                    No Code Spoilers
+                  </span>
+                </div>
+                ${res.diagnosis ? `
+                  <div style="font-size:11.5px;color:#9a3412;background:#ffedd5;padding:5px 8px;border-radius:5px;margin-bottom:6px;line-height:1.4;">
+                    <b>Diagnosis:</b> ${res.diagnosis}
+                  </div>
+                ` : ''}
+                <div style="font-size:12px;color:#292524;line-height:1.45;margin-bottom:6px;">
+                  <b>💡 Clue ${res.level}/3:</b> ${res.hint}
+                </div>
+                ${res.fixIdea ? `
+                  <div style="font-size:11.5px;color:#1e3a8a;background:#eff6ff;border-left:3px solid #3b82f6;padding:5px 8px;border-radius:0 5px 5px 0;margin-bottom:8px;line-height:1.4;">
+                    <b>🛠️ Update Idea:</b> ${res.fixIdea}
+                  </div>
+                ` : ''}
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding-top:6px;border-top:1px solid #fed7aa;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <button id="btn-next-clue" style="background:#ffedd5;color:#9a3412;border:1px solid #fdba74;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;cursor:pointer;">
+                      ${res.level < 3 ? '🔄 Next Clue' : '🔄 Restart Clues'}
+                    </button>
+                    <button id="btn-drawer-run" style="background:#15803d;color:#ffffff;border:none;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:3px;">
+                      <span>▶</span><span>Run Fix</span>
+                    </button>
+                  </div>
+                  <button id="btn-open-diag" style="background:transparent;color:#ea580c;border:none;font-size:10px;font-weight:600;cursor:pointer;text-decoration:underline;">
+                    Open Diagnostics Tab →
+                  </button>
+                </div>
+              `;
+
+              const nextBtn = hintDrawer.querySelector('#btn-next-clue');
+              if (nextBtn) {
+                nextBtn.onclick = (ev) => {
+                  ev.stopPropagation();
+                  currentHintLvl = currentHintLvl >= 3 ? 1 : currentHintLvl + 1;
+                  hintBtn.click();
+                  hintBtn.click();
+                };
+              }
+
+              const drawerRun = hintDrawer.querySelector('#btn-drawer-run');
+              if (drawerRun) {
+                drawerRun.onclick = (ev) => {
+                  ev.stopPropagation();
+                  handleExecuteCode();
+                };
+              }
+
+              const diagBtn = hintDrawer.querySelector('#btn-open-diag');
+              if (diagBtn) {
+                diagBtn.onclick = (ev) => {
+                  ev.stopPropagation();
+                  setActiveTab('diagnostics');
+                };
+              }
+
+              try { editorRef.current?.layoutContentWidget(widget); } catch (_) {}
+            }
+          };
+
+          const runFixBtn = document.createElement('button');
+          runFixBtn.style.background = '#15803d';
+          runFixBtn.style.color = '#ffffff';
+          runFixBtn.style.border = '1px solid #166534';
+          runFixBtn.style.padding = '2px 8px';
+          runFixBtn.style.borderRadius = '4px';
+          runFixBtn.style.fontSize = '11px';
+          runFixBtn.style.fontWeight = '600';
+          runFixBtn.style.cursor = 'pointer';
+          runFixBtn.style.display = 'inline-flex';
+          runFixBtn.style.alignItems = 'center';
+          runFixBtn.style.gap = '3px';
+          runFixBtn.title = 'Run modified code immediately (Ctrl+Enter)';
+          runFixBtn.innerHTML = '<span>▶</span><span>Run Fix</span>';
+          runFixBtn.onclick = (e) => {
+            e.stopPropagation();
+            handleExecuteCode();
+          };
+
           const fixBtn = document.createElement('button');
           fixBtn.style.background = '#fee2e2';
           fixBtn.style.color = '#991b1b';
@@ -312,7 +664,7 @@ export function CodePlayground({
           fixBtn.style.fontSize = '11px';
           fixBtn.style.fontWeight = '600';
           fixBtn.style.cursor = 'pointer';
-          fixBtn.textContent = 'View Fix';
+          fixBtn.textContent = 'View Trace';
           fixBtn.onclick = (e) => {
             e.stopPropagation();
             setActiveTab('diagnostics');
@@ -334,11 +686,14 @@ export function CodePlayground({
             setDismissedWidget(true);
           };
 
+          actionDiv.appendChild(hintBtn);
+          actionDiv.appendChild(runFixBtn);
           actionDiv.appendChild(fixBtn);
           actionDiv.appendChild(closeBtn);
 
-          domNode.appendChild(contentDiv);
-          domNode.appendChild(actionDiv);
+          headerRow.appendChild(contentDiv);
+          headerRow.appendChild(actionDiv);
+          domNode.appendChild(headerRow);
 
           const widget = {
             getId: () => 'python.inline.error.widget',
@@ -364,7 +719,6 @@ export function CodePlayground({
       }
 
       monacoRef.current.editor.setModelMarkers(model, 'python-error', markers);
-      decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, newDecorations);
     }
 
     return () => {
@@ -457,16 +811,20 @@ export function CodePlayground({
   };
 
   // Time-Travel Debugger Actions
-  const handleStartDebug = async () => {
+  const handleStartDebug = async (overrideCode = null, overrideStdin = null) => {
     if (language !== 'python') return;
     setIsTracing(true);
     setTraceError(null);
     setIsPlaying(false);
+    setShowStepInsight(false);
+    setStepInsight(null);
 
     try {
+      const codeToRun = (typeof overrideCode === 'string') ? overrideCode : (editorRef.current ? editorRef.current.getValue() : code);
+      const effectiveStdin = (typeof overrideStdin === 'string') ? overrideStdin : customStdin;
       const traceResult = await pythonRuntime.traceExecution({
-        sourceCode: code,
-        stdin: '',
+        sourceCode: codeToRun,
+        stdin: effectiveStdin || '',
         maxSteps: 300
       });
 
@@ -502,6 +860,8 @@ export function CodePlayground({
     setIsPlaying(false);
     setTraceSteps([]);
     setCurrentStepIndex(0);
+    setShowStepInsight(false);
+    setStepInsight(null);
     if (editorRef.current) {
       decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, []);
     }
@@ -510,6 +870,12 @@ export function CodePlayground({
   const handleResetClick = () => {
     // 1. Terminate any active debugger session and auto-playback
     handleStopDebug();
+    setBreakpoints(new Set());
+    setStepInsight(null);
+    setShowStepInsight(false);
+    setTestLogicHints({});
+    setCustomStdin('');
+    setShowStdinDrawer(false);
 
     // 2. Clear all Monaco markers and visual line decorations
     if (editorRef.current && monacoRef.current) {
@@ -521,9 +887,11 @@ export function CodePlayground({
       decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, []);
     }
 
-    // 3. Remove inline error widget and reset dismissal
+    // 3. Remove inline error widget and reset dismissal & AI hints
     removeContentWidget();
     setDismissedWidget(false);
+    setActiveAiHint(null);
+    setAiHintLevel(1);
 
     // 4. Reset active tab back to terminal output
     setActiveTab('output');
@@ -538,19 +906,38 @@ export function CodePlayground({
     }
   };
 
+  // 60fps responsive scrubber navigation with Haptic feedback on breakpoints
+  const navigateToStep = (newIndex) => {
+    const targetIndex = clampStepIndex(newIndex, traceSteps.length);
+    const targetStep = traceSteps[targetIndex];
+
+    // Haptic feedback when landing on or crossing a breakpoint
+    if (targetStep && breakpoints.has(targetStep.line)) {
+      if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+        try {
+          navigator.vibrate(15);
+        } catch (_) {}
+      }
+    }
+
+    React.startTransition(() => {
+      setCurrentStepIndex(targetIndex);
+    });
+  };
+
   const handleFirstStep = () => {
     setIsPlaying(false);
-    setCurrentStepIndex(0);
+    navigateToStep(0);
   };
 
   const handlePrevStep = () => {
     setIsPlaying(false);
-    setCurrentStepIndex((prev) => Math.max(0, prev - 1));
+    navigateToStep(currentStepIndex - 1);
   };
 
   const handleTogglePlay = () => {
     if (currentStepIndex >= traceSteps.length - 1) {
-      setCurrentStepIndex(0);
+      navigateToStep(0);
       setIsPlaying(true);
     } else {
       setIsPlaying((prev) => !prev);
@@ -559,22 +946,114 @@ export function CodePlayground({
 
   const handleNextStep = () => {
     setIsPlaying(false);
-    setCurrentStepIndex((prev) => Math.min(traceSteps.length - 1, prev + 1));
+    navigateToStep(currentStepIndex + 1);
   };
 
   const handleLastStep = () => {
     setIsPlaying(false);
-    setCurrentStepIndex(traceSteps.length - 1);
+    navigateToStep(traceSteps.length - 1);
   };
 
   const handleSeekStep = (index) => {
     setIsPlaying(false);
-    setCurrentStepIndex(clampStepIndex(index, traceSteps.length));
+    navigateToStep(index);
   };
 
-  const activeStep = isDebugging && traceSteps.length > 0 ? traceSteps[currentStepIndex] : null;
-  const previousStep = isDebugging && currentStepIndex > 0 ? traceSteps[currentStepIndex - 1] : null;
-  const stepDiffs = activeStep ? diffStepVariables(activeStep.locals, previousStep?.locals) : [];
+  const handlePrevBreakpoint = () => {
+    setIsPlaying(false);
+    const prevBp = findPrevBreakpoint(traceSteps, currentStepIndex, breakpoints);
+    if (prevBp !== null) {
+      navigateToStep(prevBp);
+    }
+  };
+
+  const handleNextBreakpoint = () => {
+    setIsPlaying(false);
+    const nextBp = findNextBreakpoint(traceSteps, currentStepIndex, breakpoints);
+    if (nextBp !== null) {
+      navigateToStep(nextBp);
+    }
+  };
+
+  const handlePrevIteration = () => {
+    setIsPlaying(false);
+    if (loopInfo.prevStepIndex !== null) {
+      navigateToStep(loopInfo.prevStepIndex);
+    }
+  };
+
+  const handleNextIteration = () => {
+    setIsPlaying(false);
+    if (loopInfo.nextStepIndex !== null) {
+      navigateToStep(loopInfo.nextStepIndex);
+    }
+  };
+
+  const handleJumpToCrash = () => {
+    setIsPlaying(false);
+    if (crashStepIndex !== -1) {
+      navigateToStep(crashStepIndex);
+    }
+  };
+
+  const handleRequestStepInsight = async (lvl = 1) => {
+    if (!activeStep) return;
+    setStepInsightLoading(true);
+    setShowStepInsight(true);
+    setStepInsightLevel(lvl);
+    try {
+      const res = await generateTraceStepInsight({
+        step: activeStep,
+        prevStep: previousStep,
+        diffs: stepDiffs,
+        fullCode: code,
+        hintLevel: lvl
+      });
+      setStepInsight(res);
+    } catch (err) {
+      console.warn('Step insight failed:', err);
+    } finally {
+      setStepInsightLoading(false);
+    }
+  };
+
+  const handleDebugTestCase = async (tc) => {
+    if (!tc) return;
+    const currentCode = editorRef.current ? editorRef.current.getValue() : code;
+    const codeToRun = tc.setupCode ? `${tc.setupCode}\n${currentCode}` : currentCode;
+    await handleStartDebug(codeToRun, tc.input || '');
+  };
+
+  const handleRequestTestLogicHint = async (tc, lvl = 1) => {
+    const tcKey = tc.id ?? tc.description ?? `tc_${Math.random()}`;
+    setTestLogicHints(prev => ({
+      ...prev,
+      [tcKey]: { loading: true, data: prev[tcKey]?.data || null }
+    }));
+
+    try {
+      const currentCode = editorRef.current ? editorRef.current.getValue() : code;
+      const res = await generatePracticeLogicHint({
+        problemTitle,
+        problemDescription,
+        code: currentCode,
+        testCase: tc,
+        expectedOutput: tc.expectedOutput,
+        actualOutput: tc.actualOutput,
+        hintLevel: lvl
+      });
+      setTestLogicHints(prev => ({
+        ...prev,
+        [tcKey]: { loading: false, data: res, level: lvl }
+      }));
+    } catch (err) {
+      console.warn('Test logic hint failed:', err);
+      setTestLogicHints(prev => ({
+        ...prev,
+        [tcKey]: { loading: false, error: err.message }
+      }));
+    }
+  };
 
   const getStatusBadge = () => {
     if (isDebugging) {
@@ -676,6 +1155,29 @@ export function CodePlayground({
 
           {language === 'python' && (
             <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => setShowStdinDrawer(prev => !prev)}
+              disabled={executionState === 'RUNNING'}
+              title="Configure standard input (stdin) for input() calls"
+              className={`py-1 px-2.5 sm:px-3 text-[12px] min-h-[30px] border transition-all active:scale-95 ${
+                showStdinDrawer
+                  ? 'bg-[#17171c] text-white border-[#17171c]'
+                  : customStdin.trim()
+                  ? 'border-indigo-400 bg-indigo-50/70 text-indigo-700'
+                  : 'hover:border-gray-400'
+              }`}
+            >
+              <Terminal className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Input</span>
+              {customStdin.trim() && (
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+              )}
+            </Button>
+          )}
+
+          {language === 'python' && (
+            <Button
               variant={isDebugging ? 'primary' : 'secondary'}
               size="sm"
               onClick={isDebugging ? handleStopDebug : handleStartDebug}
@@ -700,7 +1202,7 @@ export function CodePlayground({
             <Button
               variant="primary"
               size="sm"
-              onClick={onRun}
+              onClick={handleExecuteCode}
               disabled={executionState === 'RUNNING'}
               className="py-1 px-3.5 sm:px-4 text-[12px] min-h-[30px] active:scale-95"
             >
@@ -714,6 +1216,47 @@ export function CodePlayground({
           )}
         </div>
       </div>
+
+      {/* Custom Stdin Drawer */}
+      {showStdinDrawer && (
+        <div className="px-3.5 sm:px-4 py-2.5 bg-[#fbfbfa] border-b border-[#d9d9dd] animate-in slide-in-from-top-1 duration-150">
+          <div className="flex items-center justify-between gap-2 mb-1.5">
+            <div className="flex items-center gap-2 text-[12px] font-medium text-[#17171c]">
+              <Terminal className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Program Input (stdin)</span>
+              <span className="text-[11px] text-[#737373] font-normal">
+                (Feeds Python <code className="text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded text-[10.5px]">input()</code> calls line-by-line)
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {customStdin && (
+                <button
+                  type="button"
+                  onClick={() => setCustomStdin('')}
+                  className="text-[11px] text-gray-500 hover:text-red-600 cursor-pointer transition-colors"
+                >
+                  Clear
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setShowStdinDrawer(false)}
+                className="text-gray-400 hover:text-gray-700 text-[13px] leading-none cursor-pointer"
+                title="Close Input Drawer"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+          <textarea
+            value={customStdin}
+            onChange={(e) => setCustomStdin(e.target.value)}
+            placeholder="Enter input lines here (e.g. Alice&#10;25)..."
+            rows={2}
+            className="w-full text-[12px] font-mono p-2 rounded-lg border border-[#d9d9dd] bg-white text-[#17171c] focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 resize-y"
+          />
+        </div>
+      )}
 
       {/* Monaco Code Editor Container */}
       <div className="relative border-b border-[#d9d9dd] bg-white">
@@ -751,23 +1294,76 @@ export function CodePlayground({
         <div className="bg-[#0b121c] text-white border-b border-[#1f2937] p-3 sm:px-4 select-none animate-in fade-in duration-200">
           {/* Debugger Status Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-[#1f2937]/70 text-[12px]">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800 text-[11px] font-mono font-medium">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
                 TIME-TRAVEL DEBUGGER
               </span>
+
               <span className="text-[12px] font-mono text-cyan-200 font-semibold">
                 Step {currentStepIndex + 1} <span className="text-gray-400 font-normal">/ {traceSteps.length}</span>
               </span>
+
+              {/* Loop Iteration Pill */}
+              {loopInfo.isLoop && (
+                <span className="px-2 py-0.5 rounded-full bg-purple-950 text-purple-300 border border-purple-800 text-[11px] font-mono font-semibold flex items-center gap-1">
+                  <span>🔁 Iteration {loopInfo.currentIteration}/{loopInfo.totalIterations}</span>
+                </span>
+              )}
+
+              {/* Breakpoints Pill */}
+              {breakpoints.size > 0 && (
+                <span className="px-2 py-0.5 rounded-full bg-red-950/80 text-red-300 border border-red-800/80 text-[11px] font-mono flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                  <span>{breakpoints.size} BP{breakpoints.size > 1 ? 's' : ''}</span>
+                </span>
+              )}
             </div>
 
-            <div className="flex items-center gap-2 text-[12px]">
-              <div className="font-mono text-gray-300 truncate max-w-[280px] sm:max-w-[420px] bg-black/40 px-2.5 py-0.5 rounded border border-white/10 text-[11px]">
+            <div className="flex items-center gap-2 text-[12px] flex-wrap ml-auto">
+              <div className="font-mono text-gray-300 truncate max-w-[240px] sm:max-w-[360px] bg-black/40 px-2.5 py-0.5 rounded border border-white/10 text-[11px]">
                 {getStepSummary(activeStep)}
               </div>
+
+              {/* Jump to Crash Button */}
+              {crashStepIndex !== -1 && (
+                <button
+                  onClick={handleJumpToCrash}
+                  className={`px-2 py-0.5 rounded text-[11px] font-semibold flex items-center gap-1 cursor-pointer transition-all active:scale-95 ${
+                    currentStepIndex === crashStepIndex
+                      ? 'bg-red-700 text-white border border-red-500'
+                      : 'bg-red-600/30 hover:bg-red-600 text-red-200 hover:text-white border border-red-500/40'
+                  }`}
+                  title={`Jump to exception crash at Step ${crashStepIndex + 1}`}
+                >
+                  <span>🚨 Crash</span>
+                  <span className="font-mono text-[10px] bg-black/30 px-1 rounded">L{traceSteps[crashStepIndex]?.line}</span>
+                </button>
+              )}
+
+              {/* AI Step Insight Button */}
+              <button
+                onClick={() => {
+                  if (!showStepInsight && !stepInsight) {
+                    handleRequestStepInsight(1);
+                  } else {
+                    setShowStepInsight(!showStepInsight);
+                  }
+                }}
+                className={`px-2.5 py-0.5 rounded text-[11px] font-medium flex items-center gap-1 transition-all cursor-pointer border ${
+                  showStepInsight
+                    ? 'bg-orange-600 text-white border-orange-500'
+                    : 'bg-orange-950/50 text-orange-300 hover:bg-orange-900/60 border-orange-800'
+                }`}
+                title="Get Socratic reasoning for this execution step"
+              >
+                <span>✨</span>
+                <span>{showStepInsight ? 'Hide Insight' : 'Step Insight'}</span>
+              </button>
+
               <button
                 onClick={handleStopDebug}
-                className="text-gray-400 hover:text-white px-2 py-0.5 rounded hover:bg-white/10 text-[11px] transition-colors cursor-pointer ml-auto"
+                className="text-gray-400 hover:text-white px-2 py-0.5 rounded hover:bg-white/10 text-[11px] transition-colors cursor-pointer"
                 title="Exit Time-Travel Debugger"
               >
                 Exit ✕
@@ -777,8 +1373,8 @@ export function CodePlayground({
 
           {/* Timeline Controls & Scrubber Slider */}
           <div className="pt-2.5 flex flex-col sm:flex-row items-center justify-between gap-3">
-            {/* VCR Step Buttons */}
-            <div className="flex items-center gap-1.5">
+            {/* VCR Step Buttons & Breakpoint / Loop Navigation */}
+            <div className="flex items-center gap-1.5 flex-wrap">
               <button
                 onClick={handleFirstStep}
                 disabled={currentStepIndex === 0}
@@ -787,6 +1383,7 @@ export function CodePlayground({
               >
                 <SkipBack className="w-4 h-4" />
               </button>
+
               <button
                 onClick={handlePrevStep}
                 disabled={currentStepIndex === 0}
@@ -828,6 +1425,7 @@ export function CodePlayground({
                 <span className="hidden xs:inline">Next</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
+
               <button
                 onClick={handleLastStep}
                 disabled={currentStepIndex >= traceSteps.length - 1}
@@ -836,6 +1434,50 @@ export function CodePlayground({
               >
                 <SkipForward className="w-4 h-4" />
               </button>
+
+              {/* Breakpoint Navigation Jumps */}
+              {breakpoints.size > 0 && (
+                <div className="flex items-center gap-1 pl-1 ml-1 border-l border-white/10">
+                  <button
+                    onClick={handlePrevBreakpoint}
+                    disabled={findPrevBreakpoint(traceSteps, currentStepIndex, breakpoints) === null}
+                    className="px-1.5 py-0.5 rounded bg-red-950/60 hover:bg-red-900 text-red-300 disabled:opacity-25 disabled:pointer-events-none text-[11px] font-mono flex items-center gap-0.5 cursor-pointer border border-red-800/60"
+                    title="Jump to Previous Breakpoint"
+                  >
+                    <span>⏮ BP</span>
+                  </button>
+                  <button
+                    onClick={handleNextBreakpoint}
+                    disabled={findNextBreakpoint(traceSteps, currentStepIndex, breakpoints) === null}
+                    className="px-1.5 py-0.5 rounded bg-red-950/60 hover:bg-red-900 text-red-300 disabled:opacity-25 disabled:pointer-events-none text-[11px] font-mono flex items-center gap-0.5 cursor-pointer border border-red-800/60"
+                    title="Jump to Next Breakpoint"
+                  >
+                    <span>⏭ BP</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Loop Iteration Navigation Jumps */}
+              {loopInfo.isLoop && (
+                <div className="flex items-center gap-1 pl-1 ml-1 border-l border-white/10">
+                  <button
+                    onClick={handlePrevIteration}
+                    disabled={loopInfo.prevStepIndex === null}
+                    className="px-1.5 py-0.5 rounded bg-purple-950/60 hover:bg-purple-900 text-purple-300 disabled:opacity-25 disabled:pointer-events-none text-[11px] font-mono flex items-center gap-0.5 cursor-pointer border border-purple-800/60"
+                    title="Jump to Previous Loop Iteration"
+                  >
+                    <span>⏮ Iter</span>
+                  </button>
+                  <button
+                    onClick={handleNextIteration}
+                    disabled={loopInfo.nextStepIndex === null}
+                    className="px-1.5 py-0.5 rounded bg-purple-950/60 hover:bg-purple-900 text-purple-300 disabled:opacity-25 disabled:pointer-events-none text-[11px] font-mono flex items-center gap-0.5 cursor-pointer border border-purple-800/60"
+                    title="Jump to Next Loop Iteration"
+                  >
+                    <span>⏭ Iter</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Scrubber Timeline Slider */}
@@ -868,6 +1510,71 @@ export function CodePlayground({
               ))}
             </div>
           </div>
+
+          {/* Socratic Step Insight Collapsible Card */}
+          {showStepInsight && (
+            <div className="mt-3 p-3.5 rounded-[10px] bg-[#131b26] border border-orange-500/40 text-[12px] space-y-2 animate-in fade-in duration-150">
+              <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <span className="text-orange-400 font-semibold flex items-center gap-1">
+                    <span>✨</span>
+                    <span>AI Step Insight</span>
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-orange-950 text-orange-300 border border-orange-800">
+                    Step {currentStepIndex + 1} (Line {activeStep?.line})
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3].map(lvl => (
+                    <button
+                      key={lvl}
+                      onClick={() => handleRequestStepInsight(lvl)}
+                      disabled={stepInsightLoading}
+                      className={`px-2 py-0.5 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
+                        stepInsightLevel === lvl && stepInsight
+                          ? 'bg-orange-600 text-white'
+                          : 'bg-white/10 hover:bg-white/20 text-gray-300'
+                      }`}
+                    >
+                      Clue {lvl}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setShowStepInsight(false)}
+                    className="text-gray-400 hover:text-white px-1 cursor-pointer text-[12px] ml-2"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {stepInsightLoading ? (
+                <div className="py-2 flex items-center gap-2 text-gray-400 italic">
+                  <Sparkles className="w-3.5 h-3.5 text-orange-400 animate-spin" />
+                  <span>Analyzing state delta for Step {currentStepIndex + 1}...</span>
+                </div>
+              ) : stepInsight ? (
+                <div className="space-y-2 pt-1">
+                  <div className="text-orange-200">
+                    <b className="text-orange-400">Diagnosis:</b> {stepInsight.stepDiagnosis || stepInsight.diagnosis}
+                  </div>
+                  <div className="text-gray-200">
+                    <b className="text-cyan-400">💡 Socratic Clue:</b> {stepInsight.hint}
+                  </div>
+                  {stepInsight.fixIdea && (
+                    <div className="text-emerald-200 bg-emerald-950/40 border border-emerald-800/60 p-2 rounded">
+                      <b className="text-emerald-400">🛠️ Action Idea:</b> {stepInsight.fixIdea}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="py-1 text-gray-400 italic">
+                  Click "Step Insight" to generate Socratic analysis for this step.
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -1035,6 +1742,19 @@ export function CodePlayground({
               </div>
             )}
 
+            {/* Custom Stdin Indicator if present */}
+            {customStdin && (
+              <div className="p-2 px-3 bg-indigo-50/60 rounded-[8px] border border-indigo-100 font-mono text-[11.5px] text-indigo-900 flex items-center gap-2">
+                <span className="font-semibold font-sans text-indigo-700 flex items-center gap-1">
+                  <Terminal className="w-3 h-3" />
+                  <span>Provided Stdin:</span>
+                </span>
+                <span className="text-indigo-800 font-mono bg-white px-2 py-0.5 rounded border border-indigo-200 truncate">
+                  {customStdin.replace(/\n/g, '\\n')}
+                </span>
+              </div>
+            )}
+
             {/* Standard Output (stdout) */}
             {stdout && (
               <div className="p-3 bg-white rounded-[8px] border border-[#e5e5e5] font-mono text-[13px] text-[#000000] whitespace-pre-wrap leading-relaxed shadow-xs">
@@ -1191,6 +1911,142 @@ export function CodePlayground({
                 {parsedError.humanExplanation}
               </div>
 
+              {/* AI Socratic Fix Hint (Gemini Nano) Card */}
+              <div className="p-4 rounded-[10px] bg-gradient-to-r from-orange-50/70 via-amber-50/50 to-orange-50/70 border border-orange-200/80 shadow-xs space-y-3">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-[13px]">
+                      💡
+                    </div>
+                    <div>
+                      <h5 className="text-[14px] font-semibold text-[#1c1917] flex items-center gap-1.5">
+                        <span>AI Socratic Fix Hint</span>
+                        {nanoCapability.status === 'available' ? (
+                          <span className="text-[10px] font-medium bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            Gemini Nano (On-Device)
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-medium bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded-full">
+                            ByteLab Socratic Mentor
+                          </span>
+                        )}
+                      </h5>
+                      <p className="text-[11px] text-[#78716c]">
+                        Guided hints to help you understand and solve the problem without giving away code.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Progressive Hint Ladder Level Selector */}
+                  <div className="flex items-center gap-1 bg-white/90 p-0.5 rounded-lg border border-orange-200 text-[11px]">
+                    {[
+                      { lvl: 1, label: '1. Concept' },
+                      { lvl: 2, label: '2. Clue' },
+                      { lvl: 3, label: '3. Rule' }
+                    ].map(item => (
+                      <button
+                        key={item.lvl}
+                        onClick={() => handleRequestAiHint(item.lvl)}
+                        disabled={aiHintLoading}
+                        className={`px-2.5 py-1 rounded-md font-medium cursor-pointer transition-all ${
+                          aiHintLevel === item.lvl && activeAiHint
+                            ? 'bg-orange-600 text-white shadow-xs'
+                            : 'text-[#78716c] hover:text-[#1c1917] hover:bg-orange-100/50'
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Hint Content Area */}
+                <div className="p-3 bg-white/95 rounded-[8px] border border-orange-200/70 text-[13px] text-[#292524] leading-relaxed">
+                  {aiHintLoading ? (
+                    <div className="flex items-center gap-2 text-[#78716c] italic text-[12px] py-1.5">
+                      <Sparkles className="w-4 h-4 animate-spin text-orange-500" />
+                      <span>{nanoCapability.status === 'available' ? 'Gemini Nano is analyzing your bug locally...' : 'Generating Socratic hint...'}</span>
+                    </div>
+                  ) : activeAiHint ? (
+                    <div className="space-y-3">
+                      {activeAiHint.diagnosis && (
+                        <div className="p-3 bg-orange-100/70 rounded-[8px] border border-orange-200 text-[12.5px] text-orange-950 font-medium leading-relaxed">
+                          <span className="font-bold text-orange-900 block mb-0.5 flex items-center gap-1.5">
+                            <AlertTriangle className="w-3.5 h-3.5 text-orange-700" />
+                            Mistake Diagnosis:
+                          </span>
+                          {activeAiHint.diagnosis}
+                        </div>
+                      )}
+
+                      <div className="p-3 bg-white/90 rounded-[8px] border border-orange-100 text-[12.5px] text-[#292524] leading-relaxed">
+                        <span className="font-bold text-stone-800 block mb-0.5 flex items-center gap-1.5">
+                          <span>💡</span>
+                          Socratic Clue ({activeAiHint.level}/3):
+                        </span>
+                        {activeAiHint.hint}
+                      </div>
+
+                      {activeAiHint.fixIdea && (
+                        <div className="p-3 bg-blue-50/70 rounded-[8px] border-l-4 border-blue-500 text-[12.5px] text-blue-950 leading-relaxed">
+                          <span className="font-bold text-blue-900 block mb-0.5 flex items-center gap-1.5">
+                            <span>🛠️</span>
+                            Actionable Updation Idea:
+                          </span>
+                          {activeAiHint.fixIdea}
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between pt-2 border-t border-orange-200/60 text-[11px] text-[#78716c] flex-wrap gap-2">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={handleExecuteCode}
+                            disabled={executionState === 'RUNNING'}
+                            className="text-[11.5px] font-semibold bg-emerald-700 hover:bg-emerald-800 text-white px-3 py-1 rounded-md cursor-pointer transition-colors shadow-xs flex items-center gap-1.5 active:scale-95"
+                            title="Run modified code immediately (Ctrl+Enter)"
+                          >
+                            <Play className="w-3 h-3 fill-current" />
+                            <span>Run Fix</span>
+                          </button>
+                          <span>• {activeAiHint.source === 'gemini-nano' ? 'Chrome Gemini Nano On-Device' : 'ByteLab Pedagogical Engine'}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {activeAiHint.level < 3 ? (
+                            <button
+                              onClick={() => handleRequestAiHint(activeAiHint.level + 1)}
+                              className="text-orange-700 font-semibold hover:text-orange-900 cursor-pointer underline"
+                            >
+                              Need another clue? →
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleRequestAiHint(1)}
+                              className="text-orange-700 font-semibold hover:text-orange-900 cursor-pointer underline"
+                            >
+                              Restart Clues ↺
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between flex-wrap gap-2 py-1">
+                      <span className="text-[#78716c] text-[12px]">
+                        Need help understanding what caused this error without spoiling the solution?
+                      </span>
+                      <button
+                        onClick={() => handleRequestAiHint(1)}
+                        className="text-[12px] font-semibold bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 rounded-md cursor-pointer transition-colors shadow-xs flex items-center gap-1.5"
+                      >
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Get Socratic Fix Hint</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div className="p-3.5 bg-emerald-50 text-emerald-950 rounded-[8px] border border-emerald-200 text-[13px] space-y-1">
                 <div className="font-semibold text-emerald-900 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-emerald-600 fill-current" />
@@ -1220,51 +2076,145 @@ export function CodePlayground({
               <tbody className="divide-y divide-[#e5e5e5]">
                 {testCaseResults.map((tc, idx) => {
                   const diff = computeOutputDiff(tc.expectedOutput, tc.actualOutput);
-                  return (
-                    <tr key={tc.id || idx} className={!tc.passed ? 'bg-red-50/30' : 'bg-white'}>
-                      <td className="py-3 px-4 font-medium text-[#111827] align-top border-r border-[#e5e5e5]">
-                        Test {idx + 1}
-                      </td>
-                      <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap text-[#374151]">
-                        {tc.isHidden ? <span className="text-[#9ca3af] italic">Hidden Test</span> : (tc.input || '—')}
-                      </td>
-                      <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap text-[#374151]">
-                        {tc.isHidden ? <span className="text-[#9ca3af] italic">Hidden</span> : tc.expectedOutput}
-                      </td>
-                      <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap">
-                        <span className={tc.passed ? 'text-[#374151]' : 'text-red-700 font-semibold'}>
-                          {tc.isHidden && tc.passed ? (
-                            <span className="text-[#9ca3af] italic font-normal">Hidden</span>
-                          ) : (
-                            tc.actualOutput || '<No Output>'
-                          )}
-                        </span>
+                  const tcKey = tc.id ?? tc.description ?? `tc_${idx}`;
+                  const hintState = testLogicHints[tcKey];
 
-                        {!tc.passed && !tc.isHidden && diff.hasCaseMismatch && (
-                          <div className="mt-1 text-[11px] font-sans font-normal text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
-                            ⚠️ Case mismatch detected (e.g. upper vs lower case)
-                          </div>
-                        )}
-                        {!tc.passed && !tc.isHidden && diff.hasTrailingSpaceMismatch && (
-                          <div className="mt-1 text-[11px] font-sans font-normal text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
-                            ⚠️ Trailing whitespace mismatch
-                          </div>
-                        )}
-                      </td>
-                      <td className="py-3 px-4 align-middle text-center">
-                        <div className="flex justify-center">
-                          {tc.passed ? (
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600" title="Pass">
-                              <Check className="w-4 h-4 stroke-[3]" />
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-600" title="Fail">
-                              <X className="w-4 h-4 stroke-[3]" />
+                  return (
+                    <React.Fragment key={tc.id || idx}>
+                      <tr className={!tc.passed ? 'bg-red-50/30' : 'bg-white'}>
+                        <td className="py-3 px-4 font-medium text-[#111827] align-top border-r border-[#e5e5e5]">
+                          Test {idx + 1}
+                        </td>
+                        <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap text-[#374151]">
+                          {tc.isHidden ? <span className="text-[#9ca3af] italic">Hidden Test</span> : (tc.input || '—')}
+                        </td>
+                        <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap text-[#374151]">
+                          {tc.isHidden ? <span className="text-[#9ca3af] italic">Hidden</span> : tc.expectedOutput}
+                        </td>
+                        <td className="py-3 px-4 font-mono text-[12px] align-top border-r border-[#e5e5e5] whitespace-pre-wrap">
+                          <span className={tc.passed ? 'text-[#374151]' : 'text-red-700 font-semibold'}>
+                            {tc.isHidden && tc.passed ? (
+                              <span className="text-[#9ca3af] italic font-normal">Hidden</span>
+                            ) : (
+                              tc.actualOutput || '<No Output>'
+                            )}
+                          </span>
+
+                          {!tc.passed && !tc.isHidden && diff.hasCaseMismatch && (
+                            <div className="mt-1 text-[11px] font-sans font-normal text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
+                              ⚠️ Case mismatch detected (e.g. upper vs lower case)
                             </div>
                           )}
-                        </div>
-                      </td>
-                    </tr>
+                          {!tc.passed && !tc.isHidden && diff.hasTrailingSpaceMismatch && (
+                            <div className="mt-1 text-[11px] font-sans font-normal text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
+                              ⚠️ Trailing whitespace mismatch
+                            </div>
+                          )}
+                          {!tc.passed && !tc.isHidden && diff.hasExtraPrefix && (
+                            <div className="mt-1 text-[11px] font-sans font-normal text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
+                              ⚠️ Output contains extra prefix text before expected answer (e.g. input prompt)
+                            </div>
+                          )}
+
+                          {!tc.passed && (
+                            <div className="mt-2.5 flex items-center gap-2 flex-wrap font-sans">
+                              <button
+                                onClick={() => handleDebugTestCase(tc)}
+                                disabled={isTracing}
+                                className="px-2.5 py-1 rounded bg-cyan-50 hover:bg-cyan-100 text-cyan-800 border border-cyan-300 font-semibold text-[11px] flex items-center gap-1.5 cursor-pointer transition-colors active:scale-95 shadow-2xs"
+                                title="Trace execution step-by-step for this failing test case"
+                              >
+                                <Bug className="w-3 h-3 text-cyan-600" />
+                                <span>Debug Test Case</span>
+                              </button>
+
+                              <button
+                                onClick={() => handleRequestTestLogicHint(tc, hintState?.level || 1)}
+                                disabled={hintState?.loading}
+                                className="px-2.5 py-1 rounded bg-orange-50 hover:bg-orange-100 text-orange-800 border border-orange-300 font-semibold text-[11px] flex items-center gap-1.5 cursor-pointer transition-colors active:scale-95 shadow-2xs"
+                                title="Get on-device Socratic AI logic hint without code spoilers"
+                              >
+                                <Sparkles className="w-3 h-3 text-orange-600" />
+                                <span>{hintState?.loading ? 'Thinking...' : 'AI Logic Hint'}</span>
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                        <td className="py-3 px-4 align-middle text-center">
+                          <div className="flex justify-center">
+                            {tc.passed ? (
+                              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600" title="Pass">
+                                <Check className="w-4 h-4 stroke-[3]" />
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-600" title="Fail">
+                                <X className="w-4 h-4 stroke-[3]" />
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+
+                      {/* Collapsible Socratic Logic Hint Card */}
+                      {hintState?.data && (
+                        <tr className="bg-orange-50/50">
+                          <td colSpan={5} className="p-3.5 px-4 border-b border-[#e5e5e5]">
+                            <div className="rounded-[8px] bg-white border border-orange-200 p-3 space-y-2 text-[12px] shadow-2xs">
+                              <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-orange-100">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-semibold text-orange-900 flex items-center gap-1">
+                                    <span>✨</span>
+                                    <span>Socratic Logic Clue for Test {idx + 1}</span>
+                                  </span>
+                                  <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-orange-100 text-orange-800">
+                                    {hintState.data.source === 'gemini-nano' ? 'Gemini Nano On-Device' : 'ByteLab Mentor'}
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center gap-1">
+                                  {[1, 2, 3].map(lvl => (
+                                    <button
+                                      key={lvl}
+                                      onClick={() => handleRequestTestLogicHint(tc, lvl)}
+                                      disabled={hintState.loading}
+                                      className={`px-2 py-0.5 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
+                                        (hintState.level || 1) === lvl
+                                          ? 'bg-orange-600 text-white'
+                                          : 'bg-orange-100/60 hover:bg-orange-100 text-orange-800'
+                                      }`}
+                                    >
+                                      Clue {lvl}
+                                    </button>
+                                  ))}
+                                  <button
+                                    onClick={() => setTestLogicHints(prev => ({ ...prev, [tcKey]: null }))}
+                                    className="text-stone-400 hover:text-stone-700 px-1 cursor-pointer text-[12px] ml-1"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div className="space-y-1.5 text-[#292524]">
+                                {hintState.data.logicDiagnosis && (
+                                  <div className="text-orange-950 font-medium">
+                                    <b className="text-orange-800">Diagnosis:</b> {hintState.data.logicDiagnosis}
+                                  </div>
+                                )}
+                                <div className="text-stone-800">
+                                  <b className="text-cyan-700">💡 Clue:</b> {hintState.data.hint}
+                                </div>
+                                {hintState.data.fixIdea && (
+                                  <div className="p-2 rounded bg-blue-50/70 border-l-3 border-blue-500 text-blue-950">
+                                    <b className="text-blue-900">🛠️ Updation Idea:</b> {hintState.data.fixIdea}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
                   );
                 })}
               </tbody>
@@ -1291,7 +2241,7 @@ export function CodePlayground({
               <div className="space-y-3">
                 {/* Step Context Banner */}
                 <div className="p-3 bg-white rounded-[10px] border border-[#d9d9dd] shadow-xs flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 text-[11px] font-mono font-bold border border-cyan-300">
                       Step {currentStepIndex + 1} of {traceSteps.length}
                     </span>
@@ -1305,9 +2255,25 @@ export function CodePlayground({
                         <span>Line {activeStep.line}</span>
                       </button>
                     )}
+                    {loopInfo.isLoop && (
+                      <span className="text-[11px] font-mono bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-full font-semibold">
+                        Iteration {loopInfo.currentIteration}/{loopInfo.totalIterations}
+                      </span>
+                    )}
                   </div>
-                  <div className="text-[12px] text-gray-600 font-mono">
-                    {activeStep?.snippet ? <code>{activeStep.snippet}</code> : activeStep?.event}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleRequestStepInsight(stepInsightLevel || 1)}
+                      disabled={stepInsightLoading}
+                      className="px-2 py-1 rounded bg-orange-50 hover:bg-orange-100 text-orange-800 border border-orange-200 text-[11px] font-semibold flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
+                      title="Analyze this execution step with AI"
+                    >
+                      <Sparkles className="w-3 h-3 text-orange-600" />
+                      <span>{stepInsightLoading ? 'Analyzing...' : 'AI Step Insight'}</span>
+                    </button>
+                    <div className="text-[12px] text-gray-600 font-mono">
+                      {activeStep?.snippet ? <code>{activeStep.snippet}</code> : activeStep?.event}
+                    </div>
                   </div>
                 </div>
 

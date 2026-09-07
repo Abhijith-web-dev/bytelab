@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Fuse from 'fuse.js';
-import { Search, BookOpen, Code, Layers, FileText, ArrowRight, X } from 'lucide-react';
+import { Search, BookOpen, Code, Layers, FileText, ArrowRight, X, Sparkles } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore.js';
 import { buildSearchIndex } from '../../content/loader/index.js';
 
@@ -10,7 +10,36 @@ export function CommandPalette() {
   const { isCmdKOpen, closeCmdK } = useUIStore();
   const [query, setQuery] = useState('');
 
-  const searchItems = useMemo(() => buildSearchIndex('python-programming'), []);
+  const searchItems = useMemo(() => {
+    const courseItems = buildSearchIndex('python-programming');
+    const staticNavItems = [
+      {
+        id: 'nav_docs',
+        title: 'Documentation & User Guide',
+        description: 'Complete how-to manual: sandbox, time-travel debugger, Gemini Nano Socratic AI, and shortcuts.',
+        url: '/docs',
+        type: 'Guide',
+        tags: ['docs', 'help', 'guide', 'manual', 'shortcuts', 'debugger', 'ai']
+      },
+      {
+        id: 'nav_updates',
+        title: 'Platform Updates & Changelog',
+        description: 'Latest features, v1.4 release notes, new units, and performance improvements.',
+        url: '/updates',
+        type: 'Changelog',
+        tags: ['updates', 'changelog', 'releases', 'new', 'version', 'features']
+      },
+      {
+        id: 'nav_terms',
+        title: 'Terms & Conditions of Service',
+        description: 'Platform policies, client-side WASM execution privacy, and educational guidelines.',
+        url: '/terms',
+        type: 'Legal',
+        tags: ['terms', 'conditions', 'legal', 'privacy', 'policy']
+      }
+    ];
+    return [...staticNavItems, ...courseItems];
+  }, []);
 
   const fuse = useMemo(() => {
     return new Fuse(searchItems, {
@@ -56,6 +85,8 @@ export function CommandPalette() {
       case 'Unit': return <Layers className="w-4 h-4 text-blue-500" />;
       case 'Chapter': return <BookOpen className="w-4 h-4 text-emerald-500" />;
       case 'Practice Problem': return <Code className="w-4 h-4 text-purple-500" />;
+      case 'Guide': return <BookOpen className="w-4 h-4 text-blue-500" />;
+      case 'Changelog': return <Sparkles className="w-4 h-4 text-orange-500" />;
       default: return <FileText className="w-4 h-4 text-gray-500" />;
     }
   };

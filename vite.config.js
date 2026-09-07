@@ -23,18 +23,37 @@ export default defineConfig({
     reportCompressedSize: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-editor': ['@monaco-editor/react'],
-          'vendor-markdown': ['react-markdown', 'remark-gfm', 'rehype-sanitize'],
-          'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/analytics'],
-          'vendor-ui': ['lucide-react', 'canvas-confetti', 'sonner'],
-          'vendor-state': ['zustand'],
-          'vendor-utils': ['fuse.js', 'zod', 'react-hook-form', 'date-fns']
+        manualChunks(id) {
+          if (id.includes('content/courses') || id.includes('src/content/loader')) {
+            return 'course-curriculum';
+          }
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('@monaco-editor') || id.includes('monaco-editor')) {
+              return 'vendor-editor';
+            }
+            if (id.includes('react-markdown') || id.includes('remark-gfm') || id.includes('rehype-sanitize')) {
+              return 'vendor-markdown';
+            }
+            if (id.includes('firebase')) {
+              return 'vendor-firebase';
+            }
+            if (id.includes('lucide-react') || id.includes('canvas-confetti') || id.includes('sonner')) {
+              return 'vendor-ui';
+            }
+            if (id.includes('zustand')) {
+              return 'vendor-state';
+            }
+            if (id.includes('fuse.js') || id.includes('zod') || id.includes('react-hook-form') || id.includes('date-fns')) {
+              return 'vendor-utils';
+            }
+          }
         }
       }
     },
-    chunkSizeWarningLimit: 750
+    chunkSizeWarningLimit: 1600
   },
   test: {
     globals: true,

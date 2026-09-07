@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Play, Code, CheckCircle2, AlertTriangle, Lightbulb, RotateCcw, ChevronRight, BookOpen, Layers } from 'lucide-react';
+import { Play, Code, CheckCircle2, AlertTriangle, Lightbulb, RotateCcw, ChevronRight, BookOpen, Layers, Bug, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Button } from '../../components/ui/Button.jsx';
 import { Badge } from '../../components/ui/Badge.jsx';
@@ -11,6 +11,8 @@ import { getAllProblems, getProblemById } from '../../content/loader/index.js';
 import { usePracticeStore } from '../../stores/practiceStore.js';
 import { useProgressStore } from '../../stores/progressStore.js';
 import { useAuthStore } from '../../stores/authStore.js';
+import { generatePracticeLogicHint } from '../../services/ai/geminiNanoService.js';
+import { FocusTimer } from '../../components/practice/FocusTimer.jsx';
 
 export function PracticePage() {
   const params = useParams();
@@ -37,6 +39,9 @@ export function PracticePage() {
 
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [showHintIndex, setShowHintIndex] = useState(-1);
+  const [activeLogicHint, setActiveLogicHint] = useState(null);
+  const [logicHintLoading, setLogicHintLoading] = useState(false);
+  const [logicHintLevel, setLogicHintLevel] = useState(1);
 
   // Select active problem
   useEffect(() => {
@@ -50,8 +55,38 @@ export function PracticePage() {
     if (target) {
       loadProblem(target);
       setShowHintIndex(-1);
+      setActiveLogicHint(null);
     }
   }, [requestedProblemId]);
+
+  // Reset active logic hint when re-running
+  useEffect(() => {
+    if (executionState === 'RUNNING') {
+      setActiveLogicHint(null);
+    }
+  }, [executionState]);
+
+  const handleRequestPageLogicHint = async (tc, lvl = 1) => {
+    if (!tc) return;
+    setLogicHintLoading(true);
+    setLogicHintLevel(lvl);
+    try {
+      const res = await generatePracticeLogicHint({
+        problemTitle: problem?.title || '',
+        problemDescription: problem?.description || '',
+        code,
+        testCase: tc,
+        expectedOutput: tc.expectedOutput,
+        actualOutput: tc.actualOutput,
+        hintLevel: lvl
+      });
+      setActiveLogicHint(res);
+    } catch (err) {
+      console.warn('Logic hint error:', err);
+    } finally {
+      setLogicHintLoading(false);
+    }
+  };
 
   // Celebrate with confetti when all tests pass
   useEffect(() => {
@@ -235,6 +270,89 @@ export function PracticePage() {
 
         {/* Right: Monaco Editor Playground */}
         <div className="flex-1 min-w-0 space-y-4">
+          {/* Concentration & Deep Work Timer */}
+          <FocusTimer />
+
+          {/* Practice Page Socratic Layer: Failing Test Case Diagnostic Alert */}
+          {executionState === 'FAILED' && testCaseResults?.some(tc => !tc.passed) && (() => {
+            const firstFailing = testCaseResults.find(tc => !tc.passed);
+            if (!firstFailing) return null;
+
+            return (
+              <div className="p-4 rounded-[16px] bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border border-orange-200 shadow-2xs space-y-3 animate-in fade-in duration-150">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-[13px]">
+                      💡
+                    </span>
+                    <div>
+                      <h4 className="text-[14px] font-semibold text-[#1c1917] flex items-center gap-1.5">
+                        <span>Test Case Logic Discrepancy</span>
+                        <Badge variant="stone" className="text-[10px] bg-red-100 text-red-800 border-red-200">
+                          Assertion Failed
+                        </Badge>
+                      </h4>
+                      <p className="text-[11px] text-[#78716c]">
+                        Input: <code className="font-mono text-stone-800">{firstFailing.input || '—'}</code> • Expected: <code className="font-mono text-emerald-800">{firstFailing.expectedOutput}</code> • Got: <code className="font-mono text-red-800">{firstFailing.actualOutput || '<No Output>'}</code>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleRequestPageLogicHint(firstFailing, logicHintLevel || 1)}
+                      disabled={logicHintLoading}
+                      className="px-3 py-1.5 rounded-full bg-orange-600 hover:bg-orange-700 text-white font-semibold text-[12px] flex items-center gap-1.5 cursor-pointer transition-colors shadow-2xs active:scale-95"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>{logicHintLoading ? 'Generating Socratic Clue...' : activeLogicHint ? 'Refresh Clue' : 'AI Logic Hint'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {activeLogicHint && (
+                  <div className="p-3 bg-white/95 rounded-[10px] border border-orange-200/80 space-y-2 text-[12.5px] leading-relaxed">
+                    <div className="flex items-center justify-between pb-1.5 border-b border-orange-100 text-[11px]">
+                      <span className="font-semibold text-orange-900">
+                        ✨ Socratic Clue ({activeLogicHint.level}/3) • {activeLogicHint.source === 'gemini-nano' ? 'Chrome Gemini Nano' : 'ByteLab Mentor'}
+                      </span>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3].map(lvl => (
+                          <button
+                            key={lvl}
+                            onClick={() => handleRequestPageLogicHint(firstFailing, lvl)}
+                            disabled={logicHintLoading}
+                            className={`px-2 py-0.5 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
+                              (activeLogicHint.level || 1) === lvl
+                                ? 'bg-orange-600 text-white'
+                                : 'bg-orange-100/70 hover:bg-orange-100 text-orange-800'
+                            }`}
+                          >
+                            Clue {lvl}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {activeLogicHint.logicDiagnosis && (
+                      <div className="text-orange-950">
+                        <b className="text-orange-800">Diagnosis:</b> {activeLogicHint.logicDiagnosis}
+                      </div>
+                    )}
+                    <div className="text-stone-800">
+                      <b className="text-cyan-800">💡 Clue:</b> {activeLogicHint.hint}
+                    </div>
+                    {activeLogicHint.fixIdea && (
+                      <div className="p-2.5 rounded-[8px] bg-blue-50/70 border-l-4 border-blue-500 text-blue-950">
+                        <b className="text-blue-900">🛠️ Actionable Update Idea:</b> {activeLogicHint.fixIdea}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
           <CodePlayground
             code={code}
             onChange={(val) => updateCode(val)}
@@ -247,6 +365,8 @@ export function PracticePage() {
             runtimeError={runtimeError}
             executionTimeMs={executionTimeMs}
             testCaseResults={testCaseResults}
+            problemTitle={problem?.title || ''}
+            problemDescription={problem?.description || ''}
             preventPaste={true}
             height="480px"
           />

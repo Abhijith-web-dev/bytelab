@@ -1,15 +1,15 @@
 [
   {
     "id": "q1",
-    "question": "What is the primary purpose of an `if-else` statement?",
+    "question": "What is the primary guarantee of an `if-else` construct in Python?",
     "options": [
-      "To initialize a new list of items",
-      "To make a mutually exclusive two-way decision",
-      "To define a reusable function block",
-      "To loop repeatedly over a collection"
+      "Both blocks will execute sequentially",
+      "Exactly one of the two blocks is guaranteed to execute",
+      "Neither block will execute if both conditions evaluate to True",
+      "The else block always executes first"
     ],
     "correctAnswer": 1,
-    "explanation": "An if-else statement provides two distinct execution paths: one if the condition is True, and an alternative if it is False."
+    "explanation": "An if-else construct provides mutually exclusive two-way branching: if the condition is True, the if-block executes; otherwise, the else-block executes. Exactly one block runs."
   },
   {
     "id": "q2",
@@ -21,102 +21,102 @@
       "next"
     ],
     "correctAnswer": 1,
-    "explanation": "Python uses `elif` (short for 'else if') to chain sequential condition checks."
+    "explanation": "Python uses the keyword `elif` (a contraction of 'else if') to construct multi-way conditional chains."
   },
   {
     "id": "q3",
-    "question": "What is printed by the following code?\n```python\nmark = 35\nif mark >= 40:\n    print('Pass')\nelse:\n    print('Fail')\n```",
+    "question": "What is the output of the following code?\n```python\nscore = 85\nstatus = 'Distinction' if score >= 90 else 'Credit'\nprint(status)\n```",
     "options": [
-      "Pass",
-      "Fail",
-      "35",
-      "No output"
+      "Distinction",
+      "Credit",
+      "85",
+      "SyntaxError: invalid syntax"
     ],
     "correctAnswer": 1,
-    "explanation": "Because 35 >= 40 is False, execution moves into the else block, outputting 'Fail'."
+    "explanation": "This is Python's ternary conditional expression. Since `85 >= 90` is False, the expression evaluates to the alternative value 'Credit'."
   },
   {
     "id": "q4",
-    "question": "What is printed by the following code snippet?\n```python\nmark = 85\nif mark >= 90:\n    print('A')\nelif mark >= 75:\n    print('B')\nelse:\n    print('C')\n```",
+    "question": "What is printed by the following code snippet?\n```python\nmark = 82\nif mark >= 90:\n    print('A')\nelif mark >= 75:\n    print('B')\nelif mark >= 60:\n    print('C')\nelse:\n    print('D')\n```",
     "options": [
       "A",
       "B",
-      "C",
-      "No output"
+      "B\nC",
+      "C"
     ],
     "correctAnswer": 1,
-    "explanation": "85 >= 90 is False, but 85 >= 75 is True. Python executes the matching elif block and prints 'B'."
+    "explanation": "82 >= 90 is False, but 82 >= 75 is True. Python executes the matching elif block ('B') and immediately terminates the chain, never checking mark >= 60."
   },
   {
     "id": "q5",
-    "question": "In an `if-elif-else` chain, when does Python stop evaluating subsequent conditions?",
+    "question": "In an `if-elif-else` chain, when does the Python interpreter stop evaluating subsequent conditions?",
     "options": [
-      "After every condition is checked regardless of outcome",
-      "Immediately after the first condition that evaluates to True",
-      "Only after evaluating the final else block",
-      "It never stops until all blocks execute"
+      "After every condition in the chain is evaluated",
+      "Immediately upon encountering the first condition that evaluates to True",
+      "Only after evaluating the fallback else block",
+      "It never stops until all print statements are executed"
     ],
     "correctAnswer": 1,
-    "explanation": "In chained conditionals, Python stops searching as soon as it encounters the first True condition, skipping all remaining elif and else branches."
+    "explanation": "In chained conditionals, Python follows the First-True-Condition principle: evaluation stops immediately upon encountering the first True condition, skipping all remaining elif and else branches."
   },
   {
     "id": "q6",
-    "question": "What is a nested conditional in Python?",
+    "question": "What is logically flawed about the following condition order?\n```python\nif score >= 40:\n    print('Pass')\nelif score >= 90:\n    print('Distinction')\n```",
     "options": [
-      "An if statement placed inside the body of another conditional block",
-      "An if statement written without an associated condition expression",
-      "Two list structures combined together",
-      "A function defined inside a list"
+      "The elif keyword cannot follow an if block",
+      "Scores of 90 and above satisfy score >= 40 first, rendering the 'Distinction' branch unreachable dead code",
+      "Variable score cannot be compared using >=",
+      "The else block is mandatory before elif"
     ],
-    "correctAnswer": 0,
-    "explanation": "A nested conditional occurs when an if, elif, or else block contains another inner conditional statement."
+    "correctAnswer": 1,
+    "explanation": "Because conditions are checked top-to-bottom, any score >= 90 is already >= 40. The first condition absorbs all high scores, printing 'Pass' and terminating before the Distinction branch can ever be evaluated."
   },
   {
     "id": "q7",
-    "question": "What is the output of this nested conditional?\n```python\nage = 20\nif age >= 18:\n    if age >= 21:\n        print('21+')\n    else:\n        print('18-20')\nelse:\n    print('Minor')\n```",
+    "question": "What is printed by the following nested conditional code?\n```python\nage = 20\nscore = 45\nif age >= 18:\n    if score >= 50:\n        print('Full Admission')\n    else:\n        print('Provisional')\nelse:\n    print('Minor')\n```",
     "options": [
+      "Full Admission",
+      "Provisional",
       "Minor",
-      "18-20",
-      "21+",
       "No output"
     ],
     "correctAnswer": 1,
-    "explanation": "20 >= 18 is True (enters outer block). Then 20 >= 21 is False (enters inner else block), displaying '18-20'."
+    "explanation": "The outer condition age >= 18 is True (20 >= 18), entering the outer block. The inner condition score >= 50 is False (45 >= 50 is False), triggering the inner else block which prints 'Provisional'."
   },
   {
     "id": "q8",
-    "question": "Which construct is most suitable when exactly one category out of several choices must be selected?",
+    "question": "In software architecture, what is the primary purpose of refactoring nested `if` statements using 'Guard Clauses' (the Early Return pattern)?",
     "options": [
-      "Several independent if statements",
-      "An if-elif-else chain",
-      "A solitary else block",
-      "A while loop"
+      "To convert integer variables into strings automatically",
+      "To avoid the 'Pyramid of Doom' (deep indentation) and handle error conditions upfront",
+      "To make code execute in parallel across multiple CPU cores",
+      "To replace all if statements with while loops"
     ],
     "correctAnswer": 1,
-    "explanation": "An if-elif-else chain guarantees that exactly one branch executes among multiple mutually exclusive options."
+    "explanation": "Guard clauses check for failure or boundary conditions at the beginning of a function and return early, keeping the primary logic (the 'happy path') flat and cleanly unindented."
   },
   {
     "id": "q9",
-    "question": "What is logically flawed about the following condition order?\n```python\nif mark >= 40:\n    print('Pass')\nelif mark >= 90:\n    print('Excellent')\n```",
+    "question": "How does Python evaluate the chained comparison expression `18 <= age < 65`?",
     "options": [
-      "elif cannot follow an if statement",
-      "Marks of 90 and above satisfy the first condition (>= 40), so the 'Excellent' branch is never reached for them",
-      "Variable mark cannot be compared to numbers",
-      "The if statement must always come after elif"
+      "It generates a syntax error because only one comparison operator is permitted per line",
+      "It is evaluated as `(18 <= age) and (age < 65)`, with `age` evaluated only once",
+      "It evaluates `(18 <= age)` to a boolean, then compares that boolean to 65",
+      "It compares 18 directly to 65"
     ],
     "correctAnswer": 1,
-    "explanation": "Because conditions are checked top-to-bottom, a score of 95 satisfies mark >= 40 and exits, preventing the >= 90 branch from ever executing."
+    "explanation": "Python natively supports chained comparisons. `18 <= age < 65` is syntactically equivalent to `(18 <= age) and (age < 65)`, evaluating the middle expression only once."
   },
   {
     "id": "q10",
-    "question": "What is the primary conceptual difference between a nested `if` and an `if-elif-else` chain?",
+    "question": "Why does comparing floating-point numbers directly with `==` in a conditional statement (e.g., `if 0.1 + 0.2 == 0.3:`) frequently cause bugs in Python?",
     "options": [
-      "Nested if generates list objects, while if-elif-else generates numbers",
-      "if-elif-else works only on integers",
-      "Nested if places one decision inside another (hierarchical), whereas if-elif-else tests alternative choices sequentially at the same level",
-      "There is no difference; they are strictly identical in all aspects"
+      "Python does not support floating point numbers in if statements",
+      "Binary floating-point arithmetic produces tiny rounding inaccuracies (e.g. 0.30000000000000004)",
+      "The plus operator converts numbers into strings",
+      "Float values automatically convert to False in boolean expressions"
     ],
-    "correctAnswer": 2,
-    "explanation": "Nested if represents hierarchical decisions where condition 2 only matters if condition 1 holds, whereas if-elif-else checks mutually exclusive alternatives in sequence."
+    "correctAnswer": 1,
+    "explanation": "Because computers represent floats in binary (base-2), values like 0.1 and 0.2 cannot be stored with exact precision. 0.1 + 0.2 evaluates to 0.30000000000000004, causing exact equality (==) with 0.3 to evaluate to False. Programmers should use math.isclose() instead."
   }
 ]

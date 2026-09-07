@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Award,
@@ -16,7 +16,8 @@ import {
   RefreshCw,
   Code,
   BookOpen,
-  ArrowRight
+  ArrowRight,
+  Timer
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button.jsx';
 import { Badge } from '../../components/ui/Badge.jsx';
@@ -29,8 +30,18 @@ import { useSEO } from '../../hooks/useSEO.js';
 
 export function LeaderboardPage() {
   const { user } = useAuthStore();
-  const { totalPoints, streakDays, completedChapters, solvedProblems } = useProgressStore();
-  const [filterSort, setFilterSort] = useState('points'); // 'points' | 'streak' | 'solved' | 'chapters'
+  const {
+    totalPoints,
+    streakDays,
+    completedChapters,
+    solvedProblems,
+    focusMinutes,
+    cleanRunCount,
+    getConcentrationMetrics
+  } = useProgressStore();
+  const metrics = getConcentrationMetrics();
+  const [filterSort, setFilterSort] = useState('points'); // 'points' | 'focus' | 'streak' | 'solved' | 'chapters'
+
   const [searchQuery, setSearchQuery] = useState('');
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +64,10 @@ export function LeaderboardPage() {
           score: totalPoints,
           streak: streakDays,
           solved: solvedCount,
-          completedChapters: completedChapters.length
+          completedChapters: completedChapters.length,
+          focusMinutes: focusMinutes || 0,
+          cleanRunCount: cleanRunCount || 0,
+          concentrationScore: metrics.score || 0
         });
       }
 
@@ -63,7 +77,7 @@ export function LeaderboardPage() {
       const currentUserUid = user?.uid || 'current_student';
       const userEntryIndex = data.findIndex(d => d.userId === currentUserUid || (user?.uid && d.userId === user.uid));
 
-      if (user && totalPoints > 0) {
+      if (user && totalPoints >= 0) {
         const myEntry = {
           userId: user.uid,
           displayName: user.displayName || user.email?.split('@')[0] || 'You',
@@ -73,6 +87,9 @@ export function LeaderboardPage() {
           streak: streakDays,
           solved: solvedCount,
           completedChapters: completedChapters.length,
+          focusMinutes: focusMinutes || 0,
+          cleanRunCount: cleanRunCount || 0,
+          concentrationScore: metrics.score || 0,
           badge: totalPoints >= 1000 ? 'Algorithm Master' : (totalPoints >= 500 ? 'NumPy Ninja' : 'Active Learner'),
           isCurrentUser: true
         };
@@ -94,13 +111,15 @@ export function LeaderboardPage() {
 
   useEffect(() => {
     fetchLeaderboard();
-  }, [user?.uid, totalPoints, streakDays, completedChapters.length, solvedCount]);
+  }, [user?.uid, totalPoints, streakDays, completedChapters.length, solvedCount, focusMinutes, cleanRunCount]);
 
   // Sort and filter rankings
   const rankedList = useMemo(() => {
     let sorted = [...leaderboardData];
 
-    if (filterSort === 'streak') {
+    if (filterSort === 'focus') {
+      sorted.sort((a, b) => (b.focusMinutes || 0) - (a.focusMinutes || 0));
+    } else if (filterSort === 'streak') {
       sorted.sort((a, b) => (b.streak || 0) - (a.streak || 0));
     } else if (filterSort === 'solved') {
       sorted.sort((a, b) => (b.solved || 0) - (a.solved || 0));
@@ -129,6 +148,61 @@ export function LeaderboardPage() {
 
   // Find user's current ranking position
   const myRank = rankedList.find(item => item.isCurrentUser);
+  const myRankIndex = rankedList.findIndex(item => item.isCurrentUser);
+
+  // Dynamic Next-Rank Rival Milestone
+  const rivalMilestone = useMemo(() => {
+    if (myRankIndex === -1 || !myRank) return null;
+    if (myRankIndex === 0) {
+      return {
+        isCrown: true,
+        rivalRank: 1,
+        message: 'You hold Rank #1! Keep your focus sessions and practice streak active to defend the crown.',
+        actionLabel: 'Enter Practice Arena'
+      };
+    }
+
+    const rival = rankedList[myRankIndex - 1];
+
+    if (filterSort === 'focus') {
+      const gap = Math.max(1, (rival.focusMinutes || 0) - (myRank.focusMinutes || 0));
+      return {
+        rivalRank: rival.rank,
+        rivalName: rival.displayName,
+        message: `You are only ${gap} min(s) of deep focus away from passing Rank #${rival.rank} (${rival.displayName}). Start a sprint now to climb!`,
+        actionLabel: 'Start Focus Sprint'
+      };
+    }
+
+    if (filterSort === 'streak') {
+      const gap = Math.max(1, (rival.streak || 0) - (myRank.streak || 0));
+      return {
+        rivalRank: rival.rank,
+        rivalName: rival.displayName,
+        message: `You are ${gap} day(s) away from matching Rank #${rival.rank} (${rival.displayName})'s streak. Practice today to advance!`,
+        actionLabel: 'Solve Challenge'
+      };
+    }
+
+    if (filterSort === 'solved') {
+      const gap = Math.max(1, (rival.solved || 0) - (myRank.solved || 0));
+      return {
+        rivalRank: rival.rank,
+        rivalName: rival.displayName,
+        message: `You are only ${gap} solved challenge(s) away from surpassing Rank #${rival.rank} (${rival.displayName}). Dive into a problem!`,
+        actionLabel: 'Solve Challenge'
+      };
+    }
+
+    const gap = Math.max(5, ((rival.points || rival.score || 0) - (myRank.points || myRank.score || 0)));
+    return {
+      rivalRank: rival.rank,
+      rivalName: rival.displayName,
+      message: `You are only ${gap} XP away from overtaking Rank #${rival.rank} (${rival.displayName}). Complete 1 challenge or focus session to overtake!`,
+      actionLabel: 'Practice to Climb'
+    };
+  }, [rankedList, myRankIndex, myRank, filterSort]);
+
   const top3 = rankedList.slice(0, 3);
 
   return (
@@ -173,6 +247,11 @@ export function LeaderboardPage() {
                 <span>•</span>
                 <span className="text-[#17171c] font-semibold">{solvedCount} Solved</span>
                 <span>•</span>
+                <span className="text-[#003c33] font-semibold flex items-center gap-1">
+                  <Timer className="w-3.5 h-3.5 text-[#ff7759]" />
+                  {focusMinutes || 0}m Focus
+                </span>
+                <span>•</span>
                 <span className="text-amber-600 font-semibold flex items-center gap-0.5">
                   <Flame className="w-3.5 h-3.5 fill-current" />
                   {streakDays}d Streak
@@ -199,6 +278,42 @@ export function LeaderboardPage() {
             )}
           </div>
         </div>
+
+        {/* Dynamic Next-Rank Rival Milestone Banner */}
+        {rivalMilestone && (
+          <div className={`p-5 rounded-[20px] border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs transition-all ${
+            rivalMilestone.isCrown
+              ? 'bg-amber-500/10 border-amber-300'
+              : 'bg-[#fafafa] border-[#d9d9dd]'
+          }`}>
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-full bg-[#17171c] text-white flex items-center justify-center font-bold text-[18px] shrink-0 shadow-xs">
+                {rivalMilestone.isCrown ? '👑' : '🎯'}
+              </div>
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#75758a] font-bold">
+                    {rivalMilestone.isCrown ? 'Championship Standing' : `Milestone Target: Rank #${rivalMilestone.rivalRank}`}
+                  </span>
+                  {!rivalMilestone.isCrown && (
+                    <span className="text-[10px] font-mono px-2 py-0.2 rounded-full bg-amber-100 text-amber-800 font-semibold">
+                      Next Rival
+                    </span>
+                  )}
+                </div>
+                <p className="text-[14px] text-[#17171c] font-medium leading-snug">
+                  {rivalMilestone.message}
+                </p>
+              </div>
+            </div>
+            <Link to="/practice" className="shrink-0 w-full sm:w-auto">
+              <Button variant="primary" size="sm" className="w-full sm:w-auto">
+                <span>{rivalMilestone.actionLabel}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
+          </div>
+        )}
 
         {/* Podium: Top 3 Students */}
         {top3.length >= 3 && !searchQuery && (
@@ -231,6 +346,7 @@ export function LeaderboardPage() {
                 </div>
                 <div className="pt-2 border-t border-[#d9d9dd]/60 flex items-center justify-around text-[12px] font-mono">
                   <span>{top3[1]?.points || top3[1]?.score} pts</span>
+                  <span>⏱️ {top3[1]?.focusMinutes || 0}m</span>
                   <span>🔥 {top3[1]?.streak || 1}d</span>
                 </div>
               </div>
@@ -249,6 +365,7 @@ export function LeaderboardPage() {
                 </div>
                 <div className="pt-3 border-t border-[#d9d9dd] flex items-center justify-around text-[13px] font-mono font-semibold">
                   <span className="text-[#17171c]">{top3[0]?.points || top3[0]?.score} pts</span>
+                  <span className="text-[#003c33]">⏱️ {top3[0]?.focusMinutes || 0}m focus</span>
                   <span className="text-amber-600">🔥 {top3[0]?.streak || 1}d streak</span>
                 </div>
               </div>
@@ -265,6 +382,7 @@ export function LeaderboardPage() {
                 </div>
                 <div className="pt-2 border-t border-[#d9d9dd]/60 flex items-center justify-around text-[12px] font-mono">
                   <span>{top3[2]?.points || top3[2]?.score} pts</span>
+                  <span>⏱️ {top3[2]?.focusMinutes || 0}m</span>
                   <span>🔥 {top3[2]?.streak || 1}d</span>
                 </div>
               </div>
@@ -285,6 +403,18 @@ export function LeaderboardPage() {
                 }`}
               >
                 Top Verified XP
+              </button>
+
+              <button
+                onClick={() => setFilterSort('focus')}
+                className={`px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+                  filterSort === 'focus'
+                    ? 'bg-[#17171c] text-white shadow-xs'
+                    : 'bg-[#eeece7]/40 text-[#75758a] hover:text-[#17171c]'
+                }`}
+              >
+                <Timer className="w-3.5 h-3.5 text-[#ff7759]" />
+                <span>Deep Focus</span>
               </button>
 
               <button
@@ -344,6 +474,7 @@ export function LeaderboardPage() {
                 <tr>
                   <th className="p-4 font-semibold w-16">Rank</th>
                   <th className="p-4 font-semibold">Student Learner</th>
+                  <th className="p-4 font-semibold">Focus</th>
                   <th className="p-4 font-semibold">Solved</th>
                   <th className="p-4 font-semibold">Curriculum</th>
                   <th className="p-4 font-semibold">Streak</th>
@@ -397,6 +528,10 @@ export function LeaderboardPage() {
                             </div>
                           </div>
                         </div>
+                      </td>
+
+                      <td className="p-4 font-mono font-medium text-[#003c33]">
+                        {student.focusMinutes || 0}m
                       </td>
 
                       <td className="p-4 font-mono text-[#17171c]">

@@ -55,14 +55,18 @@ export const usePracticeStore = create((set, get) => ({
     });
   },
 
-  runCode: async () => {
+  runCode: async (overrideCode, overrideStdin = '') => {
     const state = get();
     if (!state.problem || state.executionState === 'RUNNING') return;
 
+    const effectiveCode = (typeof overrideCode === 'string') ? overrideCode : state.code;
+
     set({
+      code: effectiveCode,
       executionState: 'RUNNING',
       stdout: '',
       stderr: '',
+      runtimeError: null,
       attempts: state.attempts + 1
     });
 
@@ -78,12 +82,12 @@ export const usePracticeStore = create((set, get) => ({
     for (let i = 0; i < testCases.length; i++) {
       const tc = testCases[i];
       const codeToRun = tc.setupCode 
-        ? `${tc.setupCode}\n${state.code}` 
-        : (state.problem.setupCode ? `${state.problem.setupCode}\n${state.code}` : state.code);
+        ? `${tc.setupCode}\n${effectiveCode}` 
+        : (state.problem.setupCode ? `${state.problem.setupCode}\n${effectiveCode}` : effectiveCode);
 
       const execResult = await runtime.execute({
         sourceCode: codeToRun,
-        stdin: tc.input || '',
+        stdin: tc.input || overrideStdin || '',
         timeoutMs: state.problem.timeLimitMs || 5000
       });
 
@@ -95,6 +99,7 @@ export const usePracticeStore = create((set, get) => ({
       }
 
       if (execResult.status === 'timeout') {
+        useProgressStore.getState().recordCodeRun(false);
         set({
           executionState: 'TIMEOUT',
           stderr: execResult.stderr,
@@ -106,6 +111,7 @@ export const usePracticeStore = create((set, get) => ({
       }
 
       if (execResult.status === 'syntax_error') {
+        useProgressStore.getState().recordCodeRun(false);
         set({
           executionState: 'SYNTAX_ERROR',
           stderr: execResult.stderr,
@@ -117,6 +123,7 @@ export const usePracticeStore = create((set, get) => ({
       }
 
       if (execResult.status === 'runtime_error') {
+        useProgressStore.getState().recordCodeRun(false);
         set({
           executionState: 'RUNTIME_ERROR',
           stderr: execResult.stderr,
@@ -139,6 +146,7 @@ export const usePracticeStore = create((set, get) => ({
         id: tc.id,
         description: tc.description,
         input: tc.input,
+        setupCode: tc.setupCode || state.problem.setupCode || '',
         expectedOutput: tc.expectedOutput,
         actualOutput: actual,
         isHidden: tc.isHidden,
@@ -148,16 +156,20 @@ export const usePracticeStore = create((set, get) => ({
 
     const finalStatus = allPassed ? 'PASSED' : 'FAILED';
 
+    // Record code run stats in progressStore
+    useProgressStore.getState().recordCodeRun(allPassed);
+
     set({
       executionState: finalStatus,
       stdout: mainStdout,
       stderr: mainStderr,
+      runtimeError: null,
       testCaseResults: results,
       executionTimeMs: totalTime
     });
 
     if (allPassed) {
-      useProgressStore.getState().recordProblemSolved(state.problem.id, state.code, state.attempts + 1);
+      useProgressStore.getState().recordProblemSolved(state.problem.id, effectiveCode, state.attempts + 1);
     }
   }
 }));

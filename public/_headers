@@ -1,0 +1,22 @@
+﻿# Cloudflare Edge and Browser Cache Headers
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+/favicon.svg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+
+/og-image.jpg
+  Cache-Control: public, max-age=604800
+
+# Top-level HTML navigation
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
