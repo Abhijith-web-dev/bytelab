@@ -267,65 +267,63 @@ The fundamental truth table dictates how two bits $A$ and $B$ produce an output 
 
 ### C. Detailed Walkthrough of All 6 Bitwise Operators
 
-Let's evaluate $A = 12$ and $B = 10$:
-- Binary of $A = 12$: `0000 1100`
-- Binary of $B = 10$: `0000 1010`
+Here are practical step-by-step examples using the numbers **5** (binary `0101`) and **3** (binary `0011`).
 
 ---
 
 #### 1. Bitwise AND (`&`)
-Compares each bit of the first operand to the corresponding bit of the second operand. If **both** bits are `1`, the corresponding result bit is set to `1`. Otherwise, it is `0`.
+Compares each bit. If both are `1`, the result is `1`.
 
 ```text
-  Decimal 12:    0 0 0 0 1 1 0 0
-& Decimal 10:    0 0 0 0 1 0 1 0
----------------------------------
-  Result:        0 0 0 0 1 0 0 0  -->  (8 in decimal)
+  0101  (5)
+& 0011  (3)
+  ----
+  0001  (Result: 1)
 ```
 
 ```python
-a = 12
-b = 10
+a = 5   # binary 0101
+b = 3   # binary 0011
 result = a & b
-print(f"{a} & {b} = {result}")  # Output: 12 & 10 = 8
+print(f"{a} & {b} = {result}")  # Output: 5 & 3 = 1
 ```
 
 ---
 
 #### 2. Bitwise OR (`|`)
-Compares each bit. If **at least one** of the corresponding bits is `1`, the result bit is set to `1`. It only yields `0` if both bits are `0`.
+Compares each bit. If at least one is `1`, the result is `1`.
 
 ```text
-  Decimal 12:    0 0 0 0 1 1 0 0
-| Decimal 10:    0 0 0 0 1 0 1 0
----------------------------------
-  Result:        0 0 0 0 1 1 1 0  -->  (8 + 4 + 2 = 14 in decimal)
+  0101  (5)
+| 0011  (3)
+  ----
+  0111  (Result: 7)
 ```
 
 ```python
-a = 12
-b = 10
+a = 5   # binary 0101
+b = 3   # binary 0011
 result = a | b
-print(f"{a} | {b} = {result}")  # Output: 12 | 10 = 14
+print(f"{a} | {b} = {result}")  # Output: 5 | 3 = 7
 ```
 
 ---
 
-#### 3. Bitwise XOR (`^`) — Exclusive OR
-Compares each bit. If the two bits are **different** (`1` and `0`, or `0` and `1`), the result is `1`. If both bits are identical (`0` and `0`, or `1` and `1`), the result is `0`.
+#### 3. Bitwise XOR (`^`)
+Compares each bit. If they are different, the result is `1`.
 
 ```text
-  Decimal 12:    0 0 0 0 1 1 0 0
-^ Decimal 10:    0 0 0 0 1 0 1 0
----------------------------------
-  Result:        0 0 0 0 0 1 1 0  -->  (4 + 2 = 6 in decimal)
+  0101  (5)
+^ 0011  (3)
+  ----
+  0110  (Result: 6)
 ```
 
 ```python
-a = 12
-b = 10
+a = 5   # binary 0101
+b = 3   # binary 0011
 result = a ^ b
-print(f"{a} ^ {b} = {result}")  # Output: 12 ^ 10 = 6
+print(f"{a} ^ {b} = {result}")  # Output: 5 ^ 3 = 6
 ```
 
 > [!NOTE]
@@ -336,19 +334,20 @@ print(f"{a} ^ {b} = {result}")  # Output: 12 ^ 10 = 6
 
 ---
 
-#### 4. Bitwise NOT (`~`) & Two's Complement Inversion
-The bitwise NOT operator `~` inverts every bit (changing `1` to `0` and `0` to `1`).
+#### 4. Bitwise NOT (`~`)
+Flips every bit of a single number.
+
+```text
+~ 0101  (5)
+  ----
+  1010  (Result: 10 in unsigned 4-bit)
+```
+
+*(Note: In most programming languages using 32-bit signed integers, `~5` actually outputs `-6` due to how negative numbers are stored using "Two's Complement".)*
 
 In Python, integers are represented using **Two's Complement** arithmetic with arbitrary precision (no fixed 32-bit overflow limit). In Two's Complement:
 
 $$\sim x = -(x + 1)$$
-
-```text
-Let's compute ~5:
-  5 in binary (conceptually infinite leading 0s):  ...0000 0101
-  Inverting all bits:                             ...1111 1010
-  In Two's Complement, ...1111 1010 represents:   -(5 + 1) = -6
-```
 
 ```python
 print(~5)    # Output: -6
@@ -361,55 +360,57 @@ print(~(-7)) # Output: 6
 > [!IMPORTANT]
 > **The Two's Complement Golden Rule:**
 > To calculate `~x` mentally, simply add $1$ to $x$ and negate the sign:
+> - $\sim 5 \rightarrow -(5 + 1) = \mathbf{-6}$
 > - $\sim 12 \rightarrow -(12 + 1) = \mathbf{-13}$
 > - $\sim(-25) \rightarrow -(-25 + 1) = \mathbf{24}$
 
 ---
 
-#### 5. Bitwise Left Shift (`<<`)
-The bitwise left shift `x << n` moves all bits of `x` to the left by `n` positions. Zeros are appended to the right.
+#### 5. Left Shift (`<<`)
+Shifts all bits to the left by a specified number of spaces. Let's shift `5` left by `1` space (`5 << 1`).
+
+```text
+  0101  (5)
+  ---- shift left 1 space, add a 0 to the right
+  1010  (Result: 10)
+```
 
 Each single left shift doubles the number (multiplies by $2$). Therefore, shifting by $n$ bits multiplies by $2^n$:
 
 $$x \ll n = x \times 2^n$$
 
-```text
-Decimal 5 in binary:       0 0 0 0 0 1 0 1  (5)
-5 << 1 (shift left 1):     0 0 0 0 1 0 1 0  (10  = 5 * 2^1)
-5 << 2 (shift left 2):     0 0 0 1 0 1 0 0  (20  = 5 * 2^2)
-5 << 3 (shift left 3):     0 0 1 0 1 0 0 0  (40  = 5 * 2^3)
-```
-
 ```python
 num = 5
-print(num << 1)  # Output: 10
-print(num << 2)  # Output: 20
-print(num << 3)  # Output: 40
+print(num << 1)  # Output: 10 (5 * 2^1)
+print(num << 2)  # Output: 20 (5 * 2^2)
+print(num << 3)  # Output: 40 (5 * 2^3)
 print(7 << 4)    # Output: 112 (7 * 16)
 ```
 
 ---
 
-#### 6. Bitwise Right Shift (`>>`)
-The bitwise right shift `x >> n` moves all bits of `x` to the right by `n` positions. The rightmost bits are discarded.
+#### 6. Right Shift (`>>`)
+Shifts all bits to the right. Let's shift `5` right by `1` space (`5 >> 1`).
+
+```text
+  0101  (5)
+  ---- shift right 1 space, the rightmost 1 drops off
+  0010  (Result: 2)
+```
 
 Each single right shift performs integer division by $2$ (flooring towards $-\infty$). Therefore, shifting by $n$ bits divides by $2^n$:
 
 $$x \gg n = \lfloor x / 2^n \rfloor$$
 
-```text
-Decimal 40 in binary:      0 0 1 0 1 0 0 0  (40)
-40 >> 1 (shift right 1):   0 0 0 1 0 1 0 0  (20  = 40 // 2^1)
-40 >> 2 (shift right 2):   0 0 0 0 1 0 1 0  (10  = 40 // 2^2)
-40 >> 3 (shift right 3):   0 0 0 0 0 1 0 1  (5   = 40 // 2^3)
-```
-
 ```python
+num = 5
+print(num >> 1)  # Output: 2  (5 // 2^1)
+print(num >> 2)  # Output: 1  (5 // 2^2)
+
 val = 40
-print(val >> 1)  # Output: 20
-print(val >> 2)  # Output: 10
-print(val >> 3)  # Output: 5
-print(25 >> 1)   # Output: 12 (25 // 2)
+print(val >> 1)  # Output: 20 (40 // 2)
+print(val >> 2)  # Output: 10 (40 // 4)
+print(val >> 3)  # Output: 5  (40 // 8)
 ```
 
 ---
