@@ -397,10 +397,18 @@ export function getQuiz(courseId, unitId, chapterId) {
 
 export function getAllProblems(courseId = 'python-programming') {
   const allProblems = [];
+  const seenIds = new Set();
   for (const key in problemsGlob) {
     if (key.includes(courseId)) {
       const items = problemsGlob[key]?.default || problemsGlob[key] || [];
-      allProblems.push(...items);
+      for (const item of items) {
+        if (item && item.id) {
+          if (!seenIds.has(item.id)) {
+            seenIds.add(item.id);
+            allProblems.push(item);
+          }
+        }
+      }
     }
   }
   return allProblems;

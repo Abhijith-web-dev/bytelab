@@ -12,6 +12,7 @@ export const usePracticeStore = create((set, get) => ({
   stderr: '',
   executionTimeMs: 0,
   testCaseResults: [],
+  runtimeError: null,
   attempts: 0,
 
   loadProblem: (problem) => {
@@ -24,6 +25,7 @@ export const usePracticeStore = create((set, get) => ({
       executionState: 'IDLE',
       stdout: '',
       stderr: '',
+      runtimeError: null,
       executionTimeMs: 0,
       testCaseResults: [],
       attempts: 0
@@ -47,6 +49,8 @@ export const usePracticeStore = create((set, get) => ({
       executionState: 'IDLE',
       stdout: '',
       stderr: '',
+      runtimeError: null,
+      executionTimeMs: 0,
       testCaseResults: []
     });
   },
@@ -94,6 +98,8 @@ export const usePracticeStore = create((set, get) => ({
         set({
           executionState: 'TIMEOUT',
           stderr: execResult.stderr,
+          stdout: execResult.stdout || '',
+          runtimeError: execResult.error || null,
           executionTimeMs: totalTime
         });
         return;
@@ -103,6 +109,8 @@ export const usePracticeStore = create((set, get) => ({
         set({
           executionState: 'SYNTAX_ERROR',
           stderr: execResult.stderr,
+          stdout: execResult.stdout || '',
+          runtimeError: execResult.error || null,
           executionTimeMs: totalTime
         });
         return;
@@ -112,6 +120,8 @@ export const usePracticeStore = create((set, get) => ({
         set({
           executionState: 'RUNTIME_ERROR',
           stderr: execResult.stderr,
+          stdout: execResult.stdout || '',
+          runtimeError: execResult.error || null,
           executionTimeMs: totalTime
         });
         return;

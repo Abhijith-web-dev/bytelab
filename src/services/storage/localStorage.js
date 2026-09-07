@@ -45,7 +45,13 @@ export const draftStorage = {
   getDraft(problemId) {
     if (!problemId) return null;
     const draft = storage.get(`draft:${problemId}`);
-    return draft?.code || null;
+    return (draft && typeof draft.code === 'string') ? draft.code : null;
+  },
+
+  hasDraft(problemId) {
+    if (!problemId) return false;
+    const draft = storage.get(`draft:${problemId}`);
+    return Boolean(draft && typeof draft.code === 'string');
   },
 
   clearDraft(problemId) {

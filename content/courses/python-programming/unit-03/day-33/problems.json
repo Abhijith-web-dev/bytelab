@@ -1,7 +1,7 @@
 [
   {
-    "id": "student-performance-analyzer",
-    "title": "Student Performance Analyzer",
+    "id": "student-records-performance-analyzer",
+    "title": "Student Records & Performance Analyzer",
     "difficulty": "intermediate",
     "marks": 15,
     "timeMinutes": 25,

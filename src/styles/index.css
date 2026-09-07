@@ -326,3 +326,96 @@
   scroll-snap-align: start;
 }
 
+/* Monaco Editor — Error Line Decorations & Widgets */
+.monaco-editor .monaco-error-line,
+.monaco-error-line {
+  background-color: rgba(239, 68, 68, 0.16) !important;
+  border-left: 4px solid #ef4444 !important;
+}
+
+.monaco-editor .monaco-origin-line,
+.monaco-origin-line {
+  background-color: rgba(245, 158, 11, 0.16) !important;
+  border-left: 4px solid #f59e0b !important;
+}
+
+.monaco-editor .monaco-error-glyph,
+.monaco-error-glyph {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ef4444'%3E%3Ccircle cx='8' cy='8' r='7'/%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' d='M5.5 5.5l5 5m0-5l-5 5'/%3E%3C/svg%3E") no-repeat center center !important;
+  background-size: 14px 14px !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+  cursor: pointer;
+}
+
+.monaco-editor .monaco-origin-glyph,
+.monaco-origin-glyph {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f59e0b'%3E%3Ccircle cx='8' cy='8' r='7'/%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' d='M8 4.5v4.5m0 2v.5'/%3E%3C/svg%3E") no-repeat center center !important;
+  background-size: 14px 14px !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+  cursor: pointer;
+}
+
+.monaco-editor .monaco-error-inline,
+.monaco-error-inline {
+  text-decoration: underline wavy #ef4444 !important;
+  text-decoration-skip-ink: none !important;
+}
+
+.monaco-editor .monaco-origin-inline,
+.monaco-origin-inline {
+  text-decoration: underline wavy #f59e0b !important;
+  text-decoration-skip-ink: none !important;
+}
+
+.monaco-inline-error-widget {
+  background: #ffffff;
+  border: 1px solid #fca5a5;
+  border-left: 4px solid #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.18);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  z-index: 50;
+  max-width: 90%;
+  pointer-events: auto;
+}
+
+/* Monaco Editor — Time-Travel Debugger Step Cursor */
+.monaco-editor .monaco-debug-step-line,
+.monaco-debug-step-line {
+  background-color: rgba(6, 182, 212, 0.20) !important;
+  border-left: 4px solid #06b6d4 !important;
+}
+
+.monaco-editor .monaco-debug-step-glyph,
+.monaco-debug-step-glyph {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2306b6d4'%3E%3Cpolygon points='3,2 14,8 3,14'/%3E%3C/svg%3E") no-repeat center center !important;
+  background-size: 14px 14px !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+  cursor: pointer;
+}
+
+.monaco-editor .monaco-debug-step-inline,
+.monaco-debug-step-inline {
+  background-color: rgba(6, 182, 212, 0.18) !important;
+  border-radius: 2px !important;
+}
+
+/* Variable diff highlight flash */
+@keyframes var-flash-updated {
+  0% { background-color: rgba(16, 185, 129, 0.35); }
+  100% { background-color: transparent; }
+}
+
+.var-mutation-flash {
+  animation: var-flash-updated 1.2s ease-out;
+}
+
+

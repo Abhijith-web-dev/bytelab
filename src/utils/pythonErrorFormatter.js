@@ -3,6 +3,8 @@
  * Formats low-level Python tracebacks and Pyodide exceptions into friendly, actionable diagnostic cards.
  */
 
+import { findClosestSymbol } from './pythonSymbolAnalyzer.js';
+
 export function parsePythonError(stderrText, sourceCode = '') {
   if (!stderrText || typeof stderrText !== 'string') return null;
 
@@ -77,20 +79,59 @@ export function parsePythonError(stderrText, sourceCode = '') {
     if (errorType !== 'RuntimeError') break;
   }
 
-  // 2. Extract line number with multiple pattern strategies
-  for (const line of rawLines) {
-    // Strategy A: File "<...>", line 3
-    const fileMatch = line.match(/File\s+["'][^"']+["'],\s+line\s+(\d+)/i);
-    if (fileMatch) {
-      lineNumber = parseInt(fileMatch[1], 10);
-      break;
-    }
+  // 2. Extract all stack frames for multi-frame traceback (crash line + call origin)
+  const stackFrames = [];
+  for (let i = 0; i < rawLines.length; i++) {
+    const line = rawLines[i];
+    // Match File "<...>", line 4, in func_name
+    const frameMatch = line.match(/File\s+["']([^"']+)["'],\s+line\s+(\d+)(?:,\s+in\s+(.*))?/i);
+    if (frameMatch) {
+      const fileName = frameMatch[1];
+      // Skip internal pyodide and python runtime plumbing frames
+      if (fileName.includes('pyodide') || fileName.includes('/lib/python') || fileName.includes('<frozen')) {
+        continue;
+      }
 
-    // Strategy B: line 3, in <module>
-    const lineModuleMatch = line.match(/\bline\s+(\d+)(?:,\s+in\s+.*)?/i);
-    if (lineModuleMatch && !line.toLowerCase().includes('traceback')) {
-      lineNumber = parseInt(lineModuleMatch[1], 10);
-      break;
+      const lineNum = parseInt(frameMatch[2], 10);
+      const funcName = (frameMatch[3] || '<module>').trim();
+      let frameSnippet = '';
+      if (i + 1 < rawLines.length && !rawLines[i + 1].trim().startsWith('File ') && !rawLines[i + 1].includes('Error:')) {
+        frameSnippet = rawLines[i + 1].trim();
+      }
+      // If frameSnippet was empty, look up in sourceCode
+      if (!frameSnippet && sourceCode && lineNum) {
+        const codeLines = sourceCode.split('\n');
+        if (codeLines[lineNum - 1] !== undefined) {
+          frameSnippet = codeLines[lineNum - 1].trim();
+        }
+      }
+
+      stackFrames.push({
+        file: fileName,
+        line: lineNum,
+        funcName,
+        snippet: frameSnippet
+      });
+    }
+  }
+
+  // Deepest frame is the immediate crash location
+  const crashFrame = stackFrames.length > 0 ? stackFrames[stackFrames.length - 1] : null;
+  // First frame is the top-level trigger origin (if multiple frames exist)
+  const originFrame = stackFrames.length > 1 ? stackFrames[0] : null;
+
+  if (crashFrame) {
+    lineNumber = crashFrame.line;
+    if (crashFrame.snippet) codeSnippet = crashFrame.snippet;
+  } else {
+    // Fallback line search strategy
+    for (const line of rawLines) {
+      if (line.includes('pyodide') || line.includes('/lib/python')) continue;
+      const lineModuleMatch = line.match(/\bline\s+(\d+)(?:,\s+in\s+.*)?/i);
+      if (lineModuleMatch && !line.toLowerCase().includes('traceback')) {
+        lineNumber = parseInt(lineModuleMatch[1], 10);
+        break;
+      }
     }
   }
 
@@ -98,16 +139,25 @@ export function parsePythonError(stderrText, sourceCode = '') {
   for (let i = 0; i < rawLines.length; i++) {
     const l = rawLines[i];
     if (l.includes('^')) {
-      pointerLine = l;
-      if (i > 0 && !rawLines[i - 1].toLowerCase().includes('file ')) {
-        codeSnippet = rawLines[i - 1].trim();
+      let isInternal = false;
+      for (let j = Math.max(0, i - 4); j < i; j++) {
+        if (rawLines[j].includes('pyodide') || rawLines[j].includes('/lib/python')) {
+          isInternal = true;
+          break;
+        }
       }
-      break;
+      if (!isInternal) {
+        pointerLine = l;
+        if (i > 0 && !rawLines[i - 1].trim().toLowerCase().startsWith('file ')) {
+          codeSnippet = rawLines[i - 1].trim();
+        }
+        break;
+      }
     }
   }
 
-  // 4. If codeSnippet is not present from traceback, pull from sourceCode
-  if (!codeSnippet && lineNumber && sourceCode) {
+  // 4. Always prefer codeSnippet from sourceCode if lineNumber is available, so it matches the editor exactly!
+  if (lineNumber && sourceCode) {
     const codeLines = sourceCode.split('\n');
     if (codeLines[lineNumber - 1] !== undefined) {
       codeSnippet = codeLines[lineNumber - 1].trim();
@@ -119,8 +169,8 @@ export function parsePythonError(stderrText, sourceCode = '') {
     pointerLine = '^'.padStart(Math.min(codeSnippet.length, 10), ' ');
   }
 
-  // 5. Generate human explanation and actionable fix based on error type and message
-  const diagnostic = getDiagnosticAdvice(errorType, errorMessage, codeSnippet);
+  // 5. Generate human explanation, did-you-mean suggestion, and actionable fix
+  const diagnostic = getDiagnosticAdvice(errorType, errorMessage, codeSnippet, sourceCode, lineNumber);
 
   return {
     errorType,
@@ -130,11 +180,15 @@ export function parsePythonError(stderrText, sourceCode = '') {
     pointerLine,
     humanExplanation: diagnostic.explanation,
     suggestedFix: diagnostic.fix,
+    didYouMean: diagnostic.didYouMean || null,
+    stackFrames,
+    crashFrame,
+    originFrame,
     rawTraceback: cleanStderr
   };
 }
 
-function getDiagnosticAdvice(errorType, message, snippet) {
+function getDiagnosticAdvice(errorType, message, snippet, sourceCode = '', lineNumber = null) {
   switch (errorType) {
     case 'SyntaxError':
       return {
@@ -151,31 +205,170 @@ function getDiagnosticAdvice(errorType, message, snippet) {
         explanation: 'Python detected an inconsistent mixture of tabs and spaces for indentation.',
         fix: 'Replace all tab characters with 4 spaces.'
       };
-    case 'NameError':
+    case 'NameError': {
+      // Extract undefined name: name 'xyz' is not defined
+      const nameMatch = message.match(/name\s+['"]([a-zA-Z0-9_]+)['"]\s+is\s+not\s+defined/);
+      const undefinedName = nameMatch ? nameMatch[1] : null;
+      let didYouMean = null;
+      let fix = 'Check for spelling mistakes in variable/function names, or ensure the variable is defined before this line.';
+
+      if (undefinedName && sourceCode) {
+        const closest = findClosestSymbol(undefinedName, sourceCode);
+        if (closest) {
+          didYouMean = closest.name;
+          if (closest.reason === 'case_mismatch') {
+            fix = `Python is case-sensitive. Did you mean \`${closest.name}\` (defined on Line ${closest.line})?`;
+          } else {
+            fix = `Did you mean \`${closest.name}\` (defined on Line ${closest.line})? Check for typos.`;
+          }
+        }
+      }
+
       return {
-        explanation: `Python tried to use an identifier that has not been defined or assigned yet.`,
-        fix: 'Check for spelling mistakes in variable/function names, or ensure the variable is defined before this line.'
+        explanation: undefinedName
+          ? `Python tried to use \`${undefinedName}\`, but no variable or function with that name exists in this scope.`
+          : 'Python tried to use an identifier that has not been defined or assigned yet.',
+        fix,
+        didYouMean
       };
+    }
     case 'TypeError':
       return {
         explanation: 'An operation or function was applied to an object of an inappropriate or mismatched data type.',
         fix: 'Check the data types being combined (e.g. adding a number to a string). Use explicit type casting like `int()` or `str()`.'
       };
-    case 'ZeroDivisionError':
+    case 'ZeroDivisionError': {
+      let denom = null;
+      if (snippet) {
+        const divMatch = snippet.match(/(?:\/|\/\/|%)\s*([a-zA-Z_]\w*|\d+)/);
+        if (divMatch) {
+          denom = divMatch[1];
+        }
+      }
+      if (!denom && sourceCode && lineNumber) {
+        const lines = sourceCode.split('\n');
+        const errLine = lines[lineNumber - 1] || '';
+        const divMatch = errLine.match(/(?:\/|\/\/|%)\s*([a-zA-Z_]\w*|\d+)/);
+        if (divMatch) {
+          denom = divMatch[1];
+        }
+      }
+
+      if (denom && denom !== '0') {
+        return {
+          explanation: `A division (\`/\`, \`//\`, or \`%\`) was attempted with zero as the denominator (\`${denom}\` evaluated to 0), which is mathematically undefined.`,
+          fix: `Add a check (e.g. \`if ${denom} != 0:\`) before dividing to prevent division by zero, or handle the zero case.`
+        };
+      }
+
       return {
         explanation: 'A division (`/`, `//`, or `%`) was attempted with zero as the denominator, which is mathematically undefined.',
         fix: 'Add a check (e.g. `if denominator != 0:`) before dividing to prevent division by zero.'
       };
-    case 'IndexError':
+    }
+    case 'IndexError': {
+      // Find all list accesses on the snippet/line: e.g. prices[0], prices[1], prices[3]
+      const findMatches = (str) => {
+        if (!str) return [];
+        return Array.from(str.matchAll(/([a-zA-Z_]\w*)\[\s*(-?\d+|[a-zA-Z_]\w*)\s*\]/g));
+      };
+
+      let lineText = snippet || '';
+      if ((!lineText || findMatches(lineText).length === 0) && sourceCode && lineNumber) {
+        const lines = sourceCode.split('\n');
+        lineText = lines[lineNumber - 1] || '';
+      }
+
+      const allMatches = findMatches(lineText);
+      let chosenMatch = null;
+
+      // Helper to estimate static size of list in source code
+      const getListSize = (name) => {
+        if (!name || !sourceCode) return null;
+        const listDeclRegex = new RegExp(`\\b${name}\\s*=\\s*\\[([^\\]]*)\\]`, 'm');
+        const declMatch = sourceCode.match(listDeclRegex);
+        if (declMatch) {
+          const raw = declMatch[1].trim();
+          return raw === '' ? 0 : raw.split(',').filter(item => item.trim().length > 0).length;
+        }
+        return null;
+      };
+
+      if (allMatches.length > 0) {
+        // Find which access is out of bounds
+        for (const m of allMatches) {
+          const lName = m[1];
+          const idxStr = m[2];
+          const lSize = getListSize(lName);
+          const numIdx = parseInt(idxStr, 10);
+
+          if (lSize !== null && !isNaN(numIdx)) {
+            if (numIdx >= lSize || numIdx < -lSize) {
+              chosenMatch = { listName: lName, indexExpr: idxStr, listSize: lSize };
+              break;
+            }
+          }
+        }
+
+        // If no match demonstrably exceeded statically known bounds, pick the last access on the line
+        if (!chosenMatch) {
+          const last = allMatches[allMatches.length - 1];
+          chosenMatch = {
+            listName: last[1],
+            indexExpr: last[2],
+            listSize: getListSize(last[1])
+          };
+        }
+      }
+
+      if (chosenMatch) {
+        const { listName, indexExpr, listSize } = chosenMatch;
+        if (listSize !== null) {
+          const validRange = listSize === 0 ? 'empty' : (listSize === 1 ? 'only index 0' : `indices 0 to ${listSize - 1}`);
+          return {
+            explanation: `You tried to access index \`${indexExpr}\` in \`${listName}\`, but \`${listName}\` contains ${listSize} item${listSize === 1 ? '' : 's'} (valid: ${validRange}). Python list indices start at 0.`,
+            fix: listSize === 0
+              ? `List \`${listName}\` is empty. Add elements before accessing it.`
+              : `Change \`${listName}[${indexExpr}]\` to a valid index (between 0 and ${listSize - 1}). Note that the last item is at index ${listSize - 1}.`
+          };
+        }
+
+        return {
+          explanation: `You tried to access \`${listName}[${indexExpr}]\`, but the index \`${indexExpr}\` is out of range for the sequence.`,
+          fix: `Verify the sequence length with \`len(${listName})\` before indexing. Remember Python uses 0-based indexing (0 to \`len - 1\`).`
+        };
+      }
+
       return {
         explanation: 'You tried to access an item in a list or sequence at an index that does not exist.',
         fix: 'Remember Python uses 0-based indexing (0 to `len - 1`). Verify list length with `len(sequence)` before indexing.'
       };
-    case 'KeyError':
+    }
+    case 'KeyError': {
+      let missingKey = null;
+      const keyMatch = message.match(/['"]?([^'"]+)['"]?/);
+      if (keyMatch) {
+        missingKey = keyMatch[1].trim();
+      }
+
+      let dictName = null;
+      if (snippet) {
+        const dictMatch = snippet.match(/([a-zA-Z_]\w*)\[/);
+        if (dictMatch) dictName = dictMatch[1];
+      }
+
+      if (missingKey) {
+        return {
+          explanation: `You tried to access key \`${missingKey}\` in dictionary${dictName ? ` \`${dictName}\`` : ''}, but this key does not exist.`,
+          fix: `Use \`${dictName || 'dict'}.get('${missingKey}', default_value)\` for safe lookup, or check \`if '${missingKey}' in ${dictName || 'dict'}:\` first.`
+        };
+      }
+
       return {
         explanation: 'You tried to access a dictionary key that does not exist in the dictionary.',
         fix: 'Check if the key is in the dictionary using `key in dict`, or use `dict.get(key, default)` for safe lookup.'
       };
+    }
     case 'ValueError':
       return {
         explanation: 'A function received an argument that has the right type but an invalid value (e.g. `int("abc")`).',

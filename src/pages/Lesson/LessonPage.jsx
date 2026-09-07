@@ -58,6 +58,7 @@ import { useProgressStore } from '../../stores/progressStore.js';
 import { useAuthStore } from '../../stores/authStore.js';
 import { useUIStore } from '../../stores/uiStore.js';
 import { usePracticeStore } from '../../stores/practiceStore.js';
+import { draftStorage } from '../../services/storage/localStorage.js';
 import { pythonRuntime } from '../../runtimes/python/pythonRuntime.js';
 import { useSEO } from '../../hooks/useSEO.js';
 
@@ -120,15 +121,16 @@ export function LessonPage() {
   const [stdout, setStdout] = useState('');
   const [stderr, setStderr] = useState('');
   const [execTime, setExecTime] = useState(0);
+  const [modalRuntimeError, setModalRuntimeError] = useState(null);
 
   // Embedded sandbox state for the 'sandbox' tab
-  const [sandboxCode, setSandboxCode] = useState(
-    examples?.[0]?.code || '# Write your Python code here\nprint("Hello from ByteLab Sandbox!")\n'
-  );
+  const defaultSandboxCode = examples?.[0]?.code || '# Write your Python code here\nprint("Hello from ByteLab Sandbox!")\n';
+  const [sandboxCode, setSandboxCode] = useState(defaultSandboxCode);
   const [sandboxExecState, setSandboxExecState] = useState('IDLE');
   const [sandboxStdout, setSandboxStdout] = useState('');
   const [sandboxStderr, setSandboxStderr] = useState('');
   const [sandboxExecTime, setSandboxExecTime] = useState(0);
+  const [sandboxRuntimeError, setSandboxRuntimeError] = useState(null);
 
   // Quiz state
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -145,6 +147,7 @@ export function LessonPage() {
     executionState: practiceExecState,
     stdout: practiceStdout,
     stderr: practiceStderr,
+    runtimeError: practiceRuntimeError,
     executionTimeMs: practiceExecTime,
     testCaseResults: practiceTestResults
   } = usePracticeStore();
@@ -167,6 +170,20 @@ export function LessonPage() {
     if (examples?.[0]?.code) {
       setActiveCode(examples[0].code);
     }
+    setExecState('IDLE');
+    setStdout('');
+    setStderr('');
+    setExecTime(0);
+    setModalRuntimeError(null);
+
+    // Restore or initialize sandbox draft
+    const savedSandboxDraft = draftStorage.getDraft(`sandbox:${chapterId}`);
+    setSandboxCode(typeof savedSandboxDraft === 'string' ? savedSandboxDraft : defaultSandboxCode);
+    setSandboxExecState('IDLE');
+    setSandboxStdout('');
+    setSandboxStderr('');
+    setSandboxExecTime(0);
+    setSandboxRuntimeError(null);
     
     // Load practice problem into IDE
     if (problems && problems.length > 0) {
@@ -179,6 +196,8 @@ export function LessonPage() {
     setExecState('IDLE');
     setStdout('');
     setStderr('');
+    setExecTime(0);
+    setModalRuntimeError(null);
     setModalOpen(true);
   }, []);
 
@@ -186,6 +205,7 @@ export function LessonPage() {
     setExecState('RUNNING');
     setStdout('');
     setStderr('');
+    setModalRuntimeError(null);
 
     const res = await pythonRuntime.execute({
       sourceCode: activeCode,
@@ -196,12 +216,38 @@ export function LessonPage() {
     setStdout(res.stdout);
     setStderr(res.stderr);
     setExecTime(res.executionTimeMs);
+    setModalRuntimeError(res.error || (res.stderr ? { message: res.stderr } : null));
+  };
+
+  const handleResetModalCode = () => {
+    setActiveCode(examples?.[0]?.code || '');
+    setExecState('IDLE');
+    setStdout('');
+    setStderr('');
+    setExecTime(0);
+    setModalRuntimeError(null);
+  };
+
+  const handleUpdateSandboxCode = (newCode) => {
+    setSandboxCode(newCode);
+    draftStorage.saveDraft(`sandbox:${chapterId}`, newCode);
+  };
+
+  const handleResetSandbox = () => {
+    draftStorage.clearDraft(`sandbox:${chapterId}`);
+    setSandboxCode(defaultSandboxCode);
+    setSandboxExecState('IDLE');
+    setSandboxStdout('');
+    setSandboxStderr('');
+    setSandboxExecTime(0);
+    setSandboxRuntimeError(null);
   };
 
   const handleRunSandbox = async () => {
     setSandboxExecState('RUNNING');
     setSandboxStdout('');
     setSandboxStderr('');
+    setSandboxRuntimeError(null);
 
     const res = await pythonRuntime.execute({
       sourceCode: sandboxCode,
@@ -212,6 +258,7 @@ export function LessonPage() {
     setSandboxStdout(res.stdout);
     setSandboxStderr(res.stderr);
     setSandboxExecTime(res.executionTimeMs);
+    setSandboxRuntimeError(res.error || (res.stderr ? { message: res.stderr } : null));
   };
 
   const handleCompleteAndNext = () => {
@@ -589,14 +636,15 @@ export function LessonPage() {
               <React.Suspense fallback={<div className="w-full h-[360px] flex items-center justify-center bg-white border border-[#d9d9dd] rounded-[16px] text-[#575768]">Loading interactive IDE...</div>}>
                 <CodePlayground
                   code={sandboxCode}
-                  onChange={(c) => setSandboxCode(c)}
+                  onChange={handleUpdateSandboxCode}
                   onRun={handleRunSandbox}
-                  onReset={() => setSandboxCode(examples?.[0]?.code || 'print("Hello from ByteLab!")\n')}
+                  onReset={handleResetSandbox}
                   language="python"
                   executionState={sandboxExecState}
                   stdout={sandboxStdout}
                   stderr={sandboxStderr}
                   executionTimeMs={sandboxExecTime}
+                  runtimeError={sandboxRuntimeError}
                   preventPaste={false}
                   height="380px"
                 />
@@ -858,6 +906,7 @@ export function LessonPage() {
                     executionState={practiceExecState}
                     stdout={practiceStdout}
                     stderr={practiceStderr}
+                    runtimeError={practiceRuntimeError}
                     executionTimeMs={practiceExecTime}
                     testCaseResults={practiceTestResults}
                     preventPaste={false}
@@ -1013,12 +1062,13 @@ export function LessonPage() {
               code={activeCode}
               onChange={(c) => setActiveCode(c)}
               onRun={handleRunModalCode}
-              onReset={() => setActiveCode(examples?.[0]?.code || '')}
+              onReset={handleResetModalCode}
               language="python"
               executionState={execState}
               stdout={stdout}
               stderr={stderr}
               executionTimeMs={execTime}
+              runtimeError={modalRuntimeError}
               preventPaste={false}
               height="clamp(200px, 35vh, 400px)"
             />

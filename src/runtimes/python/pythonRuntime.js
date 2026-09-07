@@ -36,8 +36,23 @@ export class PythonRuntime extends LanguageRuntime {
                 status,
                 stdout: stdout || '',
                 stderr: stderr || '',
+                error: error || null,
                 executionTimeMs: executionTimeMs || 0
               });
+            }
+          } else if (type === 'trace_result' && id) {
+            const pending = this.pendingExecutions.get(id);
+            if (pending) {
+              clearTimeout(pending.timer);
+              this.pendingExecutions.delete(id);
+              pending.resolve(event.data);
+            }
+          } else if (type === 'syntax_check_result' && id) {
+            const pending = this.pendingExecutions.get(id);
+            if (pending) {
+              clearTimeout(pending.timer);
+              this.pendingExecutions.delete(id);
+              pending.resolve(event.data);
             }
           }
         };
@@ -103,6 +118,66 @@ export class PythonRuntime extends LanguageRuntime {
         type: 'execute',
         code: sourceCode,
         stdin,
+        timeoutMs
+      });
+    });
+  }
+
+  async checkSyntax(sourceCode) {
+    await this.init();
+    return new Promise((resolve) => {
+      const checkId = `syntax_${++this.executionCounter}_${Date.now()}`;
+      const timeout = setTimeout(() => {
+        this.pendingExecutions.delete(checkId);
+        resolve({ valid: true });
+      }, 1500);
+
+      this.pendingExecutions.set(checkId, {
+        resolve: (data) => {
+          clearTimeout(timeout);
+          resolve(data);
+        },
+        reject: () => resolve({ valid: true }),
+        timer: timeout
+      });
+
+      this.worker.postMessage({
+        id: checkId,
+        type: 'check_syntax',
+        code: sourceCode
+      });
+    });
+  }
+
+  async traceExecution({ sourceCode, stdin = '', maxSteps = 300, timeoutMs = 8000 }) {
+    await this.init();
+
+    return new Promise((resolve, reject) => {
+      const execId = `trace_${++this.executionCounter}_${Date.now()}`;
+
+      const timer = setTimeout(() => {
+        this.pendingExecutions.delete(execId);
+        this.recreateWorker();
+
+        resolve({
+          status: 'timeout',
+          steps: [],
+          totalSteps: 0,
+          stdout: '',
+          stderr: `Trace Execution Timed Out: Program exceeded the ${timeoutMs / 1000}s limit. Check for infinite loops.`,
+          executionTimeMs: timeoutMs,
+          error: null
+        });
+      }, timeoutMs);
+
+      this.pendingExecutions.set(execId, { resolve, reject, timer });
+
+      this.worker.postMessage({
+        id: execId,
+        type: 'trace',
+        code: sourceCode,
+        stdin,
+        maxSteps,
         timeoutMs
       });
     });

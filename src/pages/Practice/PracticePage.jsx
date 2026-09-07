@@ -26,6 +26,7 @@ export function PracticePage() {
     executionState,
     stdout,
     stderr,
+    runtimeError,
     executionTimeMs,
     testCaseResults,
     loadProblem,
@@ -243,6 +244,7 @@ export function PracticePage() {
             executionState={executionState}
             stdout={stdout}
             stderr={stderr}
+            runtimeError={runtimeError}
             executionTimeMs={executionTimeMs}
             testCaseResults={testCaseResults}
             preventPaste={true}

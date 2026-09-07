@@ -13,6 +13,7 @@ const staticRoutes = [
   '/tests',
   '/leaderboard',
   '/blog',
+  '/blog/inbuilt-editor-error-highlighter',
   '/blog/zero-backend-wasm-python',
   '/blog/optimizing-web-vitals-sub-2s',
   '/blog/memory-tracer-python-stack',
@@ -149,6 +150,7 @@ Sitemap: ${BASE_URL}/sitemap.xml
 - [Unit V: Files, Modules & Packages (Days 37–46)](${BASE_URL}/courses/python-programming/unit/unit-05): File I/O, format operators, command line arguments, exception handling, modules, packages, NumPy and Pandas.
 
 ## Developer Journal & Technical Research
+- [In-Browser Python Error Highlighter](${BASE_URL}/blog/inbuilt-editor-error-highlighter): Dual-engine AST parsing, runtime stack frame decoding, Monaco delta decorations, and inline error widgets by Abhijith S.
 - [Zero-Backend Python in the Browser](${BASE_URL}/blog/zero-backend-wasm-python): Deep dive into executing Pyodide in WebAssembly Web Workers without server compute costs by Abhijith S.
 - [Architecting for Sub-2s Load Times](${BASE_URL}/blog/optimizing-web-vitals-sub-2s): Code splitting, asset budgets, and Vite manual chunk tuning by Abhijith S.
 - [CPython Memory Model & Stack Tracing](${BASE_URL}/blog/memory-tracer-python-stack): Visualizing variable references, stack frames, and garbage collection in educational tools by Abhijith S.
