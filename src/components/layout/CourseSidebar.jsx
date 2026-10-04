@@ -238,11 +238,19 @@ export function CourseSidebar({ courseId = 'python-programming', className = '' 
 
                           <div className="overflow-hidden space-y-0.5">
                             <span className="truncate block leading-snug">
-                              <span className={`font-mono mr-1 ${isChapterActive ? 'text-white/80' : 'text-[#75758a]'}`}>Day {unitDayNum}:</span>
+                              {chapter?.isSupplementary ? (
+                                <span className={`font-mono mr-1.5 text-[10px] px-1.5 py-0.2 rounded font-semibold uppercase tracking-wider ${
+                                  isChapterActive ? 'bg-amber-400 text-black' : 'bg-amber-100 text-amber-900 border border-amber-300'
+                                }`}>
+                                  {chapter?.badgeText || 'Enrichment'}
+                                </span>
+                              ) : (
+                                <span className={`font-mono mr-1 ${isChapterActive ? 'text-white/80' : 'text-[#75758a]'}`}>Day {unitDayNum}:</span>
+                              )}
                               {displayTitle}
                             </span>
                             <div className={`flex items-center gap-2 text-[10px] ${isChapterActive ? 'text-white/70' : 'text-[#75758a]'}`}>
-                              <span>Day {courseDayNum}</span>
+                              <span>{chapter?.isSupplementary ? 'Masterclass' : `Day ${courseDayNum}`}</span>
                               <span>•</span>
                               <span className="flex items-center gap-0.5">
                                 <Clock className="w-2.5 h-2.5" />

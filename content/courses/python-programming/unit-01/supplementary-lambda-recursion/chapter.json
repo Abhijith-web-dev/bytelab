@@ -1,0 +1,28 @@
+{
+  "id": "supplementary-lambda-recursion",
+  "title": "Supplementary Masterclass: Lambda Functions and Recursion",
+  "shortTitle": "Lambda & Recursion",
+  "description": "Comprehensive guide to anonymous single-expression lambda functions, higher-order functions (map, filter, sorted), and recursive problem solving with call stack execution traces.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
+  "isSupplementary": true,
+  "badgeText": "Special Enrichment",
+  "outcomes": [
+    "CO1",
+    "CO2"
+  ],
+  "order": 7,
+  "timeEstimate": 120,
+  "topics": [
+    "Lambda Functions",
+    "Anonymous Single-Expression Functions",
+    "map(), filter(), sorted()",
+    "Recursion Fundamentals",
+    "Base Case vs Recursive Case",
+    "Call Stack Tracing",
+    "Factorial, Fibonacci, Power, GCD",
+    "Common Mistakes & Viva Prep"
+  ],
+  "unitDayNumber": "Enrichment",
+  "dayNumber": 6.5
+}

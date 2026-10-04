@@ -1,0 +1,29 @@
+{
+  "id": "supplementary-list-methods",
+  "title": "Supplementary Masterclass: Python List Methods",
+  "shortTitle": "List Methods Masterclass",
+  "description": "Master the 11 built-in methods on Python lists: in-place mutations, return values, searching, slicing, time complexity, and reference mechanics.",
+  "difficulty": "beginner",
+  "simulationType": "code",
+  "isSupplementary": true,
+  "badgeText": "Special Enrichment",
+  "outcomes": [
+    "CO1"
+  ],
+  "order": 8,
+  "timeEstimate": 90,
+  "topics": [
+    "List Mutation Mechanics & In-Place Modification",
+    "Adding Items: append() vs extend() vs insert()",
+    "Removing Items: remove() vs pop() vs clear()",
+    "Searching & Counting: index() and count()",
+    "Reordering & Sorting: sort() vs sorted() and reverse()",
+    "Shallow Copying vs Reference Assignment (copy())",
+    "Time Complexity Analysis: O(1) vs O(n) Operations",
+    "List Storage Architecture & Memory Array Resizing",
+    "Common Pitfalls (e.g., items = items.sort())",
+    "Self-Check & Viva Preparation"
+  ],
+  "unitDayNumber": "Enrichment",
+  "dayNumber": 6.8
+}

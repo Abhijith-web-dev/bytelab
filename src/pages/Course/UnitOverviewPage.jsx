@@ -108,12 +108,14 @@ export function UnitOverviewPage() {
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className={`text-[12px] font-mono font-bold px-2.5 py-0.5 rounded-full ${
-                          isCompleted ? 'bg-emerald-600 text-white' : 'bg-[#17171c] text-white'
+                          ch?.isSupplementary
+                            ? 'bg-amber-600 text-white'
+                            : isCompleted ? 'bg-emerald-600 text-white' : 'bg-[#17171c] text-white'
                         }`}>
-                          Day {unitDayNumber}
+                          {ch?.isSupplementary ? (ch?.badgeText || 'Special Enrichment') : `Day ${unitDayNumber}`}
                         </span>
                         <span className="text-[11.5px] font-mono text-[#575768]">
-                          • Curriculum Day {courseDayNumber}
+                          {ch?.isSupplementary ? '• Advanced Masterclass' : `• Curriculum Day ${courseDayNumber}`}
                         </span>
                       </div>
 

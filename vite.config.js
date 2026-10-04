@@ -24,6 +24,21 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes('content/courses/python-programming/unit-01')) {
+            return 'course-unit-01';
+          }
+          if (id.includes('content/courses/python-programming/unit-02')) {
+            return 'course-unit-02';
+          }
+          if (id.includes('content/courses/python-programming/unit-03')) {
+            return 'course-unit-03';
+          }
+          if (id.includes('content/courses/python-programming/unit-04')) {
+            return 'course-unit-04';
+          }
+          if (id.includes('content/courses/python-programming/unit-05')) {
+            return 'course-unit-05';
+          }
           if (id.includes('content/courses') || id.includes('src/content/loader')) {
             return 'course-curriculum';
           }

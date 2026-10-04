@@ -55,7 +55,9 @@
         "day-03",
         "day-04",
         "day-05",
-        "day-06"
+        "day-06",
+        "supplementary-lambda-recursion",
+        "supplementary-list-methods"
       ]
     },
     {
@@ -78,7 +80,8 @@
         "day-19",
         "day-20",
         "day-21",
-        "day-22"
+        "day-22",
+        "supplementary-pattern-printing"
       ]
     },
     {

@@ -50,6 +50,7 @@ import {
   generateTraceStepInsight,
   generatePracticeLogicHint
 } from '../../services/ai/geminiNanoService.js';
+import aiModelManager from '../../services/ai/aiModelManager.js';
 
 export function CodePlayground({
   code,
@@ -103,12 +104,27 @@ export function CodePlayground({
 
   // Chrome Built-in AI (Gemini Nano) Socratic Hint State
   const [nanoCapability, setNanoCapability] = useState({ available: 'no', status: 'unavailable', model: 'none' });
+  const [downloadProgress, setDownloadProgress] = useState(0);
   const [activeAiHint, setActiveAiHint] = useState(null);
   const [aiHintLoading, setAiHintLoading] = useState(false);
   const [aiHintLevel, setAiHintLevel] = useState(1);
 
   useEffect(() => {
-    checkGeminiNanoCapability().then(setNanoCapability);
+    checkGeminiNanoCapability().then((caps) => {
+      setNanoCapability(caps);
+      if (typeof caps.downloadProgress === 'number') {
+        setDownloadProgress(caps.downloadProgress);
+      }
+    });
+
+    const unsubscribe = aiModelManager.subscribeDownloadProgress((progress) => {
+      setDownloadProgress(progress);
+      if (progress >= 100) {
+        checkGeminiNanoCapability().then(setNanoCapability);
+      }
+    });
+
+    return unsubscribe;
   }, []);
 
   const editorRef = useRef(null);
@@ -1926,6 +1942,11 @@ export function CodePlayground({
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                             Gemini Nano (On-Device)
                           </span>
+                        ) : (nanoCapability.status === 'downloading' || nanoCapability.status === 'downloadable') ? (
+                          <span className="text-[10px] font-medium bg-blue-100 text-blue-800 border border-blue-300 px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-spin" />
+                            Downloading Nano ({downloadProgress}%)
+                          </span>
                         ) : (
                           <span className="text-[10px] font-medium bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded-full">
                             ByteLab Socratic Mentor
@@ -1966,7 +1987,7 @@ export function CodePlayground({
                   {aiHintLoading ? (
                     <div className="flex items-center gap-2 text-[#78716c] italic text-[12px] py-1.5">
                       <Sparkles className="w-4 h-4 animate-spin text-orange-500" />
-                      <span>{nanoCapability.status === 'available' ? 'Gemini Nano is analyzing your bug locally...' : 'Generating Socratic hint...'}</span>
+                      <span>{nanoCapability.status === 'available' ? 'Gemini Nano is analyzing your bug locally...' : (nanoCapability.status === 'downloading' ? `Gemini Nano is downloading on device (${downloadProgress}%)...` : 'Generating Socratic hint...')}</span>
                     </div>
                   ) : activeAiHint ? (
                     <div className="space-y-3">

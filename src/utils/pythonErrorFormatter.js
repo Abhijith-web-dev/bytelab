@@ -172,6 +172,7 @@ export function parsePythonError(stderrText, sourceCode = '') {
 
   // 5. Generate human explanation, did-you-mean suggestion, and actionable fix
   const diagnostic = getDiagnosticAdvice(errorType, errorMessage, codeSnippet, sourceCode, lineNumber);
+  const beginnerDoctor = getBeginnerDoctorDiagnosis(errorType, errorMessage, codeSnippet);
 
   return {
     errorType,
@@ -185,7 +186,8 @@ export function parsePythonError(stderrText, sourceCode = '') {
     stackFrames,
     crashFrame,
     originFrame,
-    rawTraceback: cleanStderr
+    rawTraceback: cleanStderr,
+    beginnerDoctor
   };
 }
 
@@ -413,3 +415,81 @@ function getDiagnosticAdvice(errorType, message, snippet, sourceCode = '', lineN
       };
   }
 }
+
+/**
+ * Generates non-CS friendly physical analogies and auto-fix previews
+ * for common beginner Python errors (Missing colons, indentation, type mismatch).
+ * 
+ * @param {string} errorType 
+ * @param {string} message 
+ * @param {string} snippet 
+ * @returns {object}
+ */
+export function getBeginnerDoctorDiagnosis(errorType = 'RuntimeError', message = '', snippet = '') {
+  const cleanSnippet = String(snippet || '').trim();
+  const cleanMsg = String(message || '').toLowerCase();
+
+  switch (errorType) {
+    case 'SyntaxError': {
+      if (cleanMsg.includes("expected ':'") || (!cleanSnippet.endsWith(':') && /^(if|elif|else|for|while|def|class|try|except|with)\b/.test(cleanSnippet))) {
+        return {
+          plainTitle: 'Missing Colon (:) at Statement End',
+          analogy: "Like forgetting to ring the doorbell before entering someone's house. The colon (:) tells Python to open the door for the indented actions below.",
+          autoFixLine: cleanSnippet ? `${cleanSnippet}:` : null,
+          whyItHappens: "Python compound statements like 'if', 'for', and 'def' must always end with a colon ':' to signal the start of a block."
+        };
+      }
+      return {
+        plainTitle: 'Grammar & Punctuation Confusion',
+        analogy: 'Like a missing punctuation mark or unmatched quotation in an English sentence.',
+        autoFixLine: null,
+        whyItHappens: 'Python could not understand this line because the spelling, quotes, or brackets violate Python grammatical rules.'
+      };
+    }
+
+    case 'IndentationError': {
+      return {
+        plainTitle: 'Misaligned Code Block Spacing',
+        analogy: 'Like soldiers marching in parade formation. Every soldier in the same rank must line up at the exact same distance (4 spaces).',
+        autoFixLine: cleanSnippet ? (cleanSnippet.startsWith(' ') ? cleanSnippet.trim() : `    ${cleanSnippet.trim()}`) : null,
+        whyItHappens: 'Python uses indentation (4 spaces) instead of curly braces {} to know which statements belong together.'
+      };
+    }
+
+    case 'TypeError': {
+      if (cleanMsg.includes('str') || cleanMsg.includes('int') || cleanMsg.includes('concatenate')) {
+        return {
+          plainTitle: 'Mixing Words and Numbers',
+          analogy: 'Like trying to insert a metal coin into a paper bill vending slot. Python treats numbers and text strings as completely different physical objects.',
+          autoFixLine: null,
+          whyItHappens: "You tried to combine text and a number directly (e.g. 'Score: ' + 85). Wrap the number in str(...) or use an f-string."
+        };
+      }
+      return {
+        plainTitle: 'Incompatible Data Types',
+        analogy: 'Using the wrong tool for the material, like using scissors on wood.',
+        autoFixLine: null,
+        whyItHappens: 'An operation was attempted on an object whose type does not support it.'
+      };
+    }
+
+    case 'NameError': {
+      return {
+        plainTitle: 'Unknown Box Name',
+        analogy: 'Like calling a person by the wrong name before introducing them.',
+        autoFixLine: null,
+        whyItHappens: 'Python found an identifier that has not been defined yet in memory.'
+      };
+    }
+
+    default: {
+      return {
+        plainTitle: 'Program Execution Alert',
+        analogy: 'A temporary stop condition halted program execution.',
+        autoFixLine: null,
+        whyItHappens: message || 'An unexpected condition occurred.'
+      };
+    }
+  }
+}
+

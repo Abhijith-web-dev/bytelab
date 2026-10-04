@@ -1,0 +1,122 @@
+[
+  {
+    "id": "q1",
+    "question": "What is the primary characteristic of a Python lambda function?",
+    "options": [
+      "It must be defined with multiple statements across several lines",
+      "It is an anonymous single-expression function written on one line",
+      "It cannot accept any input arguments",
+      "It replaces class inheritance in Python"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A lambda function is an anonymous inline function containing exactly one expression whose result is automatically returned."
+  },
+  {
+    "id": "q2",
+    "question": "What is the output of the following code?\ncalc = lambda a, b: a * b + 5\nprint(calc(3, 4))",
+    "options": [
+      "12",
+      "17",
+      "35",
+      "None"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Evaluating the expression: (3 * 4) + 5 = 12 + 5 = 17."
+  },
+  {
+    "id": "q3",
+    "question": "Which of the following lambda definitions will cause a SyntaxError?",
+    "options": [
+      "lambda x: x > 0",
+      "lambda a, b: a if a > b else b",
+      "lambda x: return x * 2",
+      "lambda: 100"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A lambda function automatically returns its expression value; writing an explicit 'return' statement inside lambda causes a SyntaxError."
+  },
+  {
+    "id": "q4",
+    "question": "What does map(lambda x: x ** 2, [1, 2, 3]) do?",
+    "options": [
+      "Filters out elements that are not equal to 2",
+      "Applies the squaring lambda to each element, producing [1, 4, 9]",
+      "Sums all numbers in the list",
+      "Sorts the list in descending order"
+    ],
+    "correctAnswer": 1,
+    "explanation": "map() applies the function to each element of the iterable, transforming [1, 2, 3] into [1, 4, 9]."
+  },
+  {
+    "id": "q5",
+    "question": "What is the essential role of a 'base case' in a recursive function?",
+    "options": [
+      "To double the execution speed of the recursion",
+      "To provide a stopping condition that terminates recursive calls and prevents infinite loops",
+      "To import standard library math modules",
+      "To convert recursion into an iterative while loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The base case defines when the recursion stops. Without it, the function calls itself indefinitely until Python raises RecursionError."
+  },
+  {
+    "id": "q6",
+    "question": "What exception is raised when a recursive function exceeds Python's call stack limit?",
+    "options": [
+      "StackOverflowError",
+      "RecursionError",
+      "ZeroDivisionError",
+      "MemoryAllocationError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python raises 'RecursionError: maximum recursion depth exceeded' when recursion depth exceeds the interpreter limit."
+  },
+  {
+    "id": "q7",
+    "question": "What is the correct base case for calculating Factorial n! recursively?",
+    "options": [
+      "if n == 0: return 0",
+      "if n == 0: return 1",
+      "if n == 1: return 0",
+      "if n < 0: return -1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "By mathematical definition, 0! = 1. Returning 0 would multiply the entire cascade by 0, yielding 0."
+  },
+  {
+    "id": "q8",
+    "question": "How does Python manage active recursive function calls in memory?",
+    "options": [
+      "By placing each function frame on the Call Stack in LIFO (Last-In, First-Out) order",
+      "By storing variable values in a FIFO queue on the hard drive",
+      "By converting all local variables into global variables",
+      "By creating a new operating system thread for each call"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python stores active execution frames on the Call Stack. Each recursive call adds a frame, and returning removes frames in reverse order (LIFO)."
+  },
+  {
+    "id": "q9",
+    "question": "What is the output of the following recursive function?\ndef mystery(n):\n    if n <= 1:\n        return 1\n    return n + mystery(n - 2)\n\nprint(mystery(5))",
+    "options": [
+      "9",
+      "15",
+      "8",
+      "10"
+    ],
+    "correctAnswer": 0,
+    "explanation": "mystery(5) = 5 + mystery(3) = 5 + 3 + mystery(1) = 5 + 3 + 1 = 9."
+  },
+  {
+    "id": "q10",
+    "question": "When sorting a list of tuples with sorted(data, key=lambda item: item[1]), what determines the sort order?",
+    "options": [
+      "The first element of each tuple",
+      "The second element (index 1) of each tuple",
+      "The length of each tuple",
+      "Random shuffle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The lambda extracts item[1] (the second element) as the key value used for comparing and sorting the tuples."
+  }
+]

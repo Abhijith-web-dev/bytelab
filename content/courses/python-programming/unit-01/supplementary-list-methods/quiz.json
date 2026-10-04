@@ -1,0 +1,122 @@
+[
+  {
+    "id": "q1",
+    "question": "What is the return value of `numbers.sort()` in Python?",
+    "options": [
+      "A new sorted list",
+      "None",
+      "An integer indicating the number of swaps made",
+      "A boolean True"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`list.sort()` sorts the list in-place and returns `None`. Writing `nums = nums.sort()` is a common bug that overwrites the variable with `None`."
+  },
+  {
+    "id": "q2",
+    "question": "What will be the output of the following code?\nitems = [1, 2]\nitems.append([3, 4])\nprint(len(items))",
+    "options": [
+      "4",
+      "3",
+      "2",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`append()` adds the argument as a single atomic element, creating `[1, 2, [3, 4]]`, which has length 3."
+  },
+  {
+    "id": "q3",
+    "question": "Which method should you use if you want to add each item from a tuple `(5, 6)` individually to the end of an existing list?",
+    "options": [
+      "items.insert((5, 6))",
+      "items.append((5, 6))",
+      "items.extend((5, 6))",
+      "items.push((5, 6))"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`extend(iterable)` iterates over the collection and appends each element individually."
+  },
+  {
+    "id": "q4",
+    "question": "What happens when you call `numbers.remove(100)` and `100` is NOT present in `numbers`?",
+    "options": [
+      "It returns False silently",
+      "It raises a ValueError",
+      "It raises an IndexError",
+      "It returns None and does nothing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`list.remove(value)` raises a `ValueError: list.remove(x): x not in list` when the specified value is absent."
+  },
+  {
+    "id": "q5",
+    "question": "What does `numbers.pop()` return when called without any arguments?",
+    "options": [
+      "None",
+      "The first element (at index 0)",
+      "The last element (at index -1) that was removed",
+      "The new length of the list"
+    ],
+    "correctAnswer": 2,
+    "explanation": "By default, `pop()` removes and returns the last element of the list (`index = -1`)."
+  },
+  {
+    "id": "q6",
+    "question": "What is the average time complexity of `list.append(item)` in Python?",
+    "options": [
+      "O(1) amortized",
+      "O(n)",
+      "O(n log n)",
+      "O(n²)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "CPython uses dynamic array over-allocation, making appending at the end an $O(1)$ amortized operation."
+  },
+  {
+    "id": "q7",
+    "question": "What is the difference between `list.copy()` and assigning `b = a`?",
+    "options": [
+      "`list.copy()` creates a new list object in memory, while `b = a` merely creates a second reference to the same list",
+      "`b = a` creates a deep copy of all nested objects",
+      "`list.copy()` converts elements into tuples",
+      "There is no difference"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`b = a` aliases the same list object (`id(a) == id(b)`). `a.copy()` allocates a new list container with duplicated element references."
+  },
+  {
+    "id": "q8",
+    "question": "What happens when modifying a nested list inside a shallow copy?\noriginal = [[1, 2], [3, 4]]\nclone = original.copy()\nclone[0].append(99)",
+    "options": [
+      "Only `clone` is modified",
+      "Both `original` and `clone` show `[1, 2, 99]` for the first element",
+      "Python raises an ImmutableObjectError",
+      "`original` is emptied"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A shallow copy only duplicates the outer container. The nested list `[1, 2]` is shared by reference between both `original` and `clone`."
+  },
+  {
+    "id": "q9",
+    "question": "What does `numbers.count(42)` return if 42 is not in the list?",
+    "options": [
+      "0",
+      "-1",
+      "None",
+      "Raises ValueError"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`count()` returns `0` if the value is not found. It never raises an exception."
+  },
+  {
+    "id": "q10",
+    "question": "Which of the following functions returns a NEW sorted list without modifying the original list?",
+    "options": [
+      "list.sort()",
+      "sorted(list)",
+      "list.order()",
+      "list.reverse()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The built-in function `sorted(iterable)` returns a new list containing sorted elements without modifying the original input iterable."
+  }
+]

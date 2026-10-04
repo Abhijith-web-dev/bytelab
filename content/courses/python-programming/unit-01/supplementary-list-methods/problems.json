@@ -1,0 +1,187 @@
+[
+  {
+    "id": "list-methods-append-extend-insert",
+    "title": "Adding and Inserting Elements in Lists",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Write a Python program that performs three operations on an initial list of strings `names`:\n1. Read an initial space-separated list of names on the first line.\n2. Read a single name on the second line and append it to the end of `names` using `.append()`.\n3. Read two space-separated names on the third line and add them to `names` using `.extend()`.\n4. Insert the string `\"VIP\"` at index 0 using `.insert(0, \"VIP\")`.\n\nFinally, print the modified list.",
+    "requirements": [
+      "Read initial list using `names = input().split()`.",
+      "Append single item from second input line using `names.append(...)`.",
+      "Extend using `names.extend(input().split())`.",
+      "Insert `\"VIP\"` at index 0 using `names.insert(0, \"VIP\")`.",
+      "Print `names`."
+    ],
+    "starterCode": "# Read initial list\nnames = input().split()\n\n# Read single name to append\nitem_to_append = input().strip()\nnames.append(item_to_append)\n\n# Read space-separated items to extend\nitems_to_extend = input().split()\nnames.extend(items_to_extend)\n\n# Insert 'VIP' at index 0\nnames.insert(0, \"VIP\")\n\n# Print final list\nprint(names)\n",
+    "testCases": [
+      {
+        "input": "Alice Bob\nCharlie\nDavid Eva",
+        "expectedOutput": "['VIP', 'Alice', 'Bob', 'Charlie', 'David', 'Eva']\n",
+        "description": "Standard list insertion and extension"
+      },
+      {
+        "input": "John\nMike\nSarah Zoe",
+        "expectedOutput": "['VIP', 'John', 'Mike', 'Sarah', 'Zoe']\n",
+        "description": "Single element start"
+      },
+      {
+        "input": "A B\nC\nD E",
+        "expectedOutput": "['VIP', 'A', 'B', 'C', 'D', 'E']\n",
+        "description": "Letters test case"
+      }
+    ],
+    "hints": [
+      "Use `names.append(x)` to add one item at the end.",
+      "Use `names.extend(items)` to add all items from a list.",
+      "Use `names.insert(0, 'VIP')` to add at the front."
+    ]
+  },
+  {
+    "id": "list-methods-remove-and-pop",
+    "title": "Remove by Value and Pop by Index",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Given a list of numbers read from input, perform the following removals in sequence:\n1. Read a line of space-separated integers into `numbers`.\n2. Read an integer `val_to_remove` and remove its first occurrence using `.remove(val_to_remove)`.\n3. Remove and store the last element using `.pop()`.\n4. Remove and store the first element using `.pop(0)`.\n\nPrint the removed last element, the removed first element, and the remaining list.",
+    "requirements": [
+      "Parse integers with `numbers = list(map(int, input().split()))`.",
+      "Use `numbers.remove(val_to_remove)`.",
+      "Use `last_item = numbers.pop()`.",
+      "Use `first_item = numbers.pop(0)`.",
+      "Print 'Popped Last:', last_item",
+      "Print 'Popped First:', first_item",
+      "Print 'Remaining:', numbers"
+    ],
+    "starterCode": "# Read list of integers\nnumbers = list(map(int, input().split()))\nval_to_remove = int(input())\n\n# 1. Remove first matching value\nnumbers.remove(val_to_remove)\n\n# 2. Pop last element\nlast_elem = numbers.pop()\n\n# 3. Pop first element\nfirst_elem = numbers.pop(0)\n\nprint(\"Popped Last:\", last_elem)\nprint(\"Popped First:\", first_elem)\nprint(\"Remaining:\", numbers)\n",
+    "testCases": [
+      {
+        "input": "10 20 30 20 40 50\n20",
+        "expectedOutput": "Popped Last: 50\nPopped First: 10\nRemaining: [30, 20, 40]\n",
+        "description": "Remove 20, pop last 50 and first 10"
+      },
+      {
+        "input": "5 15 25 35 45\n25",
+        "expectedOutput": "Popped Last: 45\nPopped First: 5\nRemaining: [15, 35]\n",
+        "description": "Remove 25, pop 45 and 5"
+      },
+      {
+        "input": "1 2 3 4\n2",
+        "expectedOutput": "Popped Last: 4\nPopped First: 1\nRemaining: [3]\n",
+        "description": "4 items reduced to 1"
+      }
+    ],
+    "hints": [
+      "`.remove(x)` removes the first matching value.",
+      "`.pop()` returns the last item.",
+      "`.pop(0)` returns the first item."
+    ]
+  },
+  {
+    "id": "list-methods-search-and-count",
+    "title": "Searching Indices and Counting Frequencies",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 15,
+    "description": "Write a Python program that searches a list of integers for a target value:\n1. Read a list of space-separated integers on the first line.\n2. Read a target integer $T$ on the second line.\n3. Use `.count(T)` to find how many times $T$ appears.\n4. If $T$ is in the list, use `.index(T)` to find the position of its first occurrence. If not present, the position should be `-1`.\n\nPrint the count and first index.",
+    "requirements": [
+      "Parse numbers using `numbers = list(map(int, input().split()))`.",
+      "Read target $T = int(input())$.",
+      "Use `numbers.count(T)`.",
+      "Use `numbers.index(T)` if present, else `-1`.",
+      "Print 'Count:' followed by count, and 'First Index:' followed by index."
+    ],
+    "starterCode": "# Read list and target\nnumbers = list(map(int, input().split()))\ntarget = int(input())\n\n# Count occurrences\nfreq = numbers.count(target)\n\n# Find first index safely\nfirst_pos = numbers.index(target) if target in numbers else -1\n\nprint(\"Count:\", freq)\nprint(\"First Index:\", first_pos)\n",
+    "testCases": [
+      {
+        "input": "4 2 7 2 9 2 5\n2",
+        "expectedOutput": "Count: 3\nFirst Index: 1\n",
+        "description": "Target 2 appears 3 times, first at index 1"
+      },
+      {
+        "input": "10 20 30 40\n99",
+        "expectedOutput": "Count: 0\nFirst Index: -1\n",
+        "description": "Target absent"
+      },
+      {
+        "input": "8 8 8 8\n8",
+        "expectedOutput": "Count: 4\nFirst Index: 0\n",
+        "description": "All identical numbers"
+      }
+    ],
+    "hints": [
+      "Use `numbers.count(target)` to get frequency.",
+      "Check `if target in numbers:` before calling `.index(target)` to avoid ValueError."
+    ]
+  },
+  {
+    "id": "list-methods-sort-and-reverse",
+    "title": "In-Place List Sorting and Reversing",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 15,
+    "description": "Write a Python program that accepts a list of words from input and demonstrates list reordering:\n1. Read a line of space-separated strings.\n2. Create a shallow copy of the list named `descending` and sort it in descending alphabetical order using `.sort(reverse=True)`.\n3. Create another shallow copy named `by_length` and sort it by word length using `.sort(key=len)`.\n4. Take the original list and reverse its order in-place using `.reverse()`.\n\nPrint the reversed original list, the descending sorted list, and the length sorted list.",
+    "requirements": [
+      "Read words using `words = input().split()`.",
+      "Use `.copy()` before sorting so each variation is distinct.",
+      "Use `.sort(reverse=True)` for descending order.",
+      "Use `.sort(key=len)` for length sorting.",
+      "Use `.reverse()` on the original list.",
+      "Print 'Reversed:', words",
+      "Print 'Descending:', descending",
+      "Print 'By Length:', by_length"
+    ],
+    "starterCode": "# Read words\nwords = input().split()\n\n# Descending sort\ndescending = words.copy()\ndescending.sort(reverse=True)\n\n# Length sort\nby_length = words.copy()\nby_length.sort(key=len)\n\n# Reverse original\nwords.reverse()\n\nprint(\"Reversed:\", words)\nprint(\"Descending:\", descending)\nprint(\"By Length:\", by_length)\n",
+    "testCases": [
+      {
+        "input": "banana fig apple kiwi cherry",
+        "expectedOutput": "Reversed: ['cherry', 'kiwi', 'apple', 'fig', 'banana']\nDescending: ['kiwi', 'fig', 'cherry', 'banana', 'apple']\nBy Length: ['fig', 'kiwi', 'apple', 'banana', 'cherry']\n",
+        "description": "Fruits sorted by different criteria"
+      },
+      {
+        "input": "cat elephant dog butterfly",
+        "expectedOutput": "Reversed: ['butterfly', 'dog', 'elephant', 'cat']\nDescending: ['elephant', 'dog', 'cat', 'butterfly']\nBy Length: ['cat', 'dog', 'elephant', 'butterfly']\n",
+        "description": "Animals test case"
+      }
+    ],
+    "hints": [
+      "Remember that `.sort()` and `.reverse()` return `None` and modify lists in place.",
+      "Use `copy()` so each transformation is independent."
+    ]
+  },
+  {
+    "id": "list-methods-shallow-copy-mutation",
+    "title": "Shallow Copy vs Reference Aliasing",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 15,
+    "description": "Write a Python program that reads a list of integers and demonstrates the crucial distinction between reference assignment and shallow copying:\n1. Read a list of space-separated integers into `original`.\n2. Create an alias: `alias = original`.\n3. Create a shallow copy: `clone = original.copy()`.\n4. Append integer `99` to `original` using `.append(99)`.\n5. Append integer `100` to `clone` using `.append(100)`.\n\nPrint `original`, `alias`, and `clone`. Notice how `alias` reflects changes to `original`, while `clone` remains independent!",
+    "requirements": [
+      "Read `original = list(map(int, input().split()))`.",
+      "Assign `alias = original`.",
+      "Clone `clone = original.copy()`.",
+      "Perform `original.append(99)`.",
+      "Perform `clone.append(100)`.",
+      "Print 'Original:', original",
+      "Print 'Alias:', alias",
+      "Print 'Clone:', clone"
+    ],
+    "starterCode": "# Read original list\noriginal = list(map(int, input().split()))\n\n# Create reference alias and shallow clone\nalias = original\nclone = original.copy()\n\n# Perform independent mutations\noriginal.append(99)\nclone.append(100)\n\nprint(\"Original:\", original)\nprint(\"Alias:\", alias)\nprint(\"Clone:\", clone)\n",
+    "testCases": [
+      {
+        "input": "1 2 3",
+        "expectedOutput": "Original: [1, 2, 3, 99]\nAlias: [1, 2, 3, 99]\nClone: [1, 2, 3, 100]\n",
+        "description": "Basic integers aliasing vs cloning"
+      },
+      {
+        "input": "10 20",
+        "expectedOutput": "Original: [10, 20, 99]\nAlias: [10, 20, 99]\nClone: [10, 20, 100]\n",
+        "description": "Two elements test case"
+      }
+    ],
+    "hints": [
+      "`alias = original` points to the same underlying list object.",
+      "`clone = original.copy()` creates a new list in memory."
+    ]
+  }
+]

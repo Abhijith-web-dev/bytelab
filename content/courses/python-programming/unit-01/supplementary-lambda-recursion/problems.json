@@ -1,0 +1,184 @@
+[
+  {
+    "id": "lambda-cube-and-diff",
+    "title": "Lambda Cube and Difference Calculator",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 15,
+    "description": "Write a Python program that uses lambda functions to perform two calculations:\n1. Create a lambda function named `cube` that takes a single number and returns its cube ($x^3$).\n2. Create a lambda function named `diff` that takes two numbers ($a$ and $b$) and returns their difference ($a - b$).\n\nRead two integers from input on separate lines, compute the cube of the first integer and the difference between both integers, and print the results.",
+    "requirements": [
+      "Define `cube = lambda x: ...`",
+      "Define `diff = lambda a, b: ...`",
+      "Read two integers using `int(input())`.",
+      "Print 'Cube:' followed by the cube of the first integer.",
+      "Print 'Diff:' followed by the difference (first - second)."
+    ],
+    "starterCode": "# Define your lambda functions here:\ncube = lambda x: x ** 3\ndiff = lambda a, b: a - b\n\n# Read inputs and display results:\nnum1 = int(input())\nnum2 = int(input())\n\nprint(\"Cube:\", cube(num1))\nprint(\"Diff:\", diff(num1, num2))\n",
+    "testCases": [
+      {
+        "input": "4\n10",
+        "expectedOutput": "Cube: 64\nDiff: -6\n",
+        "description": "Inputs: 4 and 10"
+      },
+      {
+        "input": "5\n2",
+        "expectedOutput": "Cube: 125\nDiff: 3\n",
+        "description": "Inputs: 5 and 2"
+      },
+      {
+        "input": "3\n3",
+        "expectedOutput": "Cube: 27\nDiff: 0\n",
+        "description": "Inputs: 3 and 3"
+      }
+    ],
+    "hints": [
+      "Use `lambda x: x ** 3` or `lambda x: x * x * x` for the cube.",
+      "Use `lambda a, b: a - b` for the difference.",
+      "Print using `print('Cube:', cube(num1))` and `print('Diff:', diff(num1, num2))`."
+    ]
+  },
+  {
+    "id": "lambda-filter-map-multiples",
+    "title": "Filter Multiples & Map Doubler",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 20,
+    "description": "Given a list of numbers read from input as a single line of space-separated integers, perform the following two transformations using higher-order functions and lambdas:\n1. Use `filter()` with a lambda function to select only numbers that are divisible by 5.\n2. Use `map()` with a lambda function to double (multiply by 2) each of the filtered numbers.\n\nPrint the filtered list, followed by the doubled list.",
+    "requirements": [
+      "Read integers using `list(map(int, input().split()))`.",
+      "Use `filter(lambda x: x % 5 == 0, numbers)` to find multiples of 5.",
+      "Use `map(lambda x: x * 2, filtered_list)` to double them.",
+      "Print both lists."
+    ],
+    "starterCode": "# Read input numbers:\nnumbers = list(map(int, input().split()))\n\n# 1. Filter multiples of 5 using lambda\nmultiples_of_5 = list(filter(lambda x: x % 5 == 0, numbers))\n\n# 2. Map double each filtered number using lambda\ndoubled = list(map(lambda x: x * 2, multiples_of_5))\n\nprint(\"Multiples of 5:\", multiples_of_5)\nprint(\"Doubled:\", doubled)\n",
+    "testCases": [
+      {
+        "input": "10 12 15 18 20 22 25",
+        "expectedOutput": "Multiples of 5: [10, 15, 20, 25]\nDoubled: [20, 30, 40, 50]\n",
+        "description": "Mixed integers with multiples of 5"
+      },
+      {
+        "input": "5 10 15",
+        "expectedOutput": "Multiples of 5: [5, 10, 15]\nDoubled: [10, 20, 30]\n",
+        "description": "All multiples of 5"
+      },
+      {
+        "input": "2 4 6 8",
+        "expectedOutput": "Multiples of 5: []\nDoubled: []\n",
+        "description": "No multiples of 5"
+      }
+    ],
+    "hints": [
+      "A number is divisible by 5 if `x % 5 == 0`.",
+      "Wrap filter results in `list(...)` to print as a list.",
+      "Pass the filtered list into `map(lambda x: x * 2, multiples_of_5)`."
+    ]
+  },
+  {
+    "id": "recursive-factorial-and-sum",
+    "title": "Recursive Factorial & Natural Sum",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 20,
+    "description": "Implement two recursive functions:\n1. `factorial(n)`: Calculates $n! = n \\times (n-1)!$ with base case `factorial(0) = 1`.\n2. `sum_natural(n)`: Calculates $1 + 2 + \\dots + n$ with base case `sum_natural(0) = 0`.\n\nRead an integer $N$ from input ($N \\ge 0$) and display both results.",
+    "requirements": [
+      "Define recursive `factorial(n)` with base case `n == 0: return 1`.",
+      "Define recursive `sum_natural(n)` with base case `n == 0: return 0`.",
+      "Do not use loops (`for` or `while`).",
+      "Print 'Factorial:' followed by factorial result.",
+      "Print 'Sum:' followed by natural sum result."
+    ],
+    "starterCode": "def factorial(n):\n    # Base case\n    if n == 0:\n        return 1\n    # Recursive case\n    return n * factorial(n - 1)\n\ndef sum_natural(n):\n    # Base case\n    if n == 0:\n        return 0\n    # Recursive case\n    return n + sum_natural(n - 1)\n\n# Read input\nn = int(input())\nprint(\"Factorial:\", factorial(n))\nprint(\"Sum:\", sum_natural(n))\n",
+    "testCases": [
+      {
+        "input": "5",
+        "expectedOutput": "Factorial: 120\nSum: 15\n",
+        "description": "N = 5"
+      },
+      {
+        "input": "6",
+        "expectedOutput": "Factorial: 720\nSum: 21\n",
+        "description": "N = 6"
+      },
+      {
+        "input": "0",
+        "expectedOutput": "Factorial: 1\nSum: 0\n",
+        "description": "N = 0 (Base case test)"
+      }
+    ],
+    "hints": [
+      "Remember: 0! is 1, not 0.",
+      "In recursive functions, verify the base case comes before the recursive call."
+    ]
+  },
+  {
+    "id": "recursive-fibonacci-and-power",
+    "title": "Recursive Fibonacci and Power",
+    "difficulty": "advanced",
+    "marks": 20,
+    "timeMinutes": 25,
+    "description": "Implement two recursive algorithms:\n1. `fibonacci(n)`: Returns the $N$th Fibonacci number where $F(0)=0$, $F(1)=1$, and $F(n) = F(n-1) + F(n-2)$.\n2. `power(base, exp)`: Returns $base^{exp}$ recursively where $base^0 = 1$ and $base^{exp} = base \\times base^{exp-1}$.\n\nRead three integers: $N$ (for Fibonacci), $base$, and $exp$ (for power) on separate lines, and print the results.",
+    "requirements": [
+      "Define `fibonacci(n)` with base cases for 0 and 1.",
+      "Define `power(base, exp)` with base case `exp == 0: return 1`.",
+      "Print 'Fibonacci:' and 'Power:'."
+    ],
+    "starterCode": "def fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    return fibonacci(n - 1) + fibonacci(n - 2)\n\ndef power(base, exp):\n    if exp == 0:\n        return 1\n    return base * power(base, exp - 1)\n\nn = int(input())\nbase = int(input())\nexp = int(input())\n\nprint(\"Fibonacci:\", fibonacci(n))\nprint(\"Power:\", power(base, exp))\n",
+    "testCases": [
+      {
+        "input": "7\n2\n5",
+        "expectedOutput": "Fibonacci: 13\nPower: 32\n",
+        "description": "Fibonacci(7)=13, Power(2, 5)=32"
+      },
+      {
+        "input": "6\n3\n4",
+        "expectedOutput": "Fibonacci: 8\nPower: 81\n",
+        "description": "Fibonacci(6)=8, Power(3, 4)=81"
+      },
+      {
+        "input": "1\n5\n0",
+        "expectedOutput": "Fibonacci: 1\nPower: 1\n",
+        "description": "Base case: Fib(1)=1, 5^0=1"
+      }
+    ],
+    "hints": [
+      "Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21...",
+      "For power, any base raised to power 0 is 1."
+    ]
+  },
+  {
+    "id": "recursive-palindrome-and-gcd",
+    "title": "Recursive Palindrome & Euclidean GCD",
+    "difficulty": "advanced",
+    "marks": 20,
+    "timeMinutes": 25,
+    "description": "Implement two classic recursive functions:\n1. `is_palindrome(text)`: Returns `True` if `text` is a palindrome (reads same forward and backward), `False` otherwise.\n2. `gcd(a, b)`: Computes the Greatest Common Divisor of $a$ and $b$ using Euclid's recursive algorithm ($GCD(a, b) = GCD(b, a \\% b)$, base case $b=0 \\implies a$).\n\nRead a word on line 1 and two integers on line 2, and print whether the word is a palindrome and what their GCD is.",
+    "requirements": [
+      "Implement recursive `is_palindrome(s)` using slice reduction `s[1:-1]`.",
+      "Implement recursive `gcd(a, b)` using Euclidean algorithm.",
+      "Print 'Palindrome: True/False' and 'GCD: <value>'."
+    ],
+    "starterCode": "def is_palindrome(s):\n    if len(s) <= 1:\n        return True\n    if s[0] != s[-1]:\n        return False\n    return is_palindrome(s[1:-1])\n\ndef gcd(a, b):\n    if b == 0:\n        return a\n    return gcd(b, a % b)\n\ntext = input().strip()\nnum1, num2 = map(int, input().split())\n\nprint(\"Palindrome:\", is_palindrome(text))\nprint(\"GCD:\", gcd(num1, num2))\n",
+    "testCases": [
+      {
+        "input": "racecar\n48 18",
+        "expectedOutput": "Palindrome: True\nGCD: 6\n",
+        "description": "racecar is palindrome, GCD(48, 18) = 6"
+      },
+      {
+        "input": "bytelab\n54 24",
+        "expectedOutput": "Palindrome: False\nGCD: 6\n",
+        "description": "bytelab is not palindrome, GCD(54, 24) = 6"
+      },
+      {
+        "input": "madam\n100 25",
+        "expectedOutput": "Palindrome: True\nGCD: 25\n",
+        "description": "madam is palindrome, GCD(100, 25) = 25"
+      }
+    ],
+    "hints": [
+      "In `is_palindrome`, compare `s[0]` with `s[-1]` and recurse on `s[1:-1]`.",
+      "In Euclidean GCD, `gcd(a, b) = gcd(b, a % b)` with base case `if b == 0: return a`."
+    ]
+  }
+]

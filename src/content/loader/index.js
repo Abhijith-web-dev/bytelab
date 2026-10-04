@@ -64,6 +64,32 @@ export function getUnit(courseId, unitId) {
 export function normalizeChapterId(chapterId) {
   if (!chapterId) return chapterId;
   const aliases = {
+    // Unit 1 - Supplementary Masterclass: Lambda Functions & Recursion
+    'supplementary-lambda-recursion': 'supplementary-lambda-recursion',
+    'lambda-recursion': 'supplementary-lambda-recursion',
+    'lambda-functions-and-recursion': 'supplementary-lambda-recursion',
+    'u1-supplement': 'supplementary-lambda-recursion',
+    'unit-01-supplement': 'supplementary-lambda-recursion',
+    'u1-additional': 'supplementary-lambda-recursion',
+    'day-06-additional': 'supplementary-lambda-recursion',
+
+    // Unit 1 - Supplementary Masterclass: List Methods
+    'supplementary-list-methods': 'supplementary-list-methods',
+    'list-methods': 'supplementary-list-methods',
+    'python-list-methods': 'supplementary-list-methods',
+    'u1-list-methods': 'supplementary-list-methods',
+    'unit-01-list-methods': 'supplementary-list-methods',
+
+    // Unit 2 - Supplementary Masterclass: Pattern Printing
+    'supplementary-pattern-printing': 'supplementary-pattern-printing',
+    'pattern-printing': 'supplementary-pattern-printing',
+    'python-pattern-printing': 'supplementary-pattern-printing',
+    'patterns': 'supplementary-pattern-printing',
+    'u2-supplement': 'supplementary-pattern-printing',
+    'unit-02-supplement': 'supplementary-pattern-printing',
+    'u2-additional': 'supplementary-pattern-printing',
+    'day-22-additional': 'supplementary-pattern-printing',
+
     'u2-day-01': 'day-13',
     'unit-02-day-01': 'day-13',
     'unit-2-day-1': 'day-13',
@@ -478,6 +504,8 @@ export function getNavigationHierarchy(courseId = 'python-programming') {
 export function cleanChapterTitle(title) {
   if (!title) return '';
   return title
+    .replace(/^Supplementary Masterclass:\s*/i, '')
+    .replace(/^Supplementary:\s*/i, '')
     .replace(/^Unit[–\-\s]+[IVX\d]+[\s–\-]+Day\s*\d+:\s*/i, '')
     .replace(/^Unit[–\-\s]+[IVX\d]+:\s*/i, '')
     .replace(/^Day\s*\d+:\s*/i, '')

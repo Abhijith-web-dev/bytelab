@@ -9,16 +9,30 @@ import {
   analyzeFullCodeDiagnosis,
   parseNanoStructuredOutput,
   generateTraceStepInsight,
-  generatePracticeLogicHint
+  generatePracticeLogicHint,
+  SOCRATIC_HINT_SCHEMA,
+  PRACTICE_LOGIC_SCHEMA,
+  TRACE_INSIGHT_SCHEMA
 } from '../services/ai/geminiNanoService.js';
+import aiModelManager from '../services/ai/aiModelManager.js';
 
 describe('Gemini Nano Browser-Builtin AI Service', () => {
   beforeEach(() => {
     destroyGeminiNanoSession();
+    delete globalThis.LanguageModel;
+    if (globalThis.window) {
+      delete globalThis.window.LanguageModel;
+      delete globalThis.window.ai;
+    }
   });
 
   afterEach(() => {
     destroyGeminiNanoSession();
+    delete globalThis.LanguageModel;
+    if (globalThis.window) {
+      delete globalThis.window.LanguageModel;
+      delete globalThis.window.ai;
+    }
     vi.restoreAllMocks();
   });
 
@@ -104,6 +118,38 @@ Check where you defined it.`;
       expect(caps.available).toBe('after-download');
 
       delete globalThis.window.ai;
+    });
+
+    it('detects available status via standards-track global LanguageModel.availability()', async () => {
+      globalThis.LanguageModel = {
+        availability: vi.fn().mockResolvedValue('available')
+      };
+
+      const caps = await checkGeminiNanoCapability();
+      expect(caps.status).toBe('available');
+      expect(caps.available).toBe('readily');
+      expect(caps.model).toContain('LanguageModel');
+      expect(caps.downloadProgress).toBe(100);
+
+      delete globalThis.LanguageModel;
+    });
+
+    it('detects downloadable / downloading status via global LanguageModel', async () => {
+      globalThis.LanguageModel = {
+        availability: vi.fn().mockResolvedValue('downloadable')
+      };
+
+      const caps = await checkGeminiNanoCapability();
+      expect(caps.status).toBe('downloadable');
+      expect(caps.available).toBe('after-download');
+      expect(caps.model).toContain('LanguageModel');
+
+      globalThis.LanguageModel.availability = vi.fn().mockResolvedValue('downloading');
+      const caps2 = await checkGeminiNanoCapability();
+      expect(caps2.status).toBe('downloading');
+      expect(caps2.available).toBe('after-download');
+
+      delete globalThis.LanguageModel;
     });
   });
 
@@ -430,6 +476,102 @@ Initialize total = 0 at the start of your code.`;
 
       expect(res.logicDiagnosis).toContain("returned the opposite boolean value");
       expect(res.hint).toContain("Check the comparison operators");
+    });
+  });
+  describe('7. Standards-Track AI Model Manager & Structured Constraints', () => {
+    it('notifies subscribers of download progress events', () => {
+      let reportedProgress = null;
+      const unsubscribe = aiModelManager.subscribeDownloadProgress((progress) => {
+        reportedProgress = progress;
+      });
+
+      aiModelManager._emitDownloadProgress(50, 100);
+      expect(reportedProgress).toBe(50);
+      expect(aiModelManager.downloadProgress).toBe(50);
+
+      aiModelManager._emitDownloadProgress(75, 100);
+      expect(reportedProgress).toBe(75);
+
+      unsubscribe();
+      aiModelManager._emitDownloadProgress(90, 100);
+      expect(reportedProgress).toBe(75); // Unsubscribed, so not updated
+    });
+
+    it('validates structured schemas export integrity', () => {
+      expect(SOCRATIC_HINT_SCHEMA.type).toBe('object');
+      expect(SOCRATIC_HINT_SCHEMA.required).toContain('diagnosis');
+      expect(SOCRATIC_HINT_SCHEMA.required).toContain('hintLevel1Concept');
+      expect(SOCRATIC_HINT_SCHEMA.required).toContain('fixIdea');
+
+      expect(PRACTICE_LOGIC_SCHEMA.type).toBe('object');
+      expect(PRACTICE_LOGIC_SCHEMA.required).toContain('logicDiagnosis');
+
+      expect(TRACE_INSIGHT_SCHEMA.type).toBe('object');
+      expect(TRACE_INSIGHT_SCHEMA.required).toContain('stepDiagnosis');
+    });
+
+    it('promptWithConstraint parses valid JSON structured response', async () => {
+      const mockSession = {
+        prompt: vi.fn().mockResolvedValue(JSON.stringify({
+          diagnosis: 'Variable not initialized',
+          hintLevel1Concept: 'Check variable lifecycle',
+          hintLevel2Clue: 'Look at line 3',
+          hintLevel3Rule: 'Assign before read',
+          fixIdea: 'Add total = 0'
+        }))
+      };
+
+      const result = await aiModelManager.promptWithConstraint(mockSession, 'Explain bug', SOCRATIC_HINT_SCHEMA);
+      expect(mockSession.prompt).toHaveBeenCalledWith('Explain bug', { responseConstraint: SOCRATIC_HINT_SCHEMA });
+      expect(result.parsed).toBeTruthy();
+      expect(result.parsed.diagnosis).toBe('Variable not initialized');
+      expect(result.parsed.hintLevel1Concept).toBe('Check variable lifecycle');
+    });
+
+    it('generateSocraticHint leverages LanguageModel with structured schema ladder', async () => {
+      const structuredPayload = {
+        diagnosis: 'Line 2 has a typo',
+        hintLevel1Concept: 'Concept: names must match exactly',
+        hintLevel2Clue: 'Clue: check letters in countr',
+        hintLevel3Rule: 'Rule: replace countr with counter',
+        fixIdea: 'Change countr to counter'
+      };
+
+      const mockSession = {
+        prompt: vi.fn().mockResolvedValue(JSON.stringify(structuredPayload))
+      };
+
+      globalThis.LanguageModel = {
+        availability: vi.fn().mockResolvedValue('available'),
+        create: vi.fn().mockResolvedValue(mockSession)
+      };
+
+      const lvl1 = await generateSocraticHint({
+        errorType: 'NameError',
+        errorMessage: "name 'countr' is not defined",
+        lineNumber: 2,
+        codeSnippet: 'print(countr)',
+        fullCode: 'counter = 5\nprint(countr)',
+        hintLevel: 1
+      });
+
+      expect(lvl1.source).toBe('gemini-nano');
+      expect(lvl1.diagnosis).toBe('Line 2 has a typo');
+      expect(lvl1.hint).toBe('Concept: names must match exactly');
+      expect(lvl1.fixIdea).toBe('Change countr to counter');
+
+      const lvl2 = await generateSocraticHint({
+        errorType: 'NameError',
+        errorMessage: "name 'countr' is not defined",
+        lineNumber: 2,
+        codeSnippet: 'print(countr)',
+        fullCode: 'counter = 5\nprint(countr)',
+        hintLevel: 2
+      });
+
+      expect(lvl2.hint).toBe('Clue: check letters in countr');
+
+      delete globalThis.LanguageModel;
     });
   });
 });

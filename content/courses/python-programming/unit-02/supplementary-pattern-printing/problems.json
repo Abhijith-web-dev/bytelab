@@ -1,0 +1,185 @@
+[
+  {
+    "id": "pattern-right-triangle",
+    "title": "Right-Angled Triangle of Stars",
+    "difficulty": "beginner",
+    "marks": 10,
+    "timeMinutes": 10,
+    "description": "Write a Python program that reads an integer $N$ from input and prints a right-angled triangle pattern of height $N$.\n\nEach row $i$ (from $1$ to $N$) should contain $i$ stars separated by a single space (i.e. `* ` repeated $i$ times).",
+    "requirements": [
+      "Read integer $N$ using `int(input())`.",
+      "Iterate through rows from $1$ to $N$.",
+      "Print `* ` repeated $i$ times for each row."
+    ],
+    "starterCode": "# Read N from input\nn = int(input())\n\n# Print right-angled triangle pattern\nfor row in range(1, n + 1):\n    print(\"* \" * row)\n",
+    "testCases": [
+      {
+        "input": "4",
+        "expectedOutput": "* \n* * \n* * * \n* * * * \n",
+        "description": "Height N = 4"
+      },
+      {
+        "input": "3",
+        "expectedOutput": "* \n* * \n* * * \n",
+        "description": "Height N = 3"
+      },
+      {
+        "input": "1",
+        "expectedOutput": "* \n",
+        "description": "Height N = 1"
+      }
+    ],
+    "hints": [
+      "Use `for row in range(1, n + 1):` to iterate $N$ times.",
+      "Use `print('* ' * row)` to print each row."
+    ]
+  },
+  {
+    "id": "pattern-centered-pyramid",
+    "title": "Centered Star Pyramid",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 15,
+    "description": "Write a Python program that reads an integer $N$ from input and prints a symmetric centered pyramid of height $N$.\n\nFor each row $i$ ($1 \\le i \\le N$):\n- Print $N - i$ leading spaces.\n- Print $2i - 1$ asterisks (`*`).",
+    "requirements": [
+      "Read integer $N$ using `int(input())`.",
+      "Calculate leading spaces as `\" \" * (n - row)`.",
+      "Calculate stars as `\"*\" * (2 * row - 1)`.",
+      "Print the concatenated string for each row."
+    ],
+    "starterCode": "# Read height N\nn = int(input())\n\n# Print centered pyramid\nfor row in range(1, n + 1):\n    spaces = \" \" * (n - row)\n    stars = \"*\" * (2 * row - 1)\n    print(spaces + stars)\n",
+    "testCases": [
+      {
+        "input": "4",
+        "expectedOutput": "   *\n  ***\n *****\n*******\n",
+        "description": "Pyramid with N = 4"
+      },
+      {
+        "input": "3",
+        "expectedOutput": "  *\n ***\n*****\n",
+        "description": "Pyramid with N = 3"
+      },
+      {
+        "input": "5",
+        "expectedOutput": "    *\n   ***\n  *****\n *******\n*********\n",
+        "description": "Pyramid with N = 5"
+      }
+    ],
+    "hints": [
+      "Row 1 needs $N - 1$ spaces and 1 star.",
+      "Row $i$ needs $N - i$ spaces and $2i - 1$ stars.",
+      "Print `\" \" * (n - row) + \"*\" * (2 * row - 1)`."
+    ]
+  },
+  {
+    "id": "pattern-diamond-shape",
+    "title": "Symmetrical Star Diamond",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 20,
+    "description": "Write a Python program that reads an integer $N$ and prints a symmetrical diamond pattern with $2N - 1$ total lines.\n\nThe upper half has $N$ rows (from $1$ to $N$).\nThe lower half has $N - 1$ rows (from $N - 1$ down to $1$) to avoid duplicating the widest line.",
+    "requirements": [
+      "Read integer $N$ using `int(input())`.",
+      "Print upper pyramid for rows $1$ through $N$.",
+      "Print lower inverted pyramid for rows $N - 1$ down to $1$ using `range(n - 1, 0, -1)`."
+    ],
+    "starterCode": "# Read integer N\nn = int(input())\n\n# Upper pyramid (rows 1 to n)\nfor row in range(1, n + 1):\n    print(\" \" * (n - row) + \"*\" * (2 * row - 1))\n\n# Lower inverted pyramid (rows n - 1 down to 1)\nfor row in range(n - 1, 0, -1):\n    print(\" \" * (n - row) + \"*\" * (2 * row - 1))\n",
+    "testCases": [
+      {
+        "input": "3",
+        "expectedOutput": "  *\n ***\n*****\n ***\n  *\n",
+        "description": "Diamond with N = 3 (5 lines)"
+      },
+      {
+        "input": "4",
+        "expectedOutput": "   *\n  ***\n *****\n*******\n *****\n  ***\n   *\n",
+        "description": "Diamond with N = 4 (7 lines)"
+      },
+      {
+        "input": "2",
+        "expectedOutput": " *\n***\n *\n",
+        "description": "Diamond with N = 2 (3 lines)"
+      }
+    ],
+    "hints": [
+      "The upper loop is `range(1, n + 1)`.",
+      "The lower loop is `range(n - 1, 0, -1)`.",
+      "Each line uses `\" \" * (n - row) + \"*\" * (2 * row - 1)`."
+    ]
+  },
+  {
+    "id": "pattern-hollow-square",
+    "title": "Hollow Square Border Pattern",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 20,
+    "description": "Write a Python program that reads an integer $N$ and prints an $N \\times N$ hollow square grid of asterisks (`*`) and spaces, where each character is separated by a space (`end=\" \"`).\n\nA cell $(row, col)$ contains `*` if it is on the outer border (first row, last row, first column, or last column). Otherwise, it contains a space ` `.",
+    "requirements": [
+      "Read integer $N$ using `int(input())`.",
+      "Use nested loops for `row` in `range(n)` and `column` in `range(n)`.",
+      "Check border condition: `row == 0 or row == n - 1 or column == 0 or column == n - 1`.",
+      "Print `\"*\"` if border else `\" \"`, with `end=\" \"`.",
+      "Print a newline after each completed row."
+    ],
+    "starterCode": "# Read grid size N\nsize = int(input())\n\n# Print hollow square\nfor row in range(size):\n    for column in range(size):\n        is_border = (\n            row == 0\n            or row == size - 1\n            or column == 0\n            or column == size - 1\n        )\n        print(\"*\" if is_border else \" \", end=\" \")\n    print()\n",
+    "testCases": [
+      {
+        "input": "4",
+        "expectedOutput": "* * * * \n*     * \n*     * \n* * * * \n",
+        "description": "Hollow square size 4"
+      },
+      {
+        "input": "3",
+        "expectedOutput": "* * * \n*   * \n* * * \n",
+        "description": "Hollow square size 3"
+      },
+      {
+        "input": "2",
+        "expectedOutput": "* * \n* * \n",
+        "description": "Hollow square size 2"
+      }
+    ],
+    "hints": [
+      "Use `row == 0 or row == size - 1 or column == 0 or column == size - 1`.",
+      "Remember `print()` with no args after the inner loop."
+    ]
+  },
+  {
+    "id": "pattern-floyds-triangle",
+    "title": "Floyd's Number Triangle",
+    "difficulty": "intermediate",
+    "marks": 15,
+    "timeMinutes": 20,
+    "description": "Write a Python program that reads an integer $N$ and prints Floyd's triangle of height $N$.\n\nFloyd's triangle consists of consecutively increasing natural numbers starting from 1. Numbers on the same row should be separated by a single space, and rows should be terminated with a newline.",
+    "requirements": [
+      "Read integer $N$ using `int(input())`.",
+      "Initialize counter `number = 1`.",
+      "For row $1$ to $N$, print `row` numbers separated by space.",
+      "Increment `number` after each printed value.",
+      "Print a newline at the end of each row."
+    ],
+    "starterCode": "# Read height N\nrows = int(input())\nnumber = 1\n\nfor row in range(1, rows + 1):\n    for _ in range(row):\n        print(number, end=\" \")\n        number += 1\n    print()\n",
+    "testCases": [
+      {
+        "input": "4",
+        "expectedOutput": "1 \n2 3 \n4 5 6 \n7 8 9 10 \n",
+        "description": "Floyd's triangle with 4 rows"
+      },
+      {
+        "input": "3",
+        "expectedOutput": "1 \n2 3 \n4 5 6 \n",
+        "description": "Floyd's triangle with 3 rows"
+      },
+      {
+        "input": "1",
+        "expectedOutput": "1 \n",
+        "description": "Floyd's triangle with 1 row"
+      }
+    ],
+    "hints": [
+      "Initialize `number = 1` before the outer loop.",
+      "Inner loop runs `for _ in range(row):`.",
+      "Print `print(number, end=' ')` and increment `number += 1`."
+    ]
+  }
+]

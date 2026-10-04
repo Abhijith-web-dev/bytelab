@@ -1,0 +1,122 @@
+[
+  {
+    "id": "q1",
+    "question": "In a nested-loop pattern printing algorithm, what is the primary role of the outer loop?",
+    "options": [
+      "It determines the character to print in each cell",
+      "It iterates through each row of the pattern from top to bottom",
+      "It clears the console screen",
+      "It calculates mathematical factorials"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In 2D grid patterns, the outer loop controls the vertical row progression, while the inner loop visits columns within the current row."
+  },
+  {
+    "id": "q2",
+    "question": "What is the purpose of passing `end=''` to Python's `print()` function in pattern printing?",
+    "options": [
+      "To terminate the entire Python process immediately",
+      "To suppress the default newline character and keep consecutive prints on the same horizontal row",
+      "To delete trailing whitespace automatically",
+      "To convert integers into ASCII characters"
+    ],
+    "correctAnswer": 1,
+    "explanation": "By default, `print()` outputs a trailing newline (`\\n`). Using `end=''` or `end=' '` allows subsequent outputs to remain on the current line."
+  },
+  {
+    "id": "q3",
+    "question": "For a centered pyramid of height $N$, what is the formula for the number of stars on row $i$ (where $1 \\le i \\le N$)?",
+    "options": [
+      "$2i + 1$",
+      "$2i - 1$",
+      "$i^2$",
+      "$N - i$"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The formula $2i - 1$ produces the sequence of odd numbers $1, 3, 5, 7, \\dots$, creating the symmetric widening shape of the pyramid."
+  },
+  {
+    "id": "q4",
+    "question": "In a centered pyramid of height $N = 5$, how many leading spaces must be printed before the stars on row $i = 2$?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The formula for leading spaces is $N - i$. For $N = 5$ and $i = 2$, leading spaces $= 5 - 2 = 3$."
+  },
+  {
+    "id": "q5",
+    "question": "When constructing a symmetrical diamond pattern of height $N$, how do you prevent the widest middle row from being printed twice?",
+    "options": [
+      "By using a `while` loop instead of a `for` loop",
+      "By starting the lower inverted pyramid loop at $N - 1$ down to $1$ with `range(n - 1, 0, -1)`",
+      "By multiplying the stars count by 0.5",
+      "By setting `end='\\n'` in every loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The upper loop prints rows $1$ through $N$ (including the center widest line). The lower loop must start at $N - 1$ down to $1$ to avoid duplicate center rows."
+  },
+  {
+    "id": "q6",
+    "question": "What is the boolean condition to identify boundary cells in an $N \\times N$ hollow square grid with zero-based indices `row` and `column`?",
+    "options": [
+      "row == column",
+      "row == 0 or row == size - 1 or column == 0 or column == size - 1",
+      "row + column == size",
+      "row > 0 and column < size - 1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Border cells lie on the top row (`row == 0`), bottom row (`row == size - 1`), left column (`column == 0`), or right column (`column == size - 1`)."
+  },
+  {
+    "id": "q7",
+    "question": "What does Python's `ord('A')` function return?",
+    "options": [
+      "The character 'B'",
+      "The integer Unicode code point 65",
+      "The string length 1",
+      "A boolean True"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`ord('A')` returns the integer ordinal/code point of character 'A', which is 65 in ASCII / Unicode."
+  },
+  {
+    "id": "q8",
+    "question": "Which Python function converts an integer ASCII / Unicode code point (e.g., 66) back into its corresponding character ('B')?",
+    "options": [
+      "str(66)",
+      "ascii(66)",
+      "chr(66)",
+      "char(66)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`chr(66)` returns the character represented by the code point 66, which is `'B'`."
+  },
+  {
+    "id": "q9",
+    "question": "What is the key characteristic of Floyd's Triangle?",
+    "options": [
+      "Every row repeats the row number $i$ times",
+      "Consecutive natural numbers increase continuously across rows (1, then 2 3, then 4 5 6, etc.)",
+      "It only contains prime numbers",
+      "It displays binary numbers 0 and 1 alternately"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Floyd's triangle maintains a running counter that increments for each position across consecutive triangular rows: row 1 has 1 value (1), row 2 has 2 values (2 3), row 3 has 3 values (4 5 6), etc."
+  },
+  {
+    "id": "q10",
+    "question": "Why is an empty `print()` statement placed immediately after the inner column loop in pattern printing?",
+    "options": [
+      "To restart the outer loop from 0",
+      "To emit a newline character, moving the console cursor to the start of the next row",
+      "To flush CPU registers",
+      "To check for keyboard interrupts"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Since the inner loop prints horizontally using `end=''`, calling `print()` without arguments outputs a newline to move to the next row."
+  }
+]

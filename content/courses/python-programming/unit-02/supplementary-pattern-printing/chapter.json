@@ -1,0 +1,30 @@
+{
+  "id": "supplementary-pattern-printing",
+  "title": "Supplementary Masterclass: Python Pattern Printing",
+  "shortTitle": "Pattern Printing Masterclass",
+  "description": "A practical reference for building 2D console patterns with Python loops, string operations, coordinate grids, and simple boundary logic.",
+  "difficulty": "intermediate",
+  "simulationType": "code",
+  "isSupplementary": true,
+  "badgeText": "Special Enrichment",
+  "outcomes": [
+    "CO2"
+  ],
+  "order": 12,
+  "timeEstimate": 90,
+  "topics": [
+    "The 2D Grid Mental Model",
+    "Outer Loops (Rows) vs Inner Loops (Columns)",
+    "Core Mechanics: print(end=''), String Multiplication, range() Boundaries",
+    "Right-Angled Triangle Pattern",
+    "Centered Pyramid Pattern & Odd-Star Formula (2i - 1)",
+    "Diamond Pattern & Turning Point Logic",
+    "Hollow Square & Coordinate Boundary Conditions",
+    "Floyd's Triangle & Left-Aligned Formatting",
+    "Alphabet Triangles with ord() and chr()",
+    "7-Step Method for Solving Novel Patterns",
+    "Common Mistakes, Formatting Traps & Viva Prep"
+  ],
+  "unitDayNumber": "Enrichment",
+  "dayNumber": 16.5
+}

@@ -14,6 +14,46 @@
 import { extractSymbols, findClosestSymbol } from '../../utils/pythonSymbolAnalyzer.js';
 import { diffStepVariables } from '../../utils/traceExecutionHelper.js';
 import { computeOutputDiff } from '../../utils/outputDiff.js';
+import aiModelManager from './aiModelManager.js';
+
+
+export const SOCRATIC_HINT_SCHEMA = {
+  type: "object",
+  properties: {
+    errorCategory: {
+      type: "string",
+      enum: ["SyntaxError", "NameError", "TypeError", "IndentationError", "IndexError", "ZeroDivisionError", "LogicError", "Other"]
+    },
+    diagnosis: { type: "string", description: "One clear sentence diagnosing what went wrong" },
+    hintLevel1Concept: { type: "string", description: "Conceptual question guiding student reasoning" },
+    hintLevel2Clue: { type: "string", description: "More specific clue mentioning relevant variable or line" },
+    hintLevel3Rule: { type: "string", description: "Specific rule or syntax to check, without giving code" },
+    fixIdea: { type: "string", description: "1-2 actionable sentences describing what to change" }
+  },
+  required: ["diagnosis", "hintLevel1Concept", "hintLevel2Clue", "hintLevel3Rule", "fixIdea"]
+};
+
+export const PRACTICE_LOGIC_SCHEMA = {
+  type: "object",
+  properties: {
+    logicDiagnosis: { type: "string", description: "Explanation of difference between actual and expected logic" },
+    hintLevel1Concept: { type: "string", description: "High-level algorithmic concept to rethink" },
+    hintLevel2Clue: { type: "string", description: "Targeted clue pointing to loop, condition, or transformation" },
+    hintLevel3Rule: { type: "string", description: "Edge case or boundary behavior rule to inspect" },
+    fixIdea: { type: "string", description: "Actionable sentence on how to approach the fix" }
+  },
+  required: ["logicDiagnosis", "hintLevel1Concept", "hintLevel2Clue", "hintLevel3Rule", "fixIdea"]
+};
+
+export const TRACE_INSIGHT_SCHEMA = {
+  type: "object",
+  properties: {
+    stepDiagnosis: { type: "string", description: "Diagnosis of the state mutation or exception in this step" },
+    hint: { type: "string", description: "Socratic clue for why this step occurred" },
+    fixIdea: { type: "string", description: "Actionable suggestion to address this step's behavior" }
+  },
+  required: ["stepDiagnosis", "hint", "fixIdea"]
+};
 
 export const SOCRATIC_SYSTEM_PROMPT = `You are an expert, empathetic Python tutor inside ByteLab's browser-based coding laboratory.
 A student encountered an error in their Python program. Your goal is to analyze their ENTIRE code context, explain the root cause of their mistake, and guide them on how to update their code.
@@ -31,49 +71,7 @@ CRITICAL INSTRUCTIONS:
  * @returns {Promise<{ available: 'readily' | 'after-download' | 'no', status: 'available' | 'downloading' | 'unavailable', model: string }>}
  */
 export async function checkGeminiNanoCapability() {
-  if (typeof window === 'undefined') {
-    return { available: 'no', status: 'unavailable', model: 'none' };
-  }
-
-  try {
-    // 1. Standard W3C Prompt API (Chrome 127+)
-    if (window.ai && window.ai.languageModel && typeof window.ai.languageModel.capabilities === 'function') {
-      const caps = await window.ai.languageModel.capabilities();
-      return {
-        available: caps.available || 'no',
-        status: caps.available === 'readily' ? 'available' : caps.available === 'after-download' ? 'downloading' : 'unavailable',
-        model: 'Gemini Nano (On-Device)',
-        defaultTemperature: caps.defaultTemperature,
-        maxTopK: caps.maxTopK
-      };
-    }
-
-    // 2. Chrome Origin Trial / Early Canary interface
-    if (window.ai && window.ai.assistant && typeof window.ai.assistant.capabilities === 'function') {
-      const caps = await window.ai.assistant.capabilities();
-      return {
-        available: caps.available || 'no',
-        status: caps.available === 'readily' ? 'available' : caps.available === 'after-download' ? 'downloading' : 'unavailable',
-        model: 'Chrome Assistant Nano',
-        defaultTemperature: caps.defaultTemperature
-      };
-    }
-
-    // 3. Experimental chrome.aiOriginTrial namespace
-    if (window.chrome?.aiOriginTrial?.languageModel?.capabilities) {
-      const caps = await window.chrome.aiOriginTrial.languageModel.capabilities();
-      return {
-        available: caps.available || 'no',
-        status: caps.available === 'readily' ? 'available' : caps.available === 'after-download' ? 'downloading' : 'unavailable',
-        model: 'Chrome Origin Trial Nano'
-      };
-    }
-
-    return { available: 'no', status: 'unavailable', model: 'none' };
-  } catch (err) {
-    console.warn('[GeminiNano] Error querying capabilities:', err);
-    return { available: 'no', status: 'unavailable', model: 'none', error: err.message };
-  }
+  return aiModelManager.checkAvailability();
 }
 
 /**
@@ -471,6 +469,7 @@ export function analyzeFullCodeDiagnosis({
 /**
  * Session cache for Gemini Nano to avoid recreating sessions on every hint request.
  */
+// Session caching delegated to aiModelManager singleton
 let cachedSession = null;
 
 /**
@@ -511,22 +510,13 @@ export async function generateSocraticHint({
   // 2. If Gemini Nano is readily available on-device, enhance with LLM reasoning
   if (capability.status === 'available') {
     try {
-      if (!cachedSession) {
-        if (window.ai?.languageModel?.create) {
-          cachedSession = await window.ai.languageModel.create({
-            systemPrompt: SOCRATIC_SYSTEM_PROMPT,
-            temperature: 0.2,
-            topK: 3
-          });
-        } else if (window.ai?.assistant?.create) {
-          cachedSession = await window.ai.assistant.create({
-            systemPrompt: SOCRATIC_SYSTEM_PROMPT,
-            temperature: 0.2
-          });
-        }
-      }
+      const session = await aiModelManager.getOrCreateSession({
+        systemPrompt: SOCRATIC_SYSTEM_PROMPT,
+        temperature: 0.2,
+        topK: 3
+      });
 
-      if (cachedSession) {
+      if (session) {
         // Format full code with line numbers for Gemini Nano
         const numberedCode = (fullCode || codeSnippet || '')
           .split('\n')
@@ -545,26 +535,48 @@ Error Details:
 - Error Message: ${errorMessage}
 - Hint Level: Level ${hintLevel} of 3
 
-Provide:
-[Diagnosis]
-[Hint]
-[Fix Idea]`;
+Provide structured pedagogical response following the schema.`;
 
-        let rawOutput = '';
-
-        if (typeof cachedSession.promptStreaming === 'function' && onToken) {
-          const stream = cachedSession.promptStreaming(userPrompt);
-          for await (const chunk of stream) {
-            rawOutput = chunk;
-            const parsed = parseNanoStructuredOutput(rawOutput, localAnalysis);
-            onToken(parsed.hint || sanitizeSocraticHint(rawOutput));
-          }
-        } else {
-          rawOutput = await cachedSession.prompt(userPrompt);
+        if (typeof session.promptStreaming === 'function' && onToken) {
+          try {
+            const stream = session.promptStreaming(userPrompt);
+            for await (const chunk of stream) {
+              const parsed = parseNanoStructuredOutput(chunk, localAnalysis);
+              onToken(parsed.hint || sanitizeSocraticHint(chunk));
+            }
+          } catch (_) {}
         }
 
-        const structured = parseNanoStructuredOutput(rawOutput, localAnalysis);
+        const { raw, parsed } = await aiModelManager.promptWithConstraint(session, userPrompt, SOCRATIC_HINT_SCHEMA);
 
+        if (parsed && (parsed.diagnosis || parsed.hintLevel1Concept || parsed.hint)) {
+          let selectedHint = '';
+          if (hintLevel === 1) {
+            selectedHint = parsed.hintLevel1Concept || parsed.hint || localAnalysis.hint;
+          } else if (hintLevel === 2) {
+            selectedHint = parsed.hintLevel2Clue || parsed.hint || localAnalysis.hint;
+          } else {
+            selectedHint = parsed.hintLevel3Rule || parsed.hint || localAnalysis.hint;
+          }
+
+          const diag = sanitizeSocraticHint(parsed.diagnosis || localAnalysis.diagnosis);
+          const cleanHint = sanitizeSocraticHint(selectedHint);
+          const fix = sanitizeSocraticHint(parsed.fixIdea || localAnalysis.fixIdea);
+
+          if (cleanHint && cleanHint.length > 10) {
+            if (onToken) onToken(cleanHint);
+            return {
+              diagnosis: diag,
+              hint: cleanHint,
+              fixIdea: fix,
+              source: 'gemini-nano',
+              level: hintLevel,
+              symbolMatch: localAnalysis.symbolMatch
+            };
+          }
+        }
+
+        const structured = parseNanoStructuredOutput(raw, localAnalysis);
         if (structured.hint && structured.hint.length > 10) {
           if (onToken) onToken(structured.hint);
           return {
@@ -579,8 +591,7 @@ Provide:
       }
     } catch (err) {
       console.warn('[GeminiNano] Nano inference failed, falling back to contextual heuristic engine:', err);
-      try { cachedSession?.destroy?.(); } catch (_) {}
-      cachedSession = null;
+      aiModelManager.destroySession();
     }
   }
 
@@ -718,22 +729,13 @@ export async function generateTraceStepInsight({
   const capability = await checkGeminiNanoCapability();
   if (capability.status === 'available') {
     try {
-      if (!cachedSession) {
-        if (window.ai?.languageModel?.create) {
-          cachedSession = await window.ai.languageModel.create({
-            systemPrompt: SOCRATIC_SYSTEM_PROMPT,
-            temperature: 0.2,
-            topK: 3
-          });
-        } else if (window.ai?.assistant?.create) {
-          cachedSession = await window.ai.assistant.create({
-            systemPrompt: SOCRATIC_SYSTEM_PROMPT,
-            temperature: 0.2
-          });
-        }
-      }
+      const session = await aiModelManager.getOrCreateSession({
+        systemPrompt: SOCRATIC_SYSTEM_PROMPT,
+        temperature: 0.2,
+        topK: 3
+      });
 
-      if (cachedSession) {
+      if (session) {
         const stepPrompt = `Execution Step Context:
 - Step: ${step.step || 1}
 - Line: ${line} (\`${snippet}\`)
@@ -744,24 +746,39 @@ export async function generateTraceStepInsight({
 ${isException ? `- Exception: ${step.exception?.type}: ${step.exception?.msg}` : ''}
 - Hint Level: ${hintLevel} of 3
 
-Provide:
-[Diagnosis]
-[Hint]
-[Fix Idea]`;
+Provide structured step insight according to schema.`;
 
-        let rawOutput = '';
-        if (typeof cachedSession.promptStreaming === 'function' && onToken) {
-          const stream = cachedSession.promptStreaming(stepPrompt);
-          for await (const chunk of stream) {
-            rawOutput = chunk;
-            const parsed = parseNanoStructuredOutput(rawOutput, { diagnosis: stepDiagnosis, hint, fixIdea });
-            onToken(parsed.hint || sanitizeSocraticHint(rawOutput));
-          }
-        } else {
-          rawOutput = await cachedSession.prompt(stepPrompt);
+        if (typeof session.promptStreaming === 'function' && onToken) {
+          try {
+            const stream = session.promptStreaming(stepPrompt);
+            for await (const chunk of stream) {
+              const parsed = parseNanoStructuredOutput(chunk, { diagnosis: stepDiagnosis, hint, fixIdea });
+              onToken(parsed.hint || sanitizeSocraticHint(chunk));
+            }
+          } catch (_) {}
         }
 
-        const structured = parseNanoStructuredOutput(rawOutput, { diagnosis: stepDiagnosis, hint, fixIdea });
+        const { raw, parsed } = await aiModelManager.promptWithConstraint(session, stepPrompt, TRACE_INSIGHT_SCHEMA);
+
+        if (parsed && (parsed.stepDiagnosis || parsed.diagnosis || parsed.hint)) {
+          const sDiag = sanitizeSocraticHint(parsed.stepDiagnosis || parsed.diagnosis || stepDiagnosis);
+          const sHint = sanitizeSocraticHint(parsed.hint || hint);
+          const sFix = sanitizeSocraticHint(parsed.fixIdea || fixIdea);
+
+          if (sHint && sHint.length > 5) {
+            if (onToken) onToken(sHint);
+            return {
+              stepDiagnosis: sDiag,
+              diagnosis: sDiag,
+              hint: sHint,
+              fixIdea: sFix,
+              source: 'gemini-nano',
+              level: hintLevel
+            };
+          }
+        }
+
+        const structured = parseNanoStructuredOutput(raw, { diagnosis: stepDiagnosis, hint, fixIdea });
         if (structured.hint && structured.hint.length > 10) {
           if (onToken) onToken(structured.hint);
           return {
@@ -929,22 +946,13 @@ export async function generatePracticeLogicHint({
   const capability = await checkGeminiNanoCapability();
   if (capability.status === 'available') {
     try {
-      if (!cachedSession) {
-        if (window.ai?.languageModel?.create) {
-          cachedSession = await window.ai.languageModel.create({
-            systemPrompt: SOCRATIC_SYSTEM_PROMPT,
-            temperature: 0.2,
-            topK: 3
-          });
-        } else if (window.ai?.assistant?.create) {
-          cachedSession = await window.ai.assistant.create({
-            systemPrompt: SOCRATIC_SYSTEM_PROMPT,
-            temperature: 0.2
-          });
-        }
-      }
+      const session = await aiModelManager.getOrCreateSession({
+        systemPrompt: SOCRATIC_SYSTEM_PROMPT,
+        temperature: 0.2,
+        topK: 3
+      });
 
-      if (cachedSession) {
+      if (session) {
         const logicPrompt = `Practice Coding Challenge:
 Title: ${problemTitle || 'Challenge'}
 Description: ${problemDescription ? problemDescription.slice(0, 200) : ''}
@@ -960,24 +968,48 @@ Test Case Failure:
 - Actual Student Output: ${act}
 - Hint Level: ${hintLevel} of 3
 
-Provide:
-[Diagnosis]
-[Hint]
-[Fix Idea]`;
+Provide structured logic diagnostics according to schema.`;
 
-        let rawOutput = '';
-        if (typeof cachedSession.promptStreaming === 'function' && onToken) {
-          const stream = cachedSession.promptStreaming(logicPrompt);
-          for await (const chunk of stream) {
-            rawOutput = chunk;
-            const parsed = parseNanoStructuredOutput(rawOutput, { diagnosis: logicDiagnosis, hint: hintText, fixIdea });
-            onToken(parsed.hint || sanitizeSocraticHint(rawOutput));
-          }
-        } else {
-          rawOutput = await cachedSession.prompt(logicPrompt);
+        if (typeof session.promptStreaming === 'function' && onToken) {
+          try {
+            const stream = session.promptStreaming(logicPrompt);
+            for await (const chunk of stream) {
+              const parsed = parseNanoStructuredOutput(chunk, { diagnosis: logicDiagnosis, hint: hintText, fixIdea });
+              onToken(parsed.hint || sanitizeSocraticHint(chunk));
+            }
+          } catch (_) {}
         }
 
-        const structured = parseNanoStructuredOutput(rawOutput, { diagnosis: logicDiagnosis, hint: hintText, fixIdea });
+        const { raw, parsed } = await aiModelManager.promptWithConstraint(session, logicPrompt, PRACTICE_LOGIC_SCHEMA);
+
+        if (parsed && (parsed.logicDiagnosis || parsed.diagnosis || parsed.hintLevel1Concept || parsed.hint)) {
+          let selectedHint = '';
+          if (hintLevel === 1) {
+            selectedHint = parsed.hintLevel1Concept || parsed.hint || hintText;
+          } else if (hintLevel === 2) {
+            selectedHint = parsed.hintLevel2Clue || parsed.hint || hintText;
+          } else {
+            selectedHint = parsed.hintLevel3Rule || parsed.hint || hintText;
+          }
+
+          const lDiag = sanitizeSocraticHint(parsed.logicDiagnosis || parsed.diagnosis || logicDiagnosis);
+          const cleanHint = sanitizeSocraticHint(selectedHint);
+          const cleanFix = sanitizeSocraticHint(parsed.fixIdea || fixIdea);
+
+          if (cleanHint && cleanHint.length > 5) {
+            if (onToken) onToken(cleanHint);
+            return {
+              logicDiagnosis: lDiag,
+              diagnosis: lDiag,
+              hint: cleanHint,
+              fixIdea: cleanFix,
+              source: 'gemini-nano',
+              level: hintLevel
+            };
+          }
+        }
+
+        const structured = parseNanoStructuredOutput(raw, { diagnosis: logicDiagnosis, hint: hintText, fixIdea });
         if (structured.hint && structured.hint.length > 10) {
           if (onToken) onToken(structured.hint);
           return {
@@ -1011,13 +1043,7 @@ Provide:
  * Destroys any active Gemini Nano session to free GPU/RAM resources.
  */
 export function destroyGeminiNanoSession() {
-  if (cachedSession) {
-    try {
-      cachedSession.destroy?.();
-    } catch (err) {
-      // ignore
-    }
-    cachedSession = null;
-  }
+  aiModelManager.destroySession();
+  cachedSession = null;
 }
 
