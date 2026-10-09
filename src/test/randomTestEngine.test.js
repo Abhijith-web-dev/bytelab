@@ -13,6 +13,15 @@ describe('Random Test Engine & Assessment Evaluation', () => {
     expect(session.sessionId).toMatch(/^test_/);
     expect(session.questions.length).toBe(5);
     expect(session.timeLimitSeconds).toBe(600);
+
+    // Verify each generated question has normalized options with exactly one correct option
+    session.questions.forEach(q => {
+      expect(q.options).toBeDefined();
+      expect(Array.isArray(q.options)).toBe(true);
+      expect(q.options.length).toBeGreaterThanOrEqual(2);
+      const correctCount = q.options.filter(o => o.isCorrect).length;
+      expect(correctCount).toBe(1);
+    });
   });
 
   it('correctly evaluates multiple-choice answers and maps to Course Outcomes (CO1-CO5)', () => {
@@ -54,5 +63,40 @@ describe('Random Test Engine & Assessment Evaluation', () => {
     expect(evaluation.coBreakdown['CO1'].total).toBe(1);
     expect(evaluation.coBreakdown['CO2'].correct).toBe(0);
     expect(evaluation.coBreakdown['CO2'].total).toBe(1);
+  });
+
+  it('correctly handles string options with numeric index correctAnswer', () => {
+    const rawQuestion = {
+      id: 'q_str_test',
+      question: 'Which is an immutable sequence in Python?',
+      options: ['list', 'tuple', 'set', 'dict'],
+      correctAnswer: 1, // 'tuple'
+      coMapping: ['CO3']
+    };
+
+    const session = RandomTestEngine.generateTestSession({
+      courseId: 'python-programming',
+      count: 1
+    });
+
+    const evaluated = RandomTestEngine.evaluate([
+      {
+        id: 'q_str_test',
+        question: 'Which is an immutable sequence in Python?',
+        options: [
+          { id: '0', text: 'list', isCorrect: false },
+          { id: '1', text: 'tuple', isCorrect: true },
+          { id: '2', text: 'set', isCorrect: false },
+          { id: '3', text: 'dict', isCorrect: false }
+        ],
+        coMapping: ['CO3']
+      }
+    ], { q_str_test: '1' });
+
+    expect(evaluated.score).toBe(1);
+    expect(evaluated.percentage).toBe(100);
+    expect(evaluated.passed).toBe(true);
+    expect(evaluated.details[0].isCorrect).toBe(true);
+    expect(evaluated.details[0].correctText).toBe('tuple');
   });
 });

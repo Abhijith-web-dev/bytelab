@@ -9,7 +9,8 @@
       "A variable that holds raw binary data"
     ],
     "correctIndex": 0,
-    "explanation": "A class is an architectural blueprint or template that defines the attributes (data) and methods (behavior) that objects instantiated from it will possess."
+    "explanation": "A class is an architectural blueprint or template that defines the attributes (data) and methods (behavior) that objects instantiated from it will possess.",
+    "correctAnswer": 0
   },
   {
     "id": "quiz-day-46-2",
@@ -21,7 +22,8 @@
       "A directory containing an __init__.py file"
     ],
     "correctIndex": 1,
-    "explanation": "An object is a concrete instance created from a class blueprint, occupying memory and holding its own distinct state."
+    "explanation": "An object is a concrete instance created from a class blueprint, occupying memory and holding its own distinct state.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-46-3",
@@ -33,7 +35,8 @@
       "new"
     ],
     "correctIndex": 2,
-    "explanation": "Python defines classes using the 'class' keyword followed by the class identifier and a colon, e.g., 'class Student:'."
+    "explanation": "Python defines classes using the 'class' keyword followed by the class identifier and a colon, e.g., 'class Student:'.",
+    "correctAnswer": 2
   },
   {
     "id": "quiz-day-46-4",
@@ -45,7 +48,8 @@
       "To open a file from disk"
     ],
     "correctIndex": 1,
-    "explanation": "The __init__() method serves as the constructor in Python; it is called automatically upon instantiation to initialize the object's instance attributes."
+    "explanation": "The __init__() method serves as the constructor in Python; it is called automatically upon instantiation to initialize the object's instance attributes.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-46-5",
@@ -57,7 +61,8 @@
       "The root package directory"
     ],
     "correctIndex": 1,
-    "explanation": "The 'self' parameter represents the specific instance on which a method is invoked, enabling access to and modification of its individual attributes."
+    "explanation": "The 'self' parameter represents the specific instance on which a method is invoked, enabling access to and modification of its individual attributes.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-46-6",
@@ -69,7 +74,8 @@
       "An unhandled runtime exception"
     ],
     "correctIndex": 0,
-    "explanation": "Attributes represent state—what an object 'has'—and are accessed using the dot operator (e.g., student.name)."
+    "explanation": "Attributes represent state—what an object 'has'—and are accessed using the dot operator (e.g., student.name).",
+    "correctAnswer": 0
   },
   {
     "id": "quiz-day-46-7",
@@ -81,7 +87,8 @@
       "A file format operator"
     ],
     "correctIndex": 1,
-    "explanation": "Methods are functions defined inside a class definition that take 'self' as their first argument and define the behavior of the object."
+    "explanation": "Methods are functions defined inside a class definition that take 'self' as their first argument and define the behavior of the object.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-46-8",
@@ -93,7 +100,8 @@
       "new Student"
     ],
     "correctIndex": 1,
-    "explanation": "'Student()' calls the constructor and instantiates a new object. 'student = Student' merely assigns an alias to the class blueprint itself."
+    "explanation": "'Student()' calls the constructor and instantiates a new object. 'student = Student' merely assigns an alias to the class blueprint itself.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-46-9",
@@ -105,7 +113,8 @@
       "student[name]"
     ],
     "correctIndex": 0,
-    "explanation": "Attributes are accessed directly via the dot operator without parentheses: 'student.name'."
+    "explanation": "Attributes are accessed directly via the dot operator without parentheses: 'student.name'.",
+    "correctAnswer": 0
   },
   {
     "id": "quiz-day-46-10",
@@ -117,6 +126,7 @@
       "student->display"
     ],
     "correctIndex": 1,
-    "explanation": "Methods are functions bound to objects and are invoked with parentheses and any necessary arguments: 'student.display()'."
+    "explanation": "Methods are functions bound to objects and are invoked with parentheses and any necessary arguments: 'student.display()'.",
+    "correctAnswer": 1
   }
 ]

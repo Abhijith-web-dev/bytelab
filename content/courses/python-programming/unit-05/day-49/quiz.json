@@ -9,7 +9,8 @@
       "Numeric Programming"
     ],
     "correctIndex": 1,
-    "explanation": "NumPy stands for Numerical Python. It is the foundational library for scientific and numerical computing in Python."
+    "explanation": "NumPy stands for Numerical Python. It is the foundational library for scientific and numerical computing in Python.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-49-2",
@@ -21,7 +22,8 @@
       "include numpy as np"
     ],
     "correctIndex": 1,
-    "explanation": "'import numpy as np' is the standard convention, allowing all NumPy functions and types to be accessed concisely via the 'np' prefix."
+    "explanation": "'import numpy as np' is the standard convention, allowing all NumPy functions and types to be accessed concisely via the 'np' prefix.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-49-3",
@@ -33,7 +35,8 @@
       "np.new()"
     ],
     "correctIndex": 1,
-    "explanation": "The 'np.array()' function takes a Python sequence (such as a list or tuple) and constructs a high-performance NumPy ndarray object."
+    "explanation": "The 'np.array()' function takes a Python sequence (such as a list or tuple) and constructs a high-performance NumPy ndarray object.",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-49-4",
@@ -45,7 +48,8 @@
       "A user-defined function"
     ],
     "correctIndex": 2,
-    "explanation": "'np.array([10, 20, 30])' creates a one-dimensional array (1D vector) with a single axis of length 3."
+    "explanation": "'np.array([10, 20, 30])' creates a one-dimensional array (1D vector) with a single axis of length 3.",
+    "correctAnswer": 2
   },
   {
     "id": "quiz-day-49-5",
@@ -57,7 +61,8 @@
       "TypeError: unsupported operand"
     ],
     "correctIndex": 0,
-    "explanation": "NumPy performs vectorized element-wise arithmetic. Adding a scalar (+5) adds 5 to each individual element of the array."
+    "explanation": "NumPy performs vectorized element-wise arithmetic. Adding a scalar (+5) adds 5 to each individual element of the array.",
+    "correctAnswer": 0
   },
   {
     "id": "quiz-day-49-6",
@@ -69,7 +74,8 @@
       "The total byte size in RAM"
     ],
     "correctIndex": 2,
-    "explanation": "'ndim' returns an integer representing the number of axes or dimensions of the array (e.g., 1 for a vector, 2 for a matrix)."
+    "explanation": "'ndim' returns an integer representing the number of axes or dimensions of the array (e.g., 1 for a vector, 2 for a matrix).",
+    "correctAnswer": 2
   },
   {
     "id": "quiz-day-49-7",
@@ -81,7 +87,8 @@
       "(2,)"
     ],
     "correctIndex": 1,
-    "explanation": "The array has 2 rows and 3 columns, so its shape tuple is (2, 3)."
+    "explanation": "The array has 2 rows and 3 columns, so its shape tuple is (2, 3).",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-49-8",
@@ -93,7 +100,8 @@
       "matrix->[1, 2]"
     ],
     "correctIndex": 0,
-    "explanation": "In NumPy, 2D array elements are indexed using comma-separated row and column indices inside square brackets: 'matrix[row, column]'."
+    "explanation": "In NumPy, 2D array elements are indexed using comma-separated row and column indices inside square brackets: 'matrix[row, column]'.",
+    "correctAnswer": 0
   },
   {
     "id": "quiz-day-49-9",
@@ -105,7 +113,8 @@
       "The memory address of the buffer"
     ],
     "correctIndex": 1,
-    "explanation": "'size' returns an integer giving the total number of elements across all dimensions (equal to the product of the shape tuple elements)."
+    "explanation": "'size' returns an integer giving the total number of elements across all dimensions (equal to the product of the shape tuple elements).",
+    "correctAnswer": 1
   },
   {
     "id": "quiz-day-49-10",
@@ -117,6 +126,7 @@
       "It only allows storing textual strings"
     ],
     "correctIndex": 1,
-    "explanation": "NumPy stores data in contiguous memory buffers and implements vectorized math in optimized C code, allowing operations on millions of numbers orders of magnitude faster than Python lists."
+    "explanation": "NumPy stores data in contiguous memory buffers and implements vectorized math in optimized C code, allowing operations on millions of numbers orders of magnitude faster than Python lists.",
+    "correctAnswer": 1
   }
 ]
