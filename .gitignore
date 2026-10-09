@@ -35,3 +35,6 @@ graphify-out/
 
 # scratch
 scratch/
+
+# firebase cache
+.firebase/
