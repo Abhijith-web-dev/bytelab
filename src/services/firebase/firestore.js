@@ -16,18 +16,6 @@ import { storage } from '../storage/localStorage.js';
 const REAL_LEADERBOARD_KEY = 'real_leaderboard_entries';
 let isFirestorePermissionWarningMuted = false;
 
-// Curated academic cohort benchmarks (ensures leaderboard is vibrant & motivating even on fresh/offline installs)
-const DEFAULT_COHORT_BENCHMARKS = [
-  { userId: 'cohort_top_1', displayName: 'Aarav Sharma', score: 1850, points: 1850, streak: 14, solved: 32, completedUnits: 5, completedChapters: 44, focusMinutes: 480, concentrationScore: 96, cleanRunCount: 28, badge: 'Python Prodigy' },
-  { userId: 'cohort_top_2', displayName: 'Priya Venkatesh', score: 1620, points: 1620, streak: 11, solved: 28, completedUnits: 5, completedChapters: 38, focusMinutes: 390, concentrationScore: 92, cleanRunCount: 24, badge: 'Algorithm Master' },
-  { userId: 'cohort_top_3', displayName: 'Karthik Raja', score: 1410, points: 1410, streak: 9, solved: 24, completedUnits: 4, completedChapters: 31, focusMinutes: 320, concentrationScore: 88, cleanRunCount: 19, badge: 'Algorithm Master' },
-  { userId: 'cohort_top_4', displayName: 'Sneha Patel', score: 1180, points: 1180, streak: 7, solved: 20, completedUnits: 3, completedChapters: 25, focusMinutes: 260, concentrationScore: 84, cleanRunCount: 16, badge: 'NumPy Ninja' },
-  { userId: 'cohort_top_5', displayName: 'Aditya Nair', score: 940, points: 940, streak: 6, solved: 16, completedUnits: 3, completedChapters: 19, focusMinutes: 210, concentrationScore: 81, cleanRunCount: 13, badge: 'NumPy Ninja' },
-  { userId: 'cohort_top_6', displayName: 'Ananya Iyer', score: 760, points: 760, streak: 5, solved: 13, completedUnits: 2, completedChapters: 15, focusMinutes: 170, concentrationScore: 78, cleanRunCount: 10, badge: 'Syntax Specialist' },
-  { userId: 'cohort_top_7', displayName: 'Rahul Menon', score: 540, points: 540, streak: 4, solved: 9, completedUnits: 2, completedChapters: 11, focusMinutes: 120, concentrationScore: 74, cleanRunCount: 7, badge: 'Syntax Specialist' },
-  { userId: 'cohort_top_8', displayName: 'Divya Krishnan', score: 380, points: 380, streak: 3, solved: 6, completedUnits: 1, completedChapters: 7, focusMinutes: 85, concentrationScore: 70, cleanRunCount: 4, badge: 'Active Learner' }
-];
-
 export const firestoreService = {
   // Sync full user progress to Firestore
   async saveUserProgress(userId, progressData) {
@@ -174,16 +162,15 @@ export const firestoreService = {
       }
     }
 
-    // Blend live Firestore entries, local student sessions, and default academic cohort benchmarks
+    // Blend live Firestore entries and real local student sessions only (strictly verified real students)
     const combinedMap = new Map();
 
-    // 1. Base benchmarks for realistic academic class rankings
-    DEFAULT_COHORT_BENCHMARKS.forEach(item => {
-      combinedMap.set(item.userId, { ...item });
-    });
+    // 1. Real local entries (filter out any legacy fake cohort keys)
+    const rawLocalEntries = storage.get(REAL_LEADERBOARD_KEY, []);
+    const localEntries = Array.isArray(rawLocalEntries)
+      ? rawLocalEntries.filter(item => item?.userId && !item.userId.startsWith('cohort_top_'))
+      : [];
 
-    // 2. Real local entries (takes precedence over benchmarks)
-    const localEntries = storage.get(REAL_LEADERBOARD_KEY, []);
     localEntries.forEach(item => {
       if (item.userId) {
         combinedMap.set(item.userId, {
@@ -193,9 +180,9 @@ export const firestoreService = {
       }
     });
 
-    // 3. Live Firestore entries (verified remote students)
+    // 2. Live Firestore entries (verified remote students)
     liveEntries.forEach(item => {
-      if (item.userId) {
+      if (item.userId && !item.userId.startsWith('cohort_top_')) {
         combinedMap.set(item.userId, {
           ...item,
           points: item.points || item.score || 0
@@ -212,18 +199,17 @@ export const firestoreService = {
     }));
   },
 
-  // Real-time live subscription with automatic blending of remote & cached student entries
+  // Real-time live subscription with strictly verified real student data
   subscribeLeaderboard(courseId = 'python-programming', onUpdate, onError, limitCount = 50) {
     const mergeAndNotify = (liveEntries = []) => {
       const combinedMap = new Map();
 
-      // 1. Base benchmarks for realistic academic rankings
-      DEFAULT_COHORT_BENCHMARKS.forEach(item => {
-        combinedMap.set(item.userId, { ...item });
-      });
+      // 1. Real local student entries (filter out any legacy fake cohort keys)
+      const rawLocalEntries = storage.get(REAL_LEADERBOARD_KEY, []);
+      const localEntries = Array.isArray(rawLocalEntries)
+        ? rawLocalEntries.filter(item => item?.userId && !item.userId.startsWith('cohort_top_'))
+        : [];
 
-      // 2. Real local student entries
-      const localEntries = storage.get(REAL_LEADERBOARD_KEY, []);
       localEntries.forEach(item => {
         if (item.userId) {
           combinedMap.set(item.userId, {
@@ -233,9 +219,9 @@ export const firestoreService = {
         }
       });
 
-      // 3. Live Firestore entries
+      // 2. Live Firestore entries
       liveEntries.forEach(item => {
-        if (item.userId) {
+        if (item.userId && !item.userId.startsWith('cohort_top_')) {
           combinedMap.set(item.userId, {
             ...item,
             points: item.points || item.score || 0
@@ -256,7 +242,7 @@ export const firestoreService = {
       }
     };
 
-    // Immediately push initial cached/benchmark data
+    // Immediately push initial cached real data
     mergeAndNotify([]);
 
     // If Firebase isn't configured, return no-op unsubscriber

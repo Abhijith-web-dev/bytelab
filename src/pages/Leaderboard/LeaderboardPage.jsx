@@ -481,39 +481,51 @@ export function LeaderboardPage() {
           </div>
         </div>
 
-        {/* Podium: Top 3 Students */}
-        {top3.length >= 3 && !searchQuery && (
+        {/* Podium: Real Students Only */}
+        {top3.length > 0 && !searchQuery && (
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-[20px] font-semibold text-[#17171c] tracking-tight flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-amber-500" />
                 <span>Class Podium</span>
               </h2>
-              <span className="text-[12px] text-[#75758a] font-mono">Top 3 Academic Leaders</span>
+              <span className="text-[12px] text-[#75758a] font-mono">
+                {top3.length === 1 ? 'Top 1 Academic Leader' : `Top ${top3.length} Academic Leaders`}
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
-              {/* Rank 2 - Silver */}
-              <div className="p-6 rounded-[20px] bg-white border border-[#d9d9dd] text-center space-y-3 relative order-2 sm:order-1 hover:border-[#17171c] hover:shadow-xs transition-all">
-                <div className="w-12 h-12 mx-auto rounded-full bg-slate-100 text-slate-800 flex items-center justify-center font-bold text-[18px] border border-slate-300 shadow-2xs">
-                  🥈
+            <div className={`grid gap-4 items-end ${
+              top3.length === 1 
+                ? 'grid-cols-1 max-w-md mx-auto' 
+                : top3.length === 2 
+                  ? 'grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto' 
+                  : 'grid-cols-1 sm:grid-cols-3'
+            }`}>
+              {/* Rank 2 - Silver (if 2+ students) */}
+              {top3.length >= 2 && (
+                <div className="p-6 rounded-[20px] bg-white border border-[#d9d9dd] text-center space-y-3 relative order-2 sm:order-1 hover:border-[#17171c] hover:shadow-xs transition-all">
+                  <div className="w-12 h-12 mx-auto rounded-full bg-slate-100 text-slate-800 flex items-center justify-center font-bold text-[18px] border border-slate-300 shadow-2xs">
+                    🥈
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                      Rank 2 • Silver
+                    </span>
+                    <h3 className="text-[17px] font-semibold text-[#17171c] pt-1 truncate">{top3[1]?.displayName}</h3>
+                    <p className="text-[11px] text-[#75758a] font-mono">{top3[1]?.badge || 'Algorithm Master'}</p>
+                  </div>
+                  <div className="pt-3 border-t border-[#d9d9dd]/60 flex items-center justify-around text-[12px] font-mono">
+                    <span className="font-bold text-[#17171c]">{top3[1]?.points || top3[1]?.score} pts</span>
+                    <span>⏱️ {top3[1]?.focusMinutes || 0}m</span>
+                    <span className="text-amber-600">🔥 {top3[1]?.streak || 1}d</span>
+                  </div>
                 </div>
-                <div className="space-y-0.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full">
-                    Rank 2 • Silver
-                  </span>
-                  <h3 className="text-[17px] font-semibold text-[#17171c] pt-1 truncate">{top3[1]?.displayName}</h3>
-                  <p className="text-[11px] text-[#75758a] font-mono">{top3[1]?.badge || 'Algorithm Master'}</p>
-                </div>
-                <div className="pt-3 border-t border-[#d9d9dd]/60 flex items-center justify-around text-[12px] font-mono">
-                  <span className="font-bold text-[#17171c]">{top3[1]?.points || top3[1]?.score} pts</span>
-                  <span>⏱️ {top3[1]?.focusMinutes || 0}m</span>
-                  <span className="text-amber-600">🔥 {top3[1]?.streak || 1}d</span>
-                </div>
-              </div>
+              )}
 
-              {/* Rank 1 - Gold */}
-              <div className="p-7 rounded-[24px] bg-gradient-to-b from-[#fefbf6] to-[#f7f2ea] border-2 border-amber-400 text-center space-y-3 relative order-1 sm:order-2 shadow-sm hover:border-amber-500 transition-all sm:-translate-y-2">
+              {/* Rank 1 - Gold (always rendered if top3.length >= 1) */}
+              <div className={`p-7 rounded-[24px] bg-gradient-to-b from-[#fefbf6] to-[#f7f2ea] border-2 border-amber-400 text-center space-y-3 relative shadow-sm hover:border-amber-500 transition-all ${
+                top3.length >= 3 ? 'order-1 sm:order-2 sm:-translate-y-2' : (top3.length === 2 ? 'order-1' : 'order-1')
+              }`}>
                 <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-amber-200 to-amber-400 text-amber-950 flex items-center justify-center font-bold text-[22px] border-2 border-amber-300 shadow-xs">
                   🥇
                 </div>
@@ -531,24 +543,26 @@ export function LeaderboardPage() {
                 </div>
               </div>
 
-              {/* Rank 3 - Bronze */}
-              <div className="p-6 rounded-[20px] bg-white border border-[#d9d9dd] text-center space-y-3 relative order-3 hover:border-[#17171c] hover:shadow-xs transition-all">
-                <div className="w-12 h-12 mx-auto rounded-full bg-amber-50 text-amber-800 flex items-center justify-center font-bold text-[18px] border border-amber-200 shadow-2xs">
-                  🥉
+              {/* Rank 3 - Bronze (if 3+ students) */}
+              {top3.length >= 3 && (
+                <div className="p-6 rounded-[20px] bg-white border border-[#d9d9dd] text-center space-y-3 relative order-3 hover:border-[#17171c] hover:shadow-xs transition-all">
+                  <div className="w-12 h-12 mx-auto rounded-full bg-amber-50 text-amber-800 flex items-center justify-center font-bold text-[18px] border border-amber-200 shadow-2xs">
+                    🥉
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">
+                      Rank 3 • Bronze
+                    </span>
+                    <h3 className="text-[17px] font-semibold text-[#17171c] pt-1 truncate">{top3[2]?.displayName}</h3>
+                    <p className="text-[11px] text-[#75758a] font-mono">{top3[2]?.badge || 'NumPy Ninja'}</p>
+                  </div>
+                  <div className="pt-3 border-t border-[#d9d9dd]/60 flex items-center justify-around text-[12px] font-mono">
+                    <span className="font-bold text-[#17171c]">{top3[2]?.points || top3[2]?.score} pts</span>
+                    <span>⏱️ {top3[2]?.focusMinutes || 0}m</span>
+                    <span className="text-amber-600">🔥 {top3[2]?.streak || 1}d</span>
+                  </div>
                 </div>
-                <div className="space-y-0.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">
-                    Rank 3 • Bronze
-                  </span>
-                  <h3 className="text-[17px] font-semibold text-[#17171c] pt-1 truncate">{top3[2]?.displayName}</h3>
-                  <p className="text-[11px] text-[#75758a] font-mono">{top3[2]?.badge || 'NumPy Ninja'}</p>
-                </div>
-                <div className="pt-3 border-t border-[#d9d9dd]/60 flex items-center justify-around text-[12px] font-mono">
-                  <span className="font-bold text-[#17171c]">{top3[2]?.points || top3[2]?.score} pts</span>
-                  <span>⏱️ {top3[2]?.focusMinutes || 0}m</span>
-                  <span className="text-amber-600">🔥 {top3[2]?.streak || 1}d</span>
-                </div>
-              </div>
+              )}
             </div>
           </section>
         )}
