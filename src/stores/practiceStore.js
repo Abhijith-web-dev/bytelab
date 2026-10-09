@@ -78,6 +78,28 @@ export const usePracticeStore = create((set, get) => ({
     let mainStderr = '';
     let totalTime = 0;
 
+    if (testCases.length === 0) {
+      const codeToRun = state.problem.setupCode ? `${state.problem.setupCode}\n${effectiveCode}` : effectiveCode;
+      const execResult = await runtime.execute({
+        sourceCode: codeToRun,
+        stdin: overrideStdin || '',
+        timeoutMs: state.problem.timeLimitMs || 5000
+      });
+
+      const isClean = execResult.status === 'passed';
+      useProgressStore.getState().recordCodeRun(isClean);
+
+      set({
+        executionState: isClean ? 'PASSED' : (execResult.status === 'syntax_error' ? 'SYNTAX_ERROR' : (execResult.status === 'timeout' ? 'TIMEOUT' : 'RUNTIME_ERROR')),
+        stdout: execResult.stdout || '',
+        stderr: execResult.stderr || '',
+        runtimeError: isClean ? null : (execResult.error || (execResult.stderr ? { message: execResult.stderr } : null)),
+        testCaseResults: [],
+        executionTimeMs: execResult.executionTimeMs || 0
+      });
+      return;
+    }
+
     // Execute against each test case
     for (let i = 0; i < testCases.length; i++) {
       const tc = testCases[i];

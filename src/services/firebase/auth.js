@@ -62,7 +62,9 @@ async function syncUserProfileToFirestore(user) {
       { merge: true }
     );
   } catch (err) {
-    console.warn('Firestore profile sync error:', err);
+    if (err?.code !== 'permission-denied' && !err?.message?.includes('Missing or insufficient permissions')) {
+      console.warn('Firestore profile sync note:', err.message || err);
+    }
   }
 }
 

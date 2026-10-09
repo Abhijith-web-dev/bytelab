@@ -53,7 +53,7 @@ class SafeInputHandler:
 
         line = self.stdin_buf.readline()
         if line:
-            return line.rstrip()
+            return line.rstrip('\r\n')
 
         # In standard execution (non-trace), if caller provided real stdin lines
         # and has now exhausted them, raise standard EOFError for competitive programming

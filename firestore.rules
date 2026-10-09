@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // User profiles and private course progress
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+
+      match /courseProgress/{courseId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /testAttempts/{attemptId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Global and Course Leaderboards
+    // Anyone can read rankings; authenticated students can update their own entry
+    match /leaderboards/{courseId}/entries/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Public course catalog and syllabus data (read-only)
+    match /courses/{courseId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
