@@ -12,3 +12,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     />
   </React.StrictMode>
 );
+
+// Register Service Worker for 100kbps 2G low-bandwidth acceleration and offline caching
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((registration) => {
+      console.debug('[ByteLab SW] Registered successfully with scope:', registration.scope);
+    }).catch((error) => {
+      console.debug('[ByteLab SW] Registration note:', error);
+    });
+  });
+}

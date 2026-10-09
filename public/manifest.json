@@ -1,0 +1,16 @@
+{
+  "name": "ByteLab Core — Tutorial-First Python WebAssembly Lab",
+  "short_name": "ByteLab",
+  "description": "Zero-backend, client-side WebAssembly Python 3.11 laboratory with real-time academic rankings.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#17171c",
+  "icons": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg"
+    }
+  ]
+}

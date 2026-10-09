@@ -7,9 +7,10 @@
     <meta name="description" content="Master Python Programming (19AI301/CS3301) and engineering concepts with hands-on coding, client WebAssembly Pyodide execution, guided tutorials, and randomized assessments by Abhijith S." />
     <meta name="author" content="Abhijith S" />
     <meta name="theme-color" content="#17171c" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="canonical" href="https://bytelab-lms.sparklabinfo1.workers.dev" />
 
-    <!-- Open Graph & Social Sharing (LinkedIn, Facebook, WhatsApp, Discord, Slack) -->
+    <!-- Open Graph & Social Sharing -->
     <meta property="og:site_name" content="ByteLab Core" />
     <meta property="og:title" content="ByteLab Core — Tutorial-First Programming Platform & WebAssembly Lab" />
     <meta property="og:description" content="Master Python Programming with zero-backend in-browser WebAssembly execution, visual simulations, and randomized assessments by Abhijith S." />
@@ -31,21 +32,102 @@
     <meta name="twitter:image" content="https://bytelab-lms.sparklabinfo1.workers.dev/og-image.jpg" />
     <meta name="twitter:image:alt" content="ByteLab Core — Tutorial-First Python 3.11 & WebAssembly Laboratory" />
 
-    <!-- DNS Prefetch & Font Preconnect -->
+    <!-- DNS Prefetch & Font Preconnect for 100kbps acceleration -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     </noscript>
+
+    <!-- Inline Ultra-Lightweight Critical CSS Skeleton (renders in <50ms on 100kbps 2G connections) -->
+    <style>
+      :root {
+        --app-bg: #ffffff;
+        --app-text: #17171c;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--app-bg);
+        color: var(--app-text);
+        -webkit-font-smoothing: antialiased;
+      }
+      .initial-skeleton-nav {
+        height: 44px;
+        background: #fafafc;
+        border-bottom: 1px solid #e5e5e7;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+      }
+      .initial-skeleton-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #17171c;
+      }
+      .initial-skeleton-body {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 40px 16px;
+      }
+      .initial-skeleton-hero {
+        height: 180px;
+        background: #f4f4f6;
+        border-radius: 16px;
+        margin-bottom: 24px;
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+      .initial-skeleton-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .initial-skeleton-card {
+        height: 140px;
+        background: #f4f4f6;
+        border-radius: 12px;
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+    </style>
+
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff7759' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'></polygon><polyline points='2 17 12 22 22 17'></polyline><polyline points='2 12 12 17 22 12'></polyline></svg>" />
   </head>
   <body class="min-h-full bg-white text-[#17171c] font-sans selection:bg-[#ff7759]/20 selection:text-[#17171c]">
-    <div id="root" class="min-h-full flex flex-col"></div>
+    <div id="root" class="min-h-full flex flex-col">
+      <!-- Instant 100kbps Critical Shell (replaced as soon as React mounts) -->
+      <div class="initial-skeleton-nav">
+        <div class="initial-skeleton-brand">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7759" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>ByteLab Core</span>
+        </div>
+      </div>
+      <div class="initial-skeleton-body">
+        <div class="initial-skeleton-hero"></div>
+        <div class="initial-skeleton-grid">
+          <div class="initial-skeleton-card"></div>
+          <div class="initial-skeleton-card"></div>
+          <div class="initial-skeleton-card"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-
